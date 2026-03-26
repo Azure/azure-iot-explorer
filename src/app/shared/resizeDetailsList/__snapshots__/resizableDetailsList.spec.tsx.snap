@@ -3,6 +3,7 @@
 exports[`ResizableDetailsList matches snapshot 1`] = `
 <Fragment>
   <StyledWithViewportComponent
+    ariaLabelForGrid="resizableDetailsList.defaultAriaLabel"
     columns={[]}
     componentRef={
       {

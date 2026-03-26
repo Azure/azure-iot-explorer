@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Validator, ValidationError } from 'jsonschema';
+import { Validator, ValidationError, ValidatorResult } from 'jsonschema';
 import { Label } from '@fluentui/react';
 import { useTranslation } from 'react-i18next';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
@@ -13,7 +13,10 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 // tslint:disable-next-line: cyclomatic-complexity
 export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, displayValue: any, desired: boolean=false) => { // tslint:disable-line:no-any
     const validator = new Validator();
-    const result = validator.validate(twin, schema);
+    let result: ValidatorResult | undefined;
+    if((schema as any)['$id'] || (schema as any)['id']){
+         result = validator.validate(twin, schema);
+    }
     const getDisplayValue = () => {
         if (typeof(twin) === 'object') {
             const twinCopy = {

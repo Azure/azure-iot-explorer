@@ -676,6 +676,7 @@ export class ResourceKeys {
       },
       headerText : "deviceProperties.headerText",
       noProperties : "deviceProperties.noProperties",
+      propertiesTableAriaLabel : "deviceProperties.propertiesTableAriaLabel",
    };
    public static deviceSettings = {
       ackStatus : {
@@ -711,6 +712,7 @@ export class ResourceKeys {
       panel : {
          title : "deviceSettings.panel.title",
       },
+      writablePropertiesTableAriaLabel : "deviceSettings.writablePropertiesTableAriaLabel",
    };
    public static deviceTwin = {
       command : {
@@ -1008,6 +1010,7 @@ export class ResourceKeys {
          subText : "resizableDetailsList.content.subText",
          title : "resizableDetailsList.content.title",
       },
+      defaultAriaLabel : "resizableDetailsList.defaultAriaLabel",
    };
    public static settings = {
       close : "settings.close",

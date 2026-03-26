@@ -271,6 +271,7 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
                 ariaLabelForSelectAllCheckbox={t(ResourceKeys.deviceSettings.columns.selectAll)}
                 ariaLabelForSelectionColumn={t(ResourceKeys.deviceSettings.columns.toggleSelection)}
                 checkButtonAriaLabel={t(ResourceKeys.deviceSettings.columns.rowCheckBoxAriaLabel)}
+                ariaLabel={t(ResourceKeys.deviceSettings.writablePropertiesTableAriaLabel)}
             />
             {createReportedValuePanel()}
             {showOverlay && <Overlay/>}
