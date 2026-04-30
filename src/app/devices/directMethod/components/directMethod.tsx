@@ -25,7 +25,7 @@ export const DirectMethod: React.FC = () => {
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeDirectMethodSaga, undefined);
+    const [ , dispatch ] = useAsyncSagaReducer((): undefined => undefined, invokeDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
     const [methodName, setMethodName] = React.useState<string>('');
     const [payload, setPayload] = React.useState<string>('');

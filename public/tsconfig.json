@@ -2,7 +2,7 @@
     "compilerOptions": {
         "moduleResolution": "node",
         "module": "commonjs",
-        "target": "es5",
+        "target": "es2020",
         "resolveJsonModule": true,
         "sourceMap": false,
         "removeComments": false,

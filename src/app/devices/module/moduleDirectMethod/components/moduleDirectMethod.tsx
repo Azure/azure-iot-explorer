@@ -27,7 +27,7 @@ export const ModuleDirectMethod: React.FC = () => {
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
-    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeModuleDirectMethodSaga, undefined);
+    const [ , dispatch ] = useAsyncSagaReducer((): undefined => undefined, invokeModuleDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
     const [methodName, setMethodName] = React.useState<string>('');
     const [payload, setPayload] = React.useState<string>('');

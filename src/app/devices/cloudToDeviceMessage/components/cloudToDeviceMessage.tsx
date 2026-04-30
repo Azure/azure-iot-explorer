@@ -49,7 +49,7 @@ export const CloudToDeviceMessage: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
 
-    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, cloudToDeviceMessageSaga, undefined);
+    const [ , dispatch ] = useAsyncSagaReducer((): undefined => undefined, cloudToDeviceMessageSaga, undefined);
     const [ properties, setProperties ] = React.useState([{index: 0, keyName: '', isSystemProperty: false, value: ''}]);
     const [ addTimestamp, setAddTimestamp ] = React.useState<boolean>(false);
     const [ body, setBody ] = React.useState<string>('');

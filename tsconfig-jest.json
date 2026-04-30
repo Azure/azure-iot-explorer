@@ -9,7 +9,7 @@
         "jsx": "react",
         "lib": [
             "dom",
-            "es2015"
+            "es2020"
         ],
         "module": "commonjs",
         "noFallthroughCasesInSwitch": true,
@@ -18,6 +18,6 @@
         "preserveConstEnums": true,
         "removeComments": false,
         "sourceMap": true,
-        "target": "ES5"
+        "target": "es2020"
     }
 }
