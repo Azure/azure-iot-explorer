@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton } from '@fluentui/react';
-import { toast, ToastType, ToastOptions, UpdateOptions } from 'react-toastify';
+import { toast, ToastOptions, UpdateOptions } from 'react-toastify';
 import { NotificationListEntry } from '../../notifications/components/notificationListEntry';
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -51,7 +51,7 @@ export const raiseNotificationToast = (notification: Notification) => {
         position: toast.POSITION.TOP_RIGHT,
         progressClassName: `notification-toast-progress-bar`,
         toastId: notification.id,
-        type: ToastType.DEFAULT
+        type: toast.TYPE.DEFAULT
     };
 
     if (notification.id && toast.isActive(notification.id)) {
