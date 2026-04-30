@@ -3,13 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 
-// Polyfill globalThis.crypto for Azure SDK compatibility
-// Electron 22 uses Node.js 16 which doesn't have globalThis.crypto by default
-import * as crypto from 'crypto';
-if (typeof globalThis.crypto === 'undefined') {
-    (globalThis as any).crypto = crypto.webcrypto; // tslint:disable-line:no-any
-}
-
 import { app, Menu, BrowserWindow, dialog, ipcMain, session, shell } from 'electron';
 import * as windowState from 'electron-window-state';
 import * as path from 'path';
