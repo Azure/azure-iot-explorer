@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Icon, Announced, Link, IconButton } from '@fluentui/react';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../constants/routes';
@@ -16,11 +16,11 @@ export interface NotificationListEntryProps {
     showAnnouncement: boolean;
 }
 
-export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (props: NotificationListEntryProps) => {
+export const NotificationListEntry: React.FC<NotificationListEntryProps> = (props: NotificationListEntryProps) => {
     const { t } = useTranslation();
     const { notification } = props;
     const { pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const iconName = getIconName(notification.type);
     const iconColor = getIconColor(notification.type);
@@ -30,7 +30,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
 
     const navigateToNotificationCenter = () => {
         const path = `/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}?${ROUTE_PARAMS.NAV_FROM}`;
-        history.push(path);
+        navigate(path);
     };
 
     const copyToClipboard = () => {

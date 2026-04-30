@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CommandBar, Label } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
@@ -21,7 +21,7 @@ import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 export const DeviceProperties: React.FC = () => {
     const { t } = useTranslation();
     const { pathname, search } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const componentName = getComponentNameFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
@@ -53,7 +53,7 @@ export const DeviceProperties: React.FC = () => {
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/properties\/.*/, ``);
-        history.push(getBackUrl(path, search));
+        navigate(getBackUrl(path, search));
     };
 
     React.useEffect(() => {

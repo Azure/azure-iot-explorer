@@ -14,7 +14,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import * as PnpContext from '../../context/pnpStateContext';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ pathname: '/devices', search: '' }),
 }));
 

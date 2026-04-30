@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationListEntry } from './notificationListEntry';
@@ -18,7 +18,7 @@ import '../../css/_notification.scss';
 
 export const NotificationList: React.FC = () => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
@@ -45,7 +45,7 @@ export const NotificationList: React.FC = () => {
                     disabled: false,
                     iconProps: { iconName: NAVIGATE_BACK},
                     key: 'back',
-                    onClick: history.goBack,
+                    onClick: () => navigate(-1),
                     text: t(ResourceKeys.modelRepository.commands.back.label)
                 }
             );

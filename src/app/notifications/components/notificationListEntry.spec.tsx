@@ -9,7 +9,7 @@ import { NotificationType } from '../../api/models/notification';
 
 const pathname = '/devices/add';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ pathname })
 }));
 

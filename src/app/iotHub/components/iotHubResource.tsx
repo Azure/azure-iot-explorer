@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useParams, useRouteMatch, Redirect, Switch } from 'react-router-dom';
+import { useParams, Navigate, Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { BreadcrumbRoute } from '../../navigation/components/breadcrumbRoute';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
@@ -13,18 +13,20 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export const IotHubResource = () => {
     const { resourceName } = useParams<{resourceName: string}>();
-    const { url } = useRouteMatch();
     const { t } = useTranslation();
     useBreadcrumbEntry({ name: resourceName });
 
     return (
-        <Switch>
-            <BreadcrumbRoute
-                breadcrumb={{ name: t(ResourceKeys.breadcrumb.devices)}}
-                path={`${url}/${ROUTE_PARTS.DEVICES}`}
-                children={<IotHubDevices/>}
+        <Routes>
+            <Route
+                path={`${ROUTE_PARTS.DEVICES}/*`}
+                element={
+                    <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.devices)}}>
+                        <IotHubDevices/>
+                    </BreadcrumbRoute>
+                }
             />
-            <Redirect from={url} to={`${url}/devices`} />
-        </Switch>
+            <Route path="*" element={<Navigate to="devices" replace />} />
+        </Routes>
     );
 };

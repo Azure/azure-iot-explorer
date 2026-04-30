@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { IColumn, Label, Link, SelectionMode } from '@fluentui/react';
 import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
@@ -16,14 +16,14 @@ import { FilterTextBox, FilterType } from './filterTextBox';
 
 export const HubList: React.FC = () => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [{ formState, iotHubs, iotHubKey }, { getIotHubKey }] =  useAzureActiveDirectoryStateContext();
     const [ filteredHubs, setFilteredHubs ] = React.useState<IotHubDescription[]>([]);
 
     React.useEffect(() => {
         if (formState === 'keyPicked') { // only when connection string got picked successfully would navigate to device list view
             const hostName = getConnectionInfoFromConnectionString(iotHubKey).hostName;
-            history.push(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
+            navigate(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
         }
     },              [formState]);
 

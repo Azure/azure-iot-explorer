@@ -7,6 +7,7 @@ import { Label } from '@fluentui/react';
 
 interface ErrorBoundaryProps {
     error: string;
+    children?: React.ReactNode;
 }
 interface ErrorBoundaryState {
     hasError: boolean;

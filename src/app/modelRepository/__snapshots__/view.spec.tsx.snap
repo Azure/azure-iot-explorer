@@ -2,10 +2,6 @@
 
 exports[`view matches snapshot when locations greater than 0 1`] = `
 <div>
-  <Component
-    message="common.navigation.confirm"
-    when={false}
-  />
   <Commands
     formState={
       [
@@ -64,10 +60,6 @@ exports[`view matches snapshot when locations greater than 0 1`] = `
 
 exports[`view matches snapshot when no locations 1`] = `
 <div>
-  <Component
-    message="common.navigation.confirm"
-    when={false}
-  />
   <Commands
     formState={
       [

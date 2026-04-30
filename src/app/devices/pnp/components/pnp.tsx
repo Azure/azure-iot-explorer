@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useLocation, useRouteMatch, Route } from 'react-router-dom';
+import { useLocation, Routes, Route } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../../constants/routes';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { PnpStateContextProvider } from '../context/pnpStateContext';
@@ -16,7 +16,6 @@ import '../../../css/_digitalTwinInterfaces.scss';
 
 export const Pnp: React.FC = () => {
     const { search } = useLocation();
-    const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const interfaceId = getInterfaceIdFromQueryString(search);
@@ -39,12 +38,17 @@ export const Pnp: React.FC = () => {
 
     return (
         <PnpStateContextProvider value={{ pnpState, dispatch, getModelDefinition }}>
-            <Route path={url} exact={true} component={DigitalTwinInterfacesList}/>
-            <BreadcrumbRoute
-                path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`}
-                breadcrumb={{name: componentName}}
-                children={<DigitalTwinDetail/>}
-            />
+            <Routes>
+                <Route path="/" element={<DigitalTwinInterfacesList/>}/>
+                <Route
+                    path={`${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/*`}
+                    element={
+                        <BreadcrumbRoute breadcrumb={{name: componentName}}>
+                            <DigitalTwinDetail/>
+                        </BreadcrumbRoute>
+                    }
+                />
+            </Routes>
         </PnpStateContextProvider>
     );
 };

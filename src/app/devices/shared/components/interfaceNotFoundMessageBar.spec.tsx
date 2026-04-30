@@ -9,10 +9,10 @@ import { MessageBarButton } from '@fluentui/react';
 import { shallow, mount } from 'enzyme';
 import { InterfaceNotFoundMessageBar } from './interfaceNotFoundMessageBar';
 
-const histroyPushSpy = jest.fn();
+const navigateSpy = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: histroyPushSpy }),
+    useNavigate: () => navigateSpy,
 }));
 
 describe('interfaceNotFoundMessageBar', () => {
@@ -29,6 +29,6 @@ describe('interfaceNotFoundMessageBar', () => {
 
         wrapper.update();
 
-        expect(histroyPushSpy).toBeCalledWith('/home/repos?from');
+        expect(navigateSpy).toBeCalledWith('/home/repos?from');
     });
 });

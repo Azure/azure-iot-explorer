@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, useRouteMatch, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ModuleIdentityTwin } from '../../module/moduleIdentityTwin/components/moduleIdentityTwin';
 import { AddModuleIdentity } from '../../module/addModuleIdentity/components/addModuleIdentity';
@@ -19,54 +19,63 @@ import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
 import { DeviceEventsStateContextProvider } from '../../deviceEvents/context/deviceEventsStateProvider';
 
 export const DeviceModules: React.FC = () => {
-    const { url } = useRouteMatch();
     const { t } = useTranslation();
     const { search } = useLocation();
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
     return (
-        <>
-            <Route exact={true} path={`${url}`} component={ModuleIdentityList}/>
-            <BreadcrumbRoute
-                exact={true}
-                path={`${url}/${ROUTE_PARTS.ADD}`}
-                breadcrumb={{name: t(ResourceKeys.breadcrumb.addModuleIdentity)}}
-                children={<AddModuleIdentity/>}
+        <Routes>
+            <Route path="/" element={<ModuleIdentityList/>}/>
+            <Route
+                path={`${ROUTE_PARTS.ADD}`}
+                element={
+                    <BreadcrumbRoute breadcrumb={{name: t(ResourceKeys.breadcrumb.addModuleIdentity)}}>
+                        <AddModuleIdentity/>
+                    </BreadcrumbRoute>
+                }
             />
-
-            <BreadcrumbRoute
-                exact={true}
-                path={`${url}/${ROUTE_PARTS.MODULE_DETAIL}`}
-                breadcrumb={{name: moduleId, suffix: search}}
-                children={<ModuleIdentityDetail/>}
+            <Route
+                path={`${ROUTE_PARTS.MODULE_DETAIL}`}
+                element={
+                    <BreadcrumbRoute breadcrumb={{name: moduleId, suffix: search}}>
+                        <ModuleIdentityDetail/>
+                    </BreadcrumbRoute>
+                }
             />
-
-            <BreadcrumbRoute
-                exact={true}
-                path={`${url}/${ROUTE_PARTS.MODULE_TWIN}`}
-                breadcrumb={{name: moduleId, suffix: search}}
-                children={<ModuleIdentityTwin/>}
+            <Route
+                path={`${ROUTE_PARTS.MODULE_TWIN}`}
+                element={
+                    <BreadcrumbRoute breadcrumb={{name: moduleId, suffix: search}}>
+                        <ModuleIdentityTwin/>
+                    </BreadcrumbRoute>
+                }
             />
-
-            <BreadcrumbRoute
-                exact={true}
-                path={`${url}/${ROUTE_PARTS.MODULE_METHOD}`}
-                breadcrumb={{name: moduleId, suffix: search}}
-                children={<ModuleDirectMethod/>}
+            <Route
+                path={`${ROUTE_PARTS.MODULE_METHOD}`}
+                element={
+                    <BreadcrumbRoute breadcrumb={{name: moduleId, suffix: search}}>
+                        <ModuleDirectMethod/>
+                    </BreadcrumbRoute>
+                }
             />
-
-            <DeviceEventsStateContextProvider>
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.MODULE_EVENTS}`}
-                    breadcrumb={{name: moduleId, suffix: search}}
-                    children={<DeviceEvents/>}
-                />
-            </DeviceEventsStateContextProvider>
-            <BreadcrumbRoute
-                path={`${url}/${ROUTE_PARTS.MODULE_PNP}`}
-                breadcrumb={{name: moduleId, disableLink: true, suffix: search}}
-                children={<Pnp/>}
+            <Route
+                path={`${ROUTE_PARTS.MODULE_EVENTS}/*`}
+                element={
+                    <DeviceEventsStateContextProvider>
+                        <BreadcrumbRoute breadcrumb={{name: moduleId, suffix: search}}>
+                            <DeviceEvents/>
+                        </BreadcrumbRoute>
+                    </DeviceEventsStateContextProvider>
+                }
             />
-        </>
+            <Route
+                path={`${ROUTE_PARTS.MODULE_PNP}/*`}
+                element={
+                    <BreadcrumbRoute breadcrumb={{name: moduleId, disableLink: true, suffix: search}}>
+                        <Pnp/>
+                    </BreadcrumbRoute>
+                }
+            />
+        </Routes>
     );
 };

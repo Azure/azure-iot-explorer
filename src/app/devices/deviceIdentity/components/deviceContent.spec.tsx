@@ -9,9 +9,9 @@ import { DeviceContent } from './deviceContent';
 
 const pathname = '/#/devices/detail/?id=testDevice';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '?id=testDevice' }),
-    useRouteMatch: () => ({ url: pathname })
+    useLocation: () => ({ pathname: '', search: '?id=testDevice', hash: '', state: null, key: 'default' }),
+    useNavigate: () => jest.fn(),
+
 }));
 
 describe('deviceContent', () => {

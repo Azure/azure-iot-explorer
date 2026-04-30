@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { initializeIcons } from '@fluentui/react';
@@ -30,7 +30,6 @@ const ViewHolder: React.FC = () => {
     );
 };
 
-ReactDOM.render(
-    <ViewHolder />,
-    document.getElementById('device-explorer'),
-);
+const container = document.getElementById('device-explorer');
+const root = createRoot(container!);
+root.render(<ViewHolder />);

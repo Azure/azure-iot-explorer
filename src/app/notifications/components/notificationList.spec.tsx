@@ -11,9 +11,9 @@ import { getInitialNotificationsState } from '../state';
 import { getInitialNotificationsActions } from '../interface';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '?deviceId=testDevice' }),
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    useLocation: () => ({ pathname: 'url', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' }),
+    useNavigate: () => jest.fn(),
+
 }));
 
 describe('notificationList', () => {

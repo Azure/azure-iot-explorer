@@ -14,9 +14,9 @@ import { getModuleIdentitiesAction } from '../actions';
 const pathname = `/`;
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '', pathname }),
-    useRouteMatch: () => ({ url: pathname }),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' }),
+    useNavigate: () => jest.fn(),
+
 }));
 
 describe('ModuleIdentityList', () => {

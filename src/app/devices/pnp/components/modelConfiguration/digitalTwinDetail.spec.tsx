@@ -13,9 +13,9 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 const search = '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/${search}`;
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search, pathname }),
-    useRouteMatch: () => ({ url: pathname })
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' }),
+    useNavigate: () => jest.fn(),
+
 }));
 
 describe('DigitalTwinDetail', () => {

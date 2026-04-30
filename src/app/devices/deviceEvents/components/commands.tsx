@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
@@ -45,7 +45,7 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const {t} = useTranslation();
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { getModelDefinition } = usePnpStateContext();
     const componentName = getComponentNameFromQueryString(search); // if component name exist, we are in pnp context
     const [ state, api ] = useDeviceEventsStateContext();
@@ -156,7 +156,7 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/events\/.*/, ``);
-        history.push(getBackUrl(path, search));
+        navigate(getBackUrl(path, search));
     };
 
     const onToggleStart = () => {

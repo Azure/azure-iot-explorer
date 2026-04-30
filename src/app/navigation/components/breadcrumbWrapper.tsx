@@ -7,7 +7,7 @@ import { useBreadcrumbEntry, UseBreadcrumbEntryProps } from '../hooks/useBreadcr
 
 export type BreadcrumbWrapperProps = UseBreadcrumbEntryProps;
 
-export const BreadcrumbWrapper: React.FC<BreadcrumbWrapperProps> = props => {
+export const BreadcrumbWrapper: React.FC<React.PropsWithChildren<BreadcrumbWrapperProps>> = props => {
     useBreadcrumbEntry(props);
     return <>{props.children}</>;
 };

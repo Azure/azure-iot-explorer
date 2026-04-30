@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Stack, ActionButton, Label } from '@fluentui/react';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
@@ -25,10 +25,10 @@ const getModelDefinitionSourceResourceKeys = (source: REPOSITORY_LOCATION_TYPE) 
 
 export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps> = props => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const onConfigureClick = () => {
-        history.push(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
+        navigate(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
     };
 
     return (

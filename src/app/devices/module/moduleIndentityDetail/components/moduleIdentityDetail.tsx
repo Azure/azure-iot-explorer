@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CommandBar, Label, Dialog, DialogFooter, DialogType, PrimaryButton, DefaultButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
@@ -29,7 +29,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const { hostName } = useIotHubContext();
-    const history = useHistory();
+    const navigate = useNavigate();
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
@@ -192,7 +192,7 @@ export const ModuleIdentityDetail: React.FC = () => {
 
     const navigateToModuleList = () => {
         const path = pathname.replace(/\/moduleIdentity\/moduleDetail\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        navigate(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     };
 
     const generateConnectionString = (key: string): string => {

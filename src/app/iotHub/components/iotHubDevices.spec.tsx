@@ -7,7 +7,7 @@ import { shallow } from 'enzyme';
 import { IotHubDevices } from './iotHubDevices';
 
 jest.mock('react-router-dom', () => ({
-    useRouteMatch: () => ({ url: '' })
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
 }));
 
 describe('IotHubDevices', () => {

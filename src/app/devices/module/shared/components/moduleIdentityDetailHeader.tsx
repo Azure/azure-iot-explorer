@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Stack, Pivot, PivotItem } from '@fluentui/react';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -14,7 +14,7 @@ import './moduleIdentityDetailHeader.scss';
 export const ModuleIdentityDetailHeader: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const NAV_LINK_ITEMS = [ROUTE_PARTS.MODULE_DETAIL, ROUTE_PARTS.MODULE_TWIN, ROUTE_PARTS.MODULE_METHOD, ROUTE_PARTS.MODULE_EVENTS, ROUTE_PARTS.MODULE_PNP];
     const deviceId = getDeviceIdFromQueryString(search);
@@ -30,7 +30,7 @@ export const ModuleIdentityDetailHeader: React.FC = () => {
     const handleLinkClick = (item: PivotItem) => {
         setSelectedKey(item.props.itemKey);
         const url = `${path}/${item.props.itemKey}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.MODULE_ID}=${encodeURIComponent(moduleId)}`;
-        history.push(url);
+        navigate(url);
     };
 
     const pivot = (

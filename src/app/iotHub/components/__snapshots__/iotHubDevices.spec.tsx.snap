@@ -1,26 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IotHubDevices matches snapshot 1`] = `
-<Fragment>
+<Component>
   <Component
-    component={[Function]}
-    exact={true}
-    path=""
+    element={<DeviceList />}
+    path="/"
   />
-  <BreadcrumbRoute
-    breadcrumb={
-      {
-        "name": "breadcrumb.add",
-      }
+  <Component
+    element={
+      <BreadcrumbRoute
+        breadcrumb={
+          {
+            "name": "breadcrumb.add",
+          }
+        }
+      >
+        <AddDevice />
+      </BreadcrumbRoute>
     }
-    exact={true}
-    path="/add"
-  >
-    <AddDevice />
-  </BreadcrumbRoute>
-  <Component
-    component={[Function]}
-    path="/deviceDetail"
+    path="add"
   />
-</Fragment>
+  <Component
+    element={<DeviceContent />}
+    path="deviceDetail/*"
+  />
+</Component>
 `;

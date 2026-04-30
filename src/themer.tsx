@@ -16,7 +16,7 @@ export const getTheme = (isDarkMode: boolean, isHighContrast: boolean): Theme =>
     }
 };
 
-export const Themer: React.FC = ({ children }) => {
+export const Themer: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [ themeProperties, setThemeProperties ] = React.useState<ThemeProperties>(ThemeProperties[Theme.light]);
     const currentTheme = createTheme(themeProperties.fabricTheme);
 

@@ -51,6 +51,7 @@ const config: Config = merge(common, {
     devServer: {
         compress: true,
         historyApiFallback: true,
+        allowedHosts: 'all',
     }
 });
 

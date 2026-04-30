@@ -16,7 +16,7 @@ import { pnpStateWithTestData } from './testData';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1`;
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search: '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1', pathname }),
 }));
 

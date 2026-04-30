@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useParams, useRouteMatch, Redirect, Switch } from 'react-router-dom';
+import { useParams, Navigate, Routes, Route } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { IotHubDevices } from './iotHubDevices';
@@ -15,20 +15,22 @@ import { IotHubContext } from '../hooks/useIotHubContext';
 
 export const IotHubHost = () => {
     const { hostName } = useParams<{hostName: string}>();
-    const { url } = useRouteMatch();
     const { t } = useTranslation();
     useBreadcrumbEntry({ name: getShortHostName(hostName), disableLink: true});
 
     return (
         <IotHubContext.Provider value={{hostName}}>
-            <Switch>
-                <BreadcrumbRoute
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.devices)}}
-                    path={`${url}/${ROUTE_PARTS.DEVICES}`}
-                    children={<IotHubDevices/>}
+            <Routes>
+                <Route
+                    path={`${ROUTE_PARTS.DEVICES}/*`}
+                    element={
+                        <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.devices)}}>
+                            <IotHubDevices/>
+                        </BreadcrumbRoute>
+                    }
                 />
-                <Redirect from={url} to={`${url}/${ROUTE_PARTS.DEVICES}`} />
-            </Switch>
+                <Route path="*" element={<Navigate to={`${ROUTE_PARTS.DEVICES}`} replace />} />
+            </Routes>
         </IotHubContext.Provider>
     );
 };

@@ -8,7 +8,7 @@ import { useBreadcrumbEntry } from './useBreadcrumbEntry';
 import * as BreadcrumbContext from './useBreadcrumbContext';
 
 jest.mock('react-router-dom', () => ({
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    useLocation: () => ({ pathname: 'url', search: '', hash: '', state: null, key: 'default' })
 }));
 
 const TestComponent: React.FC = () => {
@@ -31,7 +31,7 @@ describe('useBreadcrumbEntry', () => {
         expect(registerEntry).toHaveBeenCalledWith({
             name: 'name',
             disableLink: true,
-            path: 'path',
+            path: 'url',
             suffix: 'suffix',
             url: 'url'
         });
@@ -40,7 +40,7 @@ describe('useBreadcrumbEntry', () => {
         expect(unregisterEntry).toHaveBeenCalledWith({
             name: 'name',
             disableLink: true,
-            path: 'path',
+            path: 'url',
             suffix: 'suffix',
             url: 'url'
         });

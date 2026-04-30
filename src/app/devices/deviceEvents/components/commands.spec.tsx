@@ -14,7 +14,7 @@ import { getInitialDeviceEventsState } from '../state';
 const search = '?deviceId=test&componentName=DEFAULT_COMPONENT&interfaceId=dtmi:com:example:Thermostat;1';
 const pathname = `#devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/events/${search}`;
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search, pathname, push: jest.fn() })
 }));
 

@@ -13,8 +13,8 @@ import * as HubConnectionStringHelper from '../../shared/utils/hubConnectionStri
 import * as connectionStringContext from '../context/connectionStringStateContext';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: 'url', search: '', hash: '', state: null, key: 'default' })
 }));
 
 describe('ConnectionStringsView', () => {

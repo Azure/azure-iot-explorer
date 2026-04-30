@@ -8,6 +8,11 @@ import { HubList } from './hubList';
 import { getInitialAzureActiveDirectoryState } from '../state';
 import * as azureActiveDirectoryStateContext from '../context/azureActiveDirectoryStateContext';
 
+jest.mock('react-router-dom', () => ({
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
 describe('HubList', () => {
     it('matches snapshot when there are no list items', () => {
         jest.spyOn(azureActiveDirectoryStateContext, 'useAzureActiveDirectoryStateContext').mockReturnValue(

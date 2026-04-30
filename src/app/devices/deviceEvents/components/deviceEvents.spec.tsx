@@ -11,7 +11,7 @@ import * as pnpStateContext from '../../pnp/context/pnpStateContext';
 import { pnpStateInitial, PnpStateInterface } from '../../pnp/state';
 const pathname = `#/devices/detail/events/?id=device1`;
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search: `?deviceId=device1`, pathname, push: jest.fn() })
 }));
 

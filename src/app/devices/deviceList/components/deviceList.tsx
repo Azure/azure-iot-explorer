@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Icon, Label, Dialog, DialogFooter, DialogType, PrimaryButton, DefaultButton, DetailsListLayoutMode, IColumn, Selection, MarqueeSelection, Announced } from '@fluentui/react';
 import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -30,7 +30,7 @@ const SHIMMER_COUNT = 10;
 export const DeviceList: React.FC = () => {
     const { t } = useTranslation();
     const { pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial(), 'deviceListState');
     const { devices, synchronizationStatus, deviceQuery } = localState;
@@ -286,7 +286,7 @@ export const DeviceList: React.FC = () => {
 
     const handleAdd = () => {
         const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
-        history.push(`${path}/${ROUTE_PARTS.ADD}`);
+        navigate(`${path}/${ROUTE_PARTS.ADD}`);
     };
 
     const handleDelete = () => {

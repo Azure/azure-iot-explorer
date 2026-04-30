@@ -18,7 +18,7 @@ import { EventsContent } from './eventsContent';
 
 const pathname = `#/devices/detail/events/?id=device1`;
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search: `?deviceId=device1`, pathname, push: jest.fn() })
 }));
 

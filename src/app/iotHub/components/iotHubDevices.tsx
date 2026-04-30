@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRouteMatch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { DeviceList } from '../../devices/deviceList/components/deviceList';
 import { AddDevice } from '../../devices/addDevice/components/addDevice';
 import { DeviceContent } from '../../devices/deviceIdentity/components/deviceContent';
@@ -14,18 +14,19 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export const IotHubDevices: React.FC = () => {
     const { t } = useTranslation();
-    const { url }  = useRouteMatch();
 
     return (
-       <>
-            <Route path={`${url}`} component={(DeviceList)} exact={true}/>
-            <BreadcrumbRoute
-                breadcrumb={{ name: t(ResourceKeys.breadcrumb.add) }}
-                path={`${url}/${ROUTE_PARTS.ADD}`}
-                exact={true}
-                children={<AddDevice/>}
+        <Routes>
+            <Route path="/" element={<DeviceList/>}/>
+            <Route
+                path={`${ROUTE_PARTS.ADD}`}
+                element={
+                    <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.add) }}>
+                        <AddDevice/>
+                    </BreadcrumbRoute>
+                }
             />
-            <Route path={`${url}/${ROUTE_PARTS.DEVICE_DETAIL}`} component={DeviceContent}/>
-       </>
+            <Route path={`${ROUTE_PARTS.DEVICE_DETAIL}/*`} element={<DeviceContent/>}/>
+        </Routes>
     );
 };

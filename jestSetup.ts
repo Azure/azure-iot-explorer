@@ -4,7 +4,7 @@
  **********************************************************/
 import { setIconOptions } from '@fluentui/react';
 import * as Enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+import Adapter from '@cfaester/enzyme-adapter-react-18';
 
 // tslint:disable-next-line: no-string-literal
 global.Headers = jest.fn();

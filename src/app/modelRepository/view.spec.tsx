@@ -11,9 +11,8 @@ import { getInitialModelRepositoryState } from '../shared/modelRepository/state'
 import { getInitialModelRepositoryActions } from '../shared/modelRepository/interface';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '' }),
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: 'url', search: '', hash: '', state: null, key: 'default' })
 }));
 
 describe('view', () => {

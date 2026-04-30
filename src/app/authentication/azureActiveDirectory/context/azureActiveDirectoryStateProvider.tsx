@@ -15,7 +15,7 @@ export interface AzureActiveDirectoryInterface {
     logout(): void;
 }
 
-export const AzureActiveDirectoryStateContextProvider: React.FC = props => {
+export const AzureActiveDirectoryStateContextProvider: React.FC<React.PropsWithChildren> = props => {
     const [state, dispatch] = useAsyncSagaReducer(azureActiveDirectoryReducer, azureActiveDirectorySaga, getInitialAzureActiveDirectoryState(), 'azureActiveDirectoryState');
 
     const azureActiveDirectoryApi: AzureActiveDirectoryInterface = {

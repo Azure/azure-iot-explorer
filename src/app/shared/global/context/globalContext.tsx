@@ -6,7 +6,7 @@ import { useNotificationState } from '../../../notifications/hooks/useNotificati
 import { BreadcrumbContext } from '../../../navigation/hooks/useBreadcrumbContext';
 import { useBreadcrumbs } from '../../../navigation/hooks/useBreadcrumbs';
 
-export const GlobalContextProvider: React.FC = props => {
+export const GlobalContextProvider: React.FC<React.PropsWithChildren> = props => {
     return (
         <ModelRepositoryContextProvider value={useModelRepositoryState()}>
             <NotificationsContextProvider value={useNotificationState()}>

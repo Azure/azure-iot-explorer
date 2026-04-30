@@ -41,9 +41,9 @@ const deviceTwin: any = {
 const pathname = 'resources/TestHub.azure-devices.net/devices/deviceDetail/ioTPlugAndPlay/?deviceId=testDevice';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn()}),
-    useLocation: () => ({ search: '?deviceId=testDevice' }),
-    useRouteMatch: () => ({ url: pathname })
+    useLocation: () => ({ pathname: '', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' }),
+    useNavigate: () => jest.fn(),
+
 }));
 
 describe('DigitalTwinComponentList', () => {

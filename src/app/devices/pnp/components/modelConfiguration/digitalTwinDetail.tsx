@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Stack, Pivot, PivotItem } from '@fluentui/react';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -21,7 +21,7 @@ import './digitalTwinDetail.scss';
 export const DigitalTwinDetail: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { getModelDefinition } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
@@ -46,7 +46,7 @@ export const DigitalTwinDetail: React.FC = () => {
         if (moduleId) {
             linkUrl += `&${ROUTE_PARAMS.MODULE_ID}=${moduleId}`;
         }
-        history.push(linkUrl);
+        navigate(linkUrl);
     };
 
     return (

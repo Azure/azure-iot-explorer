@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useRouteMatch } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Nav, INavLinkGroup, INavLink, Announced } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
@@ -38,7 +38,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     const { t } = useTranslation();
     const { isEdgeDevice } = props;
     const { search, pathname } = useLocation();
-    const { url } = useRouteMatch();
+    const url = pathname.replace(/\/(identity|twin|events|methods|cloudToDeviceMessage|ioTPlugAndPlay|moduleIdentity)(\/.*)?$/, '');
     const [ selectedRoute, setSelectedRoute] = React.useState<string>();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);

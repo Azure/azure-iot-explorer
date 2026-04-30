@@ -15,7 +15,7 @@ import { addDeviceAction } from '../actions';
 
 const pathname = '/devices/add';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ pathname })
 }));
 

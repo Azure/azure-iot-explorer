@@ -9,7 +9,7 @@ import * as BreadcrumbEntry from '../../navigation/hooks/useBreadcrumbEntry';
 
 jest.mock('react-router-dom', () => ({
     useParams: () => ({ resourceName: 'resource'}),
-    useRouteMatch: () => ({ url: '' })
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
 }));
 
 describe('IotHubResource', () => {

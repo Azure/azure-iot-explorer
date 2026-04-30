@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MessageBar, MessageBarType, MessageBarButton } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
@@ -12,7 +12,7 @@ import '../../../css/_interfaceNotFoundMessageBar.scss';
 
 export const InterfaceNotFoundMessageBar: React.FC = () => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [redirectToModelRepositories, setRedirectToModelRepositories] = React.useState<boolean>(false);
 
     const onConfigureClick = () => {
@@ -20,7 +20,7 @@ export const InterfaceNotFoundMessageBar: React.FC = () => {
     };
 
     if (redirectToModelRepositories) {
-        history.push(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
+        navigate(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
         return <></>;
     }
 

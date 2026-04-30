@@ -9,8 +9,8 @@ import { Nav } from '@fluentui/react';
 import { DeviceContentNavComponent, DeviceContentNavProps, NAV_LINK_ITEMS_DEVICE, NAV_LINK_ITEMS_NONEDGE_DEVICE } from './deviceContentNav';
 
 jest.mock('react-router-dom', () => ({
-    useLocation: () => ({ search: '?deviceId=test', pathname: '' }),
-    useRouteMatch: () => ({ url: '' })
+    useLocation: () => ({ pathname: '', search: '?deviceId=test', hash: '', state: null, key: 'default' }),
+
 }));
 
 describe('deviceContentNav', () => {

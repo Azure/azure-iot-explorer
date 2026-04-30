@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { IColumn, SelectionMode, CommandBar, Label } from '@fluentui/react';
 import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -28,8 +28,8 @@ import '../../../../css/_deviceDetail.scss';
 export const ModuleIdentityList: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const { url } = useRouteMatch();
-    const history = useHistory();
+    const url = pathname;
+    const navigate = useNavigate();
     const deviceId = getDeviceIdFromQueryString(search);
 
     const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityListReducer, getModuleIdentitiesSaga, moduleIndentityListStateInitial(), 'moduleIdentityListState');
@@ -71,7 +71,7 @@ export const ModuleIdentityList: React.FC = () => {
 
     const handleAdd = () => {
         const path = pathname.concat(ROUTE_PARTS.ADD);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        navigate(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     };
 
     const handleRefresh = () => {

@@ -13,7 +13,7 @@ import { moduleTwinStateInitial } from '../state';
 
 const pathname = 'https://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleTwin/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
 }));
 

@@ -15,7 +15,7 @@ export interface AuthenticationInterface {
     setLoginPreference(preference: string): void;
 }
 
-export const AuthenticationStateContextProvider: React.FC = props => {
+export const AuthenticationStateContextProvider: React.FC<React.PropsWithChildren> = props => {
     const [state, dispatch] = useAsyncSagaReducer(authenticationReducer, authenticationSaga, getInitialAuthenticationState(), 'authenticationState');
 
     const authenticationApi: AuthenticationInterface = {

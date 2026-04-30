@@ -10,8 +10,6 @@ describe('BreadcrumbRoute', () => {
     it('matches snapshot', () => {
         expect(shallow(
             <BreadcrumbRoute
-                path={'path'}
-                exact={true}
                 breadcrumb={{name: 'name'}}
             />
         )).toMatchSnapshot();

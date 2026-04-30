@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Overlay, Toggle, ChoiceGroup, IChoiceGroupOption, Checkbox, CommandBar, TextField } from '@fluentui/react';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
@@ -34,7 +34,7 @@ const initialKeyValue = {
 export const AddDevice: React.FC = () => {
     const { t } = useTranslation();
     const { pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(addDeviceReducer, addDeviceSaga, addDeviceStateInitial(), 'addDeviceState');
     const { synchronizationStatus } = localState;
@@ -53,12 +53,12 @@ export const AddDevice: React.FC = () => {
 
     const navigateToDeviceList = () => {
         const path = pathname.replace(/\/add/, `/`);
-        history.push(path);
+        navigate(path);
     };
 
     const navigateToDeviceIdentity = () => {
         const path = pathname.replace(/\/add/, `/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${device.id}`);
-        history.push(path);
+        navigate(path);
     };
 
     const showDeviceId = () => {

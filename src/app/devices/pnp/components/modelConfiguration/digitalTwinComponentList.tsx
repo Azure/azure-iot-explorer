@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Announced, IColumn, Label, Pivot, PivotItem, SelectionMode } from '@fluentui/react';
 import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -26,8 +26,8 @@ interface ModelContent {
 const jsonViewerHeight = 400;
 export const DigitalTwinComponentList: React.FC = () => {
     const { t } = useTranslation();
-    const { url } = useRouteMatch();
-    const { search } = useLocation();
+    const { search, pathname } = useLocation();
+    const url = pathname;
     const { pnpState } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;

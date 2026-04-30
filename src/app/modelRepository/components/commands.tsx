@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CommandBar, ICommandBarItemProps, IContextualMenuItem } from '@fluentui/react';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -17,7 +17,7 @@ import { useModelRepositoryContext } from '../../shared/modelRepository/context/
 
 export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formState}) => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { search } = useLocation();
     const [{repositoryLocationSettings, dirty}, {setRepositoryLocationSettings, setRepositoryLocationSettingsErrors, setDirtyFlag}] = formState;
 
@@ -140,7 +140,7 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
         setRepositoryLocationSettingsErrors(errors);
     };
 
-    const onNavigateBackClick = () => history.goBack();
+    const onNavigateBackClick = () => navigate(-1);
 
     const onRevertModelRepositorySettingsClick = () => {
         setDirtyFlag(false);

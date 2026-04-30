@@ -10,8 +10,8 @@ import { Pnp } from './pnp';
 const search = '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/${search}`;
 jest.mock('react-router-dom', () => ({
-    useLocation: () => ({ search, pathname }),
-    useRouteMatch: () => ({ url: pathname })
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' }),
+
 }));
 
 describe('pnp', () => {
