@@ -9,18 +9,14 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
         {
           "ariaLabel": "moduleIdentity.command.save",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Save",
-          },
+          "icon": <SaveRegular />,
           "key": "Save",
           "name": "moduleIdentity.command.save",
           "onClick": [Function],
         },
         {
           "ariaLabel": "moduleIdentity.command.cancel",
-          "iconProps": {
-            "iconName": "Cancel",
-          },
+          "icon": <DismissRegular />,
           "key": "Cancel",
           "name": "moduleIdentity.command.cancel",
           "onClick": [Function],

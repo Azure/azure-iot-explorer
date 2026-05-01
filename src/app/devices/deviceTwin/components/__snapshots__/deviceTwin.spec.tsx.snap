@@ -8,9 +8,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
       [
         {
           "ariaLabel": "deviceTwin.command.refresh",
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "deviceTwin.command.refresh",
           "onClick": [Function],
@@ -18,9 +16,7 @@ exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
         {
           "ariaLabel": "deviceTwin.command.save",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Save",
-          },
+          "icon": <SaveRegular />,
           "key": "Save",
           "name": "deviceTwin.command.save",
           "onClick": [Function],

@@ -7,18 +7,14 @@ exports[`ConnectionStringCommandBar matches snapshot 1`] = `
       {
         "ariaLabel": "connectionStrings.addConnectionCommand.ariaLabel",
         "disabled": false,
-        "iconProps": {
-          "iconName": "Add",
-        },
+        "icon": <AddRegular />,
         "key": "add",
         "onClick": [MockFunction],
         "text": "connectionStrings.addConnectionCommand.label",
       },
       {
         "ariaLabel": "authentication.authSelection.switchAuthType",
-        "iconProps": {
-          "iconName": "NavigateBack",
-        },
+        "icon": <ArrowLeftRegular />,
         "key": "switch",
         "onClick": [Function],
         "text": "authentication.authSelection.switchAuthType",

@@ -8,9 +8,7 @@ exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
       [
         {
           "ariaLabel": "deviceSettings.command.close",
-          "iconProps": {
-            "iconName": "NavigateBack",
-          },
+          "icon": <ArrowLeftRegular />,
           "key": "NavigateBack",
           "name": "deviceSettings.command.close",
           "onClick": [Function],
@@ -21,9 +19,7 @@ exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
       [
         {
           "ariaLabel": "deviceSettings.command.refresh",
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "deviceSettings.command.refresh",
           "onClick": [Function],

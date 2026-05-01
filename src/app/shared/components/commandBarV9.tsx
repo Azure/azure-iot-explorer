@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { Toolbar, ToolbarButton, Menu, MenuTrigger, MenuPopover, MenuList, MenuItem } from '@fluentui/react-components';
 import { ChevronDownRegular } from '@fluentui/react-icons';
-import { renderV9Icon } from '../../constants/fluentV9Icons';
 
 interface CommandBarItem {
     key: string;
@@ -15,7 +14,6 @@ interface CommandBarItem {
     disabled?: boolean;
     type?: string;
     icon?: React.ReactElement;
-    iconProps?: { iconName: string }; // deprecated: use icon instead
     onClick?: (ev?: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
     subMenuProps?: {
         items: CommandBarSubMenuItem[];
@@ -29,7 +27,6 @@ interface CommandBarSubMenuItem {
     ariaLabel?: string;
     disabled?: boolean;
     icon?: React.ReactElement;
-    iconProps?: { iconName: string }; // deprecated: use icon instead
     onClick?: (ev?: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
 }
 
@@ -41,11 +38,9 @@ interface CommandBarV9Props {
 
 /**
  * v9-compatible CommandBar replacement using Toolbar + ToolbarButton + Menu.
- * Accepts the same items/farItems shape as v8 CommandBar for easy migration.
  */
 export const CommandBarV9: React.FC<CommandBarV9Props> = ({ items, farItems, className }) => {
     const renderItem = (item: CommandBarItem) => {
-        const icon = item.icon || (item.iconProps?.iconName ? renderV9Icon(item.iconProps.iconName) : undefined);
         const label = item.name || item.text;
 
         if (item.subMenuProps?.items?.length > 0) {
@@ -55,7 +50,7 @@ export const CommandBarV9: React.FC<CommandBarV9Props> = ({ items, farItems, cla
                         <ToolbarButton
                             aria-label={item.ariaLabel}
                             disabled={item.disabled}
-                            icon={icon}
+                            icon={item.icon}
                             style={{ fontWeight: 'normal' }}
                         >
                             {label} <ChevronDownRegular style={{ marginLeft: 4, fontSize: 12 }} />
@@ -66,7 +61,7 @@ export const CommandBarV9: React.FC<CommandBarV9Props> = ({ items, farItems, cla
                             {item.subMenuProps.items.map(sub => (
                                 <MenuItem
                                     key={sub.key}
-                                    icon={sub.icon || (sub.iconProps?.iconName ? renderV9Icon(sub.iconProps.iconName) : undefined)}
+                                    icon={sub.icon}
                                     disabled={sub.disabled}
                                     onClick={sub.onClick}
                                 >
@@ -84,7 +79,7 @@ export const CommandBarV9: React.FC<CommandBarV9Props> = ({ items, farItems, cla
                 key={item.key}
                 aria-label={item.ariaLabel}
                 disabled={item.disabled}
-                icon={icon}
+                icon={item.icon}
                 onClick={item.onClick}
                 style={{ fontWeight: 'normal' }}
             >

@@ -9,9 +9,7 @@ exports[`moduleDirectMethod matches snapshot 1`] = `
         {
           "ariaLabel": "directMethod.invokeMethodButtonText",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Remote",
-          },
+          "icon": <RemoteRegular />,
           "key": "Remote",
           "name": "directMethod.invokeMethodButtonText",
           "onClick": [Function],

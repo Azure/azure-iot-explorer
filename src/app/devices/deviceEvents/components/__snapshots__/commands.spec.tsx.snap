@@ -7,9 +7,7 @@ exports[`commands matches snapshot 1`] = `
       [
         {
           "ariaLabel": "deviceEvents.command.close",
-          "iconProps": {
-            "iconName": "NavigateBack",
-          },
+          "icon": <ArrowLeftRegular />,
           "key": "NavigateBack",
           "name": "deviceEvents.command.close",
           "onClick": [Function],
@@ -21,18 +19,14 @@ exports[`commands matches snapshot 1`] = `
         {
           "ariaLabel": "deviceEvents.command.start",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Play",
-          },
+          "icon": <PlayRegular />,
           "key": "Play",
           "name": "deviceEvents.command.start",
           "onClick": [Function],
         },
         {
           "ariaLabel": "Show modeled events",
-          "iconProps": {
-            "iconName": "Checkbox",
-          },
+          "icon": <CheckboxUncheckedRegular />,
           "key": "Checkbox",
           "name": "Show modeled events",
           "onClick": [Function],
@@ -40,18 +34,14 @@ exports[`commands matches snapshot 1`] = `
         {
           "ariaLabel": "deviceEvents.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "deviceEvents.command.refresh",
           "onClick": undefined,
         },
         {
           "ariaLabel": "deviceEvents.command.clearEvents",
-          "iconProps": {
-            "iconName": "Delete",
-          },
+          "icon": <DeleteRegular />,
           "key": "Clear",
           "name": "deviceEvents.command.clearEvents",
           "onClick": [Function],

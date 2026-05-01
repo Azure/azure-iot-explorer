@@ -8,9 +8,7 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
       [
         {
           "ariaLabel": "deviceCommands.command.close",
-          "iconProps": {
-            "iconName": "NavigateBack",
-          },
+          "icon": <ArrowLeftRegular />,
           "key": "NavigateBack",
           "name": "deviceCommands.command.close",
           "onClick": [Function],
@@ -21,9 +19,7 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
       [
         {
           "ariaLabel": "deviceCommands.command.refresh",
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "deviceCommands.command.refresh",
           "onClick": [Function],
@@ -47,9 +43,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
       [
         {
           "ariaLabel": "deviceCommands.command.close",
-          "iconProps": {
-            "iconName": "NavigateBack",
-          },
+          "icon": <ArrowLeftRegular />,
           "key": "NavigateBack",
           "name": "deviceCommands.command.close",
           "onClick": [Function],
@@ -60,9 +54,7 @@ exports[`components/devices/deviceCommands matches snapshot with a commandSchema
       [
         {
           "ariaLabel": "deviceCommands.command.refresh",
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "deviceCommands.command.refresh",
           "onClick": [Function],

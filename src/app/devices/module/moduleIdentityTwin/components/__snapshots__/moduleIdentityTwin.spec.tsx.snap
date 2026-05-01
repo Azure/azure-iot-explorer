@@ -9,9 +9,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -19,9 +17,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot after module twin is fetch
         {
           "ariaLabel": "moduleIdentity.detail.command.save",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Save",
-          },
+          "icon": <SaveRegular />,
           "key": "Save",
           "name": "moduleIdentity.detail.command.save",
           "onClick": [Function],
@@ -73,9 +69,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -83,9 +77,7 @@ exports[`moduleIdentityTwin snapshot matches snapshot while loading 1`] = `
         {
           "ariaLabel": "moduleIdentity.detail.command.save",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Save",
-          },
+          "icon": <SaveRegular />,
           "key": "Save",
           "name": "moduleIdentity.detail.command.save",
           "onClick": [Function],

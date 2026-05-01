@@ -74,9 +74,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
           [
             {
               "ariaLabel": "deviceEvents.simulation.advanced.properties.addProperty",
-              "iconProps": {
-                "iconName": "CircleAddition",
-              },
+              "icon": <AddCircleRegular />,
               "key": "deviceEvents.simulation.advanced.properties.addProperty",
               "name": "deviceEvents.simulation.advanced.properties.addProperty",
               "onClick": [Function],
@@ -84,9 +82,7 @@ exports[`deviceSimulationPanel matches snapshot  1`] = `
             {
               "ariaLabel": "deviceEvents.simulation.advanced.properties.delete",
               "disabled": true,
-              "iconProps": {
-                "iconName": "Delete",
-              },
+              "icon": <DeleteRegular />,
               "key": "deviceEvents.simulation.advanced.properties.delete",
               "name": "deviceEvents.simulation.advanced.properties.delete",
               "onClick": [Function],

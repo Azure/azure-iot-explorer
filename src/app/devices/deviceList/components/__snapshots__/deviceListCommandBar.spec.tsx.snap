@@ -7,19 +7,15 @@ exports[`deviceListCommandBar matches snapshot 1`] = `
       {
         "ariaLabel": "deviceLists.commands.add",
         "disabled": undefined,
-        "iconProps": {
-          "iconName": "BoxAdditionSolid",
-        },
-        "key": "BoxAdditionSolid",
+        "icon": <BoxRegular />,
+        "key": "add",
         "name": "deviceLists.commands.add",
         "onClick": [Function],
       },
       {
         "ariaLabel": "deviceLists.commands.refresh",
         "disabled": undefined,
-        "iconProps": {
-          "iconName": "Refresh",
-        },
+        "icon": <ArrowSyncRegular />,
         "key": "Refresh",
         "name": "deviceLists.commands.refresh",
         "onClick": [Function],
@@ -27,10 +23,8 @@ exports[`deviceListCommandBar matches snapshot 1`] = `
       {
         "ariaLabel": "deviceLists.commands.delete.buttonText",
         "disabled": undefined,
-        "iconProps": {
-          "iconName": "Delete",
-        },
-        "key": "Delete",
+        "icon": <DeleteRegular />,
+        "key": "delete",
         "name": "deviceLists.commands.delete.buttonText",
         "onClick": [Function],
       },

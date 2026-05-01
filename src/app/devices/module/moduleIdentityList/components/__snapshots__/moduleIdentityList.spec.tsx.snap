@@ -8,19 +8,15 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
       [
         {
           "ariaLabel": "moduleIdentity.command.add",
-          "iconProps": {
-            "iconName": "BoxAdditionSolid",
-          },
-          "key": "BoxAdditionSolid",
+          "icon": <BoxRegular />,
+          "key": "add",
           "name": "moduleIdentity.command.add",
           "onClick": [Function],
         },
         {
           "ariaLabel": "moduleIdentity.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.command.refresh",
           "onClick": [Function],
@@ -102,19 +98,15 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
       [
         {
           "ariaLabel": "moduleIdentity.command.add",
-          "iconProps": {
-            "iconName": "BoxAdditionSolid",
-          },
-          "key": "BoxAdditionSolid",
+          "icon": <BoxRegular />,
+          "key": "add",
           "name": "moduleIdentity.command.add",
           "onClick": [Function],
         },
         {
           "ariaLabel": "moduleIdentity.command.refresh",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.command.refresh",
           "onClick": [Function],
@@ -196,19 +188,15 @@ exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`
       [
         {
           "ariaLabel": "moduleIdentity.command.add",
-          "iconProps": {
-            "iconName": "BoxAdditionSolid",
-          },
-          "key": "BoxAdditionSolid",
+          "icon": <BoxRegular />,
+          "key": "add",
           "name": "moduleIdentity.command.add",
           "onClick": [Function],
         },
         {
           "ariaLabel": "moduleIdentity.command.refresh",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.command.refresh",
           "onClick": [Function],

@@ -12,15 +12,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
     <Tab
       as="a"
       href="#/identity/?deviceId=test"
-      icon={
-        <ServerRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<ServerRegular />}
       key="identity"
       value="identity"
     >
@@ -29,15 +21,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
     <Tab
       as="a"
       href="#/twin/?deviceId=test"
-      icon={
-        <DocumentCopyRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<DocumentCopyRegular />}
       key="twin"
       value="twin"
     >
@@ -46,15 +30,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
     <Tab
       as="a"
       href="#/events/?deviceId=test"
-      icon={
-        <ChatMultipleRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<ChatMultipleRegular />}
       key="events"
       value="events"
     >
@@ -63,15 +39,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
     <Tab
       as="a"
       href="#/methods/?deviceId=test"
-      icon={
-        <RemoteRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<RemoteRegular />}
       key="methods"
       value="methods"
     >
@@ -80,15 +48,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
     <Tab
       as="a"
       href="#/cloudToDeviceMessage/?deviceId=test"
-      icon={
-        <MailRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<MailRegular />}
       key="cloudToDeviceMessage"
       value="cloudToDeviceMessage"
     >
@@ -97,15 +57,7 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
     <Tab
       as="a"
       href="#/moduleIdentity/?deviceId=test"
-      icon={
-        <BranchForkRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<BranchForkRegular />}
       key="moduleIdentity"
       value="moduleIdentity"
     >
@@ -127,15 +79,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
     <Tab
       as="a"
       href="#/identity/?deviceId=test"
-      icon={
-        <ServerRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<ServerRegular />}
       key="identity"
       value="identity"
     >
@@ -144,15 +88,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
     <Tab
       as="a"
       href="#/twin/?deviceId=test"
-      icon={
-        <DocumentCopyRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<DocumentCopyRegular />}
       key="twin"
       value="twin"
     >
@@ -161,15 +97,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
     <Tab
       as="a"
       href="#/events/?deviceId=test"
-      icon={
-        <ChatMultipleRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<ChatMultipleRegular />}
       key="events"
       value="events"
     >
@@ -178,15 +106,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
     <Tab
       as="a"
       href="#/methods/?deviceId=test"
-      icon={
-        <RemoteRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<RemoteRegular />}
       key="methods"
       value="methods"
     >
@@ -195,15 +115,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
     <Tab
       as="a"
       href="#/cloudToDeviceMessage/?deviceId=test"
-      icon={
-        <MailRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<MailRegular />}
       key="cloudToDeviceMessage"
       value="cloudToDeviceMessage"
     >
@@ -212,15 +124,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
     <Tab
       as="a"
       href="#/moduleIdentity/?deviceId=test"
-      icon={
-        <BranchForkRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<BranchForkRegular />}
       key="moduleIdentity"
       value="moduleIdentity"
     >
@@ -229,15 +133,7 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
     <Tab
       as="a"
       href="#/ioTPlugAndPlay/?deviceId=test"
-      icon={
-        <PlugDisconnectedRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<PlugDisconnectedRegular />}
       key="ioTPlugAndPlay"
       value="ioTPlugAndPlay"
     >

@@ -9,9 +9,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -19,9 +17,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
         {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Delete",
-          },
+          "icon": <DeleteRegular />,
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
           "onClick": [Function],
@@ -58,9 +54,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -68,9 +62,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is
         {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Delete",
-          },
+          "icon": <DeleteRegular />,
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
           "onClick": [Function],
@@ -104,9 +96,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -114,9 +104,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
         {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Delete",
-          },
+          "icon": <DeleteRegular />,
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
           "onClick": [Function],
@@ -193,9 +181,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -203,9 +189,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
         {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Delete",
-          },
+          "icon": <DeleteRegular />,
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
           "onClick": [Function],
@@ -256,9 +240,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -266,9 +248,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
         {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Delete",
-          },
+          "icon": <DeleteRegular />,
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
           "onClick": [Function],
@@ -331,9 +311,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
         {
           "ariaLabel": "moduleIdentity.detail.command.refresh",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Refresh",
-          },
+          "icon": <ArrowSyncRegular />,
           "key": "Refresh",
           "name": "moduleIdentity.detail.command.refresh",
           "onClick": [Function],
@@ -341,9 +319,7 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
         {
           "ariaLabel": "moduleIdentity.detail.command.delete",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Delete",
-          },
+          "icon": <DeleteRegular />,
           "key": "Delete",
           "name": "moduleIdentity.detail.command.delete",
           "onClick": [Function],

@@ -8,9 +8,7 @@ exports[`Command matches snapshot 1`] = `
       {
         "ariaLabel": "deviceEvents.command.refresh",
         "disabled": true,
-        "iconProps": {
-          "iconName": "Refresh",
-        },
+        "icon": <ArrowSyncRegular />,
         "key": "Refresh",
         "name": "deviceEvents.command.refresh",
         "onClick": [Function],

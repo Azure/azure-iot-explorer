@@ -9,9 +9,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
         {
           "ariaLabel": "cloudToDeviceMessage.sendMessageButtonText",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Mail",
-          },
+          "icon": <MailRegular />,
           "key": "Mail",
           "name": "cloudToDeviceMessage.sendMessageButtonText",
           "onClick": [Function],
@@ -58,27 +56,21 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
           [
             {
               "ariaLabel": "cloudToDeviceMessage.properties.addCustomProperty",
-              "iconProps": {
-                "iconName": "CircleAddition",
-              },
+              "icon": <AddCircleRegular />,
               "key": "cloudToDeviceMessage.properties.addCustomProperty",
               "name": "cloudToDeviceMessage.properties.addCustomProperty",
               "onClick": [Function],
             },
             {
               "ariaLabel": "cloudToDeviceMessage.properties.addSystemProperty",
-              "iconProps": {
-                "iconName": "CircleAdditionSolid",
-              },
+              "icon": <AddCircleFilled />,
               "key": "cloudToDeviceMessage.properties.addSystemProperty",
               "name": "cloudToDeviceMessage.properties.addSystemProperty",
               "subMenuProps": {
                 "items": [
                   {
                     "disabled": false,
-                    "iconProps": {
-                      "iconName": "LocationDot",
-                    },
+                    "icon": <LocationRegular />,
                     "key": "ack",
                     "name": "cloudToDeviceMessage.properties.systemProperties.ack.displayName",
                     "onClick": [Function],
@@ -86,9 +78,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                   },
                   {
                     "disabled": false,
-                    "iconProps": {
-                      "iconName": "LocationDot",
-                    },
+                    "icon": <LocationRegular />,
                     "key": "contentType",
                     "name": "cloudToDeviceMessage.properties.systemProperties.contentType.displayName",
                     "onClick": [Function],
@@ -96,9 +86,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                   },
                   {
                     "disabled": false,
-                    "iconProps": {
-                      "iconName": "LocationDot",
-                    },
+                    "icon": <LocationRegular />,
                     "key": "contentEncoding",
                     "name": "cloudToDeviceMessage.properties.systemProperties.contentEncoding.displayName",
                     "onClick": [Function],
@@ -106,9 +94,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                   },
                   {
                     "disabled": false,
-                    "iconProps": {
-                      "iconName": "LocationDot",
-                    },
+                    "icon": <LocationRegular />,
                     "key": "correlationId",
                     "name": "cloudToDeviceMessage.properties.systemProperties.correlationId.displayName",
                     "onClick": [Function],
@@ -116,9 +102,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                   },
                   {
                     "disabled": false,
-                    "iconProps": {
-                      "iconName": "LocationDot",
-                    },
+                    "icon": <LocationRegular />,
                     "key": "expiryTimeUtc",
                     "name": "cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.displayName",
                     "onClick": [Function],
@@ -126,9 +110,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                   },
                   {
                     "disabled": false,
-                    "iconProps": {
-                      "iconName": "LocationDot",
-                    },
+                    "icon": <LocationRegular />,
                     "key": "lockToken",
                     "name": "cloudToDeviceMessage.properties.systemProperties.lockToken.displayName",
                     "onClick": [Function],
@@ -136,9 +118,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
                   },
                   {
                     "disabled": false,
-                    "iconProps": {
-                      "iconName": "LocationDot",
-                    },
+                    "icon": <LocationRegular />,
                     "key": "messageId",
                     "name": "cloudToDeviceMessage.properties.systemProperties.messageId.displayName",
                     "onClick": [Function],
@@ -150,9 +130,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
             {
               "ariaLabel": "cloudToDeviceMessage.properties.delete",
               "disabled": true,
-              "iconProps": {
-                "iconName": "Delete",
-              },
+              "icon": <DeleteRegular />,
               "key": "cloudToDeviceMessage.properties.delete",
               "name": "cloudToDeviceMessage.properties.delete",
               "onClick": [Function],

@@ -7,9 +7,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot 1`] = `
       {
         "ariaLabel": "deviceIdentity.commands.save",
         "disabled": undefined,
-        "iconProps": {
-          "iconName": "Save",
-        },
+        "icon": <SaveRegular />,
         "key": "Save",
         "name": "deviceIdentity.commands.save",
         "onClick": [MockFunction],
@@ -17,9 +15,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot 1`] = `
       {
         "ariaLabel": "deviceIdentity.commands.manageKeys.ariaLabel",
         "disabled": true,
-        "iconProps": {
-          "iconName": "Permissions",
-        },
+        "icon": <KeyRegular />,
         "key": "manageKeys",
         "name": "deviceIdentity.commands.manageKeys.label",
         "subMenuProps": {
@@ -27,9 +23,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot 1`] = `
             {
               "ariaLabel": "deviceIdentity.commands.regeneratePrimary.ariaLabel",
               "disabled": true,
-              "iconProps": {
-                "iconName": "AzureKeyVault",
-              },
+              "icon": <KeyRegular />,
               "key": "regeneratePrimary",
               "name": "deviceIdentity.commands.regeneratePrimary.label",
               "onClick": undefined,
@@ -37,9 +31,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot 1`] = `
             {
               "ariaLabel": "deviceIdentity.commands.regenerateSecondary.ariaLabel",
               "disabled": true,
-              "iconProps": {
-                "iconName": "AzureKeyVault",
-              },
+              "icon": <KeyRegular />,
               "key": "regenerateSecondary",
               "name": "deviceIdentity.commands.regenerateSecondary.label",
               "onClick": undefined,
@@ -47,9 +39,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot 1`] = `
             {
               "ariaLabel": "deviceIdentity.commands.swapKeys.ariaLabel",
               "disabled": true,
-              "iconProps": {
-                "iconName": "SwitcherStartEnd",
-              },
+              "icon": <ArrowSwapRegular />,
               "key": "swapKeys",
               "name": "deviceIdentity.commands.swapKeys.label",
               "onClick": undefined,
@@ -69,9 +59,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot with disabled save 1
       {
         "ariaLabel": "deviceIdentity.commands.save",
         "disabled": true,
-        "iconProps": {
-          "iconName": "Save",
-        },
+        "icon": <SaveRegular />,
         "key": "Save",
         "name": "deviceIdentity.commands.save",
         "onClick": [MockFunction],
@@ -79,9 +67,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot with disabled save 1
       {
         "ariaLabel": "deviceIdentity.commands.manageKeys.ariaLabel",
         "disabled": true,
-        "iconProps": {
-          "iconName": "Permissions",
-        },
+        "icon": <KeyRegular />,
         "key": "manageKeys",
         "name": "deviceIdentity.commands.manageKeys.label",
         "subMenuProps": {
@@ -89,9 +75,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot with disabled save 1
             {
               "ariaLabel": "deviceIdentity.commands.regeneratePrimary.ariaLabel",
               "disabled": true,
-              "iconProps": {
-                "iconName": "AzureKeyVault",
-              },
+              "icon": <KeyRegular />,
               "key": "regeneratePrimary",
               "name": "deviceIdentity.commands.regeneratePrimary.label",
               "onClick": undefined,
@@ -99,9 +83,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot with disabled save 1
             {
               "ariaLabel": "deviceIdentity.commands.regenerateSecondary.ariaLabel",
               "disabled": true,
-              "iconProps": {
-                "iconName": "AzureKeyVault",
-              },
+              "icon": <KeyRegular />,
               "key": "regenerateSecondary",
               "name": "deviceIdentity.commands.regenerateSecondary.label",
               "onClick": undefined,
@@ -109,9 +91,7 @@ exports[`deviceIdentityCommandBar snapshot matches snapshot with disabled save 1
             {
               "ariaLabel": "deviceIdentity.commands.swapKeys.ariaLabel",
               "disabled": true,
-              "iconProps": {
-                "iconName": "SwitcherStartEnd",
-              },
+              "icon": <ArrowSwapRegular />,
               "key": "swapKeys",
               "name": "deviceIdentity.commands.swapKeys.label",
               "onClick": undefined,

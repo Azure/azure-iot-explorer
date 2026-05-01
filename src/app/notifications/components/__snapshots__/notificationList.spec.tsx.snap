@@ -8,9 +8,7 @@ exports[`notificationList matches snapshot where there are no notifications 1`] 
         {
           "ariaLabel": "header.notifications.dismiss",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Cancel",
-          },
+          "icon": <DismissRegular />,
           "key": "back",
           "onClick": [Function],
           "text": "header.notifications.dismiss",
@@ -36,9 +34,7 @@ exports[`notificationList matches snapshot where there is no notifications 1`] =
         {
           "ariaLabel": "header.notifications.dismiss",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Cancel",
-          },
+          "icon": <DismissRegular />,
           "key": "back",
           "onClick": [Function],
           "text": "header.notifications.dismiss",

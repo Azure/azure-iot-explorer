@@ -13,45 +13,21 @@ exports[`homeViewNavigation matches snapshot 1`] = `
     <Tab
       as="a"
       href="#/home/resources"
-      icon={
-        <OrganizationRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<OrganizationRegular />}
       key="resources"
       value="resources"
     />
     <Tab
       as="a"
       href="#/home/repos"
-      icon={
-        <PlugDisconnectedRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<PlugDisconnectedRegular />}
       key="repos"
       value="repos"
     />
     <Tab
       as="a"
       href="#/home/notifications"
-      icon={
-        <AlertRegular
-          style={
-            {
-              "color": "var(--colorBrandForeground1)",
-            }
-          }
-        />
-      }
+      icon={<AlertRegular />}
       key="notifications"
       value="notifications"
     />

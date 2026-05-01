@@ -11,9 +11,7 @@ exports[`addDevice matches snapshot 1`] = `
         {
           "ariaLabel": "deviceLists.commands.save",
           "disabled": true,
-          "iconProps": {
-            "iconName": "Save",
-          },
+          "icon": <SaveRegular />,
           "key": "Save",
           "name": "deviceLists.commands.save",
           "type": "submit",
@@ -21,9 +19,7 @@ exports[`addDevice matches snapshot 1`] = `
         {
           "ariaLabel": "deviceLists.commands.close",
           "disabled": false,
-          "iconProps": {
-            "iconName": "Cancel",
-          },
+          "icon": <DismissRegular />,
           "key": "Cancel",
           "name": "deviceLists.commands.close",
           "onClick": [Function],
