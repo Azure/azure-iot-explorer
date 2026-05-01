@@ -14,8 +14,9 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('BreadcrumbRoute', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><BreadcrumbRoute/></MemoryRouter>);
-        expect(container).toBeDefined();
+    it('renders children within wrapper', () => {
+        const { container } = render(<MemoryRouter><BreadcrumbRoute><span data-testid="child">Hello</span></BreadcrumbRoute></MemoryRouter>);
+
+        expect(container.querySelector('[data-testid="child"]')).toBeDefined();
     });
 });

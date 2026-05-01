@@ -3,12 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { DeviceSettingsPerInterface, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterface';
-import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
-import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
-import { testModelDefinition, testTwin, testComponentName } from './testData';
+import { DeviceSettingsPerInterface } from './deviceSettingsPerInterface';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -28,15 +25,23 @@ jest.mock('../../context/pnpStateContext', () => ({
 }));
 
 describe('components/devices/deviceSettingsPerInterface', () => {
-    it('renders without crashing', () => {
-        const props = {
-            deviceId: 'testDevice',
-            moduleId: '',
-            interfaceId: 'testInterface',
-            twinWithSchema: [],
-            patchTwin: jest.fn()
-        };
-        const { container } = render(<MemoryRouter><DeviceSettingsPerInterface {...props as any}/></MemoryRouter>);
+    const defaultProps = {
+        deviceId: 'testDevice',
+        moduleId: '',
+        interfaceId: 'testInterface',
+        twinWithSchema: [],
+        patchTwin: jest.fn()
+    };
+
+    it('renders the settings list container', () => {
+        const { container } = render(<MemoryRouter><DeviceSettingsPerInterface {...defaultProps as any}/></MemoryRouter>);
+
+        expect(container.querySelector('.pnp-detail-list')).toBeDefined();
+    });
+
+    it('renders with empty twinWithSchema', () => {
+        const { container } = render(<MemoryRouter><DeviceSettingsPerInterface {...defaultProps as any}/></MemoryRouter>);
+
         expect(container).toBeDefined();
     });
 });

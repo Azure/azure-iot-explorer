@@ -3,18 +3,48 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DeviceList } from './deviceList';
-import { deviceListStateInitial, DeviceListStateInterface } from '../state';
-import { DeviceSummary } from '../../../api/models/deviceSummary';
-import { DeviceListCommandBar } from './deviceListCommandBar';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
-import { listDevicesAction } from '../actions';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/', search: '', hash: '', state: null, key: 'default' })
+}));
+
+jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+    {
+        devices: [],
+        synchronizationStatus: SynchronizationStatus.fetched,
+        deviceQuery: {
+            clauses: [],
+            continuationTokens: [],
+            currentPageIndex: 0,
+            deviceId: '',
+        }
+    },
+    jest.fn()
+]);
 
 describe('DeviceList', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><DeviceList/></MemoryRouter>);
-        expect(container).toBeDefined();
+    it('renders no device text when list is empty', () => {
+        render(<MemoryRouter><DeviceList/></MemoryRouter>);
+
+        expect(screen.getAllByText('deviceLists.noDevice').length).toBeGreaterThan(0);
+    });
+
+    it('renders add device button', () => {
+        render(<MemoryRouter><DeviceList/></MemoryRouter>);
+
+        expect(screen.getByText('deviceLists.commands.add')).toBeDefined();
+    });
+
+    it('renders device query search area', () => {
+        render(<MemoryRouter><DeviceList/></MemoryRouter>);
+
+        expect(screen.getByLabelText('deviceLists.query.deviceId.ariaLabel')).toBeDefined();
     });
 });

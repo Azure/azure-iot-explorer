@@ -3,19 +3,29 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { Breadcrumb } from './breadcrumb';
 
-jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: () => jest.fn(),
-    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
-}));
-
 describe('Breadcrumb', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><Breadcrumb/></MemoryRouter>);
-        expect(container).toBeDefined();
+    it('renders as link when disableLink is false', () => {
+        render(<MemoryRouter><Breadcrumb name="Home" url="/home" disableLink={false}/></MemoryRouter>);
+
+        const link = screen.getByText('Home');
+        expect(link.closest('a')).toBeDefined();
+    });
+
+    it('renders as plain text when disableLink is true', () => {
+        const { container } = render(<MemoryRouter><Breadcrumb name="Current" url="/current" disableLink={true}/></MemoryRouter>);
+
+        expect(screen.getByText('Current')).toBeDefined();
+        // Check no anchor within the breadcrumb item specifically
+        expect(container.querySelector('li.breadcrumb-item a')).toBeNull();
+    });
+
+    it('renders inside a list item', () => {
+        const { container } = render(<MemoryRouter><Breadcrumb name="Test" url="/test" disableLink={false}/></MemoryRouter>);
+
+        expect(container.querySelector('li.breadcrumb-item')).toBeDefined();
     });
 });

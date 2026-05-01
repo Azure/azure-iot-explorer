@@ -3,18 +3,55 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DeviceTwin } from './deviceTwin';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
-import { DeviceTwinStateInterface } from './../state';
-import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
-import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
-describe('devices/components/deviceTwin', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
-        expect(container).toBeDefined();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/detail/twin/', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' })
+}));
+
+jest.mock('../../../navigation/hooks/useBreadcrumbEntry', () => ({
+    useBreadcrumbEntry: jest.fn()
+}));
+
+describe('DeviceTwin', () => {
+    it('renders refresh and save command bar buttons when twin is loaded', () => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+            { deviceTwin: { payload: { deviceId: 'testDevice' }, synchronizationStatus: SynchronizationStatus.fetched } },
+            jest.fn()
+        ]);
+
+        render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
+
+        expect(screen.getByText('deviceTwin.command.refresh')).toBeDefined();
+        expect(screen.getByText('deviceTwin.command.save')).toBeDefined();
+    });
+
+    it('renders header view', () => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+            { deviceTwin: { payload: { deviceId: 'testDevice' }, synchronizationStatus: SynchronizationStatus.fetched } },
+            jest.fn()
+        ]);
+
+        render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
+
+        expect(screen.getByText('deviceTwin.headerText')).toBeDefined();
+    });
+
+    it('shows shimmer when syncing', () => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+            { deviceTwin: { payload: undefined, synchronizationStatus: SynchronizationStatus.working } },
+            jest.fn()
+        ]);
+
+        render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
+
+        // MultiLineShimmer renders with role="status"
+        expect(screen.getByRole('status')).toBeDefined();
     });
 });

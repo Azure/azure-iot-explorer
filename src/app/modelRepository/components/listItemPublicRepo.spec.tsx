@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ListItemPublicRepo } from './listItemPublicRepo';
 
@@ -14,8 +14,16 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('ListItemPublicRepo', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><ListItemPublicRepo/></MemoryRouter>);
-        expect(container).toBeDefined();
+    it('renders public repo label', () => {
+        render(<MemoryRouter><ListItemPublicRepo/></MemoryRouter>);
+
+        expect(screen.getByText('modelRepository.types.public.label')).toBeDefined();
+    });
+
+    it('renders read-only input with URL', () => {
+        render(<MemoryRouter><ListItemPublicRepo/></MemoryRouter>);
+
+        const input = screen.getByLabelText('modelRepository.types.configurable.textBoxLabel');
+        expect((input as HTMLInputElement).readOnly).toBe(true);
     });
 });

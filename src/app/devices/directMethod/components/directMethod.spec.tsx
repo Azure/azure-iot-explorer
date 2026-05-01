@@ -3,16 +3,49 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DirectMethod } from './directMethod';
-import { invokeDirectMethodAction } from '../actions';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
-import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
-describe('directMethod', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><DirectMethod/></MemoryRouter>);
-        expect(container).toBeDefined();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/detail/directMethod/', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' })
+}));
+
+jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+    undefined,
+    jest.fn()
+]);
+
+jest.mock('../../../navigation/hooks/useBreadcrumbEntry', () => ({
+    useBreadcrumbEntry: jest.fn()
+}));
+
+describe('DirectMethod', () => {
+    it('renders invoke method button', () => {
+        render(<MemoryRouter><DirectMethod/></MemoryRouter>);
+
+        expect(screen.getByText('directMethod.invokeMethodButtonText')).toBeDefined();
+    });
+
+    it('renders method name input field', () => {
+        render(<MemoryRouter><DirectMethod/></MemoryRouter>);
+
+        expect(screen.getByText('directMethod.methodName')).toBeDefined();
+    });
+
+    it('renders payload section', () => {
+        render(<MemoryRouter><DirectMethod/></MemoryRouter>);
+
+        expect(screen.getByText('directMethod.payload')).toBeDefined();
+    });
+
+    it('renders timeout sliders', () => {
+        render(<MemoryRouter><DirectMethod/></MemoryRouter>);
+
+        expect(screen.getByLabelText('directMethod.connectionTimeout')).toBeDefined();
+        expect(screen.getByLabelText('directMethod.responseTimeout')).toBeDefined();
     });
 });

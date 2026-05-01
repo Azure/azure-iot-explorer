@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -17,13 +17,25 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('ModelRepositoryLocationListItem', () => {
-    it('renders without crashing', () => {
+    it('renders with public repo type showing listitem role', () => {
         const formState = [
             { repositoryLocationSettings: [] },
             { setRepositoryLocationSettings: jest.fn(), setDirtyFlag: jest.fn() }
         ];
         const item = { repositoryLocationType: 'public', value: '' };
-        const { container } = render(<MemoryRouter><ModelRepositoryLocationListItem index={0} item={item as any} formState={formState as any}/></MemoryRouter>);
-        expect(container).toBeDefined();
+        render(<MemoryRouter><ModelRepositoryLocationListItem index={0} item={item as any} formState={formState as any}/></MemoryRouter>);
+
+        expect(screen.getByRole('listitem')).toBeDefined();
+    });
+
+    it('renders remove button', () => {
+        const formState = [
+            { repositoryLocationSettings: [{ repositoryLocationType: 'public', value: '' }] },
+            { setRepositoryLocationSettings: jest.fn(), setDirtyFlag: jest.fn() }
+        ];
+        const item = { repositoryLocationType: 'public', value: '' };
+        render(<MemoryRouter><ModelRepositoryLocationListItem index={0} item={item as any} formState={formState as any}/></MemoryRouter>);
+
+        expect(screen.getByLabelText('modelRepository.commands.remove.ariaLabel')).toBeDefined();
     });
 });

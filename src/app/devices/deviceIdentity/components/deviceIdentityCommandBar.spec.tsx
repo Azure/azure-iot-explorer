@@ -3,32 +3,41 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import 'jest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { DeviceIdentityCommandBar } from './deviceIdentityCommandBar';
 
-import { render } from '@testing-library/react';
-const getComponent = (overrides = {}) => {
-    const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
-    const props = {
-        connectionString,
+describe('DeviceIdentityCommandBar', () => {
+    const defaultProps = {
+        connectionString: 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=',
         handleSave: jest.fn(),
-        ...overrides,
     };
-    return <DeviceIdentityCommandBar {...props} />;
-};
 
-describe('deviceIdentityCommandBar', () => {
-    context('snapshot', () => {
-        it('matches snapshot', () => {
-            const { container } = render(getComponent());
-        expect(container).toBeDefined();
-        });
+    beforeEach(() => jest.clearAllMocks());
 
-        it('matches snapshot with disabled save', () => {
-            const { container } = render(getComponent({
-                disableSave: true
-            }));
-        expect(container).toBeDefined();
-        });
+    it('renders save button', () => {
+        render(<DeviceIdentityCommandBar {...defaultProps}/>);
+
+        expect(screen.getByText('deviceIdentity.commands.save')).toBeDefined();
+    });
+
+    it('renders manage keys menu button', () => {
+        render(<DeviceIdentityCommandBar {...defaultProps}/>);
+
+        expect(screen.getByText('deviceIdentity.commands.manageKeys.label')).toBeDefined();
+    });
+
+    it('disables save button when disableSave is true', () => {
+        render(<DeviceIdentityCommandBar {...defaultProps} disableSave={true}/>);
+
+        const saveButton = screen.getByLabelText('deviceIdentity.commands.save');
+        expect((saveButton as HTMLButtonElement).disabled).toBe(true);
+    });
+
+    it('calls handleSave when save button is clicked', () => {
+        const handleSave = jest.fn();
+        render(<DeviceIdentityCommandBar {...defaultProps} handleSave={handleSave}/>);
+
+        fireEvent.click(screen.getByText('deviceIdentity.commands.save'));
+        expect(handleSave).toHaveBeenCalledTimes(1);
     });
 });

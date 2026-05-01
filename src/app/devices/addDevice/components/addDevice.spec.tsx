@@ -3,19 +3,46 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AddDevice } from './addDevice';
-import { PasswordField } from '../../../shared/components/passwordField';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
-import { addDeviceAction } from '../actions';
-import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
-describe('addDevice', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><AddDevice/></MemoryRouter>);
-        expect(container).toBeDefined();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/add', search: '', hash: '', state: null, key: 'default' })
+}));
+
+jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+    { synchronizationStatus: SynchronizationStatus.initialized },
+    jest.fn()
+]);
+
+describe('AddDevice', () => {
+    it('renders device ID input field', () => {
+        render(<MemoryRouter><AddDevice/></MemoryRouter>);
+
+        expect(screen.getByText('deviceIdentity.deviceID')).toBeDefined();
+    });
+
+    it('renders authentication type section', () => {
+        render(<MemoryRouter><AddDevice/></MemoryRouter>);
+
+        expect(screen.getByText('deviceIdentity.authenticationType.symmetricKey.type')).toBeDefined();
+    });
+
+    it('renders save and close command bar buttons', () => {
+        render(<MemoryRouter><AddDevice/></MemoryRouter>);
+
+        expect(screen.getByText('deviceLists.commands.save')).toBeDefined();
+        expect(screen.getByText('deviceLists.commands.close')).toBeDefined();
+    });
+
+    it('renders hub connectivity switch', () => {
+        render(<MemoryRouter><AddDevice/></MemoryRouter>);
+
+        expect(screen.getByText('deviceIdentity.hubConnectivity.label')).toBeDefined();
     });
 });

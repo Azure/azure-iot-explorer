@@ -3,13 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { SettingsPane } from './settingsPane';
 
-
 describe('settingsPane', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<SettingsPane/>);
-        expect(container).toBeDefined();
+    it('renders settings launch button', () => {
+        render(<SettingsPane/>);
+
+        expect(screen.getByText('header.settings.launch')).toBeDefined();
+    });
+
+    it('settings button has aria-label', () => {
+        render(<SettingsPane/>);
+
+        expect(screen.getByLabelText('header.settings.launch')).toBeDefined();
     });
 });

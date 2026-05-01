@@ -3,18 +3,67 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ConnectionStringCommandBar } from './commandBar';
-import { connectionStringsStateInitial } from '../state';
+import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
 import * as connectionStringContext from '../context/connectionStringStateContext';
 import * as authenticationStateContext from '../../authentication/context/authenticationStateContext';
-import { getInitialAuthenticationState } from '../../authentication/state';
-import { CommandBarV9 as CommandBar } from '../../shared/components/commandBarV9';
 
+const mockSetLoginPreference = jest.fn();
+
+jest.mock('../context/connectionStringStateContext', () => ({
+    useConnectionStringContext: jest.fn()
+}));
+
+jest.mock('../../authentication/context/authenticationStateContext', () => ({
+    useAuthenticationStateContext: jest.fn()
+}));
 
 describe('ConnectionStringCommandBar', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<ConnectionStringCommandBar/>);
-        expect(container).toBeDefined();
+    const mockOnAdd = jest.fn();
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        (connectionStringContext.useConnectionStringContext as jest.Mock).mockReturnValue([
+            { payload: [], synchronizationStatus: 'fetched' },
+            { setConnectionStrings: jest.fn(), upsertConnectionString: jest.fn(), deleteConnectionString: jest.fn(), getConnectionStrings: jest.fn() }
+        ]);
+        (authenticationStateContext.useAuthenticationStateContext as jest.Mock).mockReturnValue([
+            {},
+            { setLoginPreference: mockSetLoginPreference, getLoginPreference: jest.fn() }
+        ]);
+    });
+
+    it('renders add and switch auth buttons', () => {
+        render(<ConnectionStringCommandBar onAddConnectionStringClick={mockOnAdd}/>);
+
+        expect(screen.getByText('connectionStrings.addConnectionCommand.label')).toBeDefined();
+        expect(screen.getByText('authentication.authSelection.switchAuthType')).toBeDefined();
+    });
+
+    it('calls onAddConnectionStringClick when add button is clicked', () => {
+        render(<ConnectionStringCommandBar onAddConnectionStringClick={mockOnAdd}/>);
+
+        fireEvent.click(screen.getByText('connectionStrings.addConnectionCommand.label'));
+        expect(mockOnAdd).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls setLoginPreference with empty string when switch auth is clicked', () => {
+        render(<ConnectionStringCommandBar onAddConnectionStringClick={mockOnAdd}/>);
+
+        fireEvent.click(screen.getByText('authentication.authSelection.switchAuthType'));
+        expect(mockSetLoginPreference).toHaveBeenCalledWith('');
+    });
+
+    it('disables add button when payload is at max length', () => {
+        (connectionStringContext.useConnectionStringContext as jest.Mock).mockReturnValue([
+            { payload: Array.from({ length: CONNECTION_STRING_LIST_MAX_LENGTH }, (_, i) => ({ connectionString: `cs${i}` })), synchronizationStatus: 'fetched' },
+            { setConnectionStrings: jest.fn(), upsertConnectionString: jest.fn(), deleteConnectionString: jest.fn(), getConnectionStrings: jest.fn() }
+        ]);
+
+        render(<ConnectionStringCommandBar onAddConnectionStringClick={mockOnAdd}/>);
+
+        const addButton = screen.getByLabelText('connectionStrings.addConnectionCommand.ariaLabel');
+        expect((addButton as HTMLButtonElement).disabled).toBe(true);
     });
 });

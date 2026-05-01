@@ -3,19 +3,27 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AddModuleIdentity } from './addModuleIdentity';
-import { PasswordField } from '../../../../shared/components/passwordField';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
-import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
-import { addModuleIdentityAction } from '../actions';
-import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' })
+}));
 
 describe('devices/components/addModuleIdentity', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><AddModuleIdentity/></MemoryRouter>);
-        expect(container).toBeDefined();
+    it('renders save and cancel buttons', () => {
+        render(<MemoryRouter><AddModuleIdentity/></MemoryRouter>);
+
+        expect(screen.getByText('moduleIdentity.command.save')).toBeDefined();
+        expect(screen.getByText('moduleIdentity.command.cancel')).toBeDefined();
+    });
+
+    it('renders module ID input field', () => {
+        render(<MemoryRouter><AddModuleIdentity/></MemoryRouter>);
+
+        expect(screen.getByLabelText('moduleIdentity.moduleId')).toBeDefined();
     });
 });

@@ -6,8 +6,6 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppVersionMessageBar } from './appVersionMessageBar';
-import * as AppVersionHelper from '../utils/appVersionHelper';
-import * as githubService from '../../api/services/githubService';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -15,9 +13,16 @@ jest.mock('react-router-dom', () => ({
     useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
 }));
 
+jest.mock('../../api/services/githubService', () => ({
+    fetchLatestReleaseTagName: () => Promise.resolve(undefined),
+    latestReleaseUrlPath: 'https://example.com'
+}));
+
 describe('components/devices/appVersionMessageBar', () => {
-    it('renders without crashing', () => {
+    it('renders without message bar when no newer release', () => {
         const { container } = render(<MemoryRouter><AppVersionMessageBar/></MemoryRouter>);
-        expect(container).toBeDefined();
+
+        // When no newer release, should render empty fragment
+        expect(container.querySelector('[class*="MessageBar"]')).toBeNull();
     });
 });

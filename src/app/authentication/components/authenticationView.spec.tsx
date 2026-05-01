@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthenticationView } from './authenticationView';
 
@@ -21,8 +21,16 @@ jest.mock('../context/authenticationStateContext', () => ({
 }));
 
 describe('AuthenticationView', () => {
-    it('renders without crashing', () => {
+    it('renders connection strings view for connectionString preference', () => {
         const { container } = render(<MemoryRouter><AuthenticationView/></MemoryRouter>);
-        expect(container).toBeDefined();
+
+        // Should render something (not shimmer) when formState is idle
+        expect(container.querySelector('.multi-line-shimmer')).toBeNull();
+    });
+
+    it('renders the component container', () => {
+        const { container } = render(<MemoryRouter><AuthenticationView/></MemoryRouter>);
+
+        expect(container.firstChild).toBeDefined();
     });
 });

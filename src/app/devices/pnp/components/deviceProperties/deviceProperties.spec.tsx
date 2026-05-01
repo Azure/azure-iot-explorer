@@ -3,22 +3,44 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DeviceProperties } from './deviceProperties';
-import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
-import { TwinWithSchema } from './dataHelper';
-import { PnpStateInterface, pnpStateInitial } from '../../state';
 import * as PnpContext from '../../context/pnpStateContext';
+import { pnpStateInitial } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { testModelDefinition, testTwin } from './testData';
-import { ModelDefinition } from '../../../../api/models/modelDefinition';
-import { getDeviceTwinAction } from '../../actions';
-import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '?deviceId=test', hash: '', state: null, key: 'default' })
+}));
 
 describe('components/devices/deviceProperties', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><DeviceProperties/></MemoryRouter>);
-        expect(container).toBeDefined();
+    beforeEach(() => {
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({
+            pnpState: pnpStateInitial().merge({
+                twin: { payload: null, synchronizationStatus: SynchronizationStatus.fetched },
+                modelDefinitionWithSource: {
+                    payload: { modelDefinition: { contents: [] }, isModelValid: true },
+                    synchronizationStatus: SynchronizationStatus.fetched
+                }
+            }),
+            dispatch: jest.fn(),
+            getModelDefinition: jest.fn()
+        });
+    });
+
+    it('renders refresh and close command bar buttons', () => {
+        render(<MemoryRouter><DeviceProperties/></MemoryRouter>);
+
+        expect(screen.getByText('deviceProperties.command.refresh')).toBeDefined();
+        expect(screen.getByText('deviceProperties.command.close')).toBeDefined();
+    });
+
+    it('shows no properties label when there are no property schemas', () => {
+        render(<MemoryRouter><DeviceProperties/></MemoryRouter>);
+
+        expect(screen.getByText(/deviceProperties\.noProperties/)).toBeDefined();
     });
 });

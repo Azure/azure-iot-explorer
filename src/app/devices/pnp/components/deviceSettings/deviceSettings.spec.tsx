@@ -3,18 +3,44 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DeviceSettings } from './deviceSettings';
-import { pnpStateInitial, PnpStateInterface } from '../../state';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as PnpContext from '../../context/pnpStateContext';
-import { pnpStateWithTestData } from './testData';
-import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { pnpStateInitial } from '../../state';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '?deviceId=test', hash: '', state: null, key: 'default' })
+}));
 
 describe('deviceSettings', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><DeviceSettings/></MemoryRouter>);
-        expect(container).toBeDefined();
+    beforeEach(() => {
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({
+            pnpState: pnpStateInitial().merge({
+                twin: { payload: null, synchronizationStatus: SynchronizationStatus.fetched },
+                modelDefinitionWithSource: {
+                    payload: { modelDefinition: { contents: [] }, isModelValid: true },
+                    synchronizationStatus: SynchronizationStatus.fetched
+                }
+            }),
+            dispatch: jest.fn(),
+            getModelDefinition: jest.fn()
+        });
+    });
+
+    it('renders refresh and close buttons', () => {
+        render(<MemoryRouter><DeviceSettings/></MemoryRouter>);
+
+        expect(screen.getByText('deviceSettings.command.refresh')).toBeDefined();
+        expect(screen.getByText('deviceSettings.command.close')).toBeDefined();
+    });
+
+    it('shows no settings label when there are no settings', () => {
+        render(<MemoryRouter><DeviceSettings/></MemoryRouter>);
+
+        expect(screen.getByText(/deviceSettings\.noSettings/)).toBeDefined();
     });
 });

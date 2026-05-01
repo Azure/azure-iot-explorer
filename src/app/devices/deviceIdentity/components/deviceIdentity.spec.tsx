@@ -3,17 +3,33 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { DeviceIdentityInformation } from './deviceIdentity';
-import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
-import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as IotHubContext from '../../../iotHub/hooks/useIotHubContext';
-import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
+jest.mock('../../../iotHub/hooks/useIotHubContext', () => ({
+    useIotHubContext: () => ({
+        hostName: 'test.azure-devices.net',
+        connectionString: 'HostName=test.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=key'
+    })
+}));
 
-describe('deviceIdentity', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<DeviceIdentityInformation/>);
-        expect(container).toBeDefined();
+describe('DeviceIdentityInformation', () => {
+    it('renders header text', () => {
+        render(<DeviceIdentityInformation/>);
+
+        expect(screen.getByText('deviceIdentity.headerText')).toBeDefined();
+    });
+
+    it('renders device ID field label', () => {
+        render(<DeviceIdentityInformation/>);
+
+        expect(screen.getByText('deviceIdentity.deviceID')).toBeDefined();
+    });
+
+    it('renders hub connectivity label', () => {
+        render(<DeviceIdentityInformation/>);
+
+        expect(screen.getByText('deviceIdentity.hubConnectivity.label')).toBeDefined();
     });
 });

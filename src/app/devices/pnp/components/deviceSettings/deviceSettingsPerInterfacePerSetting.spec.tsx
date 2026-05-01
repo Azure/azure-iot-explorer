@@ -3,13 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
-import { PropertyContent } from '../../../../api/models/modelDefinition';
-import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
-import { DataForm } from '../../../shared/components/dataForm';
-import { ResourceKeys } from '../../../../../localization/resourceKeys';
+import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -28,23 +24,41 @@ jest.mock('../../context/pnpStateContext', () => ({
     })
 }));
 
+const defaultProps = {
+    settingModelDefinition: { name: 'testSetting', displayName: 'Test', schema: 'boolean' },
+    settingSchema: { title: 'testSetting', type: 'boolean' },
+    desiredValue: true,
+    reportedSection: null,
+    collapsed: false,
+    deviceId: 'testDevice',
+    moduleId: '',
+    componentName: 'testComponent',
+    interfaceId: 'testInterface',
+    handleCollapseToggle: jest.fn(),
+    handleOverlayDismiss: jest.fn(),
+    patchTwin: jest.fn()
+};
+
 describe('deviceSettingsPerInterfacePerSetting', () => {
-    it('renders without crashing', () => {
-        const props = {
-            settingModelDefinition: { name: 'testSetting', displayName: 'Test', schema: 'boolean' },
-            settingSchema: { title: 'testSetting', type: 'boolean' },
-            desiredValue: true,
-            reportedSection: null,
-            collapsed: false,
-            deviceId: 'testDevice',
-            moduleId: '',
-            componentName: 'testComponent',
-            interfaceId: 'testInterface',
-            handleCollapseToggle: jest.fn(),
-            handleOverlayDismiss: jest.fn(),
-            patchTwin: jest.fn()
-        };
-        const { container } = render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...props as any}/></MemoryRouter>);
-        expect(container).toBeDefined();
+    it('renders the setting item', () => {
+        const { container } = render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...defaultProps as any}/></MemoryRouter>);
+
+        // Component renders an article-like list item structure
+        expect(container.firstChild).toBeDefined();
+        expect(container.innerHTML.length).toBeGreaterThan(0);
+    });
+
+    it('renders collapse toggle button with title', () => {
+        render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...defaultProps as any}/></MemoryRouter>);
+
+        // When not collapsed, button title should be "collapse"
+        const collapseButton = screen.getByTitle('deviceSettings.command.collapse');
+        expect(collapseButton).toBeDefined();
+    });
+
+    it('renders dialog element for reported value panel', () => {
+        render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...defaultProps as any}/></MemoryRouter>);
+
+        expect(screen.getByRole('dialog')).toBeDefined();
     });
 });

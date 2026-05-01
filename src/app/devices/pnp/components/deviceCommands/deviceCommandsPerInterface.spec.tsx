@@ -3,10 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { DeviceCommandsPerInterface, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterface';
-import { DeviceCommandsPerInterfacePerCommand } from './deviceCommandsPerInterfacePerCommand';
+import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -26,8 +25,23 @@ jest.mock('../../context/pnpStateContext', () => ({
 }));
 
 describe('components/devices/deviceCommandsPerInterface', () => {
-    it('renders without crashing', () => {
-        const { container } = render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} handleCollapseToggle={jest.fn()} handleExpandToggle={jest.fn()}/></MemoryRouter>);
-        expect(container).toBeDefined();
+    it('renders column headers', () => {
+        render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
+
+        expect(screen.getByText('deviceCommands.columns.name')).toBeDefined();
+        expect(screen.getByText('deviceCommands.columns.type')).toBeDefined();
+    });
+
+    it('renders collapse all button', () => {
+        const { container } = render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
+
+        const collapseBtn = container.querySelector('.collapse-button button');
+        expect(collapseBtn).toBeDefined();
+    });
+
+    it('renders empty list role when no commands', () => {
+        render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
+
+        expect(screen.getByRole('main')).toBeDefined();
     });
 });

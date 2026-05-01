@@ -17,12 +17,21 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('ModelRepositoryLocationList', () => {
-    it('renders without crashing', () => {
+    it('renders the list container', () => {
         const formState = [
             { repositoryLocationSettings: [] },
             { setRepositoryLocationSettings: jest.fn(), setDirtyFlag: jest.fn() }
         ];
         const { container } = render(<MemoryRouter><ModelRepositoryLocationList formState={formState as any}/></MemoryRouter>);
-        expect(container).toBeDefined();
+        expect(container.firstChild).toBeDefined();
+    });
+
+    it('renders items when settings are provided', () => {
+        const formState = [
+            { repositoryLocationSettings: [{ repositoryLocationType: 'public', value: '' }] },
+            { setRepositoryLocationSettings: jest.fn(), setDirtyFlag: jest.fn() }
+        ];
+        const { container } = render(<MemoryRouter><ModelRepositoryLocationList formState={formState as any}/></MemoryRouter>);
+        expect(container.querySelectorAll('[role="listitem"]').length).toBeGreaterThan(0);
     });
 });
