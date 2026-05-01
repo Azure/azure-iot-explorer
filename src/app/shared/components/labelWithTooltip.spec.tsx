@@ -3,27 +3,30 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { shallow } from 'enzyme';
 import * as React from 'react';
+import { render, screen } from '@testing-library/react';
 import { LabelWithTooltip } from './labelWithTooltip';
 
 describe('components/shared/labelWithTooltip', () => {
 
-    it('matches snapshot when tooltip specified', () => {
-        expect(shallow(
+    it('renders label text when tooltip specified', () => {
+        render(
             <LabelWithTooltip
                 tooltipText="calloutText"
             >
                 {'labelText'}
             </LabelWithTooltip>
-        )).toMatchSnapshot();
+        );
+        expect(screen.getByText('labelText')).toBeDefined();
+        expect(screen.getByRole('button', { name: 'More information' })).toBeDefined();
     });
 
-    it('matches snapshot when not tooltip specified', () => {
-        expect(shallow(
+    it('renders label text when no tooltip specified', () => {
+        render(
             <LabelWithTooltip>
                 {'labelText'}
             </LabelWithTooltip>
-        )).toMatchSnapshot();
+        );
+        expect(screen.getByText('labelText')).toBeDefined();
     });
 });

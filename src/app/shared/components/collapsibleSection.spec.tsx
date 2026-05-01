@@ -4,8 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Button } from '@fluentui/react-components';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { CollapsibleSection, CollapsibleSectionProps } from './collapsibleSection';
 
 describe('collapsibleSection', () => {
@@ -22,17 +21,17 @@ describe('collapsibleSection', () => {
         return <CollapsibleSection {...props} />;
     };
 
-    it('matches snapshot', () => {
-        expect(shallow(getComponent())).toMatchSnapshot();
+    it('renders with label', () => {
+        render(getComponent());
+        expect(screen.getByText('Label')).toBeDefined();
     });
 
     it('toggles section', () => {
-        const wrapper = mount(getComponent());
-        const button = wrapper.find(Button).at(0);
-        expect(wrapper.find(Button).first().props().title).toEqual('collapsibleSection.open');
+        render(getComponent());
+        const button = screen.getByTitle('collapsibleSection.open');
+        expect(button).toBeDefined();
 
-        button.simulate('click');
-        wrapper.update();
-        expect(wrapper.find(Button).first().props().title).toEqual('collapsibleSection.close');
+        fireEvent.click(button);
+        expect(screen.getByTitle('collapsibleSection.close')).toBeDefined();
     });
 });

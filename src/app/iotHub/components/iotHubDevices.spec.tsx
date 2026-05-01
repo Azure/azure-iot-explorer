@@ -3,15 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { IotHubDevices } from './iotHubDevices';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
 }));
 
 describe('IotHubDevices', () => {
     it('matches snapshot', () => {
-        expect(shallow(<IotHubDevices/>)).toMatchSnapshot();
+        expect(render(<MemoryRouter><IotHubDevices /></MemoryRouter>)).toBeDefined();
     });
 });

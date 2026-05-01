@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { mount } from 'enzyme'
+import { render } from '@testing-library/react';
 import { useBreadcrumbs } from './useBreadcrumbs';
 import { BreadcrumbEntry } from '../model';
 
@@ -36,9 +36,9 @@ const TestComponent: React.FC<TestComponentProps> = ({report, unRegister}) => {
 };
 
 describe('useBreadcrumbs', () => {
-    it('reports expected parameters', () => {
+    it('reports expected parameters on initial render', () => {
         const report = jest.fn();
-        const wrapper = mount(<TestComponent report={report} unRegister={false} />);
+        render(<TestComponent report={report} unRegister={false} />);
 
         expect(report).toHaveBeenCalledTimes(2);
         expect(report).toHaveBeenNthCalledWith(1, []);
@@ -48,9 +48,14 @@ describe('useBreadcrumbs', () => {
             suffix: '',
             url: ''
         }]);
+    });
 
-        wrapper.setProps({report, unRegister: true});
-        wrapper.update();
+    it('unregisters entry when unRegister becomes true', () => {
+        const report = jest.fn();
+        const { rerender } = render(<TestComponent report={report} unRegister={false} />);
+
+        report.mockClear();
+        rerender(<TestComponent report={report} unRegister={true} />);
 
         expect(report).toHaveBeenLastCalledWith([]);
     });

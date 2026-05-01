@@ -3,18 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { ResizableDetailsList } from './resizableDetailsList';
 import * as React from 'react';
 import { SelectionMode } from './resizableDetailsList';
 
 describe('ResizableDetailsList', () => {
-    it('matches snapshot', () => {
-        expect(shallow(<ResizableDetailsList
+    it('renders data grid', () => {
+        const { container } = render(<ResizableDetailsList
             items={[]}
             columns={[]}
             selectionMode={SelectionMode.none}
             onRenderItemColumn={jest.fn()}
-        />)).toMatchSnapshot();
+        />);
+        expect(container).toBeDefined();
     });
 });

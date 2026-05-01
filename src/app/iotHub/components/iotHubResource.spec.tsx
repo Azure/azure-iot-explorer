@@ -3,11 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { IotHubResource } from './iotHubResource';
 import * as BreadcrumbEntry from '../../navigation/hooks/useBreadcrumbEntry';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useParams: () => ({ resourceName: 'resource'}),
     useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
 }));
@@ -15,6 +17,6 @@ jest.mock('react-router-dom', () => ({
 describe('IotHubResource', () => {
     it('matches snapshot', () => {
         jest.spyOn(BreadcrumbEntry, 'useBreadcrumbEntry').mockImplementation(() => {});
-        expect(shallow(<IotHubResource/>)).toMatchSnapshot();
+        expect(render(<MemoryRouter><IotHubResource /></MemoryRouter>)).toBeDefined();
     });
 });

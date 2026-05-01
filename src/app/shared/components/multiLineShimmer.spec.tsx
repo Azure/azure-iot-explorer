@@ -4,20 +4,22 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { mount } from 'enzyme';
-import { Skeleton } from '@fluentui/react-components';
+import { render, screen } from '@testing-library/react';
 import { MultiLineShimmer } from './multiLineShimmer';
 
 describe('shared/components/multiLineShimmer', () => {
-    it('renders shimmers properly', () => {
-        let wrapper = mount(<MultiLineShimmer/>).find(MultiLineShimmer);
-        let shimmerDiv = wrapper.find('div.fixed-shimmer');
-        // tslint:disable-next-line:no-magic-numbers
-        expect(shimmerDiv.find(Skeleton)).toHaveLength(3);
+    it('renders default shimmer lines', () => {
+        const { container } = render(<MultiLineShimmer/>);
+        const shimmerDiv = container.querySelector('.fixed-shimmer');
+        expect(shimmerDiv).toBeDefined();
+        // Default renders 3 skeleton lines
+        expect(shimmerDiv!.children.length).toBe(3);
+    });
 
+    it('renders custom shimmer count', () => {
         const shimmerCount = 10;
-        wrapper = mount(<MultiLineShimmer className="non-fixed-shimmer" shimmerCount={shimmerCount}/>).find(MultiLineShimmer);
-        shimmerDiv = wrapper.find('div.non-fixed-shimmer');
-        expect(shimmerDiv.find(Skeleton)).toHaveLength(shimmerCount);
+        const { container } = render(<MultiLineShimmer className="non-fixed-shimmer" shimmerCount={shimmerCount}/>);
+        const shimmerDiv = container.querySelector('.non-fixed-shimmer');
+        expect(shimmerDiv!.children.length).toBe(shimmerCount);
     });
 });

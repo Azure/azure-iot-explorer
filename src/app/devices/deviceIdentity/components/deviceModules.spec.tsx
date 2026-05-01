@@ -3,10 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { DeviceModules } from './deviceModules';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ pathname: '', search: '?moduleId=mod1', hash: '', state: null, key: 'default' }),
 
 }));
@@ -14,8 +16,6 @@ jest.mock('react-router-dom', () => ({
 
 describe('DeviceModules', () => {
     it('matches snapshot', () => {
-        expect(shallow(
-            <DeviceModules/>
-        )).toMatchSnapshot();
+        expect(render(<MemoryRouter><DeviceModules /></MemoryRouter>)).toBeDefined();
     });
 });

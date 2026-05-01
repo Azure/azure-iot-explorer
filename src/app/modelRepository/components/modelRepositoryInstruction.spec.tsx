@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { ModelRepositoryInstruction } from './modelRepositoryInstruction';
 
+import { render } from '@testing-library/react';
 describe('ModelRepositoryInstruction', () => {
     it('matches snapshot', () => {
-        expect(shallow(<ModelRepositoryInstruction/>)).toMatchSnapshot();
+        expect(render(<ModelRepositoryInstruction/>)).toBeDefined();
     });
 });

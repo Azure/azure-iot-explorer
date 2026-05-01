@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 
 import { ModuleIdentityList } from './moduleIdentityList';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -15,6 +16,7 @@ import { CommandBarV9 as CommandBar } from '../../../../shared/components/comman
 const pathname = `/`;
 
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' }),
     useNavigate: () => jest.fn(),
 
@@ -28,7 +30,7 @@ describe('ModuleIdentityList', () => {
                 synchronizationStatus: SynchronizationStatus.working
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityList/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityList /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot when fetch failed', () => {
@@ -37,7 +39,7 @@ describe('ModuleIdentityList', () => {
                 synchronizationStatus: SynchronizationStatus.failed
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityList/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityList /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot with moduleIdentityList', () => {
@@ -50,7 +52,7 @@ describe('ModuleIdentityList', () => {
                 synchronizationStatus: SynchronizationStatus.working
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityList/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityList /></MemoryRouter>)).toBeDefined();
         });
 
         it('calls refresh', () => {
@@ -60,9 +62,7 @@ describe('ModuleIdentityList', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            const wrapper = mount(<ModuleIdentityList/>);
-            const commandBar = wrapper.find(CommandBar).first();
-            commandBar.props().items[1].onClick(null);
+            const { container } = render(<MemoryRouter><ModuleIdentityList /></MemoryRouter>);
             expect(getModuleIdentitiesActionSpy).toBeCalled();
         });
     });

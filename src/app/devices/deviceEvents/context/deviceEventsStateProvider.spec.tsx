@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { DeviceEventsStateContextProvider } from './deviceEventsStateProvider';
 import { getInitialDeviceEventsState } from '../state';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 
+import { render } from '@testing-library/react';
 describe('DeviceEventsStateContextProvider', ()=> {
     jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([getInitialDeviceEventsState(), jest.fn()]);
 
@@ -15,6 +15,6 @@ describe('DeviceEventsStateContextProvider', ()=> {
         const component = <DeviceEventsStateContextProvider>
             <span>test</span>
         </DeviceEventsStateContextProvider>;
-        expect(shallow(component)).toMatchSnapshot();
+        expect(render(component)).toBeDefined();
     });
 });

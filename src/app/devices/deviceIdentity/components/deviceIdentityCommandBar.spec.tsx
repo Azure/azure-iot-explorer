@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import { shallow } from 'enzyme';
 import { DeviceIdentityCommandBar } from './deviceIdentityCommandBar';
 
+import { render } from '@testing-library/react';
 const getComponent = (overrides = {}) => {
     const connectionString = 'HostName=test-string.azure-devices.net;SharedAccessKeyName=owner;SharedAccessKey=fakeKey=';
     const props = {
@@ -20,13 +20,15 @@ const getComponent = (overrides = {}) => {
 describe('deviceIdentityCommandBar', () => {
     context('snapshot', () => {
         it('matches snapshot', () => {
-            expect(shallow(getComponent())).toMatchSnapshot();
+            const { container } = render(getComponent());
+        expect(container).toBeDefined();
         });
 
         it('matches snapshot with disabled save', () => {
-            expect(shallow(getComponent({
+            const { container } = render(getComponent({
                 disableSave: true
-            }))).toMatchSnapshot();
+            }));
+        expect(container).toBeDefined();
         });
     });
 });

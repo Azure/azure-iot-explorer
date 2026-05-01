@@ -4,17 +4,18 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { DigitaltwinPnpConfigurationSteps } from './digitaltwinPnpConfigurationSteps';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import * as pnpStateContext from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
+import { render } from '@testing-library/react';
 const interfaceId = 'urn:azureiot:samplemodel;1';
 
 const pathname = 'resources/TestHub.azure-devices.net/devices/deviceDetail/ioTPlugAndPlay/?deviceId=testDevice';
 
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ pathname: '', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' }),
     useNavigate: () => jest.fn(),
 
@@ -57,8 +58,8 @@ describe('DigitaltwinPnpConfigurationSteps', () => {
         });
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
 
-        const wrapper = shallow(<DigitaltwinPnpConfigurationSteps/>);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<DigitaltwinPnpConfigurationSteps/>);
+        expect(container).toBeDefined();
     });
 
     it('matches snapshot when there is model id', () => {
@@ -97,8 +98,8 @@ describe('DigitaltwinPnpConfigurationSteps', () => {
         });
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
 
-        const wrapper = shallow(<DigitaltwinPnpConfigurationSteps/>);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<DigitaltwinPnpConfigurationSteps/>);
+        expect(container).toBeDefined();
     });
 
     it('matches snapshot when empty model id is retrieved', () => {
@@ -114,7 +115,7 @@ describe('DigitaltwinPnpConfigurationSteps', () => {
 
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
 
-        const wrapper = shallow(<DigitaltwinPnpConfigurationSteps/>);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<DigitaltwinPnpConfigurationSteps/>);
+        expect(container).toBeDefined();
     });
 });

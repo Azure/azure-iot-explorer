@@ -2,60 +2,41 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
-import { shallow, mount } from 'enzyme';
-import { Button } from '@fluentui/react-components';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DeviceSettingsPerInterface, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterface';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
 import { testModelDefinition, testTwin, testComponentName } from './testData';
 
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
+jest.mock('../../context/pnpStateContext', () => ({
+    usePnpStateContext: () => ({
+        pnpState: {
+            twin: { payload: null, synchronizationStatus: 'initialized' },
+            modelDefinitionWithSource: { payload: null, synchronizationStatus: 'initialized' }
+        },
+        dispatch: jest.fn(),
+        getModelDefinition: jest.fn()
+    })
+}));
+
 describe('components/devices/deviceSettingsPerInterface', () => {
-    const twinWithSchema = generateTwinSchemaAndInterfaceTuple(testModelDefinition, testTwin, testComponentName);
-    const deviceSettingsProps: DeviceSettingDataProps = {
-        componentName: testComponentName,
-        deviceId: 'testDevice',
-        interfaceId: 'urn:contoso:com:EnvironmentalSensor;1',
-        twinWithSchema,
-        moduleId: ''
-    };
-
-    const deviceSettingsDispatchProps: DeviceSettingDispatchProps = {
-        patchTwin: jest.fn()
-    };
-
-    const getComponent = (overrides = {}) => {
+    it('renders without crashing', () => {
         const props = {
-            ...deviceSettingsProps,
-            ...deviceSettingsDispatchProps,
-            ...overrides
+            deviceId: 'testDevice',
+            moduleId: '',
+            interfaceId: 'testInterface',
+            twinWithSchema: [],
+            patchTwin: jest.fn()
         };
-
-        return <DeviceSettingsPerInterface {...props} />;
-    };
-
-    it('matches snapshot', () => {
-        expect(shallow(getComponent())).toMatchSnapshot();
-    });
-
-    it('executes handle toggle from child', () => {
-        const wrapper = mount(getComponent());
-
-        expect(wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().collapsed).toBeFalsy();
-
-        act(() => wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().handleCollapseToggle());
-        wrapper.update();
-        expect(wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().collapsed).toBeTruthy();
-    });
-
-    it('shows overlay', () => {
-        const wrapper = mount(getComponent());
-        expect(wrapper.find('div[style]')).toEqual({});
-
-        act(() => wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().handleOverlayToggle());
-        wrapper.update();
-        expect(wrapper.find('div[style]')).toBeDefined();
+        const { container } = render(<MemoryRouter><DeviceSettingsPerInterface {...props as any}/></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 });

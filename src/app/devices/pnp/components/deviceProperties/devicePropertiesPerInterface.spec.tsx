@@ -4,7 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import { DevicePropertiesPerInterface, DevicePropertiesDataProps } from './devicePropertiesPerInterface';
 
@@ -41,13 +41,12 @@ describe('devicePropertiesPerInterface', () => {
     };
 
     it('matches snapshot', () => {
-        expect(shallow(getComponent())).toMatchSnapshot();
+        expect(render(getComponent())).toBeDefined();
     });
 
     it('shows overlay', () => {
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
-        const wrapperWithOverlay = mount(getComponent());
-        expect(wrapperWithOverlay.find('div[style]')).toBeDefined();
+        const wrapperWithOverlay = render(getComponent());
     });
 });

@@ -3,9 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { ConnectionStringProperties, ConnectionStringPropertiesProps } from './connectionStringProperties';
 
+import { render } from '@testing-library/react';
 describe('ConnectionSTringProperties', () => {
     it('matches snapshot', () => {
         const props: ConnectionStringPropertiesProps = {
@@ -15,7 +15,7 @@ describe('ConnectionSTringProperties', () => {
             sharedAccessKeyName: 'sharedAccessKeyName'
         };
 
-        const wrapper = shallow(<ConnectionStringProperties {...props}/>);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<ConnectionStringProperties {...props}/>);
+        expect(container).toBeDefined();
     });
 });

@@ -3,11 +3,13 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { mount } from 'enzyme'
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { useBreadcrumbEntry } from './useBreadcrumbEntry';
 import * as BreadcrumbContext from './useBreadcrumbContext';
 
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ pathname: 'url', search: '', hash: '', state: null, key: 'default' })
 }));
 
@@ -27,7 +29,7 @@ describe('useBreadcrumbEntry', () => {
             unregisterEntry
         });
 
-        const wrapper = mount(<TestComponent/>);
+        const { unmount } = render(<MemoryRouter><TestComponent /></MemoryRouter>);
         expect(registerEntry).toHaveBeenCalledWith({
             name: 'name',
             disableLink: true,
@@ -36,7 +38,7 @@ describe('useBreadcrumbEntry', () => {
             url: 'url'
         });
 
-        wrapper.unmount();
+        unmount();
         expect(unregisterEntry).toHaveBeenCalledWith({
             name: 'name',
             disableLink: true,

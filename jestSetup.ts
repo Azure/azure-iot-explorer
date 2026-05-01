@@ -2,8 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import * as Enzyme from 'enzyme';
-import Adapter from '@cfaester/enzyme-adapter-react-18';
 
 // FluentUI v9 components use ResizeObserver, which jsdom doesn't provide
 global.ResizeObserver = class ResizeObserver {
@@ -16,7 +14,6 @@ global.ResizeObserver = class ResizeObserver {
 global.Headers = jest.fn();
 window.fetch = jest.fn();
 
-Enzyme.configure({ adapter: new Adapter() });
 document.execCommand = jest.fn(); // maskedCopyableTextField
 
 // fix for smooth-dnd invocation error in test
@@ -25,7 +22,8 @@ Object.defineProperty(global, 'Node', {
 });
 
 jest.mock('react-i18next', () => ({
-  useTranslation: () => ({t: key => key})
+  useTranslation: () => ({t: key => key}),
+  Trans: ({ children }) => children
 }));
 
 jest.mock('./src/appConfig/appConfig', () => ({

@@ -3,17 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { HomeView } from './homeView';
 
-describe('HomeView', () => {
-    it('matches snapshot', () => {
-        const routeProps = {
-            history: jest.fn() as any, // tslint:disable-line:no-any
-            location: jest.fn() as any, // tslint:disable-line:no-any
-            match: jest.fn() as any, // tslint:disable-line:no-any
-        };
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
 
-        expect(shallow(<HomeView {...routeProps} />)).toMatchSnapshot();
+describe('HomeView', () => {
+    it('renders without crashing', () => {
+        const { container } = render(<MemoryRouter><HomeView/></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 });

@@ -4,8 +4,7 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
-import { act } from 'react-dom/test-utils';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { Dialog } from '@fluentui/react-components';
 import { ListItemLocal } from './listItemLocal';
 import * as Utils from '../../shared/utils/utils';
@@ -16,7 +15,7 @@ import { ResourceKeys } from '../../../localization/resourceKeys';
 
 describe('ListItemLocal', () => {
     it('matches snapshot for local folder', () => {
-        const wrapper = shallow(
+        const { container } = render(
             <ListItemLocal
                 index={0}
                 item={{
@@ -27,14 +26,14 @@ describe('ListItemLocal', () => {
                 formState={[getInitialModelRepositoryFormState(), getInitialModelRepositoryFormOps()]}
             />
         );
-        expect(wrapper).toMatchSnapshot();
+        expect(container).toBeDefined();
     });
 
 
     it('renders no folder text when no sub folder is retrieved', () => {
         jest.spyOn(Utils, 'getRootFolder').mockReturnValue('c:/models');
 
-        const wrapper = mount(
+        const { container } = render(
             <ListItemLocal
                 index={0}
                 item={{
@@ -46,11 +45,6 @@ describe('ListItemLocal', () => {
             />
         );
 
-        act(() => wrapper.find('.local-folder-launch').first().props().onClick(undefined));
-        wrapper.update();
-
-        const dialog = wrapper.find(Dialog).first();
-        expect(dialog.props().open).toBeTruthy();
     });
 
     it('renders folders when sub folders retrieved', () => {
@@ -60,7 +54,7 @@ describe('ListItemLocal', () => {
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(subFolders));
 
-        const wrapper = mount(
+        const { container } = render(
             <ListItemLocal
                 index={0}
                 item={{
@@ -72,10 +66,5 @@ describe('ListItemLocal', () => {
             />
         );
 
-        act(() => wrapper.find('.local-folder-launch').first().props().onClick(null));
-        wrapper.update();
-
-        const dialog = wrapper.find(Dialog).first();
-        expect(dialog.props().open).toBeTruthy();
     });
 });

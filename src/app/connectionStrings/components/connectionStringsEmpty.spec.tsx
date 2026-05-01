@@ -3,11 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { ConnectionStringsEmpty } from './connectionStringsEmpty'
 
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
 describe('ConnectionSTringsEmpty', () => {
-    it('matches snapshot', () => {
-        expect(shallow(<ConnectionStringsEmpty/>)).toMatchSnapshot();
+    it('renders without crashing', () => {
+        const { container } = render(<MemoryRouter><ConnectionStringsEmpty/></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 });

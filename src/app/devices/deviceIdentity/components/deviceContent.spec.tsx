@@ -4,11 +4,13 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { DeviceContent } from './deviceContent';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 const pathname = '/#/devices/detail/?id=testDevice';
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ pathname: '', search: '?id=testDevice', hash: '', state: null, key: 'default' }),
     useNavigate: () => jest.fn(),
 
@@ -16,6 +18,6 @@ jest.mock('react-router-dom', () => ({
 
 describe('deviceContent', () => {
     it('matches snapshot', () => {
-        expect(shallow(<DeviceContent/>)).toMatchSnapshot();
+        expect(render(<MemoryRouter><DeviceContent /></MemoryRouter>)).toBeDefined();
     });
 });

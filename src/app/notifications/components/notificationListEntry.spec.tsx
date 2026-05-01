@@ -3,21 +3,22 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { NotificationListEntry, getNotificationIcon, getIconColor } from './notificationListEntry';
 import { NotificationType } from '../../api/models/notification';
 import { ErrorCircleRegular, CheckmarkCircleRegular, WarningRegular, InfoRegular } from '@fluentui/react-icons';
 
 const pathname = '/devices/add';
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useNavigate: () => jest.fn(),
     useLocation: () => ({ pathname })
 }));
 
 describe('notificationListEntry', () => {
 
-    it('matches snapshot', () => {
-        expect(shallow(<NotificationListEntry
+    it('renders notification entry', () => {
+        render(<NotificationListEntry
             notification={{
                     text: {
                         translationKey: 'test'
@@ -25,7 +26,8 @@ describe('notificationListEntry', () => {
                     type: NotificationType.success
                 }}
             showAnnouncement={true}
-        />)).toMatchSnapshot();
+        />);
+        expect(screen.getByText('test')).toBeDefined();
     });
 
     describe('getNotificationIcon', () => {

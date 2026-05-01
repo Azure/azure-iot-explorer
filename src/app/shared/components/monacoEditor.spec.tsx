@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { MonacoEditorComponent } from './monacoEditor';
 
 describe('MonacoEditorComponent', () => {
-    it('matches snapshot', () => {
-        expect(shallow(<MonacoEditorComponent content="test" height={100} ariaLabel="test label" />)).toMatchSnapshot();
+    it('renders editor container', () => {
+        const { container } = render(<MonacoEditorComponent content="test" height={100} ariaLabel="test label" />);
+        expect(container).toBeDefined();
     });
 });

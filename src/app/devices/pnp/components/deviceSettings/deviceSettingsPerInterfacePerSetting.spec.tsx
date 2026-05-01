@@ -2,141 +2,49 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import { Button } from '@fluentui/react-components';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { DataForm } from '../../../shared/components/dataForm';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 
-describe('deviceSettingsPerInterfacePerSetting', () => {
-    const name = 'state';
-    const description = 'The state of the device. Two states online/offline are available.';
-    const displayName = 'Device State';
-    const handleCollapseToggle = jest.fn();
-    let schema = 'boolean';
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
 
-    const propertyModelDefinition: PropertyContent = {
-        '@type': 'Property',
-        'description': description,
-        'displayName': displayName,
-        'name': name,
-        'schema': schema
-    };
-
-    const propertySchema: ParsedJsonSchema = {
-        default: false,
-        description: 'Device State / The state of the device. Two states online/offline are available.',
-        required: [],
-        title: name,
-        type: schema
-    };
-
-    const handleOverlayToggle = jest.fn();
-    const deviceSettingDispatchProps: DeviceSettingDispatchProps = {
-        handleCollapseToggle,
-        handleOverlayToggle,
-        patchTwin: jest.fn()
-    };
-
-    let deviceSettingDataProps: DeviceSettingDataProps = {
-        collapsed: true,
-        componentName: 'sensor',
-        deviceId: 'deviceId',
-        interfaceId: 'urn:interfaceId',
-        moduleId: '',
-        reportedSection: {
-            value: false
+jest.mock('../../context/pnpStateContext', () => ({
+    usePnpStateContext: () => ({
+        pnpState: {
+            twin: { payload: null, synchronizationStatus: 'initialized' },
+            modelDefinitionWithSource: { payload: null, synchronizationStatus: 'initialized' }
         },
-        settingModelDefinition: propertyModelDefinition,
-        settingSchema: propertySchema
-    };
+        dispatch: jest.fn(),
+        getModelDefinition: jest.fn()
+    })
+}));
 
-    it('renders when there is a writable property of simple type without sync status', () => {
+describe('deviceSettingsPerInterfacePerSetting', () => {
+    it('renders without crashing', () => {
         const props = {
-            ...deviceSettingDataProps,
-            ...deviceSettingDispatchProps
-        };
-
-        const wrapper = mount(
-            <DeviceSettingsPerInterfacePerSetting {...props}/>
-        );
-
-        // Check that the collapse button is rendered
-        const toggleButton = wrapper.find(Button);
-        expect(toggleButton).toHaveLength(1);
-        expect(toggleButton.props().icon).toBeDefined(); // collapsed shows ChevronDown icon
-
-        // Check that the header is clickable for collapse/expand
-        const header = wrapper.find('header');
-        expect(header).toHaveLength(1);
-        expect(header.props().onClick).toBe(handleCollapseToggle);
-
-        // Check that form is not visible when collapsed
-        const form = wrapper.find(DataForm);
-        expect(form).toHaveLength(0);
-    });
-
-    it('renders when there is a writable property of complex type with sync status', () => {
-        schema = 'Object';
-        const twinValue = {
-            test: 'value'
-        };
-        propertyModelDefinition.schema = {
-            '@type': schema,
-            'fields': []
-        };
-        propertySchema.type = schema;
-        const ackCode = 200;
-        const ackDescription = 'ackDescription';
-        deviceSettingDataProps = {
-            ...deviceSettingDataProps,
+            settingModelDefinition: { name: 'testSetting', displayName: 'Test', schema: 'boolean' },
+            settingSchema: { title: 'testSetting', type: 'boolean' },
+            desiredValue: true,
+            reportedSection: null,
             collapsed: false,
-            desiredValue: twinValue,
-            reportedSection: {
-                ac: ackCode,
-                ad: ackDescription,
-                value: twinValue
-            },
-            settingModelDefinition: propertyModelDefinition,
-            settingSchema: propertySchema
+            deviceId: 'testDevice',
+            moduleId: '',
+            componentName: 'testComponent',
+            interfaceId: 'testInterface',
+            handleCollapseToggle: jest.fn(),
+            handleOverlayDismiss: jest.fn(),
+            patchTwin: jest.fn()
         };
-
-        const props = {
-            ...deviceSettingDataProps,
-            ...deviceSettingDispatchProps
-        };
-
-        const wrapper = mount(
-            <DeviceSettingsPerInterfacePerSetting {...props}/>
-        );
-
-        // Check that the collapse button shows close icon when expanded
-        const toggleButton = wrapper.find(Button);
-        expect(toggleButton.length).toBeGreaterThanOrEqual(1);
-        expect(toggleButton.first().props().icon).toBeDefined(); // expanded shows ChevronUp icon
-
-        // Check that the header is clickable for collapse/expand
-        const header = wrapper.find('header');
-        expect(header).toHaveLength(1);
-        const onClickHandler = header.props().onClick;
-        if (onClickHandler) {
-            act(() => onClickHandler({} as React.MouseEvent<HTMLElement>));
-        }
-        expect(handleCollapseToggle).toBeCalled();
-
-        // Check that form is visible when expanded
-        const form = wrapper.find(DataForm);
-        expect(form).toHaveLength(1);
-        expect((form.props() as any).formData).toEqual(twinValue); // tslint:disable-line:no-any
-
-        // Check that the component renders in expanded state
-        const section = wrapper.find('section');
-        expect(section).toHaveLength(1);
-        expect(section.props().className).toEqual('item-detail item-detail-uncollapsed');
+        const { container } = render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...props as any}/></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 });

@@ -75,11 +75,7 @@
     "url": "https://github.com/Azure/azure-iot-explorer/issues"
   },
   "homepage": "https://github.com/Azure/azure-iot-explorer#readme",
-  "overrides": {
-    "enzyme": {
-      "cheerio": "1.0.0-rc.12"
-    }
-  },
+  "overrides": {},
   "dependencies": {
     "@azure/core-amqp": "^4.4.2",
     "@azure/event-hubs": "^5.12.2",
@@ -124,10 +120,12 @@
     "ws": "^8.20.0"
   },
   "devDependencies": {
-    "@cfaester/enzyme-adapter-react-18": "^0.8.0",
     "@electron/fuses": "^2.1.1",
     "@redux-saga/testing-utils": "^1.1.3",
-    "@types/enzyme": "^3.10.8",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/escape-html": "^1.0.4",
     "@types/he": "^1.2.3",
     "@types/jest": "^29.5.14",
@@ -148,8 +146,6 @@
     "css-minimizer-webpack-plugin": "^3.4.1",
     "electron": "^41.3.0",
     "electron-builder": "^26.0.0",
-    "enzyme": "^3.11.0",
-    "enzyme-to-json": "^3.3.5",
     "eslint": "^9.39.4",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
@@ -212,7 +208,7 @@
       ]
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!react-movable|cheerio|htmlparser2|dom-serializer|domhandler|domutils|entities|css-select|css-what|boolbase|nth-check|parse5|parse5-htmlparser2-tree-adapter|@azure/event-hubs|@azure/core-amqp|@azure/core-auth|@azure/core-rest-pipeline|@azure/core-tracing|@azure/core-util|@azure/abort-controller|@azure/logger|@typespec/ts-http-runtime|@rjsf/utils|@rjsf/core|@rjsf/fluent-ui|@x0k/json-schema-merge)"
+      "node_modules/(?!react-movable|@azure/event-hubs|@azure/core-amqp|@azure/core-auth|@azure/core-rest-pipeline|@azure/core-tracing|@azure/core-util|@azure/abort-controller|@azure/logger|@typespec/ts-http-runtime|@rjsf/utils|@rjsf/core|@rjsf/fluent-ui|@x0k/json-schema-merge)"
     ],
     "testRegex": "(\\.|/)(spec)\\.(tsx?)$",
     "moduleNameMapper": {
@@ -226,9 +222,7 @@
       "ts",
       "tsx"
     ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
+    "snapshotSerializers": [],
     "testEnvironmentOptions": {
       "url": "http://localhost?trustedAuthority=https://localhost"
     },

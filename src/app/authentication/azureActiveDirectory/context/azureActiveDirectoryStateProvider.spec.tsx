@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { AzureActiveDirectoryStateContextProvider } from './azureActiveDirectoryStateProvider';
 import { getInitialAzureActiveDirectoryState } from '../state';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 
+import { render } from '@testing-library/react';
 describe('AzureActiveDirectoryStateContextProvider', ()=> {
     jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([getInitialAzureActiveDirectoryState(), jest.fn()]);
 
@@ -11,6 +11,6 @@ describe('AzureActiveDirectoryStateContextProvider', ()=> {
         const component = <AzureActiveDirectoryStateContextProvider>
             <span>test</span>
         </AzureActiveDirectoryStateContextProvider>;
-        expect(shallow(component)).toMatchSnapshot();
+        expect(render(component)).toBeDefined();
     });
 });

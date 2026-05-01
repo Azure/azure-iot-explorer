@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { useBreadcrumbContext, BreadcrumbContext } from './useBreadcrumbContext';
 
 const TestComponent: React.FC = () => {
@@ -15,7 +15,7 @@ describe('useBreadcrumbContext', () => {
     it('calls context with expected value', () => {
         const spy = jest.spyOn(React, 'useContext');
 
-        mount(<TestComponent/>);
+        render(<TestComponent/>);
         expect(spy).toHaveBeenCalledWith(BreadcrumbContext);
     });
 });

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import 'jest';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { useAsyncSagaReducer } from './useAsyncSagaReducer';
 
 describe('useAsyncSagaReducer', () => {
@@ -21,11 +21,9 @@ describe('useAsyncSagaReducer', () => {
       return (<p className="current-state">{state.foo}</p>);
     };
 
-    const wrapper = shallow(<TestReactComponent />);
+    render(<TestReactComponent />);
 
     expect(useReducerSpy).toHaveBeenCalledWith(fooReducer, initialState);
-
-    const text = wrapper.find('.current-state').text();
-    expect(text).toEqual('baz');
+    expect(screen.getByText('baz')).toBeDefined();
   });
 });

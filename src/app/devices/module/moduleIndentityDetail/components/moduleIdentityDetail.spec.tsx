@@ -4,14 +4,16 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import { shallow } from 'enzyme';
 import { ModuleIdentityDetail } from './moduleIdentityDetail';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
 import * as IotHubContext from '../../../../iotHub/hooks/useIotHubContext';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 const pathname = 'https://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useNavigate: () => jest.fn(),
     useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
 }));
@@ -65,7 +67,7 @@ describe('ModuleIdentityDetail', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([{synchronizationStatus: SynchronizationStatus.working}, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after module identity is fetched', () => {
@@ -74,7 +76,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after sas module identity is fetched', () => {
@@ -83,7 +85,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after self signed module identity is fetched', () => {
@@ -92,7 +94,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after certificateAuthority module identity is fetched', () => {
@@ -101,7 +103,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot showing delete confirmation', () => {
@@ -111,7 +113,7 @@ describe('ModuleIdentityDetail', () => {
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
             jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
     });
 });

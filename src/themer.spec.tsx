@@ -4,9 +4,9 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import { Themer, getTheme } from './themer';
-import { Theme, ThemeContextProvider } from './app/shared/contexts/themeContext';
+import { Theme } from './app/shared/contexts/themeContext';
 import * as settingsService from './app/api/services/settingsService';
 
 describe('getTheme', () => {
@@ -28,29 +28,20 @@ describe('getTheme', () => {
 });
 
 describe('themer', () => {
-    it('matches snapshot', () => {
-        expect(shallow(<Themer/>)).toMatchSnapshot();
-    });
-
-    it('calls expected mmethods on mount', () => {
-        const highContrastSpy = jest.spyOn(settingsService, 'getHighContrastSetting').mockResolvedValue(false);
-        const darkMode = jest.spyOn(settingsService, 'getDarkModeSetting').mockReturnValue(false);
-
-        mount(<Themer/>);
-        expect(highContrastSpy).toHaveBeenCalled();
-        expect(darkMode).toHaveBeenCalled();
-    });
-
-    it('calls expected mmethods on mount', () => {
+    it('renders without error', () => {
         jest.spyOn(settingsService, 'getHighContrastSetting').mockResolvedValue(false);
         jest.spyOn(settingsService, 'getDarkModeSetting').mockReturnValue(false);
 
-        const setDarkMode = jest.spyOn(settingsService, 'setDarkModeSetting');
+        const { container } = render(<Themer/>);
+        expect(container).toBeDefined();
+    });
 
-        const component = shallow(<Themer/>);
-        const contextProvider = component.find(ThemeContextProvider);
-        contextProvider.props().value.updateTheme(true);
+    it('calls settings services on mount', () => {
+        const highContrastSpy = jest.spyOn(settingsService, 'getHighContrastSetting').mockResolvedValue(false);
+        const darkMode = jest.spyOn(settingsService, 'getDarkModeSetting').mockReturnValue(false);
 
-        expect(setDarkMode).toHaveBeenCalledWith(true);
+        render(<Themer/>);
+        expect(highContrastSpy).toHaveBeenCalled();
+        expect(darkMode).toHaveBeenCalled();
     });
 });

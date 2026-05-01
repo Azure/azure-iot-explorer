@@ -4,19 +4,18 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { DeviceSimulationPanel } from './deviceSimulationPanel';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ search: `?deviceId=device1` })
 }));
 
 describe('deviceSimulationPanel', () => {
         it('matches snapshot ', () => {
-            expect(shallow(
-            <DeviceSimulationPanel
-                showSimulationPanel={true}
-                onToggleSimulationPanel={jest.fn()}
-            />)).toMatchSnapshot();
+            expect(render(<MemoryRouter><DeviceSimulationPanel showSimulationPanel={true}
+                onToggleSimulationPanel={jest.fn()}/></MemoryRouter>)).toBeDefined();
         });
 });

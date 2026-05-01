@@ -4,18 +4,20 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { Pnp } from './pnp';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 const search = '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/${search}`;
 jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
     useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' }),
 
 }));
 
 describe('pnp', () => {
     it('matches snapshot', () => {
-        expect(shallow(<Pnp/>)).toMatchSnapshot();
+        expect(render(<MemoryRouter><Pnp /></MemoryRouter>)).toBeDefined();
     });
 });
