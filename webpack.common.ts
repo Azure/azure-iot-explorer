@@ -55,7 +55,11 @@ const config: webpack.Configuration = {
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ['.ts', '.tsx', '.js', '.json']
-    }
+    },
+    ignoreWarnings: [
+        // protobufjs uses dynamic require() — safe to ignore
+        { module: /@protobufjs[\\/]inquire/ }
+    ]
 };
 
 export default config;

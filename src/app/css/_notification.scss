@@ -2,7 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'themes';
+@use 'palette' as *;
+@use 'themes' as *;
 
 .new-notifications::after {
     content: '';

@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import '../../css/themes';
+@use '../../css/themes' as *;
 
 .collapsible-section {
     padding-bottom: 5px;

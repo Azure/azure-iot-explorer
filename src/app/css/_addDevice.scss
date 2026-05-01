@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'variables';
+ @use 'variables' as *;
 .add-device{
     .form {
         padding: 20px;

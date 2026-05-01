@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import '../../css/themes';
+ @use '../../css/themes' as *;
 
 .location-list {
     margin: 0 40px 0 20px;

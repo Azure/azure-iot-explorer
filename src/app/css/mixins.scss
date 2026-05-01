@@ -2,7 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
+@use 'variables' as *;
+@use 'palette' as *;
 
 @mixin form-control-readonly {
     border-width: 0px;

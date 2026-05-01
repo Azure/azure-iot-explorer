@@ -2,7 +2,9 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'palette';
+@use 'sass:map';
+@forward 'palette';
+@use 'palette' as *;
 
  $themes: (
   light: (
@@ -205,13 +207,15 @@
   ),
 );
 
+$theme-map: null !default;
+
 @mixin themify($themes: $themes) {
     @each $theme, $map in $themes {
       .theme-#{$theme} & {
         $theme-map: () !global;
         @each $key, $submap in $map {
-          $value: map-get(map-get($themes, $theme), '#{$key}');
-          $theme-map: map-merge($theme-map, ($key: $value)) !global;
+          $value: map.get(map.get($themes, $theme), '#{$key}');
+          $theme-map: map.merge($theme-map, ($key: $value)) !global;
         }
 
         @content;
@@ -221,5 +225,5 @@
 }
 
 @function themed($key) {
-  @return map-get($theme-map, $key);
+  @return map.get($theme-map, $key);
 }
