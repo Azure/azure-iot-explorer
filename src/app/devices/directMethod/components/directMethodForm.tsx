@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, Slider } from '@fluentui/react';
+import { Field, Input, Slider, Textarea } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import '../../../css/_deviceDetail.scss';
@@ -34,14 +34,17 @@ export const DirectMethodForm: React.FC<DirectMethodForm> = ({
 
     const renderMethodsName = () => {
         return (
-            <TextField
+            <Field
                 label={t(ResourceKeys.directMethod.methodName)}
-                ariaLabel={t(ResourceKeys.directMethod.methodName)}
-                value={methodName}
-                onChange={onMethodNameChange}
                 required={true}
-                placeholder={t(ResourceKeys.directMethod.methodNamePlaceHolder)}
-            />
+            >
+                <Input
+                    aria-label={t(ResourceKeys.directMethod.methodName)}
+                    value={methodName}
+                    onChange={onMethodNameChange}
+                    placeholder={t(ResourceKeys.directMethod.methodNamePlaceHolder)}
+                />
+            </Field>
         );
     };
 
@@ -54,45 +57,52 @@ export const DirectMethodForm: React.FC<DirectMethodForm> = ({
                 >
                     {t(ResourceKeys.directMethod.payload)}
                 </LabelWithTooltip>
-                <TextField className="payload-input" multiline={true} rows={textFieldRows} onChange={onTextFieldChange}/>
+                <Textarea className="payload-input" rows={textFieldRows} onChange={onTextFieldChange}/>
                 <LabelWithTooltip
                     tooltipText={t(ResourceKeys.directMethod.connectionTimeoutTooltip)}
                 >
                     {t(ResourceKeys.directMethod.connectionTimeout)}
                 </LabelWithTooltip>
-                <Slider
-                    ariaLabel={t(ResourceKeys.directMethod.connectionTimeout)}
-                    min={0}
-                    max={SLIDER_MAX}
-                    value={connectionTimeOut}
-                    onChange={onConnectionTimeoutChange}
-                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Slider
+                        aria-label={t(ResourceKeys.directMethod.connectionTimeout)}
+                        min={0}
+                        max={SLIDER_MAX}
+                        value={connectionTimeOut}
+                        onChange={onConnectionTimeoutChange}
+                        style={{ flexGrow: 1 }}
+                    />
+                    <span>{connectionTimeOut}</span>
+                </div>
                 <LabelWithTooltip
                     tooltipText={t(ResourceKeys.directMethod.responseTimeoutTooltip)}
                 >
                     {t(ResourceKeys.directMethod.responseTimeout)}
                 </LabelWithTooltip>
-                <Slider
-                    ariaLabel={t(ResourceKeys.directMethod.responseTimeout)}
-                    min={connectionTimeOut}
-                    max={SLIDER_MAX}
-                    value={responseTimeOut}
-                    onChange={onMethodTimeoutChange}
-                />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <Slider
+                        aria-label={t(ResourceKeys.directMethod.responseTimeout)}
+                        min={0}
+                        max={SLIDER_MAX}
+                        value={responseTimeOut}
+                        onChange={onMethodTimeoutChange}
+                        style={{ flexGrow: 1 }}
+                    />
+                    <span>{responseTimeOut}</span>
+                </div>
             </div>
         );
     };
 
-    const onTextFieldChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newText: string) => setPayload(newText);
+    const onTextFieldChange = (ev: React.ChangeEvent<HTMLTextAreaElement>, data: { value: string }) => setPayload(data.value);
 
-    const onConnectionTimeoutChange = (value: number) => {
-        setConnectionTimeOut(value);
-        setResponseTimeOut(Math.max(responseTimeOut, value));
+    const onConnectionTimeoutChange = (ev: React.ChangeEvent<HTMLInputElement>, data: { value: number }) => {
+        setConnectionTimeOut(data.value);
     };
 
-    const onMethodTimeoutChange = (value: number) => setResponseTimeOut(value);
+    const onMethodTimeoutChange = (ev: React.ChangeEvent<HTMLInputElement>, data: { value: number }) => setResponseTimeOut(data.value);
 
-    const onMethodNameChange = (event: React.FormEvent, value?: string) => setMethodName(value);
+    const onMethodNameChange = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => setMethodName(data.value);
 
     return (
         <>

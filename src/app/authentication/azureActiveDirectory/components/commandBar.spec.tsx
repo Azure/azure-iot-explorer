@@ -4,12 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { CommandBar } from '@fluentui/react';
+
 import { AzureActiveDirectoryCommandBar } from './commandBar';
 import { getInitialAzureActiveDirectoryState } from '../state';
 import * as azureActiveDirectoryStateContext from '../context/azureActiveDirectoryStateContext';
 import * as authenticationStateContext from '../../../authentication/context/authenticationStateContext';
 import { getInitialAuthenticationState } from '../../../authentication/state';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
 describe('AzureActiveDirectoryCommandBar', () => {
     it('matches snapshot when token is not present', () => {

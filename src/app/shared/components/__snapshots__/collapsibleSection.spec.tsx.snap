@@ -4,14 +4,11 @@ exports[`collapsibleSection matches snapshot 1`] = `
 <div
   className="collapsible-section"
 >
-  <CustomizedIconButton
-    ariaLabel="collapsibleSection.open Label"
+  <Button
+    appearance="subtle"
+    aria-label="collapsibleSection.open Label"
     className="collapsible-section-icon"
-    iconProps={
-      {
-        "iconName": "ChevronDown",
-      }
-    }
+    icon={<ChevronDownRegular />}
     onClick={[Function]}
     title="collapsibleSection.open"
   />

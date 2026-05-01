@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Panel, ActionButton } from '@fluentui/react';
+import { Button, OverlayDrawer } from '@fluentui/react-components';
 import { act } from 'react-dom/test-utils';
 import { SettingsPane } from './settingsPane';
 
@@ -17,10 +17,10 @@ describe('settingsPane', () => {
     it('toggles visibility', () => {
         jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
         const wrapper = mount(<SettingsPane/>);
-        expect(wrapper.find(Panel).props().isOpen).toEqual(true);
+        expect(wrapper.find(OverlayDrawer).props().open).toEqual(true);
 
-        act(() => wrapper.find(ActionButton).first().props().onClick(null));
+        act(() => wrapper.find(Button).first().props().onClick(null));
         wrapper.update()
-        expect(wrapper.find(Panel).props().isOpen).toEqual(false);
+        expect(wrapper.find(OverlayDrawer).props().open).toEqual(false);
     });
 });

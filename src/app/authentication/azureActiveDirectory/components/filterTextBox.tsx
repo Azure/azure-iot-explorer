@@ -4,12 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, Announced } from '@fluentui/react';
+import { Input } from '@fluentui/react-components';
+import { FilterRegular } from '@fluentui/react-icons';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
 import './filterTextBox.scss';
+import { LiveRegion } from '../../../shared/components/liveRegion';
 
 export enum FilterType {
     Subscription,
@@ -27,7 +29,8 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
     const [ filterValue, setFilterValue ] = React.useState('');
     const [ searchResultCount, setSearchResultCount] = React.useState(0);
 
-    const onValueChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+    const onValueChange = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
+        const newValue = data.value;
         setFilterValue(newValue);
         if (props.filterType === FilterType.IoTHub) {
             const filtered = iotHubs.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()));
@@ -43,15 +46,15 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
 
     return (
         <div className="filter-box">
-            <TextField
+            <Input
                 placeholder={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
-                ariaLabel={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
-                iconProps={{ iconName: 'Filter' }}
+                aria-label={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
+                contentBefore={<FilterRegular />}
                 role="searchbox"
                 value={filterValue}
                 onChange={onValueChange}
             />
-            {filterValue && <Announced message={`${searchResultCount.toString()} ${t(ResourceKeys.authentication.azureActiveDirectory.filter.result)}`}/>}
+            {filterValue && <LiveRegion message={`${searchResultCount.toString()} ${t(ResourceKeys.authentication.azureActiveDirectory.filter.result)}`}/>}
         </div>
     );
 };

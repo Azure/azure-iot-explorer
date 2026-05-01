@@ -13,12 +13,12 @@ exports[`ModelRepositoryInstruction matches snapshot 1`] = `
   >
     settings.questions.headerText
   </h3>
-  <StyledLinkBase
+  <Link
     href="settings.questions.questions.documentation.link"
     target="_blank"
   >
     modelRepository.description.help
-  </StyledLinkBase>
+  </Link>
   <h3
     aria-level={1}
     role="heading"
@@ -32,12 +32,12 @@ exports[`ModelRepositoryInstruction matches snapshot 1`] = `
     <span>
       settings.questions.questions.privacy.text
     </span>
-    <StyledLinkBase
+    <Link
       href="settings.questions.questions.privacy.link"
       target="_blank"
     >
       settings.questions.questions.privacy.linkText
-    </StyledLinkBase>
+    </Link>
   </div>
 </div>
 `;

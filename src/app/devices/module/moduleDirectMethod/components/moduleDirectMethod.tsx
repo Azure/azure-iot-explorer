@@ -5,9 +5,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CommandBar } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { RemoteRegular } from '@fluentui/react-icons';
 import { DIRECT_METHOD, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { invokeModuleDirectMethodSaga } from '../saga';
@@ -46,7 +47,7 @@ export const ModuleDirectMethod: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.directMethod.invokeMethodButtonText),
                         disabled: !formReady(),
-                        iconProps: {iconName: DIRECT_METHOD},
+                        icon: <RemoteRegular />,
                         key: DIRECT_METHOD,
                         name: t(ResourceKeys.directMethod.invokeMethodButtonText),
                         onClick: onInvokeMethodClickHandler

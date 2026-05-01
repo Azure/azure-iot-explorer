@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label } from '@fluentui/react';
+import { Label } from '@fluentui/react-components';
 
 interface ErrorBoundaryProps {
     error: string;

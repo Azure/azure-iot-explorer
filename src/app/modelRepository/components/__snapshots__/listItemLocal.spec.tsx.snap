@@ -5,73 +5,82 @@ exports[`ListItemLocal matches snapshot for local folder 1`] = `
   <ListItemLocalLabel
     repoType="LOCAL"
   />
-  <StyledTextFieldBase
-    ariaLabel="modelRepository.types.local.textBoxLabel"
-    className="local-folder-textbox"
-    errorMessage=""
+  <Field
     label="modelRepository.types.local.textBoxLabel"
-    onChange={[Function]}
-    readOnly={false}
-    value="c:/models"
-  />
-  <CustomizedDefaultButton
-    ariaLabel="modelRepository.types.local.folderPicker.command.openPicker"
-    className="local-folder-launch"
-    onClick={[Function]}
-    text="modelRepository.types.local.folderPicker.command.openPicker"
-  />
-  <div
-    role="dialog"
+    validationState="none"
   >
-    <Dialog
-      dialogContentProps={
-        {
-          "subText": "modelRepository.types.local.folderPicker.dialog.subText",
-        }
+    <Input
+      aria-label="modelRepository.types.local.textBoxLabel"
+      className="local-folder-textbox"
+      onChange={[Function]}
+      readOnly={false}
+      value="c:/models"
+    />
+  </Field>
+  <div
+    style={
+      {
+        "marginTop": 10,
+        "overflow": "hidden",
       }
-      hidden={true}
-      modalProps={
-        {
-          "className": "folder-picker-dialog",
-          "isBlocking": false,
-        }
-      }
-      onDismiss={[Function]}
-      title="modelRepository.types.local.folderPicker.dialog.title"
+    }
+  >
+    <Button
+      aria-label="modelRepository.types.local.folderPicker.command.openPicker"
+      className="local-folder-launch"
+      onClick={[Function]}
     >
-      <div
-        className="folder-links"
-      >
-        <CustomizedDefaultButton
-          ariaLabel="modelRepository.types.local.folderPicker.command.navigateToParent"
-          className="folder-button"
-          disabled={false}
-          iconProps={
-            {
-              "iconName": "NavigateBack",
-            }
-          }
-          onClick={[Function]}
-          text="modelRepository.types.local.folderPicker.command.navigateToParent"
-        />
-        <div
-          className="no-folders-text"
-        >
-          modelRepository.types.local.folderPicker.dialog.noFolderFoundText
-        </div>
-      </div>
-      <DialogFooter>
-        <CustomizedPrimaryButton
-          disabled={false}
-          onClick={[Function]}
-          text="modelRepository.types.local.folderPicker.command.select"
-        />
-        <CustomizedDefaultButton
-          onClick={[Function]}
-          text="modelRepository.types.local.folderPicker.command.cancel"
-        />
-      </DialogFooter>
-    </Dialog>
+      modelRepository.types.local.folderPicker.command.openPicker
+    </Button>
   </div>
+  <Dialog
+    onOpenChange={[Function]}
+    open={false}
+  >
+    <DialogSurface>
+      <DialogBody>
+        <DialogTitle>
+          modelRepository.types.local.folderPicker.dialog.title
+        </DialogTitle>
+        <DialogContent>
+          <div>
+            modelRepository.types.local.folderPicker.dialog.subText
+          </div>
+          <div
+            className="folder-links"
+          >
+            <Button
+              aria-label="modelRepository.types.local.folderPicker.command.navigateToParent"
+              className="folder-button"
+              disabled={false}
+              icon={<ArrowLeftRegular />}
+              onClick={[Function]}
+            >
+              modelRepository.types.local.folderPicker.command.navigateToParent
+            </Button>
+            <div
+              className="no-folders-text"
+            >
+              modelRepository.types.local.folderPicker.dialog.noFolderFoundText
+            </div>
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            appearance="primary"
+            disabled={false}
+            onClick={[Function]}
+          >
+            modelRepository.types.local.folderPicker.command.select
+          </Button>
+          <Button
+            onClick={[Function]}
+          >
+            modelRepository.types.local.folderPicker.command.cancel
+          </Button>
+        </DialogActions>
+      </DialogBody>
+    </DialogSurface>
+  </Dialog>
 </Fragment>
 `;

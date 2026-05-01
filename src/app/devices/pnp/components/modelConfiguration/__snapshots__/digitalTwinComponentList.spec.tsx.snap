@@ -2,47 +2,52 @@
 
 exports[`DigitalTwinComponentList matches snapshot when empty model id is retrieved 1`] = `
 <Fragment>
-  <h4>
+  <h4
+    style={
+      {
+        "marginBottom": 4,
+      }
+    }
+  >
     digitalTwin.steps.third
   </h4>
-  <h5>
+  <h5
+    style={
+      {
+        "marginBottom": 8,
+        "marginTop": 0,
+      }
+    }
+  >
     digitalTwin.steps.explanation
   </h5>
-  <StyledPivot
+  <TabList
     aria-label="digitalTwin.pivot.ariaLabel"
+    onTabSelect={[Function]}
+    selectedValue="components"
   >
-    <PivotItem
-      headerText="digitalTwin.pivot.components"
+    <Tab
+      value="components"
     >
-      <ErrorBoundary
-        error="deviceInterfaces.interfaceListFailedToRender"
-      >
-        <StyledLabelBase
-          className="no-component"
-        >
-          digitalTwin.modelContainsNoComponents
-        </StyledLabelBase>
-        <StyledAnnouncedBase
-          message="digitalTwin.modelContainsNoComponents"
-        />
-      </ErrorBoundary>
-    </PivotItem>
-    <PivotItem
-      className="modelContent"
-      headerText="digitalTwin.pivot.content"
+      digitalTwin.pivot.components
+    </Tab>
+    <Tab
+      value="content"
     >
-      <MonacoEditorComponent
-        ariaLabel="digitalTwin.pivot.content"
-        content="{
-	"@context": "dtmi:dtdl:context;2",
-	"@id": "dtmi:plugnplay:hube2e:cm;1",
-	"@type": "Interface",
-	"contents": [],
-	"displayName": "IoT Hub E2E Tests"
-}"
-        height={400}
-      />
-    </PivotItem>
-  </StyledPivot>
+      digitalTwin.pivot.content
+    </Tab>
+  </TabList>
+  <ErrorBoundary
+    error="deviceInterfaces.interfaceListFailedToRender"
+  >
+    <Label
+      className="no-component"
+    >
+      digitalTwin.modelContainsNoComponents
+    </Label>
+    <LiveRegion
+      message="digitalTwin.modelContainsNoComponents"
+    />
+  </ErrorBoundary>
 </Fragment>
 `;

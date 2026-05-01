@@ -4,10 +4,12 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
 <div
   className="auth-slection-container"
 >
-  <Stack
-    tokens={
+  <div
+    style={
       {
-        "childrenGap": 10,
+        "display": "flex",
+        "flexDirection": "column",
+        "gap": "10px",
       }
     }
   >
@@ -21,7 +23,7 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
       <Component
         components={
           [
-            <StyledLinkBase
+            <Link
               href="https://aka.ms/iothubPermissions"
               target="_blank"
             />,
@@ -31,38 +33,31 @@ exports[`AuthenticationSelection matches snapshot 1`] = `
         authentication.authSelection.subText
       </Component>
     </div>
-    <Stack
-      horizontal={true}
-      tokens={
+    <div
+      style={
         {
-          "childrenGap": 80,
+          "display": "flex",
+          "flexDirection": "row",
+          "gap": "80px",
         }
       }
     >
-      <CustomizedCompoundButton
+      <CompoundButton
+        appearance="primary"
         className="auth-selection-tile"
-        iconProps={
-          {
-            "iconName": "Permissions",
-          }
-        }
+        icon={<KeyRegular />}
         onClick={[Function]}
-        primary={true}
       >
         authentication.authSelection.selection.connectionString
-      </CustomizedCompoundButton>
-      <CustomizedCompoundButton
+      </CompoundButton>
+      <CompoundButton
         className="auth-selection-tile"
-        iconProps={
-          {
-            "iconName": "AADLogo",
-          }
-        }
+        icon={<OrganizationRegular />}
         onClick={[Function]}
       >
         authentication.authSelection.selection.azureActiveDirectory
-      </CustomizedCompoundButton>
-    </Stack>
-  </Stack>
+      </CompoundButton>
+    </div>
+  </div>
 </div>
 `;

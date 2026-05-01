@@ -8,7 +8,7 @@ exports[`components/devices/deviceSettingsPerInterface matches snapshot 1`] = `
     ariaLabel="deviceSettings.writablePropertiesTableAriaLabel"
     ariaLabelForSelectAllCheckbox="deviceSettings.columns.selectAll"
     ariaLabelForSelectionColumn="deviceSettings.columns.toggleSelection"
-    checkButtonAriaLabel="deviceSettings.columns.rowCheckBoxAriaLabel"
+    checkButtonAriaLabel={[Function]}
     columns={
       [
         {

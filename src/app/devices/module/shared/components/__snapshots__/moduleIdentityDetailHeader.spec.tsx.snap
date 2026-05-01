@@ -1,40 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ModuleIdentityDetailHeader matches snapshot 1`] = `
-<Stack
+<div
   className="module-pivot"
-  horizontal={true}
 >
-  <StyledPivot
+  <TabList
     aria-label="digitalTwin.pivot.ariaLabel"
-    onLinkClick={[Function]}
-    selectedKey="moduleDetail"
+    onTabSelect={[Function]}
+    selectedValue="moduleDetail"
   >
-    <PivotItem
-      headerText="breadcrumb.moduleDetail"
-      itemKey="moduleDetail"
+    <Tab
       key="moduleDetail"
-    />
-    <PivotItem
-      headerText="breadcrumb.moduleTwin"
-      itemKey="moduleTwin"
+      value="moduleDetail"
+    >
+      breadcrumb.moduleDetail
+    </Tab>
+    <Tab
       key="moduleTwin"
-    />
-    <PivotItem
-      headerText="breadcrumb.moduleMethod"
-      itemKey="moduleMethod"
+      value="moduleTwin"
+    >
+      breadcrumb.moduleTwin
+    </Tab>
+    <Tab
       key="moduleMethod"
-    />
-    <PivotItem
-      headerText="breadcrumb.moduleEvents"
-      itemKey="moduleEvents"
+      value="moduleMethod"
+    >
+      breadcrumb.moduleMethod
+    </Tab>
+    <Tab
       key="moduleEvents"
-    />
-    <PivotItem
-      headerText="breadcrumb.modulePnp"
-      itemKey="modulePnp"
+      value="moduleEvents"
+    >
+      breadcrumb.moduleEvents
+    </Tab>
+    <Tab
       key="modulePnp"
-    />
-  </StyledPivot>
-</Stack>
+      value="modulePnp"
+    >
+      breadcrumb.modulePnp
+    </Tab>
+  </TabList>
+</div>
 `;

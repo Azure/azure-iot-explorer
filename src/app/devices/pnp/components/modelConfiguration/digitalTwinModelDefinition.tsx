@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { MessageBar, MessageBarType } from '@fluentui/react';
+import { MessageBar, MessageBarBody } from '@fluentui/react-components';
 import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { usePnpStateContext } from '../../context/pnpStateContext';
@@ -44,8 +44,10 @@ export const DigitalTwinModelDefinition: React.FC = () => {
                             {modelDefinitionWithSource.isModelValid ?
                                 <DigitalTwinComponentList/> :
                                 <>
-                                    <MessageBar messageBarType={MessageBarType.error}>
+                                    <MessageBar intent="error">
+                                        <MessageBarBody>
                                         {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
+                                        </MessageBarBody>
                                     </MessageBar>
                                     <MonacoEditorComponent
                                         height={jsonViewerHeight}

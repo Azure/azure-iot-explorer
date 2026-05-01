@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { DeviceQueryClause } from './deviceQueryClause';
 import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
 
@@ -50,7 +50,7 @@ describe('DeviceQueryClause', () => {
                 setClause={jest.fn()}
             />
         );
-        const removeButton = wrapper.find(IconButton);
+        const removeButton = wrapper.find(Button);
         removeButton.simulate('click');
         expect(removeClause).toBeCalled();
     });

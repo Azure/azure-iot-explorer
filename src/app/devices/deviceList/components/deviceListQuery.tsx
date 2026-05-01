@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, ActionButton, IconButton, PrimaryButton } from '@fluentui/react';
+import { Button, Input } from '@fluentui/react-components';
+import { ArrowForwardRegular, FilterRegular, SearchRegular } from '@fluentui/react-icons';
 import { DeviceQueryClause } from './deviceQueryClause';
 import { DeviceQuery, QueryClause } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -53,9 +54,9 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
         }
     };
 
-    const onSetDeviceId = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+    const onSetDeviceId = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
         setClauses([]);
-        setDeviceId(newValue);
+        setDeviceId(data.value);
     };
 
     const setQueryFromSearchBoxAndExecute = () => {
@@ -83,24 +84,25 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
     const renderIdSearch = () => {
         return (
             <div className="deviceId-search">
-                <TextField
-                    borderless={true}
+                <Input
+                    appearance="underline"
                     placeholder={t(ResourceKeys.deviceLists.query.deviceId.placeholder)}
-                    ariaLabel={t(ResourceKeys.deviceLists.query.deviceId.ariaLabel)}
+                    aria-label={t(ResourceKeys.deviceLists.query.deviceId.ariaLabel)}
                     className="search-box"
-                    iconProps={{ iconName: 'Search' }}
                     role="searchbox"
                     onKeyUp={onDeviceIdKeyUp}
                     value={deviceId}
                     onChange={onSetDeviceId}
+                    contentBefore={<SearchRegular />}
+                    style={{ border: 'none', flexGrow: 1 }}
                 />
-                <IconButton
+                <Button
+                    appearance="subtle"
                     className="search-button"
-                    iconProps={{ iconName: 'Forward' }}
-                    type="submit"
+                    icon={<ArrowForwardRegular />}
                     onClick={setQueryFromSearchBoxAndExecute}
                     title={t(ResourceKeys.deviceLists.query.deviceId.searchButton.title)}
-                    ariaLabel={t(ResourceKeys.deviceLists.query.deviceId.searchButton.ariaLabel)}
+                    aria-label={t(ResourceKeys.deviceLists.query.deviceId.searchButton.ariaLabel)}
                     disabled={!!clauses && clauses.length > 0}
                 />
             </div>
@@ -119,22 +121,23 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
                     setClause={setClause}
                     value={clause.value}
                 />)}
-                {clauses && clauses.length > 0 && <PrimaryButton
+                {clauses && clauses.length > 0 && <Button
+                    appearance="primary"
                     className="search-pill"
                     onClick={setQueryFromQueryPillsAndExecute}
-                    ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.search.ariaLabel)}
+                    aria-label={t(ResourceKeys.deviceLists.query.searchPills.search.ariaLabel)}
                 >
                     {t(ResourceKeys.deviceLists.query.searchPills.search.text)}
-                </PrimaryButton>}
-                <ActionButton
+                </Button>}
+                <Button
+                    appearance="transparent"
                     className="search-pill"
-                    iconProps={{ iconName: 'Filter' }}
-                    type="button"
+                    icon={<FilterRegular />}
                     onClick={onAddClause}
-                    ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.add.ariaLabel)}
+                    aria-label={t(ResourceKeys.deviceLists.query.searchPills.add.ariaLabel)}
                 >
                     {t(ResourceKeys.deviceLists.query.searchPills.add.text)}
-                </ActionButton>
+                </Button>
             </div>
         );
     };

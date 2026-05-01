@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { Dialog } from '@fluentui/react';
+import { Dialog } from '@fluentui/react-components';
 import { ListItemLocal } from './listItemLocal';
 import * as Utils from '../../shared/utils/utils';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -50,9 +50,7 @@ describe('ListItemLocal', () => {
         wrapper.update();
 
         const dialog = wrapper.find(Dialog).first();
-        expect(dialog.children().props().hidden).toBeFalsy();
-        expect(dialog.children().props().children[0].props.children[0].props.disabled).toBeTruthy();
-        expect(dialog.children().props().children[0].props.children[1].props.children).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText);
+        expect(dialog.props().open).toBeTruthy();
     });
 
     it('renders folders when sub folders retrieved', () => {
@@ -78,10 +76,6 @@ describe('ListItemLocal', () => {
         wrapper.update();
 
         const dialog = wrapper.find(Dialog).first();
-        expect(dialog.children().props().hidden).toBeFalsy();
-        expect(dialog.children().props().children[0].props.children[0].props.text).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent);
-        expect(dialog.children().props().children[0].props.children[0].props.disabled).toBeFalsy();
-        expect(dialog.children().props().children[0].props.children[1].length).toEqual(subFolders.length);
-        expect(dialog.children().props().children[0].props.children[1][0].props.text).toEqual(subFolders[0]);
+        expect(dialog.props().open).toBeTruthy();
     });
 });

@@ -20,120 +20,77 @@ exports[`DeviceList matches snapshot 1`] = `
   <div
     className="list-detail"
   >
-    <StyledMarqueeSelectionBase
-      selection={
-        Selection {
-          "_anchoredIndex": 0,
-          "_canSelectItem": [Function],
-          "_changeEventSuppressionCount": 0,
-          "_exemptedCount": 0,
-          "_exemptedIndices": {},
-          "_getKey": [Function],
-          "_isModal": false,
-          "_items": [],
-          "_keyToIndexMap": {},
-          "_onItemsChanged": undefined,
-          "_onSelectionChanged": [Function],
-          "_selectedItems": null,
-          "_unselectableCount": 0,
-          "_unselectableIndices": {},
-          "count": 0,
-          "mode": 2,
-        }
+    <ResizableDetailsList
+      ariaLabelForSelectAllCheckbox="deviceLists.selectAllCheckboxAriaLabel"
+      ariaLabelForSelectionColumn="deviceLists.toggleSelectionColumnAriaLabel"
+      checkButtonAriaLabel={[Function]}
+      columns={
+        [
+          {
+            "fieldName": "id",
+            "isMultiline": true,
+            "key": "id",
+            "minWidth": 200,
+            "name": "deviceLists.columns.deviceId.label",
+          },
+          {
+            "fieldName": "status",
+            "key": "status",
+            "minWidth": 100,
+            "name": "deviceLists.columns.status.label",
+          },
+          {
+            "fieldName": "connection",
+            "key": "connection",
+            "minWidth": 100,
+            "name": "deviceLists.columns.connection",
+          },
+          {
+            "fieldName": "authenticationType",
+            "isMultiline": true,
+            "key": "authenticationType",
+            "minWidth": 100,
+            "name": "deviceLists.columns.authenticationType",
+          },
+          {
+            "fieldName": "statusUpdatedTime",
+            "isMultiline": true,
+            "key": "statusUpdatedTime",
+            "minWidth": 100,
+            "name": "deviceLists.columns.statusUpdatedTime",
+          },
+          {
+            "fieldName": "modelId",
+            "isMultiline": true,
+            "key": "modelId",
+            "minWidth": 120,
+            "name": "deviceLists.columns.isPnpDevice",
+          },
+          {
+            "fieldName": "edge",
+            "key": "edge",
+            "minWidth": 100,
+            "name": "deviceLists.columns.isEdgeDevice.label",
+          },
+        ]
       }
-    >
-      <ResizableDetailsList
-        ariaLabelForSelectAllCheckbox="deviceLists.selectAllCheckboxAriaLabel"
-        ariaLabelForSelectionColumn="deviceLists.toggleSelectionColumnAriaLabel"
-        checkButtonAriaLabel="deviceLists.rowCheckBoxAriaLabel"
-        columns={
-          [
-            {
-              "fieldName": "id",
-              "isMultiline": true,
-              "key": "id",
-              "minWidth": 200,
-              "name": "deviceLists.columns.deviceId.label",
-            },
-            {
-              "fieldName": "status",
-              "key": "status",
-              "minWidth": 100,
-              "name": "deviceLists.columns.status.label",
-            },
-            {
-              "fieldName": "connection",
-              "key": "connection",
-              "minWidth": 100,
-              "name": "deviceLists.columns.connection",
-            },
-            {
-              "fieldName": "authenticationType",
-              "isMultiline": true,
-              "key": "authenticationType",
-              "minWidth": 100,
-              "name": "deviceLists.columns.authenticationType",
-            },
-            {
-              "fieldName": "statusUpdatedTime",
-              "isMultiline": true,
-              "key": "statusUpdatedTime",
-              "minWidth": 100,
-              "name": "deviceLists.columns.statusUpdatedTime",
-            },
-            {
-              "fieldName": "modelId",
-              "isMultiline": true,
-              "key": "modelId",
-              "minWidth": 120,
-              "name": "deviceLists.columns.isPnpDevice",
-            },
-            {
-              "fieldName": "edge",
-              "key": "edge",
-              "minWidth": 100,
-              "name": "deviceLists.columns.isEdgeDevice.label",
-            },
-          ]
-        }
-        items={
-          [
-            {
-              "authenticationType": "sas",
-              "cloudToDeviceMessageCount": "0",
-              "connectionState": "connected",
-              "deviceId": "testDeviceId",
-              "iotEdge": false,
-              "lastActivityTime": "0001-01-01T00:00:00Z",
-              "status": "Enabled",
-              "statusUpdatedTime": "0001-01-01T00:00:00Z",
-            },
-          ]
-        }
-        layoutMode={1}
-        onRenderItemColumn={[Function]}
-        selection={
-          Selection {
-            "_anchoredIndex": 0,
-            "_canSelectItem": [Function],
-            "_changeEventSuppressionCount": 0,
-            "_exemptedCount": 0,
-            "_exemptedIndices": {},
-            "_getKey": [Function],
-            "_isModal": false,
-            "_items": [],
-            "_keyToIndexMap": {},
-            "_onItemsChanged": undefined,
-            "_onSelectionChanged": [Function],
-            "_selectedItems": null,
-            "_unselectableCount": 0,
-            "_unselectableIndices": {},
-            "count": 0,
-            "mode": 2,
-          }
-        }
-      />
-    </StyledMarqueeSelectionBase>
+      items={
+        [
+          {
+            "authenticationType": "sas",
+            "cloudToDeviceMessageCount": "0",
+            "connectionState": "connected",
+            "deviceId": "testDeviceId",
+            "iotEdge": false,
+            "lastActivityTime": "0001-01-01T00:00:00Z",
+            "status": "Enabled",
+            "statusUpdatedTime": "0001-01-01T00:00:00Z",
+          },
+        ]
+      }
+      onRenderItemColumn={[Function]}
+      onSelectionChange={[Function]}
+    />
   </div>
 </div>
 `;

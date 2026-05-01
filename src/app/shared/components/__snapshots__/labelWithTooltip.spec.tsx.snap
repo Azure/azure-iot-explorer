@@ -4,9 +4,11 @@ exports[`components/shared/labelWithTooltip matches snapshot when not tooltip sp
 <div
   className="labelWithTooltip"
 >
-  <StyledLabelBase>
+  <Label
+    weight="semibold"
+  >
     labelText
-  </StyledLabelBase>
+  </Label>
 </div>
 `;
 
@@ -14,31 +16,21 @@ exports[`components/shared/labelWithTooltip matches snapshot when tooltip specif
 <div
   className="labelWithTooltip"
 >
-  <StyledLabelBase
-    tooltipText="calloutText"
+  <Label
+    weight="semibold"
   >
     labelText
-  </StyledLabelBase>
-  <StyledTooltipHostBase
-    calloutProps={
-      {
-        "gapSpace": 0,
-        "target": "#iconbutton0",
-      }
-    }
+  </Label>
+  <Tooltip
     content="calloutText"
-    directionalHint={12}
-    id="tooltip1"
+    positioning="after"
+    relationship="description"
   >
-    <CustomizedIconButton
-      aria-labelledby="tooltip1"
-      iconProps={
-        {
-          "iconName": "Info",
-        }
-      }
-      id="iconbutton0"
+    <Button
+      appearance="subtle"
+      aria-label="More information"
+      icon={<InfoRegular />}
     />
-  </StyledTooltipHostBase>
+  </Tooltip>
 </div>
 `;

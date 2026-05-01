@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { DeviceCommandsPerInterface, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterface';
 import { DeviceCommandsPerInterfacePerCommand } from './deviceCommandsPerInterfacePerCommand';
 
@@ -50,12 +50,12 @@ describe('components/devices/deviceCommandsPerInterface', () => {
 
     it('toggles collapsed', () => {
         const wrapper = mount(getComponent());
-        expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.collapseAll');
+        expect(wrapper.find('.collapse-button').find(Button).first().props().title).toEqual('deviceCommands.command.collapseAll');
 
-        const button = wrapper.find(IconButton).first();
+        const button = wrapper.find(Button).first();
         button.simulate('click');
         wrapper.update();
-        expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.expandAll');
+        expect(wrapper.find('.collapse-button').find(Button).first().props().title).toEqual('deviceCommands.command.expandAll');
     });
 
     it('executes handle toggle from child', () => {

@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Form } from '@rjsf/fluent-ui';
+import { Form } from '@rjsf/fluentui-rc';
 import { DataForm, DataFormDataProps, DataFormActionProps } from './dataForm';
 
 describe('dataForm', () => {

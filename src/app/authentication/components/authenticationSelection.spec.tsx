@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { CompoundButton } from '@fluentui/react';
+import { CompoundButton } from '@fluentui/react-components';
 import { AuthenticationSelection } from './authenticationSelection';
 import { AuthenticationMethodPreference, getInitialAuthenticationState } from '../state';
 import * as authenticationStateContext from '../context/authenticationStateContext';

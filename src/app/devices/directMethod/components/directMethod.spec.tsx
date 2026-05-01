@@ -6,10 +6,11 @@ import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { CommandBar } from '@fluentui/react';
+
 import { DirectMethod } from './directMethod';
 import { invokeDirectMethodAction } from '../actions';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=test' })

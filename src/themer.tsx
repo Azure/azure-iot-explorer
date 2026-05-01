@@ -3,10 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Fabric, Customizer, createTheme } from '@fluentui/react';
-import { SCOPED_SETTINGS } from './app/constants/themes';
+import { FluentProvider } from '@fluentui/react-components';
+import { v9ThemeLight, v9ThemeDark, v9ThemeHighContrastLight, v9ThemeHighContrastDark } from './app/constants/fluentV9Theme';
 import { getDarkModeSetting, getHighContrastSetting, setDarkModeSetting } from './app/api/services/settingsService';
 import { Theme, ThemeContextProvider, ThemeProperties } from './app/shared/contexts/themeContext';
+
+const v9ThemeMap = {
+    [Theme.light]: v9ThemeLight,
+    [Theme.dark]: v9ThemeDark,
+    [Theme.highContrastWhite]: v9ThemeHighContrastLight,
+    [Theme.highContrastBlack]: v9ThemeHighContrastDark,
+};
 
 export const getTheme = (isDarkMode: boolean, isHighContrast: boolean): Theme => {
     if (isHighContrast) {
@@ -18,7 +25,6 @@ export const getTheme = (isDarkMode: boolean, isHighContrast: boolean): Theme =>
 
 export const Themer: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [ themeProperties, setThemeProperties ] = React.useState<ThemeProperties>(ThemeProperties[Theme.light]);
-    const currentTheme = createTheme(themeProperties.fabricTheme);
 
     const initialize = async () => {
         const darkMode: boolean = getDarkModeSetting();
@@ -50,12 +56,10 @@ export const Themer: React.FC<React.PropsWithChildren> = ({ children }) => {
     }, [themeProperties]);  // tslint:disable-line: align
 
     return (
-        <Customizer settings={{ theme: { ...currentTheme } }} scopedSettings={{ ...SCOPED_SETTINGS }}>
-            <Fabric>
-                <ThemeContextProvider value={{ ...themeProperties, updateTheme: updateThemeHandler }}>
-                    {children}
-                </ThemeContextProvider>
-            </Fabric>
-        </Customizer>
+        <FluentProvider theme={v9ThemeMap[themeProperties.theme]}>
+            <ThemeContextProvider value={{ ...themeProperties, updateTheme: updateThemeHandler }}>
+                {children}
+            </ThemeContextProvider>
+        </FluentProvider>
     );
 };

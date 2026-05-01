@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { Shimmer } from '@fluentui/react';
+import { Skeleton } from '@fluentui/react-components';
 import { MultiLineShimmer } from './multiLineShimmer';
 
 describe('shared/components/multiLineShimmer', () => {
@@ -13,11 +13,11 @@ describe('shared/components/multiLineShimmer', () => {
         let wrapper = mount(<MultiLineShimmer/>).find(MultiLineShimmer);
         let shimmerDiv = wrapper.find('div.fixed-shimmer');
         // tslint:disable-next-line:no-magic-numbers
-        expect(shimmerDiv.find(Shimmer)).toHaveLength(3);
+        expect(shimmerDiv.find(Skeleton)).toHaveLength(3);
 
         const shimmerCount = 10;
         wrapper = mount(<MultiLineShimmer className="non-fixed-shimmer" shimmerCount={shimmerCount}/>).find(MultiLineShimmer);
         shimmerDiv = wrapper.find('div.non-fixed-shimmer');
-        expect(shimmerDiv.find(Shimmer)).toHaveLength(shimmerCount);
+        expect(shimmerDiv.find(Skeleton)).toHaveLength(shimmerCount);
     });
 });

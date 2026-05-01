@@ -15,11 +15,13 @@ exports[`ListItemConfigurableRepo matches snapshot 1`] = `
     >
       modelRepository.types.configurable.infoText
     </div>
-    <StyledMessageBar
-      messageBarType={5}
+    <MessageBar
+      intent="warning"
     >
-      modelRepository.types.configurable.warning
-    </StyledMessageBar>
+      <MessageBarBody>
+        modelRepository.types.configurable.warning
+      </MessageBarBody>
+    </MessageBar>
   </div>
 </Fragment>
 `;

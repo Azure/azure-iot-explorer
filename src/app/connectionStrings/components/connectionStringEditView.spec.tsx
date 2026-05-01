@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { TextField, PrimaryButton, DefaultButton } from '@fluentui/react';
+import { Button, Textarea } from '@fluentui/react-components';
 import { ConnectionStringEditView, ConnectionStringEditViewProps } from './connectionStringEditView';
 
 describe('ConnectionStringEdit', () => {
@@ -69,7 +69,7 @@ describe('ConnectionStringEdit', () => {
         };
 
         const wrapper = mount(<ConnectionStringEditView {...props}/>);
-        wrapper.find(DefaultButton).get(1).props.onClick(undefined);
+        wrapper.find(Button).filterWhere(n => !n.prop('appearance')).at(0).props().onClick(undefined);
 
         expect(onDismiss).toHaveBeenCalled();
     });
@@ -84,10 +84,10 @@ describe('ConnectionStringEdit', () => {
             };
 
             const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, 'badConnectionString'));
+            act(() => wrapper.find(Textarea).props().onChange?.({} as any, { value: 'badConnectionString' }));
             wrapper.update();
 
-            const disabled = wrapper.find(PrimaryButton).props().disabled;
+            const disabled = wrapper.find(Button).filterWhere(n => n.prop('appearance') === 'primary').first().props().disabled;
             expect(disabled).toEqual(true);
         });
 
@@ -100,10 +100,10 @@ describe('ConnectionStringEdit', () => {
             };
 
             const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, connectionString));
+            act(() => wrapper.find(Textarea).props().onChange?.({} as any, { value: connectionString }));
             wrapper.update();
 
-            const disabled = wrapper.find(PrimaryButton).props().disabled;
+            const disabled = wrapper.find(Button).filterWhere(n => n.prop('appearance') === 'primary').first().props().disabled;
             expect(disabled).toEqual(true);
         });
 
@@ -117,10 +117,10 @@ describe('ConnectionStringEdit', () => {
             };
 
             const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, connectionString));
+            act(() => wrapper.find(Textarea).props().onChange?.({} as any, { value: connectionString }));
             wrapper.update();
 
-            const commitButton = wrapper.find(PrimaryButton);
+            const commitButton = wrapper.find(Button).filterWhere(n => n.prop('appearance') === 'primary').first();
             expect(commitButton.props().disabled).toEqual(false);
             commitButton.props().onClick?.(undefined as any);
 

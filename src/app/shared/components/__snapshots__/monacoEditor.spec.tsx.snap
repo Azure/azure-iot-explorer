@@ -4,11 +4,17 @@ exports[`MonacoEditorComponent matches snapshot 1`] = `
 <div
   aria-label="Code editor: test label. Press Escape or Alt+M to exit editor."
   role="region"
+  style={
+    {
+      "borderColor": "rgb(59, 58, 57)",
+      "borderStyle": "solid",
+      "borderWidth": "1px",
+    }
+  }
   tabIndex={-1}
 >
   <MonacoEditor
     aria-label="test label"
-    className="editorStyleDark-109"
     editorDidMount={[Function]}
     height={100}
     language="json"

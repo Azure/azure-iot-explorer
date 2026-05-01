@@ -6,10 +6,11 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { CommandBar } from '@fluentui/react';
+
 import { Commands } from './commands';
 import * as deviceEventsStateContext from '../context/deviceEventsStateContext';
 import { getInitialDeviceEventsState } from '../state';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
 const search = '?deviceId=test&componentName=DEFAULT_COMPONENT&interfaceId=dtmi:com:example:Thermostat;1';
 const pathname = `#devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/events/${search}`;

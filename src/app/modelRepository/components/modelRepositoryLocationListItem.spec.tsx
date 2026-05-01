@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { act } from 'react-dom/test-utils';
 import { ModelRepositoryLocationListItem } from './modelRepositoryLocationListItem';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -82,7 +82,7 @@ describe('ModelRepositoryLocationListItem', () => {
                 formState={[getInitialModelRepositoryFormState(), {...getInitialModelRepositoryFormOps(), setRepositoryLocationSettings, setDirtyFlag}]}
             />
         );
-        const removeButton = wrapper.find(IconButton).first();
+        const removeButton = wrapper.find(Button).first();
         act(() => removeButton.props().onClick(undefined));
 
         expect(setRepositoryLocationSettings).toBeCalledWith([]);

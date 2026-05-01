@@ -3,7 +3,6 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Stack } from '@fluentui/react';
 import { useLocation } from 'react-router-dom';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -100,8 +99,8 @@ export const DeviceEvents: React.FC = () => {
         },
         [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString]);
 
-    const onSystemPropertyCheckBoxChange = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
-        setShowSystemProperties(!!checked);
+    const onSystemPropertyCheckBoxChange = (ev: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean | 'mixed' }) => {
+        setShowSystemProperties(!!data.checked);
     };
 
     const renderCommands = () => {
@@ -183,7 +182,7 @@ export const DeviceEvents: React.FC = () => {
     }
 
     return (
-        <Stack className="device-events" key="device-events">
+        <div className="device-events" key="device-events">
             {renderCommands()}
             <HeaderView
                 headerText={ResourceKeys.deviceEvents.headerText}
@@ -208,6 +207,6 @@ export const DeviceEvents: React.FC = () => {
                 <Loader monitoringData={monitoringData}/>
                 <EventsContent showPnpModeledEvents={showPnpModeledEvents} showSystemProperties={showSystemProperties}/>
             </div>
-        </Stack>
+        </div>
     );
 };

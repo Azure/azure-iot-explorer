@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { CollapsibleSection, CollapsibleSectionProps } from './collapsibleSection';
 
 describe('collapsibleSection', () => {
@@ -28,11 +28,11 @@ describe('collapsibleSection', () => {
 
     it('toggles section', () => {
         const wrapper = mount(getComponent());
-        const button = wrapper.find(IconButton).at(0);
-        expect(wrapper.find(IconButton).first().props().title).toEqual('collapsibleSection.open');
+        const button = wrapper.find(Button).at(0);
+        expect(wrapper.find(Button).first().props().title).toEqual('collapsibleSection.open');
 
         button.simulate('click');
         wrapper.update();
-        expect(wrapper.find(IconButton).first().props().title).toEqual('collapsibleSection.close');
+        expect(wrapper.find(Button).first().props().title).toEqual('collapsibleSection.close');
     });
 });

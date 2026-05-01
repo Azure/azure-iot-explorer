@@ -81,49 +81,49 @@ exports[`EventsContent EventsContent in pnp context matches snapshot while inter
           <div
             className="col-sm2"
           >
-            <StyledLabelBase
+            <Label
               aria-label="deviceEvents.columns.timestamp"
             >
               Wed Feb 17 2021 16:06:00 GMT-0800 (Pacific Standard Time)
-            </StyledLabelBase>
+            </Label>
           </div>
           <div
             className="col-sm2"
           >
-            <StyledLabelBase
+            <Label
               aria-label="deviceEvents.columns.displayName"
             >
               --
-            </StyledLabelBase>
+            </Label>
           </div>
           <div
             className="col-sm2"
           >
-            <StyledLabelBase
+            <Label
               aria-label="deviceEvents.columns.schema"
             >
               --
-            </StyledLabelBase>
+            </Label>
           </div>
           <div
             className="col-sm2"
           >
-            <StyledLabelBase
+            <Label
               aria-label="deviceEvents.columns.unit"
             >
               <SemanticUnit />
-            </StyledLabelBase>
+            </Label>
           </div>
           <div
             className="column-value-text col-sm4"
           >
-            <StyledLabelBase
+            <Label
               aria-label="deviceEvents.columns.value"
             >
               {
   "humid": 123
 }
-            </StyledLabelBase>
+            </Label>
           </div>
         </ErrorBoundary>
       </section>

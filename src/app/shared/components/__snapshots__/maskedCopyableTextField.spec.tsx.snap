@@ -8,7 +8,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="labelSection"
   >
     <LabelWithTooltip
-      htmlFor="maskedCopyableTextField0"
+      htmlFor=":r1:"
     >
       label1
     </LabelWithTooltip>
@@ -22,7 +22,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="maskedCopyableTextField0"
+        id=":r1:"
         readOnly={true}
         type="text"
         value="value1"
@@ -62,7 +62,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
     className="labelSection"
   >
     <LabelWithTooltip
-      htmlFor="maskedCopyableTextField2"
+      htmlFor=":r1:"
     >
       label1
     </LabelWithTooltip>
@@ -76,7 +76,7 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
       <input
         aria-label="ariaLabel1"
         className="input"
-        id="maskedCopyableTextField2"
+        id=":r1:"
         readOnly={true}
         type="password"
         value="value1"
@@ -96,20 +96,16 @@ exports[`MaskedCopyableTextField snapshots it matches snapshot when allowMask = 
         tabIndex={-1}
         value="value1"
       />
-      <StyledTooltipHostBase
+      <Tooltip
         content="common.maskedCopyableTextField.toggleMask.label.show"
-        id="toggleMaskButtonTooltipHost3"
+        relationship="label"
       >
-        <CustomizedIconButton
-          aria-labelledby="toggleMaskButtonTooltipHost3"
-          iconProps={
-            {
-              "iconName": "RedEye",
-            }
-          }
+        <Button
+          appearance="subtle"
+          icon={<EyeRegular />}
           onClick={[Function]}
         />
-      </StyledTooltipHostBase>
+      </Tooltip>
     </div>
     <div
       className="copySection"

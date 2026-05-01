@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { ActionButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { ListPaging } from './listPaging';
 
 describe('components/devices/listPaging', () => {
@@ -50,7 +50,7 @@ describe('components/devices/listPaging', () => {
             fetchPage={fetchPage}
         />);
 
-        const link = wrapper.find(ActionButton).first();
+        const link = wrapper.find(Button).first();
         link.simulate('click');
         expect(fetchPage).toHaveBeenCalled();
     });

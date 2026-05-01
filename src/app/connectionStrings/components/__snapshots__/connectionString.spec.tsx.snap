@@ -10,34 +10,28 @@ exports[`connectionString matches snapshot 1`] = `
     <div
       className="name"
     >
-      <StyledLinkBase
+      <Link
         className="text"
         onClick={[Function]}
         title="connectionStrings.visitConnectionCommand.ariaLabel"
       >
         test
-      </StyledLinkBase>
+      </Link>
     </div>
     <div
       className="actions"
     >
-      <CustomizedIconButton
-        ariaLabel="connectionStrings.editConnectionCommand.ariaLabel"
-        iconProps={
-          {
-            "iconName": "EditSolid12",
-          }
-        }
+      <Button
+        appearance="subtle"
+        aria-label="connectionStrings.editConnectionCommand.ariaLabel"
+        icon={<EditRegular />}
         onClick={[Function]}
         title="connectionStrings.editConnectionCommand.label"
       />
-      <CustomizedIconButton
-        ariaLabel="connectionStrings.deleteConnectionCommand.ariaLabel"
-        iconProps={
-          {
-            "iconName": "Delete",
-          }
-        }
+      <Button
+        appearance="subtle"
+        aria-label="connectionStrings.deleteConnectionCommand.ariaLabel"
+        icon={<DeleteRegular />}
         onClick={[Function]}
         title="connectionStrings.deleteConnectionCommand.label"
       />
@@ -63,16 +57,13 @@ exports[`connectionString matches snapshot 1`] = `
     >
       connectionStrings.expirationWarning
     </div>
-    <CustomizedActionButton
-      iconProps={
-        {
-          "iconName": "Forward",
-        }
-      }
+    <Button
+      appearance="transparent"
+      icon={<ArrowForwardRegular />}
       onClick={[Function]}
     >
       connectionStrings.visitConnectionCommand.label
-    </CustomizedActionButton>
+    </Button>
   </div>
   <ConnectionStringDelete
     connectionString="HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key"

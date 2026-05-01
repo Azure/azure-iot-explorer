@@ -3,9 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
+import { SaveRegular, KeyRegular, ArrowSwapRegular } from '@fluentui/react-icons';
 import { SAVE } from '../../../constants/iconNames';
 
 export interface DeviceIdentityCommandBarDataProps {
@@ -25,13 +26,11 @@ export const DeviceIdentityCommandBar: React.FC<DeviceIdentityCommandBarDataProp
 
     const allowKeyManagement: boolean = !!onRegeneratePrimaryKey || !!onRegenerateSecondaryKey || !!onSwapKeys;
 
-    const items: ICommandBarItemProps[] = [
+    const items = [
         {
             ariaLabel: t(ResourceKeys.deviceIdentity.commands.save),
             disabled: disableSave,
-            iconProps: {
-                iconName: SAVE
-            },
+            icon: <SaveRegular />,
             key: SAVE,
             name: t(ResourceKeys.deviceIdentity.commands.save),
             onClick: handleSave
@@ -39,9 +38,7 @@ export const DeviceIdentityCommandBar: React.FC<DeviceIdentityCommandBarDataProp
         {
             ariaLabel: t(ResourceKeys.deviceIdentity.commands.manageKeys.ariaLabel),
             disabled: !allowKeyManagement,
-            iconProps: {
-                iconName: 'Permissions'
-            },
+            icon: <KeyRegular />,
             key: 'manageKeys',
             name: t(ResourceKeys.deviceIdentity.commands.manageKeys.label),
             subMenuProps: {
@@ -49,9 +46,7 @@ export const DeviceIdentityCommandBar: React.FC<DeviceIdentityCommandBarDataProp
                     {
                         ariaLabel: t(ResourceKeys.deviceIdentity.commands.regeneratePrimary.ariaLabel),
                         disabled: !onRegeneratePrimaryKey,
-                        iconProps: {
-                            iconName: 'AzureKeyVault'
-                        },
+                        icon: <KeyRegular />,
                         key: 'regeneratePrimary',
                         name: t(ResourceKeys.deviceIdentity.commands.regeneratePrimary.label),
                         onClick: onRegeneratePrimaryKey
@@ -59,9 +54,7 @@ export const DeviceIdentityCommandBar: React.FC<DeviceIdentityCommandBarDataProp
                     {
                         ariaLabel: t(ResourceKeys.deviceIdentity.commands.regenerateSecondary.ariaLabel),
                         disabled: !onRegenerateSecondaryKey,
-                        iconProps: {
-                            iconName: 'AzureKeyVault'
-                        },
+                        icon: <KeyRegular />,
                         key: 'regenerateSecondary',
                         name: t(ResourceKeys.deviceIdentity.commands.regenerateSecondary.label),
                         onClick: onRegenerateSecondaryKey
@@ -69,9 +62,7 @@ export const DeviceIdentityCommandBar: React.FC<DeviceIdentityCommandBarDataProp
                     {
                         ariaLabel: t(ResourceKeys.deviceIdentity.commands.swapKeys.ariaLabel),
                         disabled: !onSwapKeys,
-                        iconProps: {
-                            iconName: 'SwitcherStartEnd'
-                        },
+                        icon: <ArrowSwapRegular />,
                         key: 'swapKeys',
                         name: t(ResourceKeys.deviceIdentity.commands.swapKeys.label),
                         onClick: onSwapKeys

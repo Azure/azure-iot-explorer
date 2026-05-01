@@ -6,11 +6,13 @@ import * as React from 'react';
 import 'jest';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { CommandBar, Toggle } from '@fluentui/react';
+
+import { Switch } from '@fluentui/react-components';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as IotHubContext from '../../../iotHub/hooks/useIotHubContext';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
 const mockUpdateDevice = jest.fn();
 const componentProps = {
@@ -132,7 +134,7 @@ describe('deviceIdentity', () => {
                     }
                 })
             );
-            act(() => wrapper.find(Toggle).first().props().onChange?.(undefined as any, false));
+            act(() => wrapper.find(Switch).first().props().onChange?.({target: {checked: false}} as any, {checked: false}));
             wrapper.update();
 
             const commandBar = wrapper.find(CommandBar).first();

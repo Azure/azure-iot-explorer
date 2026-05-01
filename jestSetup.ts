@@ -2,18 +2,19 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { setIconOptions } from '@fluentui/react';
 import * as Enzyme from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
+
+// FluentUI v9 components use ResizeObserver, which jsdom doesn't provide
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+} as any;
 
 // tslint:disable-next-line: no-string-literal
 global.Headers = jest.fn();
 window.fetch = jest.fn();
-
-// suppress icon warnings.
-setIconOptions({
-  disableWarnings: true,
-});
 
 Enzyme.configure({ adapter: new Adapter() });
 document.execCommand = jest.fn(); // maskedCopyableTextField

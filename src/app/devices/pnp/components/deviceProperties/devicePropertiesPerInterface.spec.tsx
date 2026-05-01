@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Overlay } from '@fluentui/react';
+
 import { DevicePropertiesPerInterface, DevicePropertiesDataProps } from './devicePropertiesPerInterface';
 
 describe('devicePropertiesPerInterface', () => {
@@ -48,6 +48,6 @@ describe('devicePropertiesPerInterface', () => {
         const realUseState = React.useState;
         jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
         const wrapperWithOverlay = mount(getComponent());
-        expect(wrapperWithOverlay.find(Overlay)).toBeDefined();
+        expect(wrapperWithOverlay.find('div[style]')).toBeDefined();
     });
 });

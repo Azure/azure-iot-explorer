@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Stack, Pivot, PivotItem } from '@fluentui/react';
+import { TabList, Tab, SelectTabData, SelectTabEvent } from '@fluentui/react-components';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
@@ -22,30 +22,27 @@ export const ModuleIdentityDetailHeader: React.FC = () => {
 
     const [selectedKey, setSelectedKey] = React.useState((NAV_LINK_ITEMS.find(item => pathname.indexOf(item) > 0) || ROUTE_PARTS.MODULE_DETAIL).toString());
     const path = pathname.replace(/\/moduleIdentity\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
-    const pivotItems = NAV_LINK_ITEMS.map(nav =>  {
-        const text = t((ResourceKeys.breadcrumb as any)[nav]); // tslint:disable-line:no-any
-        return (<PivotItem key={nav} headerText={text} itemKey={nav} />);
-    });
 
-    const handleLinkClick = (item: PivotItem) => {
-        setSelectedKey(item.props.itemKey);
-        const url = `${path}/${item.props.itemKey}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.MODULE_ID}=${encodeURIComponent(moduleId)}`;
+    const handleTabSelect = (event: SelectTabEvent, data: SelectTabData) => {
+        const key = data.value as string;
+        setSelectedKey(key);
+        const url = `${path}/${key}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}&${ROUTE_PARAMS.MODULE_ID}=${encodeURIComponent(moduleId)}`;
         navigate(url);
     };
 
-    const pivot = (
-        <Pivot
-            aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
-            selectedKey={selectedKey}
-            onLinkClick={handleLinkClick}
-        >
-            {pivotItems}
-        </Pivot>
-    );
-
     return (
-        <Stack horizontal={true} className="module-pivot">
-            {pivot}
-        </Stack>
+        <div className="module-pivot">
+            <TabList
+                aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
+                selectedValue={selectedKey}
+                onTabSelect={handleTabSelect}
+            >
+                {NAV_LINK_ITEMS.map(nav => (
+                    <Tab key={nav} value={nav}>
+                        {t((ResourceKeys.breadcrumb as any)[nav])}
+                    </Tab>
+                ))}
+            </TabList>
+        </div>
     );
 };

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MessageBar, MessageBarType } from '@fluentui/react';
+import { MessageBar, MessageBarBody } from '@fluentui/react-components';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
@@ -29,8 +29,10 @@ export const ListItemConfigurableRepo: React.FC<ListItemConfigurableRepoProps> =
             <div className="labelSection">
                 <div className="label">{t(ResourceKeys.modelRepository.types.configurable.label)}</div>
                 <div className="description">{t(ResourceKeys.modelRepository.types.configurable.infoText)}</div>
-                <MessageBar messageBarType={MessageBarType.warning}>
+                <MessageBar intent="warning">
+                    <MessageBarBody>
                     {t(ResourceKeys.modelRepository.types.configurable.warning)}
+                    </MessageBarBody>
                 </MessageBar>
             </div>
         </>

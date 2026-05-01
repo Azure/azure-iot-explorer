@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { IconButton, Link } from '@fluentui/react';
+import { Button, Link } from '@fluentui/react-components';
 import { ConnectionString, ConnectionStringProps } from './connectionString';
 import { ConnectionStringDelete } from './connectionStringDelete';
 
@@ -63,7 +63,7 @@ describe('connectionString', () => {
         };
 
         const wrapper = shallow(<ConnectionString {...props}/>);
-        wrapper.find(IconButton).first().props().onClick(undefined);
+        wrapper.find(Button).first().props().onClick(undefined);
 
         expect(onEditConnectionString).toHaveBeenCalledWith(connectionString);
     });
@@ -78,7 +78,7 @@ describe('connectionString', () => {
             };
 
             const wrapper = shallow(<ConnectionString {...props}/>);
-            wrapper.find(IconButton).get(1).props.onClick(undefined);
+            wrapper.find(Button).get(1).props.onClick(undefined);
             wrapper.update();
 
             const connectionStringDelete = wrapper.find(ConnectionStringDelete);
@@ -95,7 +95,7 @@ describe('connectionString', () => {
             };
 
             const wrapper = shallow(<ConnectionString {...props}/>);
-            wrapper.find(IconButton).get(1).props.onClick(undefined);
+            wrapper.find(Button).get(1).props.onClick(undefined);
             wrapper.update();
 
             const connectionStringDelete = wrapper.find(ConnectionStringDelete);
@@ -113,7 +113,7 @@ describe('connectionString', () => {
             };
 
             const wrapper = shallow(<ConnectionString {...props}/>);
-            wrapper.find(IconButton).get(1).props.onClick(undefined);
+            wrapper.find(Button).get(1).props.onClick(undefined);
             wrapper.update();
 
             const connectionStringDelete = wrapper.find(ConnectionStringDelete);

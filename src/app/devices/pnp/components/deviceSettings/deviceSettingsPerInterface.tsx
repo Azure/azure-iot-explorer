@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Overlay, IColumn, Label, ActionButton, Panel, PanelType } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
+import { Button, Label } from '@fluentui/react-components';
+import { IColumn, ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import '../../../../css/_devicePnpDetailList.scss';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
@@ -176,13 +176,13 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
             }
             if (item.reportedSection) {
                 return (
-                    <ActionButton
+                    <Button
+                        appearance="transparent"
                         className="column-value-button"
-                        ariaDescription={t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
                         onClick={createOnViewReportedValueHandler(item)}
                     >
                         {t(ResourceKeys.deviceSettings.command.openReportedValuePanel)}
-                    </ActionButton>
+                    </Button>
                 );
             }
             return <Label>--</Label>;
@@ -218,13 +218,13 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
             }
             if (typeof item.desiredValue === 'object') {
                 return (
-                    <ActionButton
+                    <Button
+                        appearance="transparent"
                         className="column-value-button"
-                        ariaDescription={t(ResourceKeys.deviceSettings.command.openDesiredValuePanel)}
                         onClick={onOpenDesiredValuePanel}
                     >
                         {t(ResourceKeys.deviceSettings.command.openDesiredValuePanel)}
-                    </ActionButton>
+                    </Button>
                 );
             }
             return <Label>{String(displayValue)}</Label>;
@@ -244,15 +244,13 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
         }
         const { reportedSection: reportedTwin, settingModelDefinition: modelDefinition, settingSchema: schema } = selectedItem;
         return (
-            <Panel type={PanelType.medium} isOpen={showReportedValuePanel} isLightDismiss={true}>
-                <ComplexReportedFormPanel
-                    formData={reportedTwin}
-                    schema={schema}
-                    showPanel={showReportedValuePanel}
-                    handleDismiss={removeOverlay}
-                    modelDefinition={modelDefinition}
-                />
-            </Panel>
+            <ComplexReportedFormPanel
+                formData={reportedTwin}
+                schema={schema}
+                showPanel={showReportedValuePanel}
+                handleDismiss={removeOverlay}
+                modelDefinition={modelDefinition}
+            />
         );
     };
 
@@ -270,11 +268,11 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
                 onRenderItemColumn={renderItemColumn}
                 ariaLabelForSelectAllCheckbox={t(ResourceKeys.deviceSettings.columns.selectAll)}
                 ariaLabelForSelectionColumn={t(ResourceKeys.deviceSettings.columns.toggleSelection)}
-                checkButtonAriaLabel={t(ResourceKeys.deviceSettings.columns.rowCheckBoxAriaLabel)}
+                checkButtonAriaLabel={(item: any) => `${t(ResourceKeys.deviceSettings.columns.rowCheckBoxAriaLabel)} ${item.settingModelDefinition?.name || ''}`}
                 ariaLabel={t(ResourceKeys.deviceSettings.writablePropertiesTableAriaLabel)}
             />
             {createReportedValuePanel()}
-            {showOverlay && <Overlay/>}
+            {showOverlay && <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(255,255,255,0.5)", zIndex: 1 }} />}
         </div>
     );
 };

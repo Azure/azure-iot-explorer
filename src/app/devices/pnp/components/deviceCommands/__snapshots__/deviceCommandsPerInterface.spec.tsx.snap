@@ -30,13 +30,10 @@ exports[`components/devices/deviceCommandsPerInterface matches snapshot 1`] = `
     <div
       className="col-sm1 collapse-button"
     >
-      <CustomizedIconButton
-        ariaLabel="deviceCommands.command.collapseAll"
-        iconProps={
-          {
-            "iconName": "ChevronUp",
-          }
-        }
+      <Button
+        appearance="subtle"
+        aria-label="deviceCommands.command.collapseAll"
+        icon={<ChevronUpRegular />}
         onClick={[Function]}
         title="deviceCommands.command.collapseAll"
       />

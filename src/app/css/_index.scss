@@ -38,6 +38,22 @@ body {
     }
 }
 
+// Ensure v9 icon buttons render icons in brand color (matching v8 behavior)
+button svg {
+    color: var(--colorBrandForeground1);
+}
+// Primary buttons need white icons on blue background — restore the inherited color
+button.submit-button svg,
+.fui-DialogActions button svg {
+    color: inherit;
+}
+
+// v9 Field labels should be semibold (matching v8 Label behavior for input fields)
+// Note: .fui- prefixed class names are stable in FluentUI v9
+.fui-Field .fui-Label {
+    font-weight: 600;
+}
+
 .embedded-link {
     @include themify($themes) {
         color: themed('linkColor');

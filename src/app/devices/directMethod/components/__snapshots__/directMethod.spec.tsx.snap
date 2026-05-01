@@ -2,7 +2,7 @@
 
 exports[`directMethod matches snapshot 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [

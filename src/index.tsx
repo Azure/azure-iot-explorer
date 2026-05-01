@@ -6,15 +6,12 @@ import * as React from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
-import { initializeIcons } from '@fluentui/react';
 import { Themer } from './themer';
 import i18n from './i18n';
 import { Application } from './app/shared/components/application';
 import { GlobalContextProvider } from './app/shared/global/context/globalContext';
 import './app/css/_index.scss';
 import './app/css/_layouts.scss';
-
-initializeIcons();
 
 const ViewHolder: React.FC = () => {
     return (

@@ -4,12 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar, Label } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Label } from '@fluentui/react-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DeviceSettingsPerInterface } from './deviceSettingsPerInterface';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { updateDeviceTwinAction, updateModuleTwinAction } from '../../actions';
+import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../context/pnpStateContext';
@@ -96,7 +98,7 @@ export const DeviceSettings: React.FC = () => {
                     items={[
                         {
                             ariaLabel: t(ResourceKeys.deviceSettings.command.refresh),
-                            iconProps: {iconName: REFRESH},
+                            icon: <ArrowSyncRegular />,
                             key: REFRESH,
                             name: t(ResourceKeys.deviceSettings.command.refresh),
                             onClick: onRefresh
@@ -105,7 +107,7 @@ export const DeviceSettings: React.FC = () => {
                     farItems={[
                         {
                             ariaLabel: t(ResourceKeys.deviceSettings.command.close),
-                            iconProps: {iconName: NAVIGATE_BACK},
+                            icon: <ArrowLeftRegular />,
                             key: NAVIGATE_BACK,
                             name: t(ResourceKeys.deviceSettings.command.close),
                             onClick: handleClose

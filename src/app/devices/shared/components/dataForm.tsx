@@ -4,12 +4,12 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PrimaryButton, Label } from '@fluentui/react';
-import { Form as MaterialForm } from '@rjsf/material-ui';
-import { Form as FluentForm } from '@rjsf/fluent-ui';
+import { Button } from '@fluentui/react-components';
+import { CloudArrowUpRegular } from '@fluentui/react-icons';
+import { Label } from '@fluentui/react-components';
+import { Form as FluentForm } from '@rjsf/fluentui-rc';
 import validator from '@rjsf/validator-ajv8';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { SUBMIT } from '../../../constants/iconNames';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { ErrorBoundary } from './errorBoundary';
 import { getSchemaValidationErrors } from '../../../shared/utils/jsonSchemaAdaptor';
@@ -37,7 +37,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
             <div className="column-value-text col-sm4">
                 <Label aria-label={t(ResourceKeys.deviceEvents.columns.value)}>
                     {errors.length !== 0 &&
-                        <section className="value-validation-error" aria-label={t(ResourceKeys.deviceSettings.columns.error)}>
+                        <section className="value-validation-error" role="alert" aria-label={t(ResourceKeys.deviceSettings.columns.error)}>
                             <span>{t(ResourceKeys.deviceSettings.columns.error)}</span>
                             <ul>
                                 {errors.map((error, index) => <li key={index}>{error.message}</li>)}
@@ -58,41 +58,21 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
             };
         }
 
-        let form: JSX.Element;
-        if (containsMapsInSchema(settingSchema)) { // FluentForm does not support map (additionalProperties yet)
-            form = (
-                <MaterialForm
-                    className="value-section"
-                    formData={formData}
-                    liveValidate={false}
-                    onChange={onChangeForm}
-                    schema={settingSchema as any} // tslint:disable-line: no-any
-                    showErrorList={false}
-                    uiSchema={uiSchema}
-                    validator={validator}
-                >
-                    {renderMessageBodyWithValueValidation()}
-                    {createActionButtons()}
-                </MaterialForm>
-            );
-        }
-        else {
-            form = (
-                <FluentForm
-                    className="value-section"
-                    formData={formData}
-                    liveValidate={false}
-                    onChange={onChangeForm}
-                    schema={settingSchema as any} // tslint:disable-line: no-any
-                    showErrorList={false}
-                    uiSchema={uiSchema}
-                    validator={validator}
-                >
-                    {renderMessageBodyWithValueValidation()}
-                    {createActionButtons()}
-                </FluentForm>
-            );
-        }
+        const form = (
+            <FluentForm
+                className="value-section"
+                formData={formData}
+                liveValidate={false}
+                onChange={onChangeForm}
+                schema={settingSchema as any} // tslint:disable-line: no-any
+                showErrorList={false}
+                uiSchema={uiSchema}
+                validator={validator}
+            >
+                {renderMessageBodyWithValueValidation()}
+                {createActionButtons()}
+            </FluentForm>
+        );
 
         return (
             <ErrorBoundary error={t(ResourceKeys.errorBoundary.text)}>
@@ -122,13 +102,15 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
         }
 
         return (
-            <PrimaryButton
+            <Button
+                appearance="primary"
                 className="submit-button"
                 onClick={handleSave(payload)}
-                text={t(buttonText)}
-                iconProps={{ iconName: SUBMIT }}
+                icon={<CloudArrowUpRegular />}
                 disabled={buttonDisabled}
-            />
+            >
+                {t(buttonText)}
+            </Button>
         );
     };
 

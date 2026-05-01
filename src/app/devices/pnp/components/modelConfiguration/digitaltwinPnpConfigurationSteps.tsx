@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { Link } from '@fluentui/react';
+import { Link } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';

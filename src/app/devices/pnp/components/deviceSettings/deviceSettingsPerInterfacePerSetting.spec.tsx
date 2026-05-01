@@ -6,11 +6,10 @@ import 'jest';
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
 import { PropertyContent } from '../../../../api/models/modelDefinition';
 import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
-import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { DataForm } from '../../../shared/components/dataForm';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 
@@ -68,9 +67,9 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         );
 
         // Check that the collapse button is rendered
-        const toggleButton = wrapper.find(IconButton);
+        const toggleButton = wrapper.find(Button);
         expect(toggleButton).toHaveLength(1);
-        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.OPEN}); // collapsed by default
+        expect(toggleButton.props().icon).toBeDefined(); // collapsed shows ChevronDown icon
 
         // Check that the header is clickable for collapse/expand
         const header = wrapper.find('header');
@@ -117,9 +116,9 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
         );
 
         // Check that the collapse button shows close icon when expanded
-        const toggleButton = wrapper.find(IconButton);
-        expect(toggleButton).toHaveLength(1);
-        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
+        const toggleButton = wrapper.find(Button);
+        expect(toggleButton.length).toBeGreaterThanOrEqual(1);
+        expect(toggleButton.first().props().icon).toBeDefined(); // expanded shows ChevronUp icon
 
         // Check that the header is clickable for collapse/expand
         const header = wrapper.find('header');

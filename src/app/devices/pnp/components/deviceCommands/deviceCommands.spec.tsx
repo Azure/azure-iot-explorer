@@ -5,13 +5,15 @@
 import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Shimmer, CommandBar } from '@fluentui/react';
+
+import { Skeleton } from '@fluentui/react-components';
 import { DeviceCommands } from './deviceCommands';
 import * as PnpContext from '../../context/pnpStateContext';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { PnpStateInterface, pnpStateInitial } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { pnpStateWithTestData } from './testData';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1`;
 
@@ -30,7 +32,7 @@ describe('components/devices/deviceCommands', () => {
         };
         jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
         const wrapper = mount(<DeviceCommands/>);
-        expect(wrapper.find(Shimmer)).toBeDefined();
+        expect(wrapper.find(Skeleton)).toBeDefined();
     });
 
     it('matches snapshot while interface cannot be found', () => {

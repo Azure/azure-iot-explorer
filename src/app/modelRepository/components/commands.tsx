@@ -5,12 +5,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps, IContextualMenuItem } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { StringMap } from '../../api/models/stringMap';
 import { ROUTE_PARAMS } from '../../constants/routes';
-import { SAVE, ADD, UNDO, HELP, NAVIGATE_BACK, REPO, FOLDER } from '../../constants/iconNames';
+import { SaveRegular, AddRegular, ArrowUndoRegular, QuestionCircleRegular, ArrowLeftRegular, BookRegular, FolderOpenRegular } from '@fluentui/react-icons';
 import { ModelRepositoryStateInterface } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
 import { useModelRepositoryContext } from '../../shared/modelRepository/context/modelRepositoryStateContext';
@@ -26,14 +26,14 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
 
     const [ modelRepositoryState, { setRepositoryLocations } ] = useModelRepositoryContext();
 
-    const getCommandBarItems = (): ICommandBarItemProps[] => {
+    const getCommandBarItems = () => {
         const addItems = getCommandBarItemsAdd();
 
         const items = [
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.save.ariaLabel),
                 disabled: !dirty,
-                iconProps: { iconName: SAVE },
+                icon: <SaveRegular />,
                 key: 'save',
                 onClick: onSaveModelRepositorySettingsClick,
                 text: t(ResourceKeys.modelRepository.commands.save.label)
@@ -41,7 +41,7 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.add.ariaLabel),
                 disabled: repositoryLocationSettings.length === addItems.length,
-                iconProps: { iconName: ADD },
+                icon: <AddRegular />,
                 key: 'add',
                 subMenuProps: {
                     items: addItems
@@ -51,14 +51,14 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.revert.ariaLabel),
                 disabled: !dirty,
-                iconProps: { iconName: UNDO },
+                icon: <ArrowUndoRegular />,
                 key: 'revert',
                 onClick: onRevertModelRepositorySettingsClick,
                 text: t(ResourceKeys.modelRepository.commands.revert.label)
             },
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.help.ariaLabel),
-                iconProps: { iconName: HELP},
+                icon: <QuestionCircleRegular />,
                 key: 'help',
                 onClick: onHelpClick,
                 text: t(ResourceKeys.modelRepository.commands.help.label)
@@ -69,7 +69,7 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
             items.push(
                 {
                     ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
-                    iconProps: { iconName: NAVIGATE_BACK},
+                    icon: <ArrowLeftRegular />,
                     key: 'back',
                     onClick: onNavigateBackClick,
                     text: t(ResourceKeys.modelRepository.commands.back.label)
@@ -80,14 +80,12 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
         return items;
     };
 
-    const getCommandBarItemsAdd = (): IContextualMenuItem[] => {
+    const getCommandBarItemsAdd = () => {
         return [
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addPublicSource.ariaLabel),
                 disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Public),
-                iconProps: {
-                    iconName: REPO
-                },
+                icon: <BookRegular />,
                 key: REPOSITORY_LOCATION_TYPE.Public,
                 onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.Public),
                 text: t(ResourceKeys.modelRepository.commands.addPublicSource.label),
@@ -95,9 +93,7 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addConfigurableRepoSource.label),
                 disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable),
-                iconProps: {
-                    iconName: REPO
-                },
+                icon: <BookRegular />,
                 key: REPOSITORY_LOCATION_TYPE.Configurable,
                 onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.Configurable),
                 text: t(ResourceKeys.modelRepository.commands.addConfigurableRepoSource.label)
@@ -105,9 +101,7 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalSource.ariaLabel),
                 disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Local),
-                iconProps: {
-                    iconName: FOLDER
-                },
+                icon: <FolderOpenRegular />,
                 key: REPOSITORY_LOCATION_TYPE.Local,
                 onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.Local),
                 text: t(ResourceKeys.modelRepository.commands.addLocalSource.label)
@@ -115,9 +109,7 @@ export const Commands: React.FC<{formState: ModelRepositoryFormType}> = ({formSt
             {
                 ariaLabel: t(ResourceKeys.modelRepository.commands.addLocalDMRSource.ariaLabel),
                 disabled: repositoryLocationSettings.some(item => item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.LocalDMR),
-                iconProps: {
-                    iconName: FOLDER
-                },
+                icon: <FolderOpenRegular />,
                 key: REPOSITORY_LOCATION_TYPE.LocalDMR,
                 onClick: onAddRepositoryLocation(REPOSITORY_LOCATION_TYPE.LocalDMR),
                 text: t(ResourceKeys.modelRepository.commands.addLocalDMRSource.label)

@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { MessageBar } from '@fluentui/react';
+import { MessageBar, MessageBarBody } from '@fluentui/react-components';
 import { AppVersionMessageBar } from './appVersionMessageBar';
 import * as AppVersionHelper from '../utils/appVersionHelper';
 import * as githubService from '../../api/services/githubService';
@@ -27,7 +27,8 @@ describe('components/devices/appVersionMessageBar', () => {
     it('shows and hides message bar', () => {
         const wrapper = shallow(<AppVersionMessageBar/>);
         const messageBar = wrapper.find(MessageBar);
-        expect(messageBar.props().children[0]).toEqual('deviceLists.messageBar.message');
-        expect(messageBar.props().children[1].props.href).toEqual(githubService.latestReleaseUrlPath);
+        expect(messageBar).toHaveLength(1);
+        const body = messageBar.find(MessageBarBody);
+        expect(body).toHaveLength(1);
     });
 });

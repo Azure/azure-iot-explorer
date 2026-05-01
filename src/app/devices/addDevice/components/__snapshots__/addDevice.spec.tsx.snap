@@ -5,7 +5,7 @@ exports[`addDevice matches snapshot 1`] = `
   className="add-device"
   onSubmit={[Function]}
 >
-  <StyledCommandBarBase
+  <CommandBarV9
     items={
       [
         {
@@ -35,41 +35,43 @@ exports[`addDevice matches snapshot 1`] = `
     <div
       className="form"
     >
-      <StyledTextFieldBase
-        ariaLabel="deviceIdentity.deviceID"
-        description="deviceIdentity.deviceIDTooltip"
-        errorMessage=""
+      <Field
+        hint="deviceIdentity.deviceIDTooltip"
         label="deviceIdentity.deviceID"
-        onChange={[Function]}
         required={true}
-        value=""
-      />
+      >
+        <Input
+          aria-label="deviceIdentity.deviceID"
+          onChange={[Function]}
+          value=""
+        />
+      </Field>
       <div
         className="authentication"
       >
-        <StyledChoiceGroup
+        <Field
           label="deviceIdentity.authenticationType.text"
-          onChange={[Function]}
-          options={
-            [
-              {
-                "key": "sas",
-                "text": "deviceIdentity.authenticationType.symmetricKey.type",
-              },
-              {
-                "key": "selfSigned",
-                "text": "deviceIdentity.authenticationType.selfSigned.type",
-              },
-              {
-                "key": "certificateAuthority",
-                "text": "deviceIdentity.authenticationType.ca.type",
-              },
-            ]
-          }
           required={true}
-          selectedKey="sas"
-        />
-        <StyledCheckboxBase
+        >
+          <RadioGroup
+            onChange={[Function]}
+            value="sas"
+          >
+            <Radio
+              label="deviceIdentity.authenticationType.symmetricKey.type"
+              value="sas"
+            />
+            <Radio
+              label="deviceIdentity.authenticationType.selfSigned.type"
+              value="selfSigned"
+            />
+            <Radio
+              label="deviceIdentity.authenticationType.ca.type"
+              value="certificateAuthority"
+            />
+          </RadioGroup>
+        </Field>
+        <Checkbox
           checked={true}
           className="autoGenerateButton"
           label="deviceIdentity.authenticationType.symmetricKey.autoGenerate"
@@ -84,12 +86,10 @@ exports[`addDevice matches snapshot 1`] = `
         >
           deviceIdentity.hubConnectivity.label
         </LabelWithTooltip>
-        <StyledToggleBase
-          ariaLabel="deviceIdentity.hubConnectivity.label"
+        <Switch
+          aria-label="deviceIdentity.hubConnectivity.label"
           checked={true}
-          offText="deviceIdentity.hubConnectivity.disable"
           onChange={[Function]}
-          onText="deviceIdentity.hubConnectivity.enable"
         />
       </div>
     </div>

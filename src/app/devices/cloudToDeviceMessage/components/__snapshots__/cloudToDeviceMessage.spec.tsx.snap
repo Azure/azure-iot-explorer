@@ -2,7 +2,7 @@
 
 exports[`cloudToDeviceMessage matches snapshot 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -31,22 +31,19 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
     >
       cloudToDeviceMessage.body
     </LabelWithTooltip>
-    <StyledTextFieldBase
-      ariaLabel="cloudToDeviceMessage.body"
+    <Textarea
+      aria-label="cloudToDeviceMessage.body"
       className="cloud-to-device-message-text-field"
-      multiline={true}
       onChange={[Function]}
       rows={5}
     />
-    <StyledCheckboxBase
-      ariaLabel="cloudToDeviceMessage.addTimestamp"
+    <Checkbox
+      aria-label="cloudToDeviceMessage.addTimestamp"
       label="cloudToDeviceMessage.addTimestamp"
       onChange={[Function]}
-      styles={
+      style={
         {
-          "root": {
-            "marginBottom": 20,
-          },
+          "marginBottom": 20,
         }
       }
     />
@@ -55,7 +52,7 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
       label="cloudToDeviceMessage.properties.label"
       tooltipText="cloudToDeviceMessage.properties.tooltip"
     >
-      <StyledCommandBarBase
+      <CommandBarV9
         className="properties-section-command-bar"
         items={
           [
@@ -163,80 +160,43 @@ exports[`cloudToDeviceMessage matches snapshot 1`] = `
           ]
         }
       />
-      <StyledMarqueeSelectionBase
-        selection={
-          Selection {
-            "_anchoredIndex": 0,
-            "_canSelectItem": [Function],
-            "_changeEventSuppressionCount": 0,
-            "_exemptedCount": 0,
-            "_exemptedIndices": {},
-            "_getKey": [Function],
-            "_isModal": false,
-            "_items": [],
-            "_keyToIndexMap": {},
-            "_onItemsChanged": undefined,
-            "_onSelectionChanged": [Function],
-            "_selectedItems": null,
-            "_unselectableCount": 0,
-            "_unselectableIndices": {},
-            "count": 0,
-            "mode": 2,
-          }
+      <ResizableDetailsList
+        ariaLabelForSelectAllCheckbox="cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel"
+        ariaLabelForSelectionColumn="cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel"
+        checkButtonAriaLabel={[Function]}
+        columns={
+          [
+            {
+              "key": "key",
+              "minWidth": 400,
+              "name": "cloudToDeviceMessage.properties.key",
+              "width": "80%",
+            },
+            {
+              "key": "value",
+              "minWidth": 100,
+              "name": "cloudToDeviceMessage.properties.value",
+              "width": "20%",
+            },
+          ]
         }
-      >
-        <ResizableDetailsList
-          ariaLabelForSelectAllCheckbox="cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel"
-          ariaLabelForSelectionColumn="cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel"
-          checkButtonAriaLabel="cloudToDeviceMessage.properties.rowCheckBoxAriaLabel"
-          columns={
-            [
-              {
-                "key": "key",
-                "minWidth": 150,
-                "name": "cloudToDeviceMessage.properties.key",
-              },
-              {
-                "key": "value",
-                "minWidth": 150,
-                "name": "cloudToDeviceMessage.properties.value",
-              },
-            ]
-          }
-          items={
-            [
-              {
-                "index": 0,
-                "isSystemProperty": false,
-                "keyName": "",
-                "value": "",
-              },
-            ]
-          }
-          onRenderItemColumn={[Function]}
-          selection={
-            Selection {
-              "_anchoredIndex": 0,
-              "_canSelectItem": [Function],
-              "_changeEventSuppressionCount": 0,
-              "_exemptedCount": 0,
-              "_exemptedIndices": {},
-              "_getKey": [Function],
-              "_isModal": false,
-              "_items": [],
-              "_keyToIndexMap": {},
-              "_onItemsChanged": undefined,
-              "_onSelectionChanged": [Function],
-              "_selectedItems": null,
-              "_unselectableCount": 0,
-              "_unselectableIndices": {},
-              "count": 0,
-              "mode": 2,
-            }
-          }
-        />
-      </StyledMarqueeSelectionBase>
+        items={
+          [
+            {
+              "index": 0,
+              "isSystemProperty": false,
+              "keyName": "",
+              "value": "",
+            },
+          ]
+        }
+        onRenderItemColumn={[Function]}
+        onSelectionChange={[Function]}
+      />
     </CollapsibleSection>
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;

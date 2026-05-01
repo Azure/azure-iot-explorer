@@ -9,18 +9,13 @@
     height: 100%;
     flex-direction: column;
     display: flex;
+}
 
-    .ms-Pivot {
-        min-height: 45px;
-    }
+.list-detail {
+    margin-top: 0;
+    padding-top: 0;
+}
 
-    div[class^='itemContainer']{
-        height: 90%;
-    }
-
-    div[class^='itemContainer']>div{
-        height: 100%;
-        flex-direction: column;
-        display: flex;
-    }
+.fui-DataGrid {
+    margin-top: 0;
 }

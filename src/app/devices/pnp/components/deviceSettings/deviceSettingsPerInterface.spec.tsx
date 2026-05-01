@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { IconButton, Overlay } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { DeviceSettingsPerInterface, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterface';
 import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
 import { generateTwinSchemaAndInterfaceTuple } from './dataHelper';
@@ -52,10 +52,10 @@ describe('components/devices/deviceSettingsPerInterface', () => {
 
     it('shows overlay', () => {
         const wrapper = mount(getComponent());
-        expect(wrapper.find(Overlay)).toEqual({});
+        expect(wrapper.find('div[style]')).toEqual({});
 
         act(() => wrapper.find(DeviceSettingsPerInterfacePerSetting).first().props().handleOverlayToggle());
         wrapper.update();
-        expect(wrapper.find(Overlay)).toBeDefined();
+        expect(wrapper.find('div[style]')).toBeDefined();
     });
 });

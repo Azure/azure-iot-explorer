@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { ActionButton, IconButton, PrimaryButton, TextField } from '@fluentui/react';
+import { Button, Input } from '@fluentui/react-components';
 import { DeviceListQuery, DeviceListQueryProps } from './deviceListQuery';
 import { DeviceQueryClause } from './deviceQueryClause';
 
@@ -31,24 +31,24 @@ describe('DeviceListQuery', () => {
 
     it('sets device id', () => {
         const wrapper = mount(getComponent());
-        const textField = wrapper.find(TextField).first();
-        act(() => textField.props().onChange?.(undefined as any, 'testDevice'));
+        const input = wrapper.find(Input).first();
+        act(() => input.props().onChange?.({} as any, { value: 'testDevice' }));
         wrapper.update();
 
-        expect(wrapper.find(TextField).props().value).toEqual('testDevice');
-        wrapper.find(IconButton).first().props().onClick(null);
+        expect(wrapper.find(Input).props().value).toEqual('testDevice');
+        wrapper.find(Button).first().props().onClick(null);
         expect(mockSetQueryAndExecute).toBeCalled();
     });
 
     it('adds query pills and execute query', () => {
         const wrapper = mount(getComponent());
-        act(() => wrapper.find(ActionButton).first().props().onClick(null));
+        act(() => wrapper.find(Button).filterWhere(n => n.prop('appearance') === 'transparent').first().props().onClick(null));
         wrapper.update();
 
         expect(wrapper.find(DeviceQueryClause)).toHaveLength(1);
-        expect(wrapper.find(PrimaryButton)).toBeDefined();
+        expect(wrapper.find(Button).filterWhere(n => n.prop('appearance') === 'primary')).toBeDefined();
 
-        act(() => wrapper.find(PrimaryButton).first().props().onClick(null));
+        act(() => wrapper.find(Button).filterWhere(n => n.prop('appearance') === 'primary').first().props().onClick(null));
         expect(mockSetQueryAndExecute).toBeCalled();
     });
 });

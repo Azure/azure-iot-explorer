@@ -46,14 +46,11 @@ exports[`ModelRepositoryLocationListItem matches snapshot for configurable repo 
         }
       />
     </div>
-    <CustomizedIconButton
-      ariaLabel="modelRepository.commands.remove.ariaLabel"
+    <Button
+      appearance="subtle"
+      aria-label="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
-      iconProps={
-        {
-          "iconName": "Cancel",
-        }
-      }
+      icon={<DismissRegular />}
       onClick={[Function]}
       title="modelRepository.commands.remove.label"
     />
@@ -108,14 +105,11 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local folder 1`] =
         repoType="LOCAL"
       />
     </div>
-    <CustomizedIconButton
-      ariaLabel="modelRepository.commands.remove.ariaLabel"
+    <Button
+      appearance="subtle"
+      aria-label="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
-      iconProps={
-        {
-          "iconName": "Cancel",
-        }
-      }
+      icon={<DismissRegular />}
       onClick={[Function]}
       title="modelRepository.commands.remove.label"
     />
@@ -170,14 +164,11 @@ exports[`ModelRepositoryLocationListItem matches snapshot for local repo 1`] = `
         repoType="DMR"
       />
     </div>
-    <CustomizedIconButton
-      ariaLabel="modelRepository.commands.remove.ariaLabel"
+    <Button
+      appearance="subtle"
+      aria-label="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
-      iconProps={
-        {
-          "iconName": "Cancel",
-        }
-      }
+      icon={<DismissRegular />}
       onClick={[Function]}
       title="modelRepository.commands.remove.label"
     />
@@ -204,14 +195,11 @@ exports[`ModelRepositoryLocationListItem matches snapshot for public repo 1`] = 
     >
       <ListItemPublicRepo />
     </div>
-    <CustomizedIconButton
-      ariaLabel="modelRepository.commands.remove.ariaLabel"
+    <Button
+      appearance="subtle"
+      aria-label="modelRepository.commands.remove.ariaLabel"
       className="remove-button"
-      iconProps={
-        {
-          "iconName": "Cancel",
-        }
-      }
+      icon={<DismissRegular />}
       onClick={[Function]}
       title="modelRepository.commands.remove.label"
     />

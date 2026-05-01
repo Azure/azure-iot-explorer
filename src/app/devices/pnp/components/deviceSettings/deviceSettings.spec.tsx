@@ -5,12 +5,14 @@
 import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Shimmer, CommandBar } from '@fluentui/react';
+
+import { Skeleton } from '@fluentui/react-components';
 import { DeviceSettings } from './deviceSettings';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as PnpContext from '../../context/pnpStateContext';
 import { pnpStateWithTestData } from './testData';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
@@ -30,7 +32,7 @@ describe('deviceSettings', () => {
         };
         jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
         const wrapper = mount(<DeviceSettings/>);
-        expect(wrapper.find(Shimmer)).toBeDefined();
+        expect(wrapper.find(Skeleton)).toBeDefined();
     });
 
     it('matches snapshot with one twinWithSchema', () => {

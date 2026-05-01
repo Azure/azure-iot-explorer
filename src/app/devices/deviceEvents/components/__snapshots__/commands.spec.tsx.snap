@@ -2,7 +2,7 @@
 
 exports[`commands matches snapshot 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     farItems={
       [
         {

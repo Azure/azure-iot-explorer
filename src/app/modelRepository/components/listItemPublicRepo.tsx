@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link, TextField } from '@fluentui/react';
+import { Field, Input, Link } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
 
@@ -20,14 +20,17 @@ export const ListItemPublicRepo: React.FC = () => {
                         {ResourceKeys.modelRepository.types.public.infoText}
                     </Trans></div>
                 </div>
-            <TextField
-                className="local-folder-textbox"
+            <Field
                 label={t(ResourceKeys.modelRepository.types.configurable.textBoxLabel)}
-                ariaLabel={t(ResourceKeys.modelRepository.types.configurable.textBoxLabel)}
-                value={PUBLIC_REPO_HOSTNAME}
-                readOnly={true}
-                prefix="https://"
-            />
+            >
+                <Input
+                    className="local-folder-textbox"
+                    aria-label={t(ResourceKeys.modelRepository.types.configurable.textBoxLabel)}
+                    value={PUBLIC_REPO_HOSTNAME}
+                    readOnly={true}
+                    contentBefore={<span>https://</span>}
+                />
+            </Field>
         </>
     );
 };

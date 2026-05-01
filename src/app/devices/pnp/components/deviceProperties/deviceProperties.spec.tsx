@@ -6,7 +6,8 @@ import 'jest';
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { CommandBar, Shimmer } from '@fluentui/react';
+
+import { Skeleton } from '@fluentui/react-components';
 import { DeviceProperties } from './deviceProperties';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { TwinWithSchema } from './dataHelper';
@@ -16,6 +17,7 @@ import { SynchronizationStatus } from '../../../../api/models/synchronizationSta
 import { testModelDefinition, testTwin } from './testData';
 import { ModelDefinition } from '../../../../api/models/modelDefinition';
 import { getDeviceTwinAction } from '../../actions';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 
 const interfaceId = 'urn:contoso:com:EnvironmentalSensor;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/properties/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
@@ -75,7 +77,7 @@ describe('components/devices/deviceProperties', () => {
         };
         jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
         const wrapper = mount(<DeviceProperties/>);
-        expect(wrapper.find(Shimmer)).toBeDefined();
+        expect(wrapper.find(Skeleton)).toBeDefined();
     });
 
     it('matches snapshot while interface cannot be found', () => {

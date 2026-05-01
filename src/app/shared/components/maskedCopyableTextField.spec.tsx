@@ -6,7 +6,7 @@ import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import 'jest';
 import { shallow, mount } from 'enzyme';
-import { IconButton, TooltipHost } from '@fluentui/react';
+import { Button, Tooltip } from '@fluentui/react-components';
 import { MaskedCopyableTextField } from './maskedCopyableTextField';
 
 describe('MaskedCopyableTextField', () => {
@@ -44,12 +44,12 @@ describe('MaskedCopyableTextField', () => {
                     value="value1"
                 />);
 
-            expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.show');
-            const showButton = wrapper.find(IconButton).first();
+            expect(wrapper.find(Tooltip).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.show');
+            const showButton = wrapper.find(Button).first();
             act(() => showButton.props().onClick(undefined));
 
             wrapper.update();
-            expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.hide');
+            expect(wrapper.find(Tooltip).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.hide');
         });
     });
 
@@ -63,8 +63,8 @@ describe('MaskedCopyableTextField', () => {
                     value="value1"
                 />);
 
-            const clipboardButton = wrapper.find(IconButton).first();
-            act(() => clipboardButton.props().onClick(undefined));
+            const clipboardButton = wrapper.find(Button).first();
+            act(() => clipboardButton.props().onClick({ persist: jest.fn() } as any));
 
             expect(document.execCommand).toHaveBeenLastCalledWith('copy');
         });

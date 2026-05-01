@@ -4,7 +4,7 @@
 **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from '@fluentui/react';
+import { Link } from '@fluentui/react-components';
 import { NavLink } from 'react-router-dom';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import './connectionStringsEmpty.scss';

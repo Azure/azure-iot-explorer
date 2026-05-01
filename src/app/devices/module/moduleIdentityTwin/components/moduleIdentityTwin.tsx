@@ -5,9 +5,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CommandBar } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { ArrowSyncRegular, SaveRegular } from '@fluentui/react-icons';
 import { REFRESH, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from '../actions';
@@ -65,7 +66,7 @@ export const ModuleIdentityTwin: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         disabled: moduleIdentityTwinSyncStatus === SynchronizationStatus.working,
-                        iconProps: {iconName: REFRESH},
+                        icon: <ArrowSyncRegular />,
                         key: REFRESH,
                         name: t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         onClick: retrieveData
@@ -73,7 +74,7 @@ export const ModuleIdentityTwin: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.save),
                         disabled: !state.isDirty || !state.isTwinValid,
-                        iconProps: {iconName: SAVE},
+                        icon: <SaveRegular />,
                         key: SAVE,
                         name: t(ResourceKeys.moduleIdentity.detail.command.save),
                         onClick: handleSave

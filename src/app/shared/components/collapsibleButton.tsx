@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
+import { NavigationRegular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { NAV } from '../../constants/iconNames';
 
 export interface CollapsibleButtonProps {
     appMenuVisible: boolean;
@@ -21,12 +21,13 @@ export const CollapsibleButton: React.FC<CollapsibleButtonProps> = props => {
     };
 
     return (
-        <IconButton
+        <Button
+            appearance="subtle"
             className="collapsibleButton"
             tabIndex={0}
-            iconProps={{ iconName: NAV }}
+            icon={<NavigationRegular />}
             title={props.appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
-            ariaLabel={props.appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
+            aria-label={props.appMenuVisible ? t(ResourceKeys.common.navigation.collapse) : t(ResourceKeys.common.navigation.expand)}
             onClick={collapseToggle}
         />
     );

@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Panel, PanelType, TextField, DefaultButton, PrimaryButton, Link } from '@fluentui/react';
+import { Button, DrawerBody, DrawerFooter, DrawerHeader, DrawerHeaderTitle, Field, Label, Link, OverlayDrawer, Textarea } from '@fluentui/react-components';
+import { DismissRegular } from '@fluentui/react-icons';
 import { ConnectionStringProperties } from './connectionStringProperties';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { generateConnectionStringValidationError } from '../../shared/utils/hubConnectionStringHelper';
@@ -35,9 +36,9 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
         }
     }, []); // tslint:disable-line:align
 
-    const onConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-         setConnectionString(newValue);
-         validateConnectionString(newValue);
+    const onConnectionStringChange = (event: React.ChangeEvent<HTMLTextAreaElement>, data: { value: string }) => {
+         setConnectionString(data.value);
+         validateConnectionString(data.value);
     };
 
     const onCommitClick = () => {
@@ -77,85 +78,92 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
         return true;
     };
 
-    const renderHeader = (): JSX.Element => {
-        return (
-            <h2 className="connection-string-edit-header">
-                {connectionStringUnderEdit ?
-                    t(ResourceKeys.connectionStrings.editConnection.title.edit) :
-                    t(ResourceKeys.connectionStrings.editConnection.title.add)
-                }
-            </h2>
-        );
-    };
-
-    const renderFooter = (): JSX.Element => {
-        return (
-            <div className="connection-string-edit-footer">
-                <PrimaryButton
-                   text={t(ResourceKeys.connectionStrings.editConnection.save.label)}
-                   ariaLabel={t(ResourceKeys.connectionStrings.editConnection.save.ariaLabel)}
+    return (
+        <OverlayDrawer
+            open={true}
+            position="end"
+            size="medium"
+            onOpenChange={(e, data) => { if (!data.open) onDismiss(); }}
+        >
+            <DrawerHeader>
+                <DrawerHeaderTitle
+                    action={
+                        <Button
+                            appearance="subtle"
+                            icon={<DismissRegular />}
+                            onClick={onDismissClick}
+                            aria-label={
+                                connectionStringUnderEdit ?
+                                    t(ResourceKeys.connectionStrings.editConnection.cancel.ariaLabel.edit) :
+                                    t(ResourceKeys.connectionStrings.editConnection.cancel.ariaLabel.add)
+                            }
+                        />
+                    }
+                >
+                    <span style={{ textAlign: 'right', display: 'block' }}>
+                        {connectionStringUnderEdit ?
+                            t(ResourceKeys.connectionStrings.editConnection.title.edit) :
+                            t(ResourceKeys.connectionStrings.editConnection.title.add)
+                        }
+                    </span>
+                </DrawerHeaderTitle>
+            </DrawerHeader>
+            <DrawerBody>
+                <div className="connection-string-edit-body">
+                    <Field
+                        label={<Label weight="semibold">{t(ResourceKeys.connectionStrings.editConnection.editField.label)}</Label>}
+                        validationMessage={connectionStringValidationKey ? t(connectionStringValidationKey) : undefined}
+                        validationState={connectionStringValidationKey ? 'error' : 'none'}
+                        required={true}
+                    >
+                        <Textarea
+                            aria-label={t(ResourceKeys.connectionStrings.editConnection.editField.ariaLabel)}
+                            onChange={onConnectionStringChange}
+                            rows={LINES_FOR_CONNECTION}
+                            value={connectionString}
+                            placeholder={t(ResourceKeys.connectionStrings.editConnection.editField.placeholder)}
+                        />
+                    </Field>
+                    <Link
+                        href={t(ResourceKeys.connectivityPane.connectionStringComboBox.link)}
+                        target="_blank"
+                    >
+                        {t(ResourceKeys.connectivityPane.connectionStringComboBox.linkText)}
+                    </Link>
+                    <div>
+                        <span>{t(ResourceKeys.connectivityPane.connectionStringComboBox.warning)}</span>
+                    </div>
+                    {showProperties() &&
+                        <div className="details">
+                            <ConnectionStringProperties
+                                connectionString={connectionString}
+                                hostName={connectionSettings.hostName}
+                                sharedAccessKey={connectionSettings.sharedAccessKey}
+                                sharedAccessKeyName={connectionSettings.sharedAccessKeyName}
+                            />
+                        </div>
+                    }
+                </div>
+            </DrawerBody>
+            <DrawerFooter>
+                <Button
+                    appearance="primary"
                    onClick={onCommitClick}
+                   aria-label={t(ResourceKeys.connectionStrings.editConnection.save.ariaLabel)}
                    disabled={connectionStringValidationKey !== ''}
-                />
-                <DefaultButton
-                   text={t(ResourceKeys.connectionStrings.editConnection.cancel.label)}
-                   ariaLabel={connectionStringUnderEdit ?
+                >
+                    {t(ResourceKeys.connectionStrings.editConnection.save.label)}
+                </Button>
+                <Button
+                   aria-label={connectionStringUnderEdit ?
                         t(ResourceKeys.connectionStrings.editConnection.cancel.ariaLabel.edit) :
                         t(ResourceKeys.connectionStrings.editConnection.cancel.ariaLabel.add)
                     }
                    onClick={onDismissClick}
-                />
-            </div>
-        );
-    };
-
-    return (
-        <Panel
-            isOpen={true}
-            type={PanelType.medium}
-            isBlocking={true}
-            isFooterAtBottom={true}
-            onRenderHeader={renderHeader}
-            onRenderFooter={renderFooter}
-            onDismiss={onDismiss}
-            closeButtonAriaLabel={
-                connectionStringUnderEdit ?
-                    t(ResourceKeys.connectionStrings.editConnection.cancel.ariaLabel.edit) :
-                    t(ResourceKeys.connectionStrings.editConnection.cancel.ariaLabel.add)
-            }
-        >
-            <div className="connection-string-edit-body">
-                <TextField
-                    ariaLabel={t(ResourceKeys.connectionStrings.editConnection.editField.ariaLabel)}
-                    label={t(ResourceKeys.connectionStrings.editConnection.editField.label)}
-                    onChange={onConnectionStringChange}
-                    multiline={true}
-                    rows={LINES_FOR_CONNECTION}
-                    errorMessage={connectionStringValidationKey && t(connectionStringValidationKey)}
-                    value={connectionString}
-                    required={true}
-                    placeholder={t(ResourceKeys.connectionStrings.editConnection.editField.placeholder)}
-                />
-                <Link
-                    href={t(ResourceKeys.connectivityPane.connectionStringComboBox.link)}
-                    target="_blank"
                 >
-                    {t(ResourceKeys.connectivityPane.connectionStringComboBox.linkText)}
-                </Link>
-                <div>
-                    <span>{t(ResourceKeys.connectivityPane.connectionStringComboBox.warning)}</span>
-                </div>
-                {showProperties() &&
-                    <div className="details">
-                        <ConnectionStringProperties
-                            connectionString={connectionString}
-                            hostName={connectionSettings.hostName}
-                            sharedAccessKey={connectionSettings.sharedAccessKey}
-                            sharedAccessKeyName={connectionSettings.sharedAccessKeyName}
-                        />
-                    </div>
-                }
-            </div>
-        </Panel>
+                    {t(ResourceKeys.connectionStrings.editConnection.cancel.label)}
+                </Button>
+            </DrawerFooter>
+        </OverlayDrawer>
     );
 };

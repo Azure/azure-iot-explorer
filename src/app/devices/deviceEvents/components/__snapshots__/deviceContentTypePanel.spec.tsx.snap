@@ -1,118 +1,167 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DeviceDecoderPanel matches snapshot with customize content type option 1`] = `
-<StyledPanelBase
-  closeButtonAriaLabel="common.close"
-  headerText="deviceEvents.customizeContentType.header"
-  isBlocking={false}
-  isOpen={true}
-  onDismiss={[MockFunction]}
-  type={3}
+<OverlayDrawer
+  onOpenChange={[Function]}
+  open={true}
+  position="end"
+  size="medium"
 >
-  <form
-    onSubmit={[Function]}
-  >
-    <Stack
-      tokens={
-        {
-          "childrenGap": 10,
-        }
+  <DrawerHeader>
+    <DrawerHeaderTitle
+      action={
+        <Button
+          appearance="subtle"
+          aria-label="common.close"
+          icon={<DismissRegular />}
+          onClick={[MockFunction]}
+        />
       }
     >
-      <Dropdown
-        defaultSelectedKey="Protobuf"
-        disabled={false}
-        label="deviceEvents.customizeContentType.contentTypeOption.label"
-        onChange={[Function]}
-        options={
-          [
-            {
-              "key": "JSON",
-              "text": "JSON",
-            },
-            {
-              "key": "Protobuf",
-              "text": "Protobuf",
-            },
-          ]
+      deviceEvents.customizeContentType.header
+    </DrawerHeaderTitle>
+  </DrawerHeader>
+  <DrawerBody>
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        style={
+          {
+            "display": "flex",
+            "flexDirection": "column",
+            "gap": "10px",
+          }
         }
-        required={true}
-      />
-      <StyledLabelBase>
-        deviceEvents.customizeContentType.protobuf.file.label
-      </StyledLabelBase>
-      <input
-        accept=".proto"
-        disabled={false}
-        id="protoFile"
-        name="protoFile"
-        onChange={[Function]}
-        required={true}
-        type="file"
-      />
-      <StyledTextFieldBase
-        disabled={false}
-        label="deviceEvents.customizeContentType.protobuf.type.label"
-        onChange={[Function]}
-        placeholder="deviceEvents.customizeContentType.protobuf.type.placeholder"
-        readOnly={false}
-      />
-      <CustomizedPrimaryButton
-        ariaLabel="deviceEvents.customizeContentType.save"
-        disabled={false}
-        text="deviceEvents.customizeContentType.save"
-        type="submit"
-      />
-    </Stack>
-  </form>
-</StyledPanelBase>
+      >
+        <Field
+          label="deviceEvents.customizeContentType.contentTypeOption.label"
+          required={true}
+        >
+          <Dropdown
+            defaultSelectedOptions={
+              [
+                "Protobuf",
+              ]
+            }
+            disabled={false}
+            onOptionSelect={[Function]}
+          >
+            <Option
+              value="JSON"
+            >
+              JSON
+            </Option>
+            <Option
+              value="Protobuf"
+            >
+              Protobuf
+            </Option>
+          </Dropdown>
+        </Field>
+        <Label>
+          deviceEvents.customizeContentType.protobuf.file.label
+        </Label>
+        <input
+          accept=".proto"
+          disabled={false}
+          id="protoFile"
+          name="protoFile"
+          onChange={[Function]}
+          required={true}
+          type="file"
+        />
+        <Field
+          label="deviceEvents.customizeContentType.protobuf.type.label"
+        >
+          <Input
+            disabled={false}
+            onChange={[Function]}
+            placeholder="deviceEvents.customizeContentType.protobuf.type.placeholder"
+            readOnly={false}
+          />
+        </Field>
+        <Button
+          appearance="primary"
+          aria-label="deviceEvents.customizeContentType.save"
+          disabled={false}
+        >
+          deviceEvents.customizeContentType.save
+        </Button>
+      </div>
+    </form>
+  </DrawerBody>
+</OverlayDrawer>
 `;
 
 exports[`DeviceDecoderPanel matches snapshot with default json option 1`] = `
-<StyledPanelBase
-  closeButtonAriaLabel="common.close"
-  headerText="deviceEvents.customizeContentType.header"
-  isBlocking={false}
-  isOpen={true}
-  onDismiss={[MockFunction]}
-  type={3}
+<OverlayDrawer
+  onOpenChange={[Function]}
+  open={true}
+  position="end"
+  size="medium"
 >
-  <form
-    onSubmit={[Function]}
-  >
-    <Stack
-      tokens={
-        {
-          "childrenGap": 10,
-        }
+  <DrawerHeader>
+    <DrawerHeaderTitle
+      action={
+        <Button
+          appearance="subtle"
+          aria-label="common.close"
+          icon={<DismissRegular />}
+          onClick={[MockFunction]}
+        />
       }
     >
-      <Dropdown
-        defaultSelectedKey="JSON"
-        disabled={false}
-        label="deviceEvents.customizeContentType.contentTypeOption.label"
-        onChange={[Function]}
-        options={
-          [
-            {
-              "key": "JSON",
-              "text": "JSON",
-            },
-            {
-              "key": "Protobuf",
-              "text": "Protobuf",
-            },
-          ]
+      deviceEvents.customizeContentType.header
+    </DrawerHeaderTitle>
+  </DrawerHeader>
+  <DrawerBody>
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        style={
+          {
+            "display": "flex",
+            "flexDirection": "column",
+            "gap": "10px",
+          }
         }
-        required={true}
-      />
-      <CustomizedPrimaryButton
-        ariaLabel="deviceEvents.customizeContentType.save"
-        disabled={false}
-        text="deviceEvents.customizeContentType.save"
-        type="submit"
-      />
-    </Stack>
-  </form>
-</StyledPanelBase>
+      >
+        <Field
+          label="deviceEvents.customizeContentType.contentTypeOption.label"
+          required={true}
+        >
+          <Dropdown
+            defaultSelectedOptions={
+              [
+                "JSON",
+              ]
+            }
+            disabled={false}
+            onOptionSelect={[Function]}
+          >
+            <Option
+              value="JSON"
+            >
+              JSON
+            </Option>
+            <Option
+              value="Protobuf"
+            >
+              Protobuf
+            </Option>
+          </Dropdown>
+        </Field>
+        <Button
+          appearance="primary"
+          aria-label="deviceEvents.customizeContentType.save"
+          disabled={false}
+        >
+          deviceEvents.customizeContentType.save
+        </Button>
+      </div>
+    </form>
+  </DrawerBody>
+</OverlayDrawer>
 `;

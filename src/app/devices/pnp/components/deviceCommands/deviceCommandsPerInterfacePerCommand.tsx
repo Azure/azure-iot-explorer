@@ -4,14 +4,15 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Label, IconButton, PrimaryButton, Dialog } from '@fluentui/react';
+import { Button, Label } from '@fluentui/react-components';
+import { ChevronDownRegular, ChevronUpRegular, CloudArrowUpRegular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { InterfaceDetailCard, SUBMIT } from '../../../../constants/iconNames';
 import { ParsedCommandSchema } from '../../../../api/models/interfaceJsonParserOutput';
 import { CommandContent } from '../../../../api/models/modelDefinition';
 import { DataForm } from '../../../shared/components/dataForm';
 import { InvokeCommandActionParameters } from '../../actions';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
+import { LiveRegion } from '../../../../shared/components/liveRegion';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { getSchemaType } from '../../../../shared/utils/jsonSchemaAdaptor';
 import { CONNECTION_TIMEOUT_IN_SECONDS, DEFAULT_COMPONENT_FOR_DIGITAL_TWIN, RESPONSE_TIME_IN_SECONDS } from '../../../../constants/devices';
@@ -39,6 +40,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
     const { collapsed, deviceId, moduleId, componentName, commandModelDefinition, parsedSchema, handleCollapseToggle, invokeCommand  } = props;
     const [ showConfirmationDialog, setShowConfirmationDialog ] = React.useState<boolean>(false);
     const [ confirmationCmdData, setConfirmationCmdData ] = React.useState({});
+    const [ announcement, setAnnouncement ] = React.useState('');
 
     const createCollapsedSummary = () => {
         return (
@@ -59,12 +61,14 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
                 <>
                     {commandModelDefinition.request ? createForm() :
                         <div className="value-section">
-                            <PrimaryButton
+                            <Button
+                                appearance="primary"
                                 className="submit-button"
                                 onClick={onSubmit(null)}
-                                text={t(ResourceKeys.deviceCommands.command.submit)}
-                                iconProps={{ iconName: SUBMIT }}
-                            />
+                                icon={<CloudArrowUpRegular />}
+                            >
+                                {t(ResourceKeys.deviceCommands.command.submit)}
+                            </Button>
                         </div>
                     }
                 </>
@@ -119,9 +123,10 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
     const renderCollapseButton = () => {
         return (
         <div className="col-sm1">
-            <IconButton
+            <Button
+                appearance="subtle"
                 title={t(collapsed ? ResourceKeys.deviceCommands.command.expand : ResourceKeys.deviceCommands.command.collapse)}
-                iconProps={{iconName: collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+                icon={collapsed ? <ChevronDownRegular /> : <ChevronUpRegular />}
             />
         </div>);
     };
@@ -143,6 +148,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
             setShowConfirmationDialog(true);
             setConfirmationCmdData(data);
         } else {
+            setAnnouncement(t(ResourceKeys.deviceCommands.command.submit));
             invokeCommand({
                 connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
                 deviceId,
@@ -165,6 +171,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
 
     const onConfirmSendCommand = () => {
         setShowConfirmationDialog(false);
+        setAnnouncement(t(ResourceKeys.deviceCommands.command.submit));
         invokeCommand({
             connectTimeoutInSeconds: CONNECTION_TIMEOUT_IN_SECONDS,
             deviceId,
@@ -187,6 +194,7 @@ export const DeviceCommandsPerInterfacePerCommand: React.FC<DeviceCommandDataPro
                 onSendCancel={onCancelSendCommand}
                 onSendConfirm={onConfirmSendCommand}
             />
+            <LiveRegion message={announcement} />
         </article>
     );
 };

@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
-import { MessageBarButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { shallow, mount } from 'enzyme';
 import { InterfaceNotFoundMessageBar } from './interfaceNotFoundMessageBar';
 
@@ -24,7 +24,7 @@ describe('interfaceNotFoundMessageBar', () => {
         const wrapper = mount(<InterfaceNotFoundMessageBar/>);
 
         act(() => {
-            wrapper.find(MessageBarButton).first().props().onClick(undefined);
+            wrapper.find(Button).first().props().onClick(undefined);
         });
 
         wrapper.update();

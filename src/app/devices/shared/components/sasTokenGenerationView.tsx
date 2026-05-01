@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PrimaryButton, Dropdown, IDropdownOption, SpinButton, Position } from '@fluentui/react';
+import { Button, Dropdown, Field, Option, SpinButton } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
@@ -37,7 +37,7 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
     const renderKeyDropdown = () => {
 
         const authentication = moduleIdentity ? moduleIdentity.authentication : deviceIdentity.authentication;
-        const options: IDropdownOption[] = [
+        const options = [
             {
                 key: authentication.symmetricKey.primaryKey,
                 text: t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)
@@ -49,38 +49,30 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
         ];
 
         return (
-            <Dropdown
-                className={'sas-token-key-field'}
+            <Field
                 label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.symmetricKey)}
-                selectedKey={sasTokenSelectedKey || undefined}
-                options={options}
-                onChange={onSelectedKeyChanged}
                 required={true}
-            />
+            >
+                <Dropdown
+                    className={'sas-token-key-field'}
+                    selectedOptions={sasTokenSelectedKey ? [sasTokenSelectedKey] : []}
+                    onOptionSelect={onSelectedKeyChanged}
+                >
+                    {options.map(opt => (
+                        <Option key={opt.key} value={opt.key}>{opt.text}</Option>
+                    ))}
+                </Dropdown>
+            </Field>
         );
     };
 
-    const onSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption): void => {
-        setSasTokenSelectedKey(item.key as string);
+    const onSelectedKeyChanged = (event: React.SyntheticEvent, data: { optionValue?: string }): void => {
+        setSasTokenSelectedKey(data.optionValue);
     };
 
-    const onExpirationChanged = (event: React.FocusEvent<HTMLInputElement>) => {
-        const numValue = + event.target.value;
-        const newSasTokenExpiration = !!numValue && numValue >= 0 && numValue <= Number.MAX_SAFE_INTEGER ? numValue : 0;
-        setSasTokenExpiration(newSasTokenExpiration);
-    };
-
-    const onExpirationIncrement = (value: string) => {
-        const numValue = (+value);
-
-        const newSasTokenExpiration = numValue < Number.MAX_SAFE_INTEGER ? numValue + 1 : Number.MAX_SAFE_INTEGER;
-        setSasTokenExpiration(newSasTokenExpiration);
-    };
-
-    const onExpirationDecrement = (value: string) => {
-        const numValue = (+value);
-
-        const newSasTokenExpiration = numValue > 0 ? numValue - 1 : 0;
+    const onExpirationChanged = (event: React.SyntheticEvent, data: { value?: number | null; displayValue?: string }) => {
+        const numValue = data.value ?? 0;
+        const newSasTokenExpiration = numValue >= 0 && numValue <= Number.MAX_SAFE_INTEGER ? numValue : 0;
         setSasTokenExpiration(newSasTokenExpiration);
     };
 
@@ -105,8 +97,6 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
         return (<></>);
     }
 
-    const position = Position && Position.top || 0;
-
     return (
         <CollapsibleSection
             expanded={false}
@@ -115,30 +105,32 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
         >
             <div className="sas-token-section">
                 {renderKeyDropdown()}
-                <SpinButton
-                    className={'sas-token-expiration-field'}
+                <Field
                     label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.expiration)}
-                    labelPosition={position}
-                    min={0}
-                    max={Number.MAX_SAFE_INTEGER}
-                    onBlur={onExpirationChanged}
-                    onIncrement={onExpirationIncrement}
-                    onDecrement={onExpirationDecrement}
-                    value={`${sasTokenExpiration}`}
-                />
+                >
+                    <SpinButton
+                        className={'sas-token-expiration-field'}
+                        min={0}
+                        max={Number.MAX_SAFE_INTEGER}
+                        onChange={onExpirationChanged}
+                        value={sasTokenExpiration}
+                    />
+                </Field>
                 <MaskedCopyableTextField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.ariaLabel)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.textField.label)}
                     value={sasTokenConnectionString}
                     allowMask={true}
                 />
-                <PrimaryButton
+                <Button
+                    appearance="primary"
                     className={'sas-token-generate-button'}
                     title={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.title)}
-                    text={t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.text)}
                     onClick={onGenerateSASClicked}
                     disabled={sasTokenSelectedKey === ''}
-                />
+                >
+                    {t(ResourceKeys.deviceIdentity.authenticationType.sasToken.generateButton.text)}
+                </Button>
             </div>
         </CollapsibleSection>
     );

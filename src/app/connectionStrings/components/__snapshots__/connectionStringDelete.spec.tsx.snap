@@ -2,88 +2,90 @@
 
 exports[`ConnectionStringDelete matches snapshot hidden 1`] = `
 <Dialog
-  dialogContentProps={
-    {
-      "title": "connectionStrings.deleteConnection.title",
-    }
-  }
-  hidden={true}
-  modalProps={
-    {
-      "isBlocking": true,
-    }
-  }
-  onDismiss={[MockFunction]}
+  modalType="alert"
+  onOpenChange={[Function]}
+  open={false}
 >
-  <div
-    className="connection-string-delete"
-  >
-    <div>
-      connectionStrings.deleteConnection.body
-    </div>
-    <textarea
-      aria-label="connectionStrings.deleteConnection.input"
-      cols={40}
-      readOnly={true}
-      rows={8}
-      value="connectionString"
-    />
-  </div>
-  <DialogFooter>
-    <CustomizedPrimaryButton
-      ariaLabel="connectionStrings.deleteConnection.yes.ariaLabel"
-      onClick={[MockFunction]}
-      text="connectionStrings.deleteConnection.yes.label"
-    />
-    <CustomizedDefaultButton
-      ariaLabel="connectionStrings.deleteConnection.no.ariaLabel"
-      onClick={[MockFunction]}
-      text="connectionStrings.deleteConnection.no.label"
-    />
-  </DialogFooter>
+  <DialogSurface>
+    <DialogBody>
+      <DialogTitle>
+        connectionStrings.deleteConnection.title
+      </DialogTitle>
+      <div
+        className="connection-string-delete"
+      >
+        <div>
+          connectionStrings.deleteConnection.body
+        </div>
+        <textarea
+          aria-label="connectionStrings.deleteConnection.input"
+          cols={40}
+          readOnly={true}
+          rows={8}
+          value="connectionString"
+        />
+      </div>
+      <DialogActions>
+        <Button
+          appearance="primary"
+          aria-label="connectionStrings.deleteConnection.yes.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          connectionStrings.deleteConnection.yes.label
+        </Button>
+        <Button
+          aria-label="connectionStrings.deleteConnection.no.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          connectionStrings.deleteConnection.no.label
+        </Button>
+      </DialogActions>
+    </DialogBody>
+  </DialogSurface>
 </Dialog>
 `;
 
 exports[`ConnectionStringDelete matches snapshot visible 1`] = `
 <Dialog
-  dialogContentProps={
-    {
-      "title": "connectionStrings.deleteConnection.title",
-    }
-  }
-  hidden={false}
-  modalProps={
-    {
-      "isBlocking": true,
-    }
-  }
-  onDismiss={[MockFunction]}
+  modalType="alert"
+  onOpenChange={[Function]}
+  open={true}
 >
-  <div
-    className="connection-string-delete"
-  >
-    <div>
-      connectionStrings.deleteConnection.body
-    </div>
-    <textarea
-      aria-label="connectionStrings.deleteConnection.input"
-      cols={40}
-      readOnly={true}
-      rows={8}
-      value="connectionString"
-    />
-  </div>
-  <DialogFooter>
-    <CustomizedPrimaryButton
-      ariaLabel="connectionStrings.deleteConnection.yes.ariaLabel"
-      onClick={[MockFunction]}
-      text="connectionStrings.deleteConnection.yes.label"
-    />
-    <CustomizedDefaultButton
-      ariaLabel="connectionStrings.deleteConnection.no.ariaLabel"
-      onClick={[MockFunction]}
-      text="connectionStrings.deleteConnection.no.label"
-    />
-  </DialogFooter>
+  <DialogSurface>
+    <DialogBody>
+      <DialogTitle>
+        connectionStrings.deleteConnection.title
+      </DialogTitle>
+      <div
+        className="connection-string-delete"
+      >
+        <div>
+          connectionStrings.deleteConnection.body
+        </div>
+        <textarea
+          aria-label="connectionStrings.deleteConnection.input"
+          cols={40}
+          readOnly={true}
+          rows={8}
+          value="connectionString"
+        />
+      </div>
+      <DialogActions>
+        <Button
+          appearance="primary"
+          aria-label="connectionStrings.deleteConnection.yes.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          connectionStrings.deleteConnection.yes.label
+        </Button>
+        <Button
+          aria-label="connectionStrings.deleteConnection.no.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          connectionStrings.deleteConnection.no.label
+        </Button>
+      </DialogActions>
+    </DialogBody>
+  </DialogSurface>
 </Dialog>
 `;

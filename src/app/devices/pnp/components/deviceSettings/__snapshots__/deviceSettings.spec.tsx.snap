@@ -2,7 +2,7 @@
 
 exports[`deviceSettings matches snapshot with one twinWithSchema 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     farItems={
       [

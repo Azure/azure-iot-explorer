@@ -19,11 +19,12 @@ exports[`components/devices/listPaging matches snapshot on different page 1`] = 
       key="page_0"
       role="listitem"
     >
-      <CustomizedActionButton
+      <Button
+        appearance="transparent"
         onClick={[Function]}
       >
         1
-      </CustomizedActionButton>
+      </Button>
     </div>
     <div
       className="selected"
@@ -39,11 +40,12 @@ exports[`components/devices/listPaging matches snapshot on different page 1`] = 
       key="page_2"
       role="listitem"
     >
-      <CustomizedActionButton
+      <Button
+        appearance="transparent"
         onClick={[Function]}
       >
         »
-      </CustomizedActionButton>
+      </Button>
     </div>
   </div>
 </section>
@@ -77,11 +79,12 @@ exports[`components/devices/listPaging matches snapshot with continuation tokens
       key="page_1"
       role="listitem"
     >
-      <CustomizedActionButton
+      <Button
+        appearance="transparent"
         onClick={[Function]}
       >
         »
-      </CustomizedActionButton>
+      </Button>
     </div>
   </div>
 </section>

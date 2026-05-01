@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Validator, ValidationError, ValidatorResult } from 'jsonschema';
-import { Label } from '@fluentui/react';
+import { Label } from '@fluentui/react-components';
 import { useTranslation } from 'react-i18next';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { isValueDefined } from './dataForm';

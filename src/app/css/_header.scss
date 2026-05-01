@@ -57,6 +57,12 @@
         .ms-Button {
             color: themed('headerButtonColor');
         }
+        .settings button {
+            color: themed('headerButtonColor');
+        }
+        .settings button svg {
+            color: var(--colorBrandForeground1);
+        }
         .active {
             background-color: themed('headerActiveBackgroundColor');
         }

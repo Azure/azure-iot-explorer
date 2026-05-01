@@ -154,6 +154,7 @@ export const DeviceContent: React.FC = () => {
                 (
                     <DeviceContentNavComponent
                         isEdgeDevice={deviceIdentity && deviceIdentity.capabilities && deviceIdentity.capabilities.iotEdge}
+                        appMenuVisible={appMenuVisible}
                     />
                 )
         );

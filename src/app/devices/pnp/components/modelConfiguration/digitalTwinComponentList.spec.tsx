@@ -5,8 +5,9 @@
 import 'jest';
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Announced, Pivot, PivotItem } from '@fluentui/react';
+import { TabList, Tab } from '@fluentui/react-components';
 import { DigitalTwinComponentList } from './digitalTwinComponentList';
+import { LiveRegion } from '../../../../shared/components/liveRegion';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import * as pnpStateContext from '../../context/pnpStateContext';
@@ -103,8 +104,8 @@ describe('DigitalTwinComponentList', () => {
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
         const wrapper = mount(<DigitalTwinComponentList/>);
 
-        expect(wrapper.find(Announced)).toHaveLength(1);
-        expect(wrapper.find(Pivot)).toHaveLength(1);
+        expect(wrapper.find(LiveRegion)).toHaveLength(1);
+        expect(wrapper.find(TabList)).toHaveLength(1);
     });
 
     it('shows model id with valid model definition found and has components', () => {
@@ -148,7 +149,7 @@ describe('DigitalTwinComponentList', () => {
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
         const wrapper = shallow(<DigitalTwinComponentList/>);
 
-        expect(wrapper.find(Announced)).toHaveLength(0);
+        expect(wrapper.find(LiveRegion)).toHaveLength(0);
 
         const list = wrapper.find('.component-list');
         expect((list.props() as any).items[0].modelId).toEqual('dtmi:__DeviceManagement:DeviceInformation;1'); // tslint:disable-line:no-any
@@ -156,6 +157,6 @@ describe('DigitalTwinComponentList', () => {
         expect((list.props() as any).items[2].modelId).toEqual('dtmi:__Contoso:EnvironmentalSensor;1'); // tslint:disable-line:no-magic-numbers, no-any
 
         // tslint:disable-next-line: no-magic-numbers
-        expect(wrapper.find(PivotItem)).toHaveLength(2);
+        expect(wrapper.find(Tab)).toHaveLength(2);
     });
 });

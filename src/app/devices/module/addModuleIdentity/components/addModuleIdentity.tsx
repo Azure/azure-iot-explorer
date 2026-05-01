@@ -5,9 +5,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CommandBar, ChoiceGroup, IChoiceGroupOption, Checkbox, TextField } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Checkbox, Field, Input, InputOnChangeData, Radio, RadioGroup } from '@fluentui/react-components';
+import { PasswordField } from '../../../../shared/components/passwordField';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
+import { SaveRegular, DismissRegular } from '@fluentui/react-icons';
 import { CANCEL, SAVE } from '../../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
@@ -21,6 +24,7 @@ import { addModuleStateInitial } from '../state';
 import { addModuleIdentityAction } from '../actions';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_USER_ACTIONS } from '../../../../constants/telemetry';
+import { LiveRegion } from '../../../../shared/components/liveRegion';
 import '../../../../css/_deviceDetail.scss';
 
 const initialKeyValue = {
@@ -43,6 +47,7 @@ export const AddModuleIdentity: React.FC = () => {
     const [ module, setModule ] = React.useState<{ id: string, error: string }>({ id: '', error: ''});
     const [ primaryKey, setPrimaryKey ] = React.useState(initialKeyValue);
     const [ secondaryKey, setSecondaryKey ] = React.useState(initialKeyValue);
+    const [ announcement, setAnnouncement ] = React.useState('');
 
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when module identity has been added successfully would navigate to module list view
@@ -58,14 +63,14 @@ export const AddModuleIdentity: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.command.save),
                         disabled: disableSaveButton(),
-                        iconProps: {iconName: SAVE},
+                        icon: <SaveRegular />,
                         key: SAVE,
                         name: t(ResourceKeys.moduleIdentity.command.save),
                         onClick: handleSave
                     },
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.command.cancel),
-                        iconProps: {iconName: CANCEL},
+                        icon: <DismissRegular />,
                         key: CANCEL,
                         name: t(ResourceKeys.moduleIdentity.command.cancel),
                         onClick: navigateToModuleList
@@ -77,68 +82,68 @@ export const AddModuleIdentity: React.FC = () => {
 
     const showModuleId = () => {
         return (
-            <TextField
-                ariaLabel={t(ResourceKeys.moduleIdentity.moduleId)}
+            <Field
                 label={t(ResourceKeys.moduleIdentity.moduleId)}
-                value={module.id}
                 required={true}
-                onChange={changeModuleIdentityName}
-                errorMessage={!!module.error ? t(module.error) : ''}
-                description={t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
-            />
+                validationMessage={!!module.error ? t(module.error) : undefined}
+                validationState={module.error ? 'error' : undefined}
+                hint={t(ResourceKeys.moduleIdentity.moduleIdTooltip)}
+            >
+                <Input
+                    aria-label={t(ResourceKeys.moduleIdentity.moduleId)}
+                    value={module.id}
+                    onChange={changeModuleIdentityName}
+                />
+            </Field>
         );
     };
 
     const getAuthType = () => {
         return (
-            <ChoiceGroup
+            <Field
                 label={t(ResourceKeys.moduleIdentity.authenticationType.text)}
-                selectedKey={authenticationType}
-                onChange={changeAuthenticationType}
-                options={
-                    [
-                        {
-                            key: DeviceAuthenticationType.SymmetricKey,
-                            text: t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.type)
-                        },
-                        {
-                            key: DeviceAuthenticationType.SelfSigned,
-                            text: t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.type)
-                        },
-                        {
-                            key: DeviceAuthenticationType.CACertificate,
-                            text: t(ResourceKeys.moduleIdentity.authenticationType.ca.type)
-                        }
-                    ]
-                }
                 required={true}
-            />
+            >
+                <RadioGroup
+                    value={authenticationType}
+                    onChange={changeAuthenticationType}
+                >
+                    <Radio
+                        value={DeviceAuthenticationType.SymmetricKey}
+                        label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.type)}
+                    />
+                    <Radio
+                        value={DeviceAuthenticationType.SelfSigned}
+                        label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.type)}
+                    />
+                    <Radio
+                        value={DeviceAuthenticationType.CACertificate}
+                        label={t(ResourceKeys.moduleIdentity.authenticationType.ca.type)}
+                    />
+                </RadioGroup>
+            </Field>
         );
     };
 
     const renderSymmetricKeySection = () => {
         return (
             <>
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={primaryKey.value}
                     required={true}
                     onChange={changePrimaryKey}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.error ? t(primaryKey.error) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={secondaryKey.value}
                     required={true}
                     onChange={changeSecondaryKey}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!secondaryKey.error ? t(secondaryKey.error) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
@@ -150,28 +155,23 @@ export const AddModuleIdentity: React.FC = () => {
     const renderSelfSignedSection = () => {
         return (
             <>
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={primaryKey.thumbprint}
                     required={true}
                     onChange={changePrimaryThumbprint}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     label={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={secondaryKey.thumbprint}
                     required={true}
                     onChange={changeSecondaryThumbprint}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
-                    readOnly={false}
                     errorMessage={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.moduleIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                 />
@@ -205,6 +205,7 @@ export const AddModuleIdentity: React.FC = () => {
 
     const handleSave = () => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.ADD_MODULE);
+        setAnnouncement(t(ResourceKeys.moduleIdentity.command.save));
         dispatch(addModuleIdentityAction.started({
             authentication: {
                 symmetricKey: authenticationType === DeviceAuthenticationType.SymmetricKey ? {
@@ -255,58 +256,58 @@ export const AddModuleIdentity: React.FC = () => {
             validateThumbprint(secondaryKey.thumbprint);
     };
 
-    const changeModuleIdentityName = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const moduleIdError = getModuleIdentityNameValidationMessage(newValue);
+    const changeModuleIdentityName = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const moduleIdError = getModuleIdentityNameValidationMessage(data.value);
         setModule({
             error: moduleIdError,
-            id: newValue
+            id: data.value
         });
     };
 
-    const changeAuthenticationType = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, option?: IChoiceGroupOption) => {
-        setAuthenticationType(option.key as DeviceAuthenticationType);
+    const changeAuthenticationType = (ev: React.FormEvent<HTMLDivElement>, data: { value: string }) => {
+        setAuthenticationType(data.value as DeviceAuthenticationType);
     };
 
-    const changeAutoGenerateKeys = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
-        setautoGenerateKeys(checked);
-        if (checked) {
+    const changeAutoGenerateKeys = (ev: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean | 'mixed' }) => {
+        setautoGenerateKeys(!!data.checked);
+        if (data.checked) {
             setPrimaryKey(initialKeyValue);
             setSecondaryKey(initialKeyValue);
         }
     };
 
-    const changePrimaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const primaryKeyError = getSymmetricKeyValidationMessage(newValue);
+    const changePrimaryKey = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const primaryKeyError = getSymmetricKeyValidationMessage(data.value);
         setPrimaryKey({
             ...primaryKey,
             error: primaryKeyError,
-            value: newValue
+            value: data.value
         });
     };
 
-    const changeSecondaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const secondaryKeyError = getSymmetricKeyValidationMessage(newValue);
+    const changeSecondaryKey = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const secondaryKeyError = getSymmetricKeyValidationMessage(data.value);
         setSecondaryKey({
             ...secondaryKey,
             error: secondaryKeyError,
-            value: newValue
+            value: data.value
         });
     };
 
-    const changePrimaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const primaryThumbprintError = getThumbprintValidationMessage(newValue);
+    const changePrimaryThumbprint = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const primaryThumbprintError = getThumbprintValidationMessage(data.value);
         setPrimaryKey({
             ...primaryKey,
-            thumbprint: newValue,
+            thumbprint: data.value,
             thumbprintError: primaryThumbprintError
         });
     };
 
-    const changeSecondaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const secondaryThumbprintError = getThumbprintValidationMessage(newValue);
+    const changeSecondaryThumbprint = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const secondaryThumbprintError = getThumbprintValidationMessage(data.value);
         setSecondaryKey({
             ...secondaryKey,
-            thumbprint: newValue,
+            thumbprint: data.value,
             thumbprintError: secondaryThumbprintError
         });
     };
@@ -333,6 +334,7 @@ export const AddModuleIdentity: React.FC = () => {
                 {showModuleId()}
                 {showAuthentication()}
             </div>
+            <LiveRegion message={announcement} />
         </>
     );
 };

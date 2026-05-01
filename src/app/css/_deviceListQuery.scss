@@ -100,23 +100,24 @@
             border-color: themed("searchBorderColor");
         }
         float: left;
+        display: flex;
+        align-items: center;
         height: 32px;
         border: {
             width: 1px;
             style: solid;
-            radius: 2px;
             radius: 2px;
         }
 
         .search-button {
             padding-top: 1px;
             max-width: 32px;
+            min-width: 32px;
+            height: 100%;
             padding-bottom: 1px;
+            border-radius: 0;
             @include themify($themes) {
-                border: {
-                    left: 1px solid themed("borderColor");
-                    right: none;
-                }
+                border-left: 1px solid themed("borderColor");
             }
         }
         .search-button:disabled {
@@ -160,10 +161,9 @@
                 font-size: 12px;
             }
             .remove-pill {
-                margin-left: 10px;
+                margin-left: auto;
                 width: 20px;
                 height: 26px;
-                float: right;
             }
         }
         .search-pill:hover {
@@ -180,38 +180,9 @@
             padding-left: 10px;
             padding-top: 5px;
             padding-bottom: 2px;
-            max-height: 27px;
-            .ms-Button-icon {
-                font-size: 15px;
-            }
-            .ms-Dropdown-container {
-                height: 24px;
-                .ms-Dropdown {
-                    height: 24px;
-                    .ms-Dropdown-input {
-                        height: 20px;
-                    }
-                }
-            }
-            .ms-TextField {
-                height: 26px;
-                line-height: 24px;
-                .ms-TextField-fieldGroup {
-                    height: 24px;
-                }
-            }
-            .ms-Dropdown {
-                height: 24px;
-                .ms-Dropdown-title {
-                    height: 24px;
-                    vertical-align: top;
-                    line-height: 24px;
-                }
-                .ms-Dropdown-caretDownWrapper {
-                    height: 26px;
-                    line-height: 24px;
-                }
-            }
+            min-height: 27px;
+            display: flex;
+            align-items: center;
         }
     }
 }

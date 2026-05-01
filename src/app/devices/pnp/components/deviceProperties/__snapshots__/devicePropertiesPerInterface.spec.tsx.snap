@@ -62,7 +62,6 @@ exports[`devicePropertiesPerInterface matches snapshot 1`] = `
           },
         ]
       }
-      layoutMode={1}
       onRenderItemColumn={[Function]}
     />
   </div>

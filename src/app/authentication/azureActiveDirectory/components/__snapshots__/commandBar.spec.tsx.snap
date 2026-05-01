@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AzureActiveDirectoryCommandBar matches snapshot when token is not present 1`] = `
-<StyledCommandBarBase
+<CommandBarV9
   items={
     [
       {
@@ -28,7 +28,7 @@ exports[`AzureActiveDirectoryCommandBar matches snapshot when token is not prese
 `;
 
 exports[`AzureActiveDirectoryCommandBar matches snapshot when token is present 1`] = `
-<StyledCommandBarBase
+<CommandBarV9
   items={
     [
       {

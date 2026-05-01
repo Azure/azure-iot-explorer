@@ -6,11 +6,13 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
-import { Dropdown, IDropdownOption, TextField, CommandBar, Checkbox, IColumn, MarqueeSelection, Selection, Label, IContextualMenuItem } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
+import { Dropdown, Field, Input, Label, Checkbox, Option, Textarea } from '@fluentui/react-components';
+import { IColumn, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { CLOUD_TO_DEVICE_MESSAGE, ArrayOperation, ITEM, CIRCLE_ADD, CIRCLE_ADD_SOLID } from '../../../constants/iconNames';
+import { MailRegular, LocationRegular, AddCircleRegular, AddCircleFilled, DeleteRegular } from '@fluentui/react-icons';
+import { CLOUD_TO_DEVICE_MESSAGE } from '../../../constants/iconNames';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { cloudToDeviceMessageAction } from '../actions';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
@@ -19,6 +21,7 @@ import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { cloudToDeviceMessageSaga } from '../saga';
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../app/constants/telemetry';
+import { LiveRegion } from '../../../shared/components/liveRegion';
 import '../../../css/_deviceDetail.scss';
 
 interface PropertyItem {
@@ -56,10 +59,7 @@ export const CloudToDeviceMessage: React.FC = () => {
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
     const [ selectedIndices, setSelectedIndices ] = React.useState(new Set());
     const [ showExpiryError, setShowExpiryError ] = React.useState<boolean>(false);
-
-    const selection = new Selection({
-        onSelectionChanged: () => onSelectionChanged()
-    });
+    const [ announcement, setAnnouncement ] = React.useState('');
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.CLOUD_TO_DEVICE_MESSAGE});
@@ -76,7 +76,7 @@ export const CloudToDeviceMessage: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.cloudToDeviceMessage.sendMessageButtonText),
                         disabled,
-                        iconProps: {iconName: CLOUD_TO_DEVICE_MESSAGE},
+                        icon: <MailRegular />,
                         key: CLOUD_TO_DEVICE_MESSAGE,
                         name: t(ResourceKeys.cloudToDeviceMessage.sendMessageButtonText),
                         onClick: onSendMessageClick
@@ -99,12 +99,10 @@ export const CloudToDeviceMessage: React.FC = () => {
     };
 
     const renderPropertiesList = () => {
-        const systemPropertySubMenuProps: IContextualMenuItem[] = systemPropertyKeyNameMappings.map(keyNameMap =>
+        const systemPropertySubMenuProps = systemPropertyKeyNameMappings.map(keyNameMap =>
             ({
                 disabled: properties.some(property => property.keyName === keyNameMap.keyName),
-                iconProps: {
-                    iconName: ITEM
-                },
+                icon: <LocationRegular />,
                 key: keyNameMap.keyName,
                 name: t(keyNameMap.displayName),
                 onClick: handleAddSystemProperty(keyNameMap.keyName),
@@ -119,18 +117,14 @@ export const CloudToDeviceMessage: React.FC = () => {
                     items={[
                         {
                             ariaLabel: t(ResourceKeys.cloudToDeviceMessage.properties.addCustomProperty),
-                            iconProps: {
-                                iconName: CIRCLE_ADD
-                            },
+                            icon: <AddCircleRegular />,
                             key: t(ResourceKeys.cloudToDeviceMessage.properties.addCustomProperty),
                             name: t(ResourceKeys.cloudToDeviceMessage.properties.addCustomProperty),
                             onClick: handleAddCustomProperty
                         },
                         {
                             ariaLabel: t(ResourceKeys.cloudToDeviceMessage.properties.addSystemProperty),
-                            iconProps: {
-                                iconName: CIRCLE_ADD_SOLID
-                            },
+                            icon: <AddCircleFilled />,
                             key: t(ResourceKeys.cloudToDeviceMessage.properties.addSystemProperty),
                             name: t(ResourceKeys.cloudToDeviceMessage.properties.addSystemProperty),
                             subMenuProps: {
@@ -140,26 +134,22 @@ export const CloudToDeviceMessage: React.FC = () => {
                         {
                             ariaLabel: t(ResourceKeys.cloudToDeviceMessage.properties.delete),
                             disabled: selectedIndices.size === 0,
-                            iconProps: {
-                                iconName: ArrayOperation.REMOVE
-                            },
+                            icon: <DeleteRegular />,
                             key: t(ResourceKeys.cloudToDeviceMessage.properties.delete),
                             name: t(ResourceKeys.cloudToDeviceMessage.properties.delete),
                             onClick: handleDelete
                         },
                     ]}
                 />
-                <MarqueeSelection selection={selection}>
-                    <ResizableDetailsList
+                <ResizableDetailsList
                         items={properties}
                         columns={getColumns()}
                         onRenderItemColumn={renderItemColumn}
                         ariaLabelForSelectionColumn={t(ResourceKeys.cloudToDeviceMessage.properties.toggleSelectionColumnAriaLabel)}
                         ariaLabelForSelectAllCheckbox={t(ResourceKeys.cloudToDeviceMessage.properties.selectAllCheckboxAriaLabel)}
-                        checkButtonAriaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.rowCheckBoxAriaLabel)}
-                        selection={selection}
+                        checkButtonAriaLabel={(item: any) => `${t(ResourceKeys.cloudToDeviceMessage.properties.rowCheckBoxAriaLabel)} ${item.keyName || ''}`}
+                        onSelectionChange={(indices) => setSelectedIndices(indices)}
                     />
-                </MarqueeSelection>
             </>
         );
     };
@@ -168,19 +158,21 @@ export const CloudToDeviceMessage: React.FC = () => {
         return [
             {
                 key: 'key',
-                minWidth: 150,
+                minWidth: 400,
                 name: t(ResourceKeys.cloudToDeviceMessage.properties.key),
+                width: '80%',
             },
             {
                 key: 'value',
-                minWidth: 150,
+                minWidth: 100,
                 name: t(ResourceKeys.cloudToDeviceMessage.properties.value),
+                width: '20%',
             }
         ];
     };
 
-    const onCheckboxChange = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
-        setAddTimestamp(checked);
+    const onCheckboxChange = (ev: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean | 'mixed' }) => {
+        setAddTimestamp(!!data.checked);
     };
 
     const renderMessageBodySection = () => {
@@ -192,33 +184,26 @@ export const CloudToDeviceMessage: React.FC = () => {
                 >
                     {t(ResourceKeys.cloudToDeviceMessage.body)}
                 </LabelWithTooltip>
-                <TextField
+                <Textarea
                     className="cloud-to-device-message-text-field"
-                    multiline={true}
                     rows={textFieldRows}
                     onChange={onTextFieldChange}
-                    ariaLabel={t(ResourceKeys.cloudToDeviceMessage.body)}
+                    aria-label={t(ResourceKeys.cloudToDeviceMessage.body)}
                 />
                 <Checkbox
                     label={t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
-                    ariaLabel={t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
+                    aria-label={t(ResourceKeys.cloudToDeviceMessage.addTimestamp)}
                     onChange={onCheckboxChange}
-                    styles={
-                        {
-                            root: {
-                                marginBottom: 20
-                            }
-                        }
-                    }
+                    style={{ marginBottom: 20 }}
                 />
             </>
         );
     };
 
     const renderItemColumn = (item: PropertyItem, index: number, column: IColumn) => {
-        const handleEditCustomPropertyKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const handleEditCustomPropertyKey = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
             const items = [...properties];
-            items[index] = {...items[index], keyName: newValue};
+            items[index] = {...items[index], keyName: data.value};
             setProperties(items);
         };
 
@@ -234,12 +219,16 @@ export const CloudToDeviceMessage: React.FC = () => {
                 else {
                     const hasDuplicateKey = (keyName: string) => keyName && properties.filter(property => property.keyName === keyName).length > 1;
                     return (
-                        <TextField
-                            ariaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.key)}
-                            errorMessage={hasDuplicateKey(item.keyName) && t(ResourceKeys.cloudToDeviceMessage.properties.keyDup)}
-                            value={item.keyName}
-                            onChange={handleEditCustomPropertyKey}
-                        />);
+                        <Field
+                            validationMessage={hasDuplicateKey(item.keyName) ? t(ResourceKeys.cloudToDeviceMessage.properties.keyDup) : undefined}
+                            validationState={hasDuplicateKey(item.keyName) ? 'error' : 'none'}
+                        >
+                            <Input
+                                aria-label={t(ResourceKeys.cloudToDeviceMessage.properties.key)}
+                                value={item.keyName}
+                                onChange={handleEditCustomPropertyKey}
+                            />
+                        </Field>);
                 }
             case 'value':
                 return renderItemValueColumn(item, column);
@@ -251,16 +240,16 @@ export const CloudToDeviceMessage: React.FC = () => {
     const renderItemValueColumn = (item: PropertyItem, column: IColumn) => {
         const index = findMatchingItemIndex(item);
 
-        const handleEditPropertyValue = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const handleEditPropertyValue = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
             const items = [...properties];
-            items[index] = {...items[index], value: newValue};
+            items[index] = {...items[index], value: data.value};
             setProperties(items);
         };
 
-        const handleEditExpiryTime = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const handleEditExpiryTime = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
             const items = [...properties];
-            items[index] = {...items[index], value: newValue};
-            setShowExpiryError(!parseInt(newValue) || new Date(parseInt(newValue)) <= new Date()); // tslint:disable-line:radix
+            items[index] = {...items[index], value: data.value};
+            setShowExpiryError(!parseInt(data.value) || new Date(parseInt(data.value)) <= new Date()); // tslint:disable-line:radix
             setProperties(items);
         };
 
@@ -272,17 +261,21 @@ export const CloudToDeviceMessage: React.FC = () => {
         }
         if (item.keyName === SystemProperties.EXPIRY_TIME_UTC) {
             return (
-                <TextField
-                    ariaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.key)}
-                    errorMessage={showExpiryError && t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.error)}
-                    value={item.value}
-                    onChange={handleEditExpiryTime}
-                />);
+                <Field
+                    validationMessage={showExpiryError ? t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.expiryTimeUtc.error) : undefined}
+                    validationState={showExpiryError ? 'error' : 'none'}
+                >
+                    <Input
+                        aria-label={t(ResourceKeys.cloudToDeviceMessage.properties.key)}
+                        value={item.value}
+                        onChange={handleEditExpiryTime}
+                    />
+                </Field>);
         }
         else {
             return (
-                <TextField
-                    ariaLabel={t(ResourceKeys.cloudToDeviceMessage.properties.value)}
+                <Input
+                    aria-label={t(ResourceKeys.cloudToDeviceMessage.properties.value)}
                     value={item.value}
                     onChange={handleEditPropertyValue}
                 />);
@@ -292,69 +285,42 @@ export const CloudToDeviceMessage: React.FC = () => {
     const renderAckDropdown = ( property: PropertyItem) => {
         const index = findMatchingItemIndex(property);
 
-        const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
+        const onDropdownSelectedKeyChanged = (event: React.SyntheticEvent, data: { optionValue?: string }): void => {
             const items = properties;
-            items[index] = {...items[index], value: option.key.toString()};
+            items[index] = {...items[index], value: data.optionValue};
             setProperties(items);
         };
 
-        const options: IDropdownOption[] = [
-            {
-                key: 'full',
-                text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.full)
-            },
-            {
-                key: 'positive',
-                text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.positive)
-            },
-            {
-                key: 'negative',
-                text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.negative)
-            }
-        ];
-
         return (
             <Dropdown
-                options={options}
-                onChange={onDropdownSelectedKeyChanged}
-            />);
+                onOptionSelect={onDropdownSelectedKeyChanged}
+            >
+                <Option value="full">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.full)}</Option>
+                <Option value="positive">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.positive)}</Option>
+                <Option value="negative">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.negative)}</Option>
+            </Dropdown>);
     };
 
     const renderEncodingDropdown = (property: PropertyItem) => {
         const index = findMatchingItemIndex(property);
 
-        const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
+        const onDropdownSelectedKeyChanged = (event: React.SyntheticEvent, data: { optionValue?: string }): void => {
             const items = properties;
-            items[index] = {...items[index], value: option.key.toString()};
+            items[index] = {...items[index], value: data.optionValue};
             setProperties(items);
         };
 
-        const options: IDropdownOption[] = [
-            {
-                key: 'utf-8',
-                text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf8)
-            },
-            {
-                key:  'utf-16',
-                text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf16)
-            },
-            {
-                key:  'utf-32',
-                text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf32)
-            }
-        ];
         return (
             <Dropdown
-                options={options}
-                onChange={onDropdownSelectedKeyChanged}
-            />);
+                onOptionSelect={onDropdownSelectedKeyChanged}
+            >
+                <Option value="utf-8">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf8)}</Option>
+                <Option value="utf-16">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf16)}</Option>
+                <Option value="utf-32">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf32)}</Option>
+            </Dropdown>);
     };
 
-    const onSelectionChanged = () => {
-        setSelectedIndices(new Set(selection.getSelectedIndices()));
-    };
-
-    const handleAddCustomProperty = () => {
+    const handleAddCustomProperty= () => {
         const newIndex = propertyIndex + 1;
         const newProperties = [...properties, {isSystemProperty: false, index: newIndex, keyName: '', value: ''}];
         setProperties(newProperties);
@@ -378,8 +344,8 @@ export const CloudToDeviceMessage: React.FC = () => {
         setProperties(updatedProperties);
     };
 
-    const onTextFieldChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newText: string) => {
-        setBody(newText);
+    const onTextFieldChange = (ev: React.ChangeEvent<HTMLTextAreaElement>, data: { value: string }) => {
+        setBody(data.value);
     };
 
     const onSendMessageClick = () => {
@@ -400,6 +366,7 @@ export const CloudToDeviceMessage: React.FC = () => {
             deviceId: getDeviceIdFromQueryString(search),
             properties: newProperties
         }));
+        setAnnouncement(t(ResourceKeys.cloudToDeviceMessage.sendMessageButtonText));
     };
 
     const findMatchingItemIndex = (property: PropertyItem): number => {
@@ -423,6 +390,7 @@ export const CloudToDeviceMessage: React.FC = () => {
                 {renderMessageBodySection()}
                 {renderPropertiesSection()}
             </div>
+            <LiveRegion message={announcement} />
     </>
     );
 };

@@ -2,25 +2,29 @@
 
 exports[`Loader matches snapshot when loading 1`] = `
 <Fragment>
-  <StyledMessageBar
-    messageBarType={0}
+  <MessageBar
+    intent="info"
   >
-    <Stack
-      horizontal={true}
-      tokens={
-        {
-          "childrenGap": 10,
+    <MessageBarBody>
+      <div
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+            "gap": "10px",
+          }
         }
-      }
-    >
-      <div>
-        deviceEvents.infiniteScroll.loading
+      >
+        <div>
+          deviceEvents.infiniteScroll.loading
+        </div>
+        <Spinner
+          size="small"
+        />
       </div>
-      <StyledSpinnerBase
-        size={1}
-      />
-    </Stack>
-  </StyledMessageBar>
+    </MessageBarBody>
+  </MessageBar>
 </Fragment>
 `;
 

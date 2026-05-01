@@ -6,12 +6,13 @@ import * as React from 'react';
 import 'jest';
 import { shallow, mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
-import { CommandBar } from '@fluentui/react';
+
 import { DeviceTwin } from './deviceTwin';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 import { DeviceTwinStateInterface } from './../state';
 import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ pathname: 'url', search: '?deviceId=test', hash: '', state: null, key: 'default' }),

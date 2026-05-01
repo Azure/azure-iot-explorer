@@ -5,7 +5,7 @@
 import 'jest';
 import { mount } from 'enzyme';
 import * as React from 'react';
-import { Label } from '@fluentui/react';
+import { Label } from '@fluentui/react-components';
 import { DeviceCommandsPerInterfacePerCommand, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterfacePerCommand';
 import { DataForm } from '../../../shared/components/dataForm';
 import { SendCommandConfirmation } from './sendCommandConfirmation';

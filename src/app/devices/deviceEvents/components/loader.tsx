@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Spinner, SpinnerSize, Stack, MessageBarType, MessageBar } from '@fluentui/react';
+import { Spinner, MessageBar, MessageBarBody } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 
 export const Loader: React.FC<{monitoringData: boolean}> = ({monitoringData}) => {
@@ -14,12 +14,14 @@ export const Loader: React.FC<{monitoringData: boolean}> = ({monitoringData}) =>
         <>
             {monitoringData &&
                 <MessageBar
-                    messageBarType={MessageBarType.info}
+                    intent="info"
                 >
-                    <Stack horizontal={true} tokens={{ childrenGap: 10 }}>
+                    <MessageBarBody>
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center' }}>
                         <div>{t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</div>
-                        {<Spinner size={SpinnerSize.small} />}
-                    </Stack>
+                        {<Spinner size="small" />}
+                    </div>
+                    </MessageBarBody>
                 </MessageBar>
             }
         </>

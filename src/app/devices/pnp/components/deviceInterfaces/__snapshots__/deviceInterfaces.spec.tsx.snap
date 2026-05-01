@@ -4,7 +4,7 @@ exports[`deviceInterfaces shows Shimmer when status is working 1`] = `<MultiLine
 
 exports[`deviceInterfaces shows interface information when status is fetched 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command deviceInterface-command"
     farItems={
       [

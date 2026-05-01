@@ -9,48 +9,55 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
   <div
     className="sas-token-section"
   >
-    <Dropdown
-      className="sas-token-key-field"
+    <Field
       label="deviceIdentity.authenticationType.sasToken.symmetricKey"
-      onChange={[Function]}
-      options={
-        [
-          {
-            "key": null,
-            "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
-          },
-          {
-            "key": null,
-            "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
-          },
-        ]
-      }
       required={true}
-    />
-    <StyledSpinButton
-      className="sas-token-expiration-field"
+    >
+      <Dropdown
+        className="sas-token-key-field"
+        onOptionSelect={[Function]}
+        selectedOptions={[]}
+      >
+        <Option
+          key="null"
+          value={null}
+        >
+          deviceIdentity.authenticationType.symmetricKey.primaryKey
+        </Option>
+        <Option
+          key="null"
+          value={null}
+        >
+          deviceIdentity.authenticationType.symmetricKey.secondaryKey
+        </Option>
+      </Dropdown>
+    </Field>
+    <Field
       label="deviceIdentity.authenticationType.sasToken.expiration"
-      labelPosition={0}
-      max={9007199254740991}
-      min={0}
-      onBlur={[Function]}
-      onDecrement={[Function]}
-      onIncrement={[Function]}
-      value="5"
-    />
+    >
+      <SpinButton
+        className="sas-token-expiration-field"
+        max={9007199254740991}
+        min={0}
+        onChange={[Function]}
+        value={5}
+      />
+    </Field>
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
       value=""
     />
-    <CustomizedPrimaryButton
+    <Button
+      appearance="primary"
       className="sas-token-generate-button"
       disabled={true}
       onClick={[Function]}
-      text="deviceIdentity.authenticationType.sasToken.generateButton.text"
       title="deviceIdentity.authenticationType.sasToken.generateButton.title"
-    />
+    >
+      deviceIdentity.authenticationType.sasToken.generateButton.text
+    </Button>
   </div>
 </CollapsibleSection>
 `;
@@ -64,48 +71,55 @@ exports[`devices/components/moduleIdentityTwin snapshot matches snapshot when no
   <div
     className="sas-token-section"
   >
-    <Dropdown
-      className="sas-token-key-field"
+    <Field
       label="deviceIdentity.authenticationType.sasToken.symmetricKey"
-      onChange={[Function]}
-      options={
-        [
-          {
-            "key": "mock_key_1",
-            "text": "deviceIdentity.authenticationType.symmetricKey.primaryKey",
-          },
-          {
-            "key": "mock_key_2",
-            "text": "deviceIdentity.authenticationType.symmetricKey.secondaryKey",
-          },
-        ]
-      }
       required={true}
-    />
-    <StyledSpinButton
-      className="sas-token-expiration-field"
+    >
+      <Dropdown
+        className="sas-token-key-field"
+        onOptionSelect={[Function]}
+        selectedOptions={[]}
+      >
+        <Option
+          key="mock_key_1"
+          value="mock_key_1"
+        >
+          deviceIdentity.authenticationType.symmetricKey.primaryKey
+        </Option>
+        <Option
+          key="mock_key_2"
+          value="mock_key_2"
+        >
+          deviceIdentity.authenticationType.symmetricKey.secondaryKey
+        </Option>
+      </Dropdown>
+    </Field>
+    <Field
       label="deviceIdentity.authenticationType.sasToken.expiration"
-      labelPosition={0}
-      max={9007199254740991}
-      min={0}
-      onBlur={[Function]}
-      onDecrement={[Function]}
-      onIncrement={[Function]}
-      value="5"
-    />
+    >
+      <SpinButton
+        className="sas-token-expiration-field"
+        max={9007199254740991}
+        min={0}
+        onChange={[Function]}
+        value={5}
+      />
+    </Field>
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="deviceIdentity.authenticationType.sasToken.textField.ariaLabel"
       label="deviceIdentity.authenticationType.sasToken.textField.label"
       value=""
     />
-    <CustomizedPrimaryButton
+    <Button
+      appearance="primary"
       className="sas-token-generate-button"
       disabled={true}
       onClick={[Function]}
-      text="deviceIdentity.authenticationType.sasToken.generateButton.text"
       title="deviceIdentity.authenticationType.sasToken.generateButton.title"
-    />
+    >
+      deviceIdentity.authenticationType.sasToken.generateButton.text
+    </Button>
   </div>
 </CollapsibleSection>
 `;

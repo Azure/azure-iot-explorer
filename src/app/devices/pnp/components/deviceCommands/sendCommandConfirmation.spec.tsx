@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { PrimaryButton, DefaultButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { SendCommandConfirmation, SendCommandConfirmationProps } from './sendCommandConfirmation';
  
  describe('SendCommandConfirmation', () => {
@@ -38,7 +38,7 @@ import { SendCommandConfirmation, SendCommandConfirmationProps } from './sendCom
         };
  
          const wrapper = shallow(<SendCommandConfirmation {...props}/>);
-         wrapper.find(DefaultButton).props().onClick(undefined);
+         wrapper.find(Button).at(1).props().onClick(undefined);
  
          expect(onSendCancel).toHaveBeenCalled();
      });
@@ -52,7 +52,7 @@ import { SendCommandConfirmation, SendCommandConfirmationProps } from './sendCom
         };
  
          const wrapper = shallow(<SendCommandConfirmation {...props}/>);
-         wrapper.find(PrimaryButton).props().onClick(undefined);
+         wrapper.find(Button).at(0).props().onClick(undefined);
  
          expect(onSendConfirm).toHaveBeenCalled();
      });

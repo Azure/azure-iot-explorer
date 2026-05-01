@@ -4,12 +4,12 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
+import { DismissRegular } from '@fluentui/react-icons';
 import { toast, ToastOptions, UpdateOptions } from 'react-toastify';
 import { NotificationListEntry } from '../../notifications/components/notificationListEntry';
 import { Notification } from '../../api/models/notification';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { CANCEL } from '../../constants/iconNames';
 import { useNotificationsContext } from '../context/notificationsStateContext';
 import '../../css/_notification.scss';
 
@@ -21,12 +21,10 @@ export interface CloseButtonProps {
 export const CloseButton = (props: CloseButtonProps): JSX.Element => {
     const { t } = useTranslation();
     return (
-        <IconButton
-            iconProps={{
-                iconName: CANCEL
-            }}
-            label={t(ResourceKeys.common.close)}
-            ariaLabel={t(ResourceKeys.common.close)}
+        <Button
+            appearance="subtle"
+            icon={<DismissRegular />}
+            aria-label={t(ResourceKeys.common.close)}
             style={{width: 50}}
             onClick={props.closeToast}
         />

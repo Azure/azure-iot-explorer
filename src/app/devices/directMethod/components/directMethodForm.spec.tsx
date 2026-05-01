@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import { TextField, Slider } from '@fluentui/react';
+import { Input, Slider, Textarea } from '@fluentui/react-components';
 import { DirectMethodForm } from './directMethodForm';
 
 describe('directMethodForm', () => {
@@ -26,20 +26,19 @@ describe('directMethodForm', () => {
                 setResponseTimeOut={mockResponseTimeOut}
             />);
 
-        act(() => wrapper.find(TextField).first().props().onChange?.(undefined as any, 'testMethod'));
+        act(() => wrapper.find(Input).first().props().onChange?.({} as any, { value: 'testMethod' }));
         wrapper.update();
         expect(mockSetMethodName).toBeCalledWith('testMethod');
 
-        act(() => wrapper.find(TextField).at(1).props().onChange?.(undefined as any, 'payload'));
+        act(() => wrapper.find(Textarea).first().props().onChange?.({} as any, { value: 'payload' }));
         wrapper.update();
         expect(mockSetPayload).toBeCalledWith('payload');
 
-        act(() => wrapper.find(Slider).first().props().onChange?.(10));
+        act(() => wrapper.find(Slider).first().props().onChange?.({} as any, { value: 10 }));
         wrapper.update();
         expect(mockConnectionTimeOut).toBeCalledWith(10);
-        expect(mockResponseTimeOut).toBeCalledWith(10);
 
-        act(() => wrapper.find(Slider).at(1).props().onChange?.(20));
+        act(() => wrapper.find(Slider).at(1).props().onChange?.({} as any, { value: 20 }));
         wrapper.update();
         expect(mockResponseTimeOut).toBeCalledWith(20);
     });

@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { Toggle, TextField } from '@fluentui/react';
+import { Input, Switch } from '@fluentui/react-components';
 import { CustomEventHub } from './customEventHub';
 
 const search = '?deviceId=test&componentName=DEFAULT_COMPONENT&interfaceId=dtmi:com:example:Thermostat;1';
@@ -43,11 +43,11 @@ describe('customEventHub', () => {
                 setHasError={jest.fn()}
             />);
 
-        act(() => wrapper.find(Toggle).first().props().onChange?.(undefined as any, false));
+        act(() => wrapper.find(Switch).first().props().onChange?.({target: {checked: false}} as any, {checked: false}));
         wrapper.update();
         expect(mockSetUseBuiltInEventHub).toBeCalledWith(true);
 
-        act(() => wrapper.find(TextField).first().props().onChange?.(undefined as any, 'connectionString'));
+        act(() => wrapper.find(Input).first().props().onChange?.({} as any, { value: 'connectionString' }));
         wrapper.update();
         expect(mockSetCustomEventHubConnectionString).toBeCalledWith('connectionString');
     });

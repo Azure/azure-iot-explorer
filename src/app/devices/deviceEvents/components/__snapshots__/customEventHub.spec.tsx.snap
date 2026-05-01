@@ -1,35 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`customEventHub matches snapshot 1`] = `
-<Stack
-  horizontal={true}
-  horizontalAlign="space-between"
+<div
+  style={
+    {
+      "display": "flex",
+      "flexDirection": "row",
+      "justifyContent": "space-between",
+    }
+  }
 >
-  <StyledToggleBase
-    ariaLabel="deviceEvents.toggleUseDefaultEventHub.label"
+  <Switch
+    aria-label="deviceEvents.toggleUseDefaultEventHub.label"
     checked={false}
     className="stack-first-column"
     disabled={true}
     label="deviceEvents.toggleUseDefaultEventHub.label"
-    offText="deviceEvents.toggleUseDefaultEventHub.off"
     onChange={[Function]}
-    onText="deviceEvents.toggleUseDefaultEventHub.on"
   />
-  <Stack
+  <div
     className="stack-second-column"
-    horizontal={false}
+    style={
+      {
+        "display": "flex",
+        "flexDirection": "column",
+      }
+    }
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceEvents.customEventHub.connectionString.label"
-      className="custom-text-field"
-      disabled={true}
+    <Field
       label="deviceEvents.customEventHub.connectionString.label"
-      onChange={[Function]}
-      placeholder="deviceEvents.customEventHub.connectionString.placeHolder"
       required={true}
-      underlined={true}
-      value=""
-    />
-  </Stack>
-</Stack>
+      validationState="none"
+    >
+      <Input
+        appearance="underline"
+        aria-label="deviceEvents.customEventHub.connectionString.label"
+        className="custom-text-field"
+        disabled={true}
+        onChange={[Function]}
+        placeholder="deviceEvents.customEventHub.connectionString.placeHolder"
+        value=""
+      />
+    </Field>
+  </div>
+</div>
 `;

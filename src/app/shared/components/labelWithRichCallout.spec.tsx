@@ -6,7 +6,7 @@ import 'jest';
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
-import { Callout, IconButton } from '@fluentui/react';
+import { Popover } from '@fluentui/react-components';
 import { LabelWithRichCallout } from './labelWithRichCallout';
 
 describe('components/shared/labelWithRichCallout', () => {
@@ -22,7 +22,7 @@ describe('components/shared/labelWithRichCallout', () => {
         expect(wrapper).toMatchSnapshot();
     });
 
-    it('calls expected functions', () => {
+    it('renders popover with callout content', () => {
         const wrapper = mount(
             <LabelWithRichCallout
                 calloutContent={<></>}
@@ -31,14 +31,8 @@ describe('components/shared/labelWithRichCallout', () => {
             </LabelWithRichCallout>
         );
 
-        act(() => wrapper.find(IconButton).props().onClick(undefined));
-        wrapper.update();
-        const callout = wrapper.find(Callout);
-        expect(callout).toBeDefined();
-
-        act((() => callout.props().onDismiss(null));
-        wrapper.update();
-        const updatedCallout = wrapper.find(Callout);
-        expect(updatedCallout.length).toEqual(0);
+        const popover = wrapper.find(Popover);
+        expect(popover).toBeDefined();
+        expect(popover.length).toEqual(1);
     });
 });

@@ -2,7 +2,7 @@
 
 exports[`devices/components/addModuleIdentity snapshot matches snapshot while loading 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -34,41 +34,43 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="moduleIdentity.moduleId"
-      description="moduleIdentity.moduleIdTooltip"
-      errorMessage=""
+    <Field
+      hint="moduleIdentity.moduleIdTooltip"
       label="moduleIdentity.moduleId"
-      onChange={[Function]}
       required={true}
-      value=""
-    />
+    >
+      <Input
+        aria-label="moduleIdentity.moduleId"
+        onChange={[Function]}
+        value=""
+      />
+    </Field>
     <div
       className="authentication"
     >
-      <StyledChoiceGroup
+      <Field
         label="moduleIdentity.authenticationType.text"
-        onChange={[Function]}
-        options={
-          [
-            {
-              "key": "sas",
-              "text": "moduleIdentity.authenticationType.symmetricKey.type",
-            },
-            {
-              "key": "selfSigned",
-              "text": "moduleIdentity.authenticationType.selfSigned.type",
-            },
-            {
-              "key": "certificateAuthority",
-              "text": "moduleIdentity.authenticationType.ca.type",
-            },
-          ]
-        }
         required={true}
-        selectedKey="sas"
-      />
-      <StyledCheckboxBase
+      >
+        <RadioGroup
+          onChange={[Function]}
+          value="sas"
+        >
+          <Radio
+            label="moduleIdentity.authenticationType.symmetricKey.type"
+            value="sas"
+          />
+          <Radio
+            label="moduleIdentity.authenticationType.selfSigned.type"
+            value="selfSigned"
+          />
+          <Radio
+            label="moduleIdentity.authenticationType.ca.type"
+            value="certificateAuthority"
+          />
+        </RadioGroup>
+      </Field>
+      <Checkbox
         checked={true}
         className="autoGenerateButton"
         label="moduleIdentity.authenticationType.symmetricKey.autoGenerate"
@@ -76,5 +78,8 @@ exports[`devices/components/addModuleIdentity snapshot matches snapshot while lo
       />
     </div>
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;

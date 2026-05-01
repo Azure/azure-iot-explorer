@@ -12,21 +12,22 @@ exports[`deviceIdentity snapshot matches snapshot 1`] = `
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>
@@ -44,21 +45,22 @@ exports[`deviceIdentity snapshot matches snapshot with CA auth type 1`] = `
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>
@@ -76,21 +78,22 @@ exports[`deviceIdentity snapshot matches snapshot with SelfSigned auth type 1`] 
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>
@@ -108,21 +111,22 @@ exports[`deviceIdentity snapshot matches snapshot with SymmetricKey auth type 1`
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>
@@ -140,21 +144,22 @@ exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>
@@ -172,21 +177,22 @@ exports[`deviceIdentity snapshot matches snapshot with Synchronization Status of
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>
@@ -204,21 +210,22 @@ exports[`deviceIdentity snapshot matches snapshot with auth type of None 1`] = `
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>
@@ -236,21 +243,22 @@ exports[`deviceIdentity snapshot matches snapshot with identity wrapper 1`] = `
   <div
     className="device-detail"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceIdentity.deviceID"
-      description="deviceIdentity.deviceIDTooltip"
+    <Field
+      hint="deviceIdentity.deviceIDTooltip"
       label="deviceIdentity.deviceID"
-      readOnly={true}
-      value={null}
-    />
+    >
+      <Input
+        aria-label="deviceIdentity.deviceID"
+        readOnly={true}
+        value={null}
+      />
+    </Field>
     <br />
-    <StyledToggleBase
-      ariaLabel="deviceIdentity.hubConnectivity.label"
+    <Switch
+      aria-label="deviceIdentity.hubConnectivity.label"
       checked={null}
       label="deviceIdentity.hubConnectivity.label"
-      offText="deviceIdentity.hubConnectivity.disable"
       onChange={[Function]}
-      onText="deviceIdentity.hubConnectivity.enable"
     />
   </div>
 </Fragment>

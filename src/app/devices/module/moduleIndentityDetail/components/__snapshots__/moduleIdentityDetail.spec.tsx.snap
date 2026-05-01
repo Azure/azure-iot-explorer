@@ -2,7 +2,7 @@
 
 exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthority module identity is fetched 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -39,16 +39,19 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after certificateAuthori
       labelCallout="moduleIdentity.moduleIdTooltip"
       value="moduleId"
     />
-    <StyledLabelBase>
+    <Label>
       moduleIdentity.authenticationType.ca.text
-    </StyledLabelBase>
+    </Label>
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;
 
 exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is fetched 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -86,12 +89,15 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after module identity is
       value="moduleId"
     />
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;
 
 exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identity is fetched 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -172,12 +178,15 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after sas module identit
       }
     />
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;
 
 exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module identity is fetched 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -214,9 +223,9 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
       labelCallout="moduleIdentity.moduleIdTooltip"
       value="moduleId"
     />
-    <StyledLabelBase>
+    <Label>
       moduleIdentity.authenticationType.selfSigned.text
-    </StyledLabelBase>
+    </Label>
     <MaskedCopyableTextField
       allowMask={true}
       ariaLabel="moduleIdentity.authenticationType.selfSigned.primaryThumbprint"
@@ -232,12 +241,15 @@ exports[`ModuleIdentityDetail snapshot matches snapshot after self signed module
       value="thumbprint2"
     />
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;
 
 exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmation 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -274,46 +286,45 @@ exports[`ModuleIdentityDetail snapshot matches snapshot showing delete confirmat
       labelCallout="moduleIdentity.moduleIdTooltip"
       value="moduleId"
     />
-    <StyledLabelBase>
+    <Label>
       moduleIdentity.authenticationType.ca.text
-    </StyledLabelBase>
-    <div
-      role="dialog"
+    </Label>
+    <Dialog
+      modalType="alert"
+      onOpenChange={[Function]}
+      open={true}
     >
-      <Dialog
-        dialogContentProps={
-          {
-            "title": "moduleIdentity.detail.deleteConfirmation",
-            "type": 2,
-          }
-        }
-        hidden={false}
-        modalProps={
-          {
-            "isBlocking": true,
-          }
-        }
-        onDismiss={[Function]}
-      >
-        <DialogFooter>
-          <CustomizedPrimaryButton
-            onClick={[Function]}
-            text="deviceLists.commands.delete.confirmationDialog.confirm"
-          />
-          <CustomizedDefaultButton
-            onClick={[Function]}
-            text="deviceLists.commands.delete.confirmationDialog.cancel"
-          />
-        </DialogFooter>
-      </Dialog>
-    </div>
+      <DialogSurface>
+        <DialogBody>
+          <DialogTitle>
+            moduleIdentity.detail.deleteConfirmation
+          </DialogTitle>
+          <DialogActions>
+            <Button
+              appearance="primary"
+              onClick={[Function]}
+            >
+              deviceLists.commands.delete.confirmationDialog.confirm
+            </Button>
+            <Button
+              onClick={[Function]}
+            >
+              deviceLists.commands.delete.confirmationDialog.cancel
+            </Button>
+          </DialogActions>
+        </DialogBody>
+      </DialogSurface>
+    </Dialog>
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;
 
 exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -352,5 +363,8 @@ exports[`ModuleIdentityDetail snapshot matches snapshot while loading 1`] = `
     />
     <MultiLineShimmer />
   </div>
+  <LiveRegion
+    message=""
+  />
 </Fragment>
 `;

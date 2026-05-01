@@ -6,39 +6,55 @@ exports[`homeViewNavigation matches snapshot 1`] = `
   role="navigation"
 >
   <CollapsibleButton />
-  <StyledNavBase
-    groups={
-      [
-        {
-          "links": [
+  <TabList
+    appearance="subtle"
+    vertical={true}
+  >
+    <Tab
+      as="a"
+      href="#/home/resources"
+      icon={
+        <OrganizationRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Org",
-              },
-              "key": "resources",
-              "name": "breadcrumb.resources",
-              "url": "#/home/resources",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="resources"
+      value="resources"
+    />
+    <Tab
+      as="a"
+      href="#/home/repos"
+      icon={
+        <PlugDisconnectedRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "PlugDisconnected",
-              },
-              "key": "repos",
-              "name": "breadcrumb.repos",
-              "url": "#/home/repos",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="repos"
+      value="repos"
+    />
+    <Tab
+      as="a"
+      href="#/home/notifications"
+      icon={
+        <AlertRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Ringer",
-              },
-              "key": "notifications",
-              "name": "breadcrumb.notificationCenter",
-              "url": "#/home/notifications",
-            },
-          ],
-        },
-      ]
-    }
-  />
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="notifications"
+      value="notifications"
+    />
+  </TabList>
 </div>
 `;

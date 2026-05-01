@@ -6,7 +6,7 @@ import 'jest';
 import { shallow } from 'enzyme';
 import { ResizableDetailsList } from './resizableDetailsList';
 import * as React from 'react';
-import { SelectionMode } from '@fluentui/react';
+import { SelectionMode } from './resizableDetailsList';
 
 describe('ResizableDetailsList', () => {
     it('matches snapshot', () => {

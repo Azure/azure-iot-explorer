@@ -2,7 +2,7 @@
 
 exports[`devices/components/deviceTwin snapshot matches snapshot 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command device-detail-command"
     items={
       [

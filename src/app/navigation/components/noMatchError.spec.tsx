@@ -5,7 +5,7 @@
 import 'jest';
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PrimaryButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { NoMatchError } from './noMatchError';
 
 describe('shared/components/noMatchError', () => {
@@ -14,8 +14,8 @@ describe('shared/components/noMatchError', () => {
         const wrapper = mount(<NoMatchError/>);
         expect(wrapper.find('div.no-match-error-description').find('h2').props().children).toEqual('noMatchError.title');
         expect(wrapper.find('div.no-match-error-description').find('p').props().children).toEqual('noMatchError.description');
-        const button = wrapper.find(PrimaryButton).first();
-        expect(button.props().ariaDescription).toEqual('noMatchError.goHome');
+        const button = wrapper.find(Button).first();
+        expect(button.props().children).toEqual('noMatchError.goHome');
         expect(button.props().href).toEqual('#');
     });
 });

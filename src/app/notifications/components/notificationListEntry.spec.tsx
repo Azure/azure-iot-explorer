@@ -4,8 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { NotificationListEntry, getIconName, getIconColor } from './notificationListEntry';
+import { NotificationListEntry, getNotificationIcon, getIconColor } from './notificationListEntry';
 import { NotificationType } from '../../api/models/notification';
+import { ErrorCircleRegular, CheckmarkCircleRegular, WarningRegular, InfoRegular } from '@fluentui/react-icons';
 
 const pathname = '/devices/add';
 jest.mock('react-router-dom', () => ({
@@ -27,21 +28,21 @@ describe('notificationListEntry', () => {
         />)).toMatchSnapshot();
     });
 
-    describe('getIconName', () => {
-        it('returns ErrorBadge given NotificationType.error', () => {
-            expect(getIconName(NotificationType.error)).toEqual('ErrorBadge');
+    describe('getNotificationIcon', () => {
+        it('returns ErrorCircleRegular given NotificationType.error', () => {
+            expect(getNotificationIcon(NotificationType.error)).toEqual(ErrorCircleRegular);
         });
 
-        it('returns Info given NotificationType.info', () => {
-            expect(getIconName(NotificationType.info)).toEqual('Info');
+        it('returns InfoRegular given NotificationType.info', () => {
+            expect(getNotificationIcon(NotificationType.info)).toEqual(InfoRegular);
         });
 
-        it('returns Completed given NotificationType.success', () => {
-            expect(getIconName(NotificationType.success)).toEqual('Completed');
+        it('returns CheckmarkCircleRegular given NotificationType.success', () => {
+            expect(getNotificationIcon(NotificationType.success)).toEqual(CheckmarkCircleRegular);
         });
 
-        it('returns Warning given NotificationType.warning', () => {
-            expect(getIconName(NotificationType.warning)).toEqual('Warning');
+        it('returns WarningRegular given NotificationType.warning', () => {
+            expect(getNotificationIcon(NotificationType.warning)).toEqual(WarningRegular);
         });
     });
 

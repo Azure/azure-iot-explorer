@@ -2,7 +2,7 @@
 
 exports[`components/devices/deviceCommands matches snapshot while interface cannot be found 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     farItems={
       [
@@ -31,17 +31,17 @@ exports[`components/devices/deviceCommands matches snapshot while interface cann
       ]
     }
   />
-  <StyledLabelBase
+  <Label
     className="no-pnp-content"
   >
     deviceCommands.noCommands
-  </StyledLabelBase>
+  </Label>
 </Fragment>
 `;
 
 exports[`components/devices/deviceCommands matches snapshot with a commandSchema 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     farItems={
       [

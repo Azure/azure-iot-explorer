@@ -6,58 +6,54 @@ exports[`DeviceQueryClause matches snapshot 1`] = `
   key="query-0"
 >
   <Dropdown
-    ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
+    aria-label="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     className="parameter-type"
-    componentRef={
-      {
-        "current": null,
-      }
-    }
-    onChange={[Function]}
-    options={
-      [
-        {
-          "key": "capabilities.iotEdge",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
-        },
-        {
-          "key": "status",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
-        },
-      ]
-    }
+    onOptionSelect={[Function]}
     placeholder="deviceLists.query.searchPills.clause.parameterType.placeholder"
-  />
+  >
+    <Option
+      key="capabilities.iotEdge"
+      value="capabilities.iotEdge"
+    >
+      deviceLists.query.searchPills.clause.parameterType.items.edge
+    </Option>
+    <Option
+      key="status"
+      value="status"
+    >
+      deviceLists.query.searchPills.clause.parameterType.items.status
+    </Option>
+  </Dropdown>
   <Dropdown
-    ariaLabel="deviceLists.query.searchPills.clause.value.placeholder"
+    aria-label="deviceLists.query.searchPills.clause.value.placeholder"
     className="clause-value"
-    onChange={[Function]}
-    options={
+    onOptionSelect={[Function]}
+    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
+    selectedOptions={
       [
-        {
-          "key": "enabled",
-          "text": "deviceLists.query.searchPills.clause.value.deviceStatus.enabled",
-        },
-        {
-          "key": "disabled",
-          "text": "deviceLists.query.searchPills.clause.value.deviceStatus.disabled",
-        },
+        "enabled",
       ]
     }
-    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
-    selectedKey="enabled"
-  />
-  <CustomizedIconButton
-    ariaLabel="deviceLists.query.searchPills.clause.remove.ariaLabel"
+  >
+    <Option
+      key="enabled"
+      value="enabled"
+    >
+      deviceLists.query.searchPills.clause.value.deviceStatus.enabled
+    </Option>
+    <Option
+      key="disabled"
+      value="disabled"
+    >
+      deviceLists.query.searchPills.clause.value.deviceStatus.disabled
+    </Option>
+  </Dropdown>
+  <Button
+    appearance="subtle"
+    aria-label="deviceLists.query.searchPills.clause.remove.ariaLabel"
     className="remove-pill"
-    data={0}
-    iconProps={
-      {
-        "iconName": "Clear",
-      }
-    }
+    icon={<DismissCircleRegular />}
     onClick={[Function]}
-    type="button"
   />
 </section>
 `;
@@ -68,60 +64,54 @@ exports[`DeviceQueryClause matches snapshot without operation 1`] = `
   key="query-0"
 >
   <Dropdown
-    ariaLabel="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
+    aria-label="deviceLists.query.searchPills.clause.parameterType.ariaLabel"
     className="parameter-type"
-    componentRef={
-      {
-        "current": null,
-      }
-    }
-    onChange={[Function]}
-    options={
-      [
-        {
-          "key": "capabilities.iotEdge",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.edge",
-        },
-        {
-          "key": "status",
-          "text": "deviceLists.query.searchPills.clause.parameterType.items.status",
-        },
-      ]
-    }
+    onOptionSelect={[Function]}
     placeholder="deviceLists.query.searchPills.clause.parameterType.placeholder"
-  />
+  >
+    <Option
+      key="capabilities.iotEdge"
+      value="capabilities.iotEdge"
+    >
+      deviceLists.query.searchPills.clause.parameterType.items.edge
+    </Option>
+    <Option
+      key="status"
+      value="status"
+    >
+      deviceLists.query.searchPills.clause.parameterType.items.status
+    </Option>
+  </Dropdown>
   <Dropdown
-    ariaLabel="deviceLists.query.searchPills.clause.value.placeholder"
+    aria-label="deviceLists.query.searchPills.clause.value.placeholder"
     className="clause-value"
-    onChange={[Function]}
-    options={
+    onOptionSelect={[Function]}
+    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
+    selectedOptions={
       [
-        {
-          "ariaLabel": "deviceLists.query.searchPills.clause.value.deviceCapability.edge",
-          "key": "true",
-          "text": "deviceLists.query.searchPills.clause.value.deviceCapability.edge",
-        },
-        {
-          "ariaLabel": "deviceLists.query.searchPills.clause.value.deviceCapability.nonEdge",
-          "key": "false",
-          "text": "deviceLists.query.searchPills.clause.value.deviceCapability.nonEdge",
-        },
+        "true",
       ]
     }
-    placeholder="deviceLists.query.searchPills.clause.value.placeholder"
-    selectedKey="true"
-  />
-  <CustomizedIconButton
-    ariaLabel="deviceLists.query.searchPills.clause.remove.ariaLabel"
+  >
+    <Option
+      key="true"
+      value="true"
+    >
+      deviceLists.query.searchPills.clause.value.deviceCapability.edge
+    </Option>
+    <Option
+      key="false"
+      value="false"
+    >
+      deviceLists.query.searchPills.clause.value.deviceCapability.nonEdge
+    </Option>
+  </Dropdown>
+  <Button
+    appearance="subtle"
+    aria-label="deviceLists.query.searchPills.clause.remove.ariaLabel"
     className="remove-pill"
-    data={0}
-    iconProps={
-      {
-        "iconName": "Clear",
-      }
-    }
+    icon={<DismissCircleRegular />}
     onClick={[Function]}
-    type="button"
   />
 </section>
 `;

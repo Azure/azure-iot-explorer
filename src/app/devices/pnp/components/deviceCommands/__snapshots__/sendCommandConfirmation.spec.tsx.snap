@@ -2,66 +2,68 @@
 
 exports[`SendCommandConfirmation matches snapshot hidden 1`] = `
 <Dialog
-  dialogContentProps={
-    {
-      "title": "deviceCommands.confirmSend.title",
-    }
-  }
-  hidden={true}
-  modalProps={
-    {
-      "isBlocking": true,
-    }
-  }
-  onDismiss={[MockFunction]}
+  modalType="alert"
+  onOpenChange={[Function]}
+  open={false}
 >
-  <div>
-    deviceCommands.confirmSend.body
-  </div>
-  <DialogFooter>
-    <CustomizedPrimaryButton
-      ariaLabel="deviceCommands.confirmSend.yes.ariaLabel"
-      onClick={[MockFunction]}
-      text="deviceCommands.confirmSend.yes.label"
-    />
-    <CustomizedDefaultButton
-      ariaLabel="deviceCommands.confirmSend.no.ariaLabel"
-      onClick={[MockFunction]}
-      text="deviceCommands.confirmSend.no.label"
-    />
-  </DialogFooter>
+  <DialogSurface>
+    <DialogBody>
+      <DialogTitle>
+        deviceCommands.confirmSend.title
+      </DialogTitle>
+      <div>
+        deviceCommands.confirmSend.body
+      </div>
+      <DialogActions>
+        <Button
+          appearance="primary"
+          aria-label="deviceCommands.confirmSend.yes.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          deviceCommands.confirmSend.yes.label
+        </Button>
+        <Button
+          aria-label="deviceCommands.confirmSend.no.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          deviceCommands.confirmSend.no.label
+        </Button>
+      </DialogActions>
+    </DialogBody>
+  </DialogSurface>
 </Dialog>
 `;
 
 exports[`SendCommandConfirmation matches snapshot visible 1`] = `
 <Dialog
-  dialogContentProps={
-    {
-      "title": "deviceCommands.confirmSend.title",
-    }
-  }
-  hidden={false}
-  modalProps={
-    {
-      "isBlocking": true,
-    }
-  }
-  onDismiss={[MockFunction]}
+  modalType="alert"
+  onOpenChange={[Function]}
+  open={true}
 >
-  <div>
-    deviceCommands.confirmSend.body
-  </div>
-  <DialogFooter>
-    <CustomizedPrimaryButton
-      ariaLabel="deviceCommands.confirmSend.yes.ariaLabel"
-      onClick={[MockFunction]}
-      text="deviceCommands.confirmSend.yes.label"
-    />
-    <CustomizedDefaultButton
-      ariaLabel="deviceCommands.confirmSend.no.ariaLabel"
-      onClick={[MockFunction]}
-      text="deviceCommands.confirmSend.no.label"
-    />
-  </DialogFooter>
+  <DialogSurface>
+    <DialogBody>
+      <DialogTitle>
+        deviceCommands.confirmSend.title
+      </DialogTitle>
+      <div>
+        deviceCommands.confirmSend.body
+      </div>
+      <DialogActions>
+        <Button
+          appearance="primary"
+          aria-label="deviceCommands.confirmSend.yes.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          deviceCommands.confirmSend.yes.label
+        </Button>
+        <Button
+          aria-label="deviceCommands.confirmSend.no.ariaLabel"
+          onClick={[MockFunction]}
+        >
+          deviceCommands.confirmSend.no.label
+        </Button>
+      </DialogActions>
+    </DialogBody>
+  </DialogSurface>
 </Dialog>
 `;

@@ -4,19 +4,25 @@ exports[`components/shared/labelWithRichCallout matches snapshot 1`] = `
 <div
   className="labelWithTooltip"
 >
-  <StyledLabelBase
-    calloutContent={<React.Fragment />}
+  <Label
+    weight="semibold"
   >
     labelText
-  </StyledLabelBase>
-  <CustomizedIconButton
-    iconProps={
-      {
-        "iconName": "Info",
-      }
-    }
-    id="iconbutton0"
-    onClick={[Function]}
-  />
+  </Label>
+  <Popover
+    positioning="after"
+    trapFocus={true}
+  >
+    <PopoverTrigger
+      disableButtonEnhancement={true}
+    >
+      <Button
+        appearance="subtle"
+        aria-label="More information"
+        icon={<InfoRegular />}
+      />
+    </PopoverTrigger>
+    <PopoverSurface />
+  </Popover>
 </div>
 `;

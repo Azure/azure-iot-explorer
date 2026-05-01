@@ -2,7 +2,7 @@
 
 exports[`components/devices/deviceProperties matches snapshot while interface cannot be found 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     farItems={
       [
@@ -31,17 +31,17 @@ exports[`components/devices/deviceProperties matches snapshot while interface ca
       ]
     }
   />
-  <StyledLabelBase
+  <Label
     className="no-pnp-content"
   >
     deviceProperties.noProperties
-  </StyledLabelBase>
+  </Label>
 </Fragment>
 `;
 
 exports[`components/devices/deviceProperties matches snapshot with one twinWithSchema 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     farItems={
       [

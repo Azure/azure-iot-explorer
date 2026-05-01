@@ -4,12 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import { CommandBar } from '@fluentui/react';
+
 import { ConnectionStringCommandBar } from './commandBar';
 import { connectionStringsStateInitial } from '../state';
 import * as connectionStringContext from '../context/connectionStringStateContext';
 import * as authenticationStateContext from '../../authentication/context/authenticationStateContext';
 import { getInitialAuthenticationState } from '../../authentication/state';
+import { CommandBarV9 as CommandBar } from '../../shared/components/commandBarV9';
 
 describe('ConnectionStringCommandBar', () => {
     it('matches snapshot', () => {

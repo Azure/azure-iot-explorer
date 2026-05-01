@@ -27,11 +27,11 @@ exports[`ConnectionSTringsEmpty matches snapshot 1`] = `
   >
     settings.questions.headerText
   </h3>
-  <StyledLinkBase
+  <Link
     href="connectivityPane.connectionStringComboBox.link"
     target="_blank"
   >
     connectivityPane.connectionStringComboBox.linkText
-  </StyledLinkBase>
+  </Link>
 </div>
 `;

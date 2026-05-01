@@ -3498,26 +3498,25 @@ exports[`dataForm matches snapshot with simple type 1`] = `
             },
           },
           "localizer": undefined,
+          "suppressDuplicateFiltering": undefined,
         }
       }
     >
       <div
         className="column-value-text col-sm4"
       >
-        <StyledLabelBase
+        <Label
           aria-label="deviceEvents.columns.value"
         />
       </div>
-      <CustomizedPrimaryButton
+      <Button
+        appearance="primary"
         className="submit-button"
         disabled={false}
-        iconProps={
-          {
-            "iconName": "CloudUpload",
-          }
-        }
-        text="text"
-      />
+        icon={<CloudArrowUpRegular />}
+      >
+        text
+      </Button>
     </ForwardRef>
   </ErrorBoundary>
 </Fragment>

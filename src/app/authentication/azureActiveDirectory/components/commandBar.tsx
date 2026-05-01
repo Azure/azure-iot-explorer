@@ -4,10 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useAuthenticationStateContext } from '../../context/authenticationStateContext';
-import { NAVIGATE_BACK } from '../../../constants/iconNames';
+import { ArrowLeftRegular, SignOutRegular, PersonRegular } from '@fluentui/react-icons';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 
 export const AzureActiveDirectoryCommandBar: React.FC = () => {
@@ -22,7 +22,7 @@ export const AzureActiveDirectoryCommandBar: React.FC = () => {
     const getCommandBarItems = () => {
         const items = [{
             ariaLabel: t(ResourceKeys.authentication.authSelection.switchAuthType),
-            iconProps: { iconName: NAVIGATE_BACK },
+            icon: <ArrowLeftRegular />,
             key: 'switch',
             onClick: switchAuth,
             text: t(ResourceKeys.authentication.authSelection.switchAuthType)
@@ -30,14 +30,14 @@ export const AzureActiveDirectoryCommandBar: React.FC = () => {
 
         return token ? [{
             ariaLabel: t(ResourceKeys.authentication.azureActiveDirectory.command.logout),
-            iconProps: { iconName: 'Signout' },
+            icon: <SignOutRegular />,
             key: 'signout',
             onClick: logout,
             text: t(ResourceKeys.authentication.azureActiveDirectory.command.logout)
             }, ...items] :
             [{
                 ariaLabel: t(ResourceKeys.authentication.azureActiveDirectory.command.login),
-                iconProps: { iconName: 'Signin' },
+                icon: <PersonRegular />,
                 key: 'signin',
                 onClick: login,
                 text: t(ResourceKeys.authentication.azureActiveDirectory.command.login)

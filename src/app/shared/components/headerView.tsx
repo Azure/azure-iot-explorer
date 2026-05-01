@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from '@fluentui/react';
+import { Link } from '@fluentui/react-components';
 
 export interface HeaderViewProps {
     headerText: string;

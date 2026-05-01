@@ -5,64 +5,113 @@ exports[`deviceContentNav matches snapshot when the device is edge 1`] = `
   className="nav-link-left"
   role="navigation"
 >
-  <StyledNavBase
-    groups={
-      [
-        {
-          "links": [
+  <TabList
+    appearance="subtle"
+    vertical={true}
+  >
+    <Tab
+      as="a"
+      href="#/identity/?deviceId=test"
+      icon={
+        <ServerRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Server",
-              },
-              "key": "identity",
-              "name": "breadcrumb.identity",
-              "url": "#/identity/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="identity"
+      value="identity"
+    >
+      breadcrumb.identity
+    </Tab>
+    <Tab
+      as="a"
+      href="#/twin/?deviceId=test"
+      icon={
+        <DocumentCopyRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "ReopenPages",
-              },
-              "key": "twin",
-              "name": "breadcrumb.twin",
-              "url": "#/twin/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="twin"
+      value="twin"
+    >
+      breadcrumb.twin
+    </Tab>
+    <Tab
+      as="a"
+      href="#/events/?deviceId=test"
+      icon={
+        <ChatMultipleRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Message",
-              },
-              "key": "events",
-              "name": "breadcrumb.events",
-              "url": "#/events/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="events"
+      value="events"
+    >
+      breadcrumb.events
+    </Tab>
+    <Tab
+      as="a"
+      href="#/methods/?deviceId=test"
+      icon={
+        <RemoteRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Remote",
-              },
-              "key": "methods",
-              "name": "breadcrumb.methods",
-              "url": "#/methods/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="methods"
+      value="methods"
+    >
+      breadcrumb.methods
+    </Tab>
+    <Tab
+      as="a"
+      href="#/cloudToDeviceMessage/?deviceId=test"
+      icon={
+        <MailRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Mail",
-              },
-              "key": "cloudToDeviceMessage",
-              "name": "breadcrumb.cloudToDeviceMessage",
-              "url": "#/cloudToDeviceMessage/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="cloudToDeviceMessage"
+      value="cloudToDeviceMessage"
+    >
+      breadcrumb.cloudToDeviceMessage
+    </Tab>
+    <Tab
+      as="a"
+      href="#/moduleIdentity/?deviceId=test"
+      icon={
+        <BranchForkRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "TFVCLogo",
-              },
-              "key": "moduleIdentity",
-              "name": "breadcrumb.moduleIdentity",
-              "url": "#/moduleIdentity/?deviceId=test",
-            },
-          ],
-        },
-      ]
-    }
-  />
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="moduleIdentity"
+      value="moduleIdentity"
+    >
+      breadcrumb.moduleIdentity
+    </Tab>
+  </TabList>
 </div>
 `;
 
@@ -71,71 +120,129 @@ exports[`deviceContentNav matches snapshot when the device is not edge 1`] = `
   className="nav-link-left"
   role="navigation"
 >
-  <StyledNavBase
-    groups={
-      [
-        {
-          "links": [
+  <TabList
+    appearance="subtle"
+    vertical={true}
+  >
+    <Tab
+      as="a"
+      href="#/identity/?deviceId=test"
+      icon={
+        <ServerRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Server",
-              },
-              "key": "identity",
-              "name": "breadcrumb.identity",
-              "url": "#/identity/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="identity"
+      value="identity"
+    >
+      breadcrumb.identity
+    </Tab>
+    <Tab
+      as="a"
+      href="#/twin/?deviceId=test"
+      icon={
+        <DocumentCopyRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "ReopenPages",
-              },
-              "key": "twin",
-              "name": "breadcrumb.twin",
-              "url": "#/twin/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="twin"
+      value="twin"
+    >
+      breadcrumb.twin
+    </Tab>
+    <Tab
+      as="a"
+      href="#/events/?deviceId=test"
+      icon={
+        <ChatMultipleRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Message",
-              },
-              "key": "events",
-              "name": "breadcrumb.events",
-              "url": "#/events/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="events"
+      value="events"
+    >
+      breadcrumb.events
+    </Tab>
+    <Tab
+      as="a"
+      href="#/methods/?deviceId=test"
+      icon={
+        <RemoteRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Remote",
-              },
-              "key": "methods",
-              "name": "breadcrumb.methods",
-              "url": "#/methods/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="methods"
+      value="methods"
+    >
+      breadcrumb.methods
+    </Tab>
+    <Tab
+      as="a"
+      href="#/cloudToDeviceMessage/?deviceId=test"
+      icon={
+        <MailRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "Mail",
-              },
-              "key": "cloudToDeviceMessage",
-              "name": "breadcrumb.cloudToDeviceMessage",
-              "url": "#/cloudToDeviceMessage/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="cloudToDeviceMessage"
+      value="cloudToDeviceMessage"
+    >
+      breadcrumb.cloudToDeviceMessage
+    </Tab>
+    <Tab
+      as="a"
+      href="#/moduleIdentity/?deviceId=test"
+      icon={
+        <BranchForkRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "TFVCLogo",
-              },
-              "key": "moduleIdentity",
-              "name": "breadcrumb.moduleIdentity",
-              "url": "#/moduleIdentity/?deviceId=test",
-            },
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="moduleIdentity"
+      value="moduleIdentity"
+    >
+      breadcrumb.moduleIdentity
+    </Tab>
+    <Tab
+      as="a"
+      href="#/ioTPlugAndPlay/?deviceId=test"
+      icon={
+        <PlugDisconnectedRegular
+          style={
             {
-              "iconProps": {
-                "iconName": "PlugDisconnected",
-              },
-              "key": "ioTPlugAndPlay",
-              "name": "breadcrumb.ioTPlugAndPlay",
-              "url": "#/ioTPlugAndPlay/?deviceId=test",
-            },
-          ],
-        },
-      ]
-    }
-  />
+              "color": "var(--colorBrandForeground1)",
+            }
+          }
+        />
+      }
+      key="ioTPlugAndPlay"
+      value="ioTPlugAndPlay"
+    >
+      breadcrumb.ioTPlugAndPlay
+    </Tab>
+  </TabList>
 </div>
 `;

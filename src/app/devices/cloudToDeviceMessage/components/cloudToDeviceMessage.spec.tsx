@@ -6,10 +6,12 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { TextField, Checkbox, CommandBar, Dropdown } from '@fluentui/react';
+
+import { Checkbox, Dropdown, Input, Textarea } from '@fluentui/react-components';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
 import { CloudToDeviceMessage, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
 import { cloudToDeviceMessageAction } from '../actions';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({ search: '?deviceId=testDevice' })
@@ -31,8 +33,8 @@ describe('cloudToDeviceMessage', () => {
     it('sets message body', () => {
         const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
         const wrapper = mount(<CloudToDeviceMessage/>);
-        const bodyTextField = wrapper.find(TextField).first();
-        act(() => bodyTextField.props().onChange?.(undefined as any, 'hello world'));
+        const bodyTextarea = wrapper.find(Textarea).first();
+        act(() => bodyTextarea.props().onChange?.({} as any, { value: 'hello world' }));
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         act(() => commandBar.props().items[0].onClick());
@@ -44,7 +46,7 @@ describe('cloudToDeviceMessage', () => {
         const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
         const wrapper = mount(<CloudToDeviceMessage/>);
         const checkbox = wrapper.find(Checkbox).first();
-        act(() => checkbox.props().onChange?.(undefined as any, true));
+        act(() => checkbox.props().onChange?.({target: {checked: true}} as any, {checked: true}));
         wrapper.update();
         const commandBar = wrapper.find(CommandBar).first();
         const currentTime = new Date().toLocaleString();
@@ -61,15 +63,15 @@ describe('cloudToDeviceMessage', () => {
         act(() => commandBar.props().items[0].onClick(null));
         wrapper.update();
 
-        const keyInput = wrapper.find(TextField).at(1);
-        act(() => keyInput.props().onChange?.(undefined as any, 'foo'));
+        const keyInput = wrapper.find(Input).first();
+        act(() => keyInput.props().onChange?.({} as any, { value: 'foo' }));
         wrapper.update();
-        expect(wrapper.find(TextField).at(1).props().value).toEqual('foo');
+        expect(wrapper.find(Input).first().props().value).toEqual('foo');
 
-        const valueInput = wrapper.find(TextField).at(2);
-        act(() => valueInput.props().onChange?.(undefined as any, 'bar'));
+        const valueInput = wrapper.find(Input).at(1);
+        act(() => valueInput.props().onChange?.({} as any, { value: 'bar' }));
         wrapper.update();
-        expect(wrapper.find(TextField).at(2).props().value).toEqual('bar');
+        expect(wrapper.find(Input).at(1).props().value).toEqual('bar');
 
         const updatedCommandBar = wrapper.find(CommandBar).first();
         act(() => updatedCommandBar.props().items[0].onClick());
@@ -86,7 +88,7 @@ describe('cloudToDeviceMessage', () => {
 
         wrapper.update();
         const ackDropDown = wrapper.find(Dropdown).first();
-        act(() => ackDropDown.props().onChange(null, {key: 'full'} as any)); // tslint:disable-line:no-any
+        act(() => ackDropDown.props().onOptionSelect(null, {optionValue: 'full'} as any)); // tslint:disable-line:no-any
         wrapper.update();
 
         const updatedCommandBar = wrapper.find(CommandBar).first();

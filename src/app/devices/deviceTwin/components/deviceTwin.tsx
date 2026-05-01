@@ -5,10 +5,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { CommandBar } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
+import { ArrowSyncRegular, SaveRegular } from '@fluentui/react-icons';
 import { REFRESH, SAVE } from '../../../constants/iconNames';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
@@ -54,7 +55,7 @@ export const DeviceTwin: React.FC = () => {
                 items={[
                     {
                         ariaLabel: t(ResourceKeys.deviceTwin.command.refresh),
-                        iconProps: {iconName: REFRESH},
+                        icon: <ArrowSyncRegular />,
                         key: REFRESH,
                         name: t(ResourceKeys.deviceTwin.command.refresh),
                         onClick: handleRefresh
@@ -62,7 +63,7 @@ export const DeviceTwin: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.deviceTwin.command.save),
                         disabled: !state.isDirty || !state.isTwinValid,
-                        iconProps: {iconName: SAVE},
+                        icon: <SaveRegular />,
                         key: SAVE,
                         name: t(ResourceKeys.deviceTwin.command.save),
                         onClick: handleSave

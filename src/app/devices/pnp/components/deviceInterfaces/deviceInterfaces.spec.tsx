@@ -6,12 +6,13 @@ import 'jest';
 import * as React from 'react';
 import { act } from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
-import { CommandBar } from '@fluentui/react';
+
 import { DeviceInterfaces } from './deviceInterfaces';
 import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 import { pnpStateInitial, PnpStateInterface } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as PnpContext from '../../context/pnpStateContext';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 
 jest.mock('react-router-dom', () => ({
     useNavigate: () => jest.fn(),

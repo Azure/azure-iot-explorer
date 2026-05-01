@@ -5,8 +5,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { IColumn, Label, Link, SelectionMode } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
+import { Label, Link } from '@fluentui/react-components';
+import { IColumn, SelectionMode, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

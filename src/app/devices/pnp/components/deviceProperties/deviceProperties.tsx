@@ -5,10 +5,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CommandBar, Label } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Label } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DevicePropertiesPerInterface } from './devicePropertiesPerInterface';
+import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
 import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../context/pnpStateContext';
@@ -71,7 +73,7 @@ export const DeviceProperties: React.FC = () => {
                     items={[
                         {
                             ariaLabel: t(ResourceKeys.deviceProperties.command.refresh),
-                            iconProps: {iconName: REFRESH},
+                            icon: <ArrowSyncRegular />,
                             key: REFRESH,
                             name: t(ResourceKeys.deviceProperties.command.refresh),
                             onClick: handleRefresh
@@ -80,7 +82,7 @@ export const DeviceProperties: React.FC = () => {
                     farItems={[
                         {
                             ariaLabel: t(ResourceKeys.deviceProperties.command.close),
-                            iconProps: {iconName: NAVIGATE_BACK},
+                            icon: <ArrowLeftRegular />,
                             key: NAVIGATE_BACK,
                             name: t(ResourceKeys.deviceProperties.command.close),
                             onClick: handleClose

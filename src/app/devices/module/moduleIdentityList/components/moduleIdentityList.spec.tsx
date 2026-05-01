@@ -5,11 +5,12 @@
 import * as React from 'react';
 import 'jest';
 import { shallow, mount } from 'enzyme';
-import { CommandBar } from '@fluentui/react';
+
 import { ModuleIdentityList } from './moduleIdentityList';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
 import { getModuleIdentitiesAction } from '../actions';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 
 const pathname = `/`;
 

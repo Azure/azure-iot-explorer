@@ -3,44 +3,41 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { TooltipHost, DirectionalHint, Label, ILabelProps, IconButton, getId } from '@fluentui/react';
-import { INFO } from '../../constants/iconNames';
+import { Button, Label, Tooltip } from '@fluentui/react-components';
+import { InfoRegular } from '@fluentui/react-icons';
 import '../../css/_labelWithTooltip.scss';
 
-export interface LabelWithTooltipProps extends ILabelProps {
+export interface LabelWithTooltipProps {
     tooltipText?: string;
+    style?: React.CSSProperties;
+    htmlFor?: string;
+    children?: React.ReactNode;
+    className?: string;
 }
 
 export const LabelWithTooltip = (props: LabelWithTooltipProps) => {
-    const { tooltipText, style } = props;
-
-    const buttonId = getId('iconbutton');
-    const hostId = getId('tooltip');
+    const { tooltipText, style, children, htmlFor } = props;
 
     return (
         <div
             style={style}
             className="labelWithTooltip"
         >
-            <Label
-                {...props}
-            />
+            <Label weight="semibold" htmlFor={htmlFor}>
+                {children}
+            </Label>
             {tooltipText &&
-                <TooltipHost
+                <Tooltip
                     content={tooltipText}
-                    calloutProps={{
-                        gapSpace: 0,
-                        target: `#${buttonId}`
-                    }}
-                    id={hostId}
-                    directionalHint={DirectionalHint.rightCenter}
+                    relationship="description"
+                    positioning="after"
                 >
-                    <IconButton
-                        iconProps={{ iconName: INFO }}
-                        aria-labelledby={hostId}
-                        id={buttonId}
+                    <Button
+                        appearance="subtle"
+                        icon={<InfoRegular />}
+                        aria-label="More information"
                     />
-                </TooltipHost>
+                </Tooltip>
             }
         </div>
     );

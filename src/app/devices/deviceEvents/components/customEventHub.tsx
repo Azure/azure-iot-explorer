@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Toggle, TextField, Stack } from '@fluentui/react';
+import { Field, Input, Switch } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { isValidEventHubConnectionString } from '../../../shared/utils/hubConnectionStringHelper';
 import './deviceEvents.scss';
@@ -44,38 +44,40 @@ export const CustomEventHub: React.FC<CustomEventHubProps> = ({
         setUseBuiltInEventHub(!useBuiltInEventHub);
     };
 
-    const customEventHubConnectionStringChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setCustomEventHubConnectionString(newValue);
+    const customEventHubConnectionStringChange = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
+        setCustomEventHubConnectionString(data.value);
     };
 
     return (
-        <Stack horizontal={true} horizontalAlign="space-between">
-            <Toggle
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Switch
                 className="stack-first-column"
                 checked={useBuiltInEventHub}
-                ariaLabel={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
+                aria-label={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
                 label={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.label)}
-                onText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.on)}
-                offText={t(ResourceKeys.deviceEvents.toggleUseDefaultEventHub.off)}
                 onChange={toggleChange}
                 disabled={monitoringData}
             />
             {!useBuiltInEventHub &&
-                <Stack horizontal={false} className="stack-second-column">
-                    <TextField
-                        className="custom-text-field"
+                <div className="stack-second-column" style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Field
                         label={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
-                        ariaLabel={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
-                        underlined={true}
-                        value={customEventHubConnectionString}
-                        disabled={monitoringData}
-                        onChange={customEventHubConnectionStringChange}
-                        placeholder={t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
-                        errorMessage={error}
+                        validationMessage={error || undefined}
+                        validationState={error ? 'error' : 'none'}
                         required={true}
-                    />
-                </Stack>
+                    >
+                        <Input
+                            className="custom-text-field"
+                            appearance="underline"
+                            aria-label={t(ResourceKeys.deviceEvents.customEventHub.connectionString.label)}
+                            value={customEventHubConnectionString}
+                            disabled={monitoringData}
+                            onChange={customEventHubConnectionStringChange}
+                            placeholder={t(ResourceKeys.deviceEvents.customEventHub.connectionString.placeHolder)}
+                        />
+                    </Field>
+                </div>
             }
-        </Stack>
+        </div>
     );
 };

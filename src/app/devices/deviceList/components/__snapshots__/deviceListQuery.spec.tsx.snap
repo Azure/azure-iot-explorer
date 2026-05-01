@@ -8,51 +8,45 @@ exports[`DeviceListQuery matches snapshot 1`] = `
   <div
     className="deviceId-search"
   >
-    <StyledTextFieldBase
-      ariaLabel="deviceLists.query.deviceId.ariaLabel"
-      borderless={true}
+    <Input
+      appearance="underline"
+      aria-label="deviceLists.query.deviceId.ariaLabel"
       className="search-box"
-      iconProps={
-        {
-          "iconName": "Search",
-        }
-      }
+      contentBefore={<SearchRegular />}
       onChange={[Function]}
       onKeyUp={[Function]}
       placeholder="deviceLists.query.deviceId.placeholder"
       role="searchbox"
-      value=""
-    />
-    <CustomizedIconButton
-      ariaLabel="deviceLists.query.deviceId.searchButton.ariaLabel"
-      className="search-button"
-      disabled={false}
-      iconProps={
+      style={
         {
-          "iconName": "Forward",
+          "border": "none",
+          "flexGrow": 1,
         }
       }
+      value=""
+    />
+    <Button
+      appearance="subtle"
+      aria-label="deviceLists.query.deviceId.searchButton.ariaLabel"
+      className="search-button"
+      disabled={false}
+      icon={<ArrowForwardRegular />}
       onClick={[Function]}
       title="deviceLists.query.deviceId.searchButton.title"
-      type="submit"
     />
   </div>
   <div
     className="clauses"
   >
-    <CustomizedActionButton
-      ariaLabel="deviceLists.query.searchPills.add.ariaLabel"
+    <Button
+      appearance="transparent"
+      aria-label="deviceLists.query.searchPills.add.ariaLabel"
       className="search-pill"
-      iconProps={
-        {
-          "iconName": "Filter",
-        }
-      }
+      icon={<FilterRegular />}
       onClick={[Function]}
-      type="button"
     >
       deviceLists.query.searchPills.add.text
-    </CustomizedActionButton>
+    </Button>
   </div>
 </section>
 `;

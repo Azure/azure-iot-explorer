@@ -2,7 +2,7 @@
 
 exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -96,7 +96,7 @@ exports[`ModuleIdentityList snapshot matches snapshot when fetch failed 1`] = `
 
 exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
@@ -190,7 +190,7 @@ exports[`ModuleIdentityList snapshot matches snapshot while loading 1`] = `
 
 exports[`ModuleIdentityList snapshot matches snapshot with moduleIdentityList 1`] = `
 <Fragment>
-  <StyledCommandBarBase
+  <CommandBarV9
     className="command"
     items={
       [
