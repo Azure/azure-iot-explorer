@@ -39,7 +39,7 @@ export const NotificationListEntry: React.FC<NotificationListEntryProps> = (prop
         navigator.clipboard.writeText(message);
     };
 
-    const CopyButton = (buttonProps: { isFlex: boolean }): JSX.Element => {
+    const CopyButton = (buttonProps: { isFlex: boolean }): React.JSX.Element => {
         return (
             <Button
                 appearance="subtle"

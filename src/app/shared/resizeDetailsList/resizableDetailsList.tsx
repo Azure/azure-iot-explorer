@@ -49,7 +49,7 @@ export interface ResizableDetailsListProps {
     columns: IColumn[];
     items: any[]; // tslint:disable-line:no-any
     layoutMode?: number;
-    onRenderItemColumn: (item: any, index: number, column: IColumn) => JSX.Element | string; // tslint:disable-line:no-any
+    onRenderItemColumn: (item: any, index: number, column: IColumn) => React.JSX.Element | string; // tslint:disable-line:no-any
     onSelectionChange?: (selectedIndices: Set<number>) => void;
     selection?: any; // kept for backwards compat, ignored internally
     selectionMode?: SelectionMode;

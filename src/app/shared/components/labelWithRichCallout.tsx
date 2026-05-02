@@ -8,7 +8,7 @@ import { InfoRegular } from '@fluentui/react-icons';
 import '../../css/_labelWithTooltip.scss';
 
 export interface LabelWithRichCalloutProps {
-    calloutContent: JSX.Element;
+    calloutContent: React.JSX.Element;
     style?: React.CSSProperties;
     htmlFor?: string;
     children?: React.ReactNode;

@@ -14,7 +14,7 @@ import '../../css/_maskedCopyableTextField.scss';
 
 export interface MaskedCopyableTextFieldProps {
     ariaLabel: string;
-    calloutContent?: JSX.Element;
+    calloutContent?: React.JSX.Element;
     label: string;
     labelCallout?: string;
     value: string;
@@ -24,8 +24,8 @@ export interface MaskedCopyableTextFieldProps {
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (props: MaskedCopyableTextFieldProps) => {
-    const hiddenInputRef = React.createRef<HTMLInputElement>();
-    const visibleInputRef = React.createRef<HTMLInputElement>();
+    const hiddenInputRef = React.useRef<HTMLInputElement>(null);
+    const visibleInputRef = React.useRef<HTMLInputElement>(null);
     const labelIdentifier = React.useId();
 
     const { t } = useTranslation();

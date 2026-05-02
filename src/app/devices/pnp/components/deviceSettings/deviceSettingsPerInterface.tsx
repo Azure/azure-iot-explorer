@@ -81,7 +81,7 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
     };
 
     const renderItemColumn = (item: TwinWithSchema, index: number, column: IColumn) => {
-        const columnRenderers: Record<string, () => JSX.Element> = {
+        const columnRenderers: Record<string, () => React.JSX.Element> = {
             desiredValue: () => renderPropertyDesiredValue(item),
             name: () => renderPropertyName(item),
             reportedValue: () => renderPropertyReportedValue(item),

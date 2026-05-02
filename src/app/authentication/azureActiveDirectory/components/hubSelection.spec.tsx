@@ -25,6 +25,7 @@ import { getInitialAzureActiveDirectoryState } from '../state';
 import * as azureActiveDirectoryStateContext from '../context/azureActiveDirectoryStateContext';
 
 import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 describe('HubSelection', () => {
     afterEach(() => {
         useStateMock = null;
@@ -33,30 +34,27 @@ describe('HubSelection', () => {
     it('matches snapshot when page is loading', () => {
         jest.spyOn(azureActiveDirectoryStateContext, 'useAzureActiveDirectoryStateContext').mockReturnValue(
             [{...getInitialAzureActiveDirectoryState(), formState: 'working'}, azureActiveDirectoryStateContext.getInitialAzureActiveDirectoryOps()]);
-        const { container } = render(<HubSelection/>);
+        const { container } = render(<MemoryRouter><HubSelection/></MemoryRouter>);
         expect(container).toBeDefined();
     });
 
     it('matches snapshot when token is present', () => {
         jest.spyOn(azureActiveDirectoryStateContext, 'useAzureActiveDirectoryStateContext').mockReturnValue(
             [{...getInitialAzureActiveDirectoryState(), token: 'token'}, azureActiveDirectoryStateContext.getInitialAzureActiveDirectoryOps()]);
-        const { container } = render(<HubSelection/>);
+        const { container } = render(<MemoryRouter><HubSelection/></MemoryRouter>);
         expect(container).toBeDefined();
     });
 
     it('matches snapshot when hub list is shown', () => {
-        const actual = jest.requireActual('react');
-        let called = false;
-        useStateMock = jest.fn((...args: any[]) => {
-            if (!called) {
-                called = true;
-                return actual.useState(true);
+        useStateMock = jest.fn((initialValue: any) => {
+            if (initialValue === false) {
+                return [true, jest.fn()];
             }
             return undefined;
         });
         jest.spyOn(azureActiveDirectoryStateContext, 'useAzureActiveDirectoryStateContext').mockReturnValue(
             [getInitialAzureActiveDirectoryState(), azureActiveDirectoryStateContext.getInitialAzureActiveDirectoryOps()]);
-        const { container } = render(<HubSelection/>);
+        const { container } = render(<MemoryRouter><HubSelection/></MemoryRouter>);
         expect(container).toBeDefined();
     });
 });

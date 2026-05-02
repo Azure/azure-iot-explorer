@@ -32,8 +32,9 @@ const pathname = 'https://127.0.0.1:3000/#/resources/testhub.azure-devices.net/d
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
     useNavigate: () => jest.fn(),
-    useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
 }));
+
+const initialEntries = [{ pathname, search: '?deviceId=newdevice&moduleId=moduleId' }];
 
 const deviceId = 'deviceId';
 const moduleId = 'moduleId';
@@ -84,7 +85,7 @@ describe('ModuleIdentityDetail', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([{synchronizationStatus: SynchronizationStatus.working}, jest.fn()]);
-            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after module identity is fetched', () => {
@@ -93,7 +94,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after sas module identity is fetched', () => {
@@ -102,7 +103,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after self signed module identity is fetched', () => {
@@ -111,7 +112,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after certificateAuthority module identity is fetched', () => {
@@ -120,7 +121,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         afterEach(() => {
@@ -133,16 +134,13 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            const actual = jest.requireActual('react');
-            let called = false;
-            useStateMock = jest.fn((...args: any[]) => {
-                if (!called) {
-                    called = true;
-                    return actual.useState(true);
+            useStateMock = jest.fn((initialValue: any) => {
+                if (initialValue === false) {
+                    return [true, jest.fn()];
                 }
                 return undefined;
             });
-            expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
     });
 });

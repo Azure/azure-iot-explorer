@@ -4,7 +4,7 @@ import { sagaReducerLogger } from './sagaReducerLogger';
 
 export const useAsyncSagaReducer = <S, A>(reducer: React.Reducer<S, A>, saga: Saga, initialState?: S, stateName?: string): [S, (action: A) => void]  => {
   const effectiveReducer = process.env.NODE_ENV === 'development' ? sagaReducerLogger(reducer, stateName) : reducer;
-  const [state, reactDispatch] = React.useReducer<React.Reducer<S, A>>(effectiveReducer, initialState);
+  const [state, reactDispatch] = React.useReducer(effectiveReducer, initialState as S);
   const stateRef = React.useRef(state);
   React.useEffect(() => {
     stateRef.current = state;

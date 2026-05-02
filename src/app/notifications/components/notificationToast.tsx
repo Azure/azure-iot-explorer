@@ -18,7 +18,7 @@ export interface CloseButtonProps {
     closeToast?: any;
 }
 
-export const CloseButton = (props: CloseButtonProps): JSX.Element => {
+export const CloseButton = (props: CloseButtonProps): React.JSX.Element => {
     const { t } = useTranslation();
     return (
         <Button
@@ -31,7 +31,7 @@ export const CloseButton = (props: CloseButtonProps): JSX.Element => {
     );
 };
 
-const NotificationEntry = (props: { notification: Notification }): JSX.Element => {
+const NotificationEntry = (props: { notification: Notification }): React.JSX.Element => {
     const [ , {addNotification}] = useNotificationsContext();
 
     React.useEffect(() => {
@@ -44,12 +44,12 @@ const NotificationEntry = (props: { notification: Notification }): JSX.Element =
 export const raiseNotificationToast = (notification: Notification) => {
     const component = <NotificationEntry notification={notification}/>;
     const options: ToastOptions = {
-        bodyClassName: 'notification-toast-body',
+        className: 'notification-toast-body',
         closeButton: <CloseButton />,
-        position: toast.POSITION.TOP_RIGHT,
+        position: 'top-right',
         progressClassName: `notification-toast-progress-bar`,
         toastId: notification.id,
-        type: toast.TYPE.DEFAULT
+        type: 'default'
     };
 
     if (notification.id && toast.isActive(notification.id)) {

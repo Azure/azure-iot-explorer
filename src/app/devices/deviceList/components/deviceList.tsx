@@ -124,7 +124,7 @@ export const DeviceList: React.FC = () => {
     };
 
     // tslint:disable-next-line: cyclomatic-complexity
-    const onRenderItemColumn = (item: DeviceSummary, index: number, column: IColumn): JSX.Element | string => {
+    const onRenderItemColumn = (item: DeviceSummary, index: number, column: IColumn): React.JSX.Element | string => {
         switch (column.key) {
             case 'id':
                 const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
