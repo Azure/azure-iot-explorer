@@ -3,6 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 
+// react-router-dom v7 requires TextEncoder/TextDecoder in jsdom
+const { TextEncoder, TextDecoder } = require('util');
+global.TextEncoder = global.TextEncoder || TextEncoder;
+global.TextDecoder = global.TextDecoder || TextDecoder;
+
 // FluentUI v9 components use ResizeObserver, which jsdom doesn't provide
 global.ResizeObserver = class ResizeObserver {
   observe() {}

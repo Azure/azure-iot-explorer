@@ -63,7 +63,7 @@ describe('ModuleIdentityList', () => {
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
             const { container } = render(<MemoryRouter><ModuleIdentityList /></MemoryRouter>);
-            expect(getModuleIdentitiesActionSpy).toBeCalled();
+            expect(getModuleIdentitiesActionSpy).toHaveBeenCalled();
         });
     });
 });

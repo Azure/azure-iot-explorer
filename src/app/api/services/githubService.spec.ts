@@ -8,7 +8,7 @@ describe('githubService', () => {
     context('fetchLatestReleaseTagName', () => {
         it('calls fetch with no parameters', () => {
             GithubService.fetchLatestReleaseTagName();
-            expect(fetch).toBeCalledWith(GithubService.latestReleaseApiPath);
+            expect(fetch).toHaveBeenCalledWith(GithubService.latestReleaseApiPath);
         });
 
         it('returns tag name when response is 200', async () => {

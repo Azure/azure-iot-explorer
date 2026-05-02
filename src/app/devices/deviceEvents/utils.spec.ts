@@ -13,6 +13,6 @@ describe('setDecoderInfo', () => {
 
     it('returns error message if decode prototype is not found in file', async () => {
         const params = {decoderFile: new File([], ''), decoderPrototype: 'asd', decodeType: 'Protobuf'};
-        await expect(setDecoderInfo(params)).rejects.toThrowError('no such type: asd');
+        await expect(setDecoderInfo(params)).rejects.toThrow('no such type: asd');
     });
 });
