@@ -43,7 +43,7 @@ export const DeviceSettings: React.FC = () => {
         return generateTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
     },                                   [modelDefinition, twin, extendedModelDefinition]);
 
-    const patchTwin = (parameters: Twin) => {
+    const patchTwin = (parameters: Partial<Twin>) => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_UPDATE_PROPERTY);
         if (moduleId) {
             dispatch(updateModuleTwinAction.started(parameters));

@@ -9,18 +9,18 @@ import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { DeviceIdentity } from '../../api/models/deviceIdentity';
 
 export const addDeviceReducer = reducerWithInitialState<AddDeviceStateInterface>(addDeviceStateInitial())
-    .case(addDeviceAction.started, (state: AddDeviceStateType) => {
+    .case(addDeviceAction.started as any, ((state: AddDeviceStateType) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.working
         });
-    })
-    .case(addDeviceAction.done, (state: AddDeviceStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
+    }) as any)
+    .case(addDeviceAction.done as any, ((state: AddDeviceStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.upserted
         });
-    })
-    .case(addDeviceAction.failed, (state: AddDeviceStateType) => {
+    }) as any)
+    .case(addDeviceAction.failed as any, ((state: AddDeviceStateType) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.failed
         });
-    });
+    }) as any);

@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import fetch, { Response } from 'node-fetch';
-import * as ssrfFilter from 'ssrf-req-filter';
+// @ts-ignore no type declarations available
+import ssrfFilter from 'ssrf-req-filter';
 import {
     validateAzureIoTHostname,
     sanitizeHeaders,

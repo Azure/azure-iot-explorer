@@ -9,49 +9,49 @@ import { SynchronizationStatus } from '../../api/models/synchronizationStatus';
 import { Twin } from '../../api/models/device';
 
 export const deviceTwinReducer = reducerWithInitialState<DeviceTwinStateInterface>(deviceTwinStateInitial())
-    .case(getDeviceTwinAction.started, (state: DeviceTwinStateType) => {
+    .case(getDeviceTwinAction.started as any, ((state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 synchronizationStatus: SynchronizationStatus.working
             }
         });
-    })
-    .case(getDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: string, result: Twin}) => {
+    }) as any)
+    .case(getDeviceTwinAction.done as any, ((state: DeviceTwinStateType, payload: {params: string, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.fetched
             }
         });
-    })
-    .case(getDeviceTwinAction.failed, (state: DeviceTwinStateType) => {
+    }) as any)
+    .case(getDeviceTwinAction.failed as any, ((state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });
-    })
-    .case(updateDeviceTwinAction.started, (state: DeviceTwinStateType) => {
+    }) as any)
+    .case(updateDeviceTwinAction.started as any, ((state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 payload: state.deviceTwin.payload,
                 synchronizationStatus: SynchronizationStatus.updating
             }
         });
-    })
-    .case(updateDeviceTwinAction.done, (state: DeviceTwinStateType, payload: {params: Twin, result: Twin}) => {
+    }) as any)
+    .case(updateDeviceTwinAction.done as any, ((state: DeviceTwinStateType, payload: {params: Twin, result: Twin}) => {
         return state.merge({
             deviceTwin: {
                 payload: payload.result,
                 synchronizationStatus: SynchronizationStatus.upserted
             }
         });
-    })
-    .case(updateDeviceTwinAction.failed, (state: DeviceTwinStateType) => {
+    }) as any)
+    .case(updateDeviceTwinAction.failed as any, ((state: DeviceTwinStateType) => {
         return state.merge({
             deviceTwin: {
                 payload: state.deviceTwin.payload,
                 synchronizationStatus: SynchronizationStatus.failed
             }
         });
-    });
+    }) as any);

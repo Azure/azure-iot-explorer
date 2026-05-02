@@ -18,9 +18,12 @@ export enum FilterType {
     IoTHub
 }
 
-export interface FilterTextBoxPros {
-    filterType: FilterType;
-    setFilteredList: (listValue: AzureSubscription[] | IotHubDescription[]) => void;
+export type FilterTextBoxPros = {
+    filterType: FilterType.Subscription;
+    setFilteredList: (listValue: AzureSubscription[]) => void;
+} | {
+    filterType: FilterType.IoTHub;
+    setFilteredList: (listValue: IotHubDescription[]) => void;
 }
 
 export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {

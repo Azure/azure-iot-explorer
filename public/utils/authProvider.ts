@@ -53,7 +53,7 @@ export class AuthProvider {
         const requestScopes =  ['openid', 'profile', 'https://management.azure.com/user_impersonation'];
         const redirectUri = 'https://login.microsoftonline.com/oauth2/nativeclient';
 
-        const baseSilentRequest = {
+        const baseSilentRequest: { account: any; forceRefresh: boolean } = {
             account: null,
             forceRefresh: false
         };

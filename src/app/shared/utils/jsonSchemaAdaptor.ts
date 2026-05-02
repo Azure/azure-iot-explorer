@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { Validator, ValidatorResult, ValidationError } from 'jsonschema';
-import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition, ComponentContent, ArraySchema, ComplexSchema } from '../../api/models/modelDefinition';
+import { PropertyContent, CommandContent, EnumSchema, MapSchema, ObjectSchema, ContentType, TelemetryContent, ModelDefinition, ComponentContent, ArraySchema, ComplexSchema, ContentTypeUnion } from '../../api/models/modelDefinition';
 import { ParsedCommandSchema, ParsedJsonSchema } from '../../api/models/interfaceJsonParserOutput';
 import { InterfaceSchemaNotSupportedException } from './exceptions/interfaceSchemaNotSupportedException';
 
@@ -86,7 +86,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
     }
 
     public getComponentNameToModelIdMapping = (): ComponentToModelId[] => {
-        const componentContents = this.getModelContents().filter((item: ComponentContent) => this.filterComponent(item)) as ComponentContent[];
+        const componentContents = this.getModelContents().filter(item => this.filterComponent(item));
         return componentContents && componentContents.map(componentContent => ({
             componentName: componentContent.name,
             modelId: typeof componentContent.schema === 'string' ? componentContent.schema : `${this.model['@id']}/${componentContent.schema['@id']}`
@@ -94,35 +94,35 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
     }
 
     public getWritableProperties = () => {
-        const filterWritableProperties = (content: PropertyContent) =>  {
+        const filterWritableProperties = (content: ContentTypeUnion): content is PropertyContent =>  {
             if (typeof content['@type'] === 'string') {
-                return content['@type'].toLowerCase() === ContentType.Property && content.writable === true;
+                return content['@type'].toLowerCase() === ContentType.Property && (content as PropertyContent).writable === true;
             }
             else {
-                return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && content.writable === true;
+                return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && (content as PropertyContent).writable === true;
             }
         };
-        return this.getModelContents().filter((item: PropertyContent) => filterWritableProperties(item)) as PropertyContent[] || [];
+        return this.getModelContents().filter(item => filterWritableProperties(item)) || [];
     }
 
     public getNonWritableProperties = () => {
-        const filterNonWritableProperties = (content: PropertyContent) =>  {
+        const filterNonWritableProperties = (content: ContentTypeUnion): content is PropertyContent =>  {
             if (typeof content['@type'] === 'string') {
-                return content['@type'].toLowerCase() === ContentType.Property && !content.writable;
+                return content['@type'].toLowerCase() === ContentType.Property && !(content as PropertyContent).writable;
             }
             else {
-                return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && !content.writable;
+                return content['@type'].some((entry: string) => entry.toLowerCase() === ContentType.Property) && !(content as PropertyContent).writable;
             }
         };
-        return this.getModelContents().filter((item: PropertyContent) => filterNonWritableProperties(item)) as PropertyContent[] || [];
+        return this.getModelContents().filter(item => filterNonWritableProperties(item)) || [];
     }
 
     public getCommands = () => {
-        return this.getModelContents().filter((item: CommandContent) => this.filterCommand(item)) as CommandContent[] || [];
+        return this.getModelContents().filter(item => this.filterCommand(item)) || [];
     }
 
     public getTelemetry = () => {
-        return this.getModelContents().filter((item: TelemetryContent) => this.filterTelemetry(item)) as TelemetryContent[] || [];
+        return this.getModelContents().filter(item => this.filterTelemetry(item)) || [];
     }
 
     public parseInterfacePropertyToJsonSchema = (property: PropertyContent): ParsedJsonSchema => {
@@ -168,7 +168,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         }
     }
 
-    private readonly filterCommand = (content: CommandContent) => {
+    private readonly filterCommand = (content: ContentTypeUnion): content is CommandContent => {
         if (typeof content['@type'] === 'string') {
             return content['@type'].toLowerCase() === ContentType.Command;
         }
@@ -177,7 +177,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         }
     }
 
-    private readonly filterTelemetry = (content: TelemetryContent) => {
+    private readonly filterTelemetry = (content: ContentTypeUnion): content is TelemetryContent => {
         if (typeof content['@type'] === 'string') {
             return content['@type'].toLowerCase() === ContentType.Telemetry;
         }
@@ -196,7 +196,7 @@ export class JsonSchemaAdaptor implements JsonSchemaAdaptorInterface{
         };
     }
 
-    private readonly filterComponent = (content: ComponentContent) => {
+    private readonly filterComponent = (content: ContentTypeUnion): content is ComponentContent => {
         if (typeof content['@type'] === 'string') {
             return content['@type'].toLowerCase() === ContentType.Component;
         }

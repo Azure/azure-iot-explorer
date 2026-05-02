@@ -2,6 +2,23 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+let useStateMock: jest.Mock | null = null;
+jest.mock('react', () => {
+    const actual = jest.requireActual('react');
+    return {
+        ...actual,
+        useState: (...args: any[]) => {
+            if (useStateMock) {
+                const result = useStateMock(...args);
+                if (result !== undefined) {
+                    return result;
+                }
+            }
+            return actual.useState(...args);
+        },
+    };
+});
+
 import * as React from 'react';
 import 'jest';
 import { ModuleIdentityDetail } from './moduleIdentityDetail';
@@ -106,13 +123,25 @@ describe('ModuleIdentityDetail', () => {
             expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
+        afterEach(() => {
+            useStateMock = null;
+        });
+
         it('matches snapshot showing delete confirmation', () => {
             const initialState = {
                 payload: certificateAuthorityModuleIdentity,
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
+            const actual = jest.requireActual('react');
+            let called = false;
+            useStateMock = jest.fn((...args: any[]) => {
+                if (!called) {
+                    called = true;
+                    return actual.useState(true);
+                }
+                return undefined;
+            });
             expect(render(<MemoryRouter><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
     });

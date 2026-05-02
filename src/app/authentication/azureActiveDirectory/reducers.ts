@@ -15,7 +15,7 @@ export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDi
             formState: 'working'
         };
     })
-    .case(getUserProfileTokenAction.done, (state: AzureActiveDirectoryStateInterface, payload: {params: void, result: string}) => {
+    .case(getUserProfileTokenAction.done as any, (state: AzureActiveDirectoryStateInterface, payload: {params: void, result: string}) => {
         return {
             ...state,
             formState: 'idle',

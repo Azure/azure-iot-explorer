@@ -13,7 +13,7 @@ export const authenticationReducer = reducerWithInitialState<AuthenticationState
             formState: 'working'
         };
     })
-    .case(getLoginPreferenceAction.done, (state: AuthenticationStateInterface, payload: {params: void, result: string}) => {
+    .case(getLoginPreferenceAction.done as any, (state: AuthenticationStateInterface, payload: {params: void, result: string}) => {
         return {
             ...state,
             formState: 'idle',

@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { app, Menu, MenuItem, BrowserWindow, MenuItemConstructorOptions, shell } from 'electron';
+import { app, Menu, MenuItem, BaseWindow, BrowserWindow, MenuItemConstructorOptions, shell } from 'electron';
 import { PLATFORMS } from '../constants';
 
 export interface GenerateMenuParameters {
@@ -79,8 +79,10 @@ export const generateHelpMenu = (params: GenerateMenuParameters): MenuItemConstr
         submenu: [
             {
                 accelerator: 'CommandOrControl+Shift+I',
-                click: (menuItem: MenuItem, browserWindow: BrowserWindow) => {
-                    browserWindow.webContents.toggleDevTools();
+                click: (menuItem: MenuItem, browserWindow: BaseWindow) => {
+                    if (browserWindow instanceof BrowserWindow) {
+                        browserWindow.webContents.toggleDevTools();
+                    }
                 },
                 label: 'Toggle Developer Tools'
             },

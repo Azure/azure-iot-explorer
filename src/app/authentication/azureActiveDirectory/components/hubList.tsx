@@ -9,6 +9,7 @@ import { Label, Link } from '@fluentui/react-components';
 import { IColumn, SelectionMode, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
+import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getConnectionInfoFromConnectionString } from '../../../api/shared/utils';
 import { ROUTE_PARTS } from '../../../constants/routes';

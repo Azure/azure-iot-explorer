@@ -4,7 +4,7 @@
  **********************************************************/
 
 import { app, Menu, BrowserWindow, dialog, ipcMain, session, shell } from 'electron';
-import * as windowState from 'electron-window-state';
+import windowState from 'electron-window-state';
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
@@ -331,7 +331,7 @@ class Main {
             try {
                 return { result: await Promise.resolve(handler(event, ...args)) };
             } catch (e) {
-                const error = formatError(e);
+                const error = formatError(e as Error);
                 return { error };
             }
         });

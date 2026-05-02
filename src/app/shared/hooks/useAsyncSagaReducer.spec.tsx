@@ -1,3 +1,15 @@
+const useReducerSpy = jest.fn();
+jest.mock('react', () => {
+  const actual = jest.requireActual('react');
+  return {
+    ...actual,
+    useReducer: (...args: any[]) => {
+      useReducerSpy(...args);
+      return actual.useReducer(...args);
+    },
+  };
+});
+
 import * as React from 'react';
 import 'jest';
 import { render, screen } from '@testing-library/react';
@@ -8,7 +20,6 @@ describe('useAsyncSagaReducer', () => {
   type Action<T> = { type: string, payload?: T };
 
   it('initializes reducer with initial state and returns current state', () => {
-    const useReducerSpy = jest.spyOn(React, 'useReducer');
     const initialState: StateInterface = { foo: 'baz' };
     const fooReducer = jest.fn((state: StateInterface, action: Action<string>) => state);
 

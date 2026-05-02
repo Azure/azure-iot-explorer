@@ -8,6 +8,7 @@ import { Label, Link } from '@fluentui/react-components';
 import { FilterTextBox, FilterType } from './filterTextBox';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
+import { IotHubDescription } from '../../../api/models/iotHubDescription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { IColumn, SelectionMode, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 

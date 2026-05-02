@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, MessageBar, MessageBarBody } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
-import * as packageJson from '../../../../package.json';
+import packageJson from '../../../../package.json';
 import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_EVENTS } from '../../constants/telemetry';

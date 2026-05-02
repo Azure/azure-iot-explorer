@@ -26,7 +26,7 @@ export interface DeviceSettingDataProps {
 }
 
 export interface DeviceSettingDispatchProps {
-    patchTwin: (parameters: Twin) => void;
+    patchTwin: (parameters: Partial<Twin>) => void;
 }
 
 export interface DeviceSettingState {

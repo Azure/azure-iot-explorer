@@ -2,6 +2,23 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+let useStateMock: jest.Mock | null = null;
+jest.mock('react', () => {
+    const actual = jest.requireActual('react');
+    return {
+        ...actual,
+        useState: (...args: any[]) => {
+            if (useStateMock) {
+                const result = useStateMock(...args);
+                if (result !== undefined) {
+                    return result;
+                }
+            }
+            return actual.useState(...args);
+        },
+    };
+});
+
 import 'jest';
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
@@ -9,6 +26,10 @@ import { render, screen } from '@testing-library/react';
 import { DevicePropertiesPerInterface, DevicePropertiesDataProps } from './devicePropertiesPerInterface';
 
 describe('devicePropertiesPerInterface', () => {
+
+    afterEach(() => {
+        useStateMock = null;
+    });
 
     /* tslint:disable */
     const deviceSettingsProps: DevicePropertiesDataProps = {
@@ -45,8 +66,15 @@ describe('devicePropertiesPerInterface', () => {
     });
 
     it('shows overlay', () => {
-        const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(true));
+        const actual = jest.requireActual('react');
+        let called = false;
+        useStateMock = jest.fn((...args: any[]) => {
+            if (!called) {
+                called = true;
+                return actual.useState(true);
+            }
+            return undefined;
+        });
         const wrapperWithOverlay = render(getComponent());
     });
 });
