@@ -17,6 +17,7 @@
     "afterPack": "./scripts/flipFuses.js",
     "linux": {
       "category": "Utility",
+      "executableName": "azure-iot-explorer",
       "target": [
         "deb"
       ]
