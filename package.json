@@ -52,9 +52,9 @@
     "electron": "electron .",
     "electron:compile": "tsc --project ./public/tsconfig.json",
     "preload:compile": "webpack --mode production --config webpack.preload.js",
-    "package:win": "npm run clean && npm ci & npm rebuild sass && npm run build && electron-builder -w",
-    "package:linux": "npm run clean:linux && npm ci && npm rebuild sass && npm run build && electron-builder -l",
-    "package:mac": "npm ci && npm rebuild sass && npm run build && electron-builder -m",
+    "package:win": "npm run clean && npm ci --legacy-peer-deps & npm rebuild sass && npm run build && electron-builder -w",
+    "package:linux": "npm run clean:linux && npm ci --legacy-peer-deps && npm rebuild sass && npm run build && electron-builder -l",
+    "package:mac": "npm ci --legacy-peer-deps && npm rebuild sass && npm run build && electron-builder -m",
     "webpack:compile": "tsc --ignoreConfig --target es2025 --module node16 --moduleResolution node16 --skipLibCheck ./webpack.common.ts webpack.electron.ts webpack.dev.ts webpack.preload.ts",
     "start": "npm run start:dev",
     "start:dev": "concurrently \"npm run start:web:dev\" \"npm run start:electron:dev\"",
@@ -78,6 +78,9 @@
   "overrides": {
     "ts-jest": {
       "typescript": "$typescript"
+    },
+    "react-monaco-editor": {
+      "monaco-editor": "$monaco-editor"
     }
   },
   "dependencies": {
@@ -87,6 +90,7 @@
     "@fluentui/react-components": "^9.73.8",
     "@fluentui/react-icons": "^2.0.325",
     "@fluentui/react-migration-v0-v9": "^9.6.28",
+
     "@microsoft/applicationinsights-web": "^3.4.1",
     "@rjsf/core": "^6.5.1",
     "@rjsf/fluentui-rc": "^6.5.1",
@@ -147,7 +151,7 @@
     "css-minimizer-webpack-plugin": "^8.0.0",
     "electron": "^41.5.0",
     "electron-builder": "^26.0.0",
-    "eslint": "^10.3.0",
+    "eslint": "^9.39.4",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-webpack-plugin": "^6.0.0",
