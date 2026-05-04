@@ -93,6 +93,9 @@ export const SettingsPane: React.FC = () => {
                         <Switch
                             onChange={toggleTheme}
                             checked={darkTheme}
+                            label={darkTheme ?
+                                t(ResourceKeys.settings.theme.darkTheme) :
+                                t(ResourceKeys.settings.theme.lightTheme)}
                         />
                     </section>
                 </DrawerBody>
