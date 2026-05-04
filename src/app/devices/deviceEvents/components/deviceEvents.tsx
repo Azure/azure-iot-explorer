@@ -18,6 +18,7 @@ import { DeviceSimulationPanel } from './deviceSimulationPanel';
 import { Commands } from './commands';
 import { CustomEventHub } from './customEventHub';
 import { ConsumerGroup } from './consumerGroup';
+import { StartTime } from './startTime';
 import { DeviceContentTypePanel } from './deviceContentTypePanel';
 import { Loader } from './loader';
 import { EventsContent } from './eventsContent';
@@ -33,6 +34,8 @@ export const DeviceEvents: React.FC = () => {
 
     // event hub settings
     const [consumerGroup, setConsumerGroup] = React.useState(DEFAULT_CONSUMER_GROUP);
+    const [specifyStartTime, setSpecifyStartTime] = React.useState<boolean>(false);
+    const [startTime, setStartTime] = React.useState<Date>();
     const [useBuiltInEventHub, setUseBuiltInEventHub] = React.useState<boolean>(true);
     const [customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>(undefined);
     const [showSystemProperties, setShowSystemProperties] = React.useState<boolean>(false);
@@ -89,6 +92,8 @@ export const DeviceEvents: React.FC = () => {
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {
             if (state.formMode === 'updating' ||
+                // when specifying start time, valid time need to be provided
+                (specifyStartTime && (!startTime || hasError)) ||
                 // when using custom event hub, both valid connection string and name need to be provided
                 (!useBuiltInEventHub && (!customEventHubConnectionString || hasError))) {
                 setStartDisabled(true);
@@ -97,7 +102,7 @@ export const DeviceEvents: React.FC = () => {
                 setStartDisabled(false);
             }
         },
-        [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString]);
+        [hasError, state.formMode, useBuiltInEventHub, customEventHubConnectionString, specifyStartTime, startTime]);
 
     const onSystemPropertyCheckBoxChange = (ev: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean | 'mixed' }) => {
         setShowSystemProperties(!!data.checked);
@@ -133,6 +138,19 @@ export const DeviceEvents: React.FC = () => {
         );
     };
 
+    const renderStartTimePicker = () => {
+        return (
+            <StartTime
+                monitoringData={monitoringData}
+                specifyStartTime={specifyStartTime}
+                startTime={startTime}
+                setSpecifyStartTime={setSpecifyStartTime}
+                setStartTime={setStartTime}
+                setHasError={setHasError}
+            />
+        );
+    };
+
     const renderCustomEventHub = () => {
         return (
             <div className="horizontal-item">
@@ -157,8 +175,15 @@ export const DeviceEvents: React.FC = () => {
             consumerGroup,
             decoderPrototype,
             deviceId,
-            moduleId
+            moduleId,
         };
+
+        if (specifyStartTime && startTime) {
+            parameters = {
+                ...parameters,
+                startTime: startTime.toISOString()
+            };
+        }
 
         if (!useBuiltInEventHub) {
             parameters = {
@@ -166,6 +191,7 @@ export const DeviceEvents: React.FC = () => {
                 customEventHubConnectionString
             };
         }
+
         api.startEventsMonitoring(parameters);
     };
 
@@ -189,6 +215,7 @@ export const DeviceEvents: React.FC = () => {
                 tooltip={ResourceKeys.deviceEvents.tooltip}
             />
             {renderConsumerGroup()}
+            {renderStartTimePicker()}
             {renderCustomEventHub()}
             <DeviceSimulationPanel
                 showSimulationPanel={showSimulationPanel}

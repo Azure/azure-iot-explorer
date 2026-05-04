@@ -88,9 +88,10 @@
     "@azure/event-hubs": "^6.0.4",
     "@azure/msal-node": "^5.1.5",
     "@fluentui/react-components": "^9.73.8",
+    "@fluentui/react-datepicker-compat": "^0.6.31",
     "@fluentui/react-icons": "^2.0.325",
     "@fluentui/react-migration-v0-v9": "^9.6.28",
-
+    "@fluentui/react-timepicker-compat": "^0.4.34",
     "@microsoft/applicationinsights-web": "^3.4.1",
     "@rjsf/core": "^6.5.1",
     "@rjsf/fluentui-rc": "^6.5.1",
@@ -231,7 +232,15 @@
     "testEnvironmentOptions": {
       "url": "http://localhost?trustedAuthority=https://localhost"
     },
-    "reporters": ["default", ["jest-trx-results-processor", { "outputFile": "jest-test-results.trx" }]],
+    "reporters": [
+      "default",
+      [
+        "jest-trx-results-processor",
+        {
+          "outputFile": "jest-test-results.trx"
+        }
+      ]
+    ],
     "preset": "ts-jest/presets/js-with-ts",
     "testMatch": null
   }

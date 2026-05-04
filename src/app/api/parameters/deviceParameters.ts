@@ -32,6 +32,7 @@ export interface MonitorEventsParameters {
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
     decoderPrototype?: Type;
+    startTime?: string;
 }
 
 export interface DeleteDevicesParameters  {

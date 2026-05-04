@@ -605,6 +605,11 @@
             "label": "Consumer group",
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
+        "startTime": {
+            "error": "Please select a valid date and time",
+            "label": "Start time",
+            "tooltip": "Indicates the local enqueue time that should be used to read messages from the event hub. If not specified, only new messages arriving after you click 'Start' will be shown."
+        },
         "customEventHub": {
             "connectionString": {
                 "label": "Custom event hub connection string",
