@@ -102,7 +102,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     }, [pathname]); // tslint:disable-line: align
 
     return (
-        <div role="navigation" className="nav-link-left">
+        <div role="navigation" className={`nav-link-left ${appMenuVisible ? '' : 'nav-collapsed'}`}>
             <TabList vertical appearance="subtle" selectedValue={selectedRoute}>
                 {navLinks.map(link => (
                     <Tab

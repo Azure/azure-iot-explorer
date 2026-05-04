@@ -34,7 +34,7 @@
     }
 
     .mainarea.collapsed {
-        grid-template-columns: 1fr 15fr;
+        grid-template-columns: auto 1fr;
     }
 }
 

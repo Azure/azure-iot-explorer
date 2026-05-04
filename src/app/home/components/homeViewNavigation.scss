@@ -5,6 +5,15 @@
  @use '../../css/themes' as *;
 
 .nav-link-left {
+
+    .collapsibleButton {
+        margin-left: 4px;
+    }
+
+    &.nav-collapsed {
+        overflow: hidden;
+    }
+
     a:link, a:visited, a:active {
         text-decoration: none;
         @include themify($themes) {

@@ -44,7 +44,7 @@ export const HomeViewNavigation: React.FC<HomeViewNavigationProps> = props => {
         },
     ];
     return (
-        <div role="navigation" className="nav-link-left">
+        <div role="navigation" className={`nav-link-left ${appMenuVisible ? '' : 'nav-collapsed'}`}>
             <CollapsibleButton
                 appMenuVisible={appMenuVisible}
                 setAppMenuVisible={setAppMenuVisible}

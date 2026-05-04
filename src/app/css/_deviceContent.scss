@@ -6,9 +6,6 @@
 @use 'mixins' as *;
 @use 'themes' as *;
 
-$nav-collapsed-width: 40px;
-$nav-width: 20%;
-
 .device-content {
     .device-content-detail {
         display: flex;
