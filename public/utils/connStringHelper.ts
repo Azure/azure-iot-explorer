@@ -69,7 +69,7 @@ export async function convertIotHubToEventHubsConnectionString(connectionString:
 
     // Validate hostname to prevent SSRF
     if (!validateAzureIoTHostname(HostName)) {
-        throw new Error('Invalid IoT Hub hostname: must be a valid Azure IoT Hub endpoint (*.azure-devices.net)');
+        throw new Error('Invalid IoT Hub hostname: must be a valid Azure IoT Hub endpoint (e.g., *.azure-devices.net, *.azure-devices.cn, *.azure-devices.us)');
     }
 
     //Extract the IotHub name from the hostname.

@@ -30,6 +30,16 @@ describe('hubConnectionStringHelper', () => {
         expect(isValidEventHubConnectionString('Endpoint=sb://123/;SharedAccessKeyName=456;SharedAccess=789')).toEqual(false);
     });
 
+    it('validates Azure China event hub connection string', () => {
+        expect(isValidEventHubConnectionString('Endpoint=sb://mynamespace.servicebus.chinacloudapi.cn/;SharedAccessKeyName=456;SharedAccessKey=789')).toEqual(true);
+        expect(isValidEventHubConnectionString('Endpoint=sb://my-ns.privatelink.servicebus.chinacloudapi.cn/;SharedAccessKeyName=456;SharedAccessKey=789')).toEqual(true);
+    });
+
+    it('validates Azure US Gov event hub connection string', () => {
+        expect(isValidEventHubConnectionString('Endpoint=sb://mynamespace.servicebus.usgovcloudapi.net/;SharedAccessKeyName=456;SharedAccessKey=789')).toEqual(true);
+        expect(isValidEventHubConnectionString('Endpoint=sb://my-ns.privatelink.servicebus.usgovcloudapi.net/;SharedAccessKeyName=456;SharedAccessKey=789')).toEqual(true);
+    });
+
     it('rejects event hub connection string with attacker hostname', () => {
         expect(isValidEventHubConnectionString('Endpoint=sb://evil.com/;SharedAccessKeyName=456;SharedAccessKey=789')).toEqual(false);
         expect(isValidEventHubConnectionString('Endpoint=sb://attacker-controlled-host.com;SharedAccessKeyName=test;SharedAccessKey=dGVzdA==')).toEqual(false);

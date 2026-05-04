@@ -38,7 +38,8 @@ export const isValidEventHubConnectionString = (connectionString: string): boole
     if (!connectionString) {
         return true;
     }
-    const pattern = new RegExp('^Endpoint=sb://[\\w\\-]+(\\.(privatelink))?\\.servicebus\\.windows\\.net\\/?;SharedAccessKeyName=.*;SharedAccessKey=.*$');
+    // Accept global and national cloud Event Hub endpoints
+    const pattern = new RegExp('^Endpoint=sb://[\\w\\-]+(\\.(privatelink))?\\.(servicebus\\.windows\\.net|servicebus\\.chinacloudapi\\.cn|servicebus\\.usgovcloudapi\\.net)\\/?;SharedAccessKeyName=.*;SharedAccessKey=.*$');
     return pattern.test(connectionString);
 };
 

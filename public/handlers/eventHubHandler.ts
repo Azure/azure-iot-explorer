@@ -205,7 +205,7 @@ export async function convertIotHubToEventHubsConnectionString(connectionString:
 
     // Validate hostname to prevent SSRF
     if (!validateAzureIoTHostname(HostName)) {
-        throw new Error('Invalid IoT Hub hostname: must be a valid Azure IoT Hub endpoint (*.azure-devices.net)');
+        throw new Error('Invalid IoT Hub hostname: must be a valid Azure IoT Hub endpoint (e.g., *.azure-devices.net, *.azure-devices.cn, *.azure-devices.us)');
     }
 
     // Extract the IotHub name from the hostname.
@@ -251,7 +251,7 @@ export async function convertIotHubToEventHubsConnectionString(connectionString:
                 if (!hostname || !regexResults) {
                     reject(error);
                 } else if (!validateEventHubHostname(hostname)) {
-                    reject(new Error('Invalid EventHub redirect hostname: must be a valid Azure Event Hubs endpoint (*.servicebus.windows.net)'));
+                    reject(new Error('Invalid EventHub redirect hostname: must be a valid Azure Event Hubs endpoint'));
                 } else {
                     const eventHubName = regexResults[1];
                     resolve(

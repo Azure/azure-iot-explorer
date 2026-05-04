@@ -34,7 +34,7 @@ const CSP_HEADER = [
     "style-src 'self' 'unsafe-inline' https://aadcdn.msauth.net", // Fluent UI uses inline styles
     "img-src 'self' data: https://aadcdn.msauth.net https://aadcdn.msauthimages.net https://login.microsoftonline.com https://login.live.com https://*.microsoft.com https://*.azure.com",
     "font-src 'self' https://*.cdn.office.net data:",
-    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.servicebus.windows.net https://login.microsoftonline.com https://login.live.com https://aadcdn.msauth.net https://aadcdn.msauthimages.net" + (isDevelopment ? " ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*" : ""),
+    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.azure-devices.cn https://*.azure-devices.us https://*.servicebus.windows.net https://*.servicebus.chinacloudapi.cn https://*.servicebus.usgovcloudapi.net https://login.microsoftonline.com https://login.live.com https://aadcdn.msauth.net https://aadcdn.msauthimages.net https://login.chinacloudapi.cn https://login.microsoftonline.us" + (isDevelopment ? " ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*" : ""),
     "frame-src 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
     "frame-ancestors 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
     "form-action 'self' https://*.login.microsoftonline.com https://login.microsoftonline.com https://login.live.com",

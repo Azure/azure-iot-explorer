@@ -34,6 +34,24 @@ describe('validateAzureIoTHostname', () => {
         it('accepts Private Link hostname with hyphens', () => {
             expect(validateAzureIoTHostname('my-hub-01.privatelink.azure-devices.net')).toBe(true);
         });
+
+        // Azure China (21Vianet)
+        it('accepts Azure China IoT Hub hostname', () => {
+            expect(validateAzureIoTHostname('myhub.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure China Private Link hostname', () => {
+            expect(validateAzureIoTHostname('myhub.privatelink.azure-devices.cn')).toBe(true);
+        });
+
+        // Azure US Government
+        it('accepts Azure US Gov IoT Hub hostname', () => {
+            expect(validateAzureIoTHostname('myhub.azure-devices.us')).toBe(true);
+        });
+
+        it('accepts Azure US Gov Private Link hostname', () => {
+            expect(validateAzureIoTHostname('myhub.privatelink.azure-devices.us')).toBe(true);
+        });
     });
 
     describe('invalid hostnames — attacker-controlled', () => {
@@ -150,6 +168,24 @@ describe('validateEventHubHostname', () => {
 
         it('accepts Private Link hostname with hyphens', () => {
             expect(validateEventHubHostname('my-ns-01.privatelink.servicebus.windows.net')).toBe(true);
+        });
+
+        // Azure China (21Vianet)
+        it('accepts Azure China Event Hubs hostname', () => {
+            expect(validateEventHubHostname('mynamespace.servicebus.chinacloudapi.cn')).toBe(true);
+        });
+
+        it('accepts Azure China Private Link hostname', () => {
+            expect(validateEventHubHostname('mynamespace.privatelink.servicebus.chinacloudapi.cn')).toBe(true);
+        });
+
+        // Azure US Government
+        it('accepts Azure US Gov Event Hubs hostname', () => {
+            expect(validateEventHubHostname('mynamespace.servicebus.usgovcloudapi.net')).toBe(true);
+        });
+
+        it('accepts Azure US Gov Private Link hostname', () => {
+            expect(validateEventHubHostname('mynamespace.privatelink.servicebus.usgovcloudapi.net')).toBe(true);
         });
     });
 
