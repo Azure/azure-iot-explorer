@@ -81,6 +81,7 @@ export const CommandBarV9: React.FC<CommandBarV9Props> = ({ items, farItems, cla
                 disabled={item.disabled}
                 icon={item.icon}
                 onClick={item.onClick}
+                type={item.type === 'submit' ? 'submit' : 'button'}
                 style={{ fontWeight: 'normal' }}
             >
                 {label}
