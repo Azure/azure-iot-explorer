@@ -15,8 +15,12 @@ export const getHighContrastSetting = async (): Promise<boolean> => {
 
 // theme settings stored in local storage;
 export const getDarkModeSetting = (): boolean => {
-    const theme = localStorage.getItem(THEME_SELECTION) as Theme || Theme.light;
-    return theme === Theme.dark || theme === Theme.highContrastBlack;
+    const saved = localStorage.getItem(THEME_SELECTION) as Theme;
+    if (saved) {
+        return saved === Theme.dark || saved === Theme.highContrastBlack;
+    }
+    // No saved preference — follow OS theme
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
 };
 
 export const setDarkModeSetting = (value: boolean) => {
