@@ -13,16 +13,10 @@ import '../../../css/_interfaceNotFoundMessageBar.scss';
 export const InterfaceNotFoundMessageBar: React.FC = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const [redirectToModelRepositories, setRedirectToModelRepositories] = React.useState<boolean>(false);
 
     const onConfigureClick = () => {
-        setRedirectToModelRepositories(true);
-    };
-
-    if (redirectToModelRepositories) {
         navigate(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
-        return <></>;
-    }
+    };
 
     return (
         <div className="message-bar">

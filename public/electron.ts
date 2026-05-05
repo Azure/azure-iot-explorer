@@ -55,9 +55,13 @@ const ALLOWED_AUTH_ORIGINS = [
 // Allowed external URLs that can be opened with shell.openExternal
 const ALLOWED_EXTERNAL_URLS = [
     'https://github.com/Azure/azure-iot-explorer',
+    'https://github.com/Azure/iot-plugandplay-models',
+    'https://aka.ms',
     'https://docs.microsoft.com',
+    'https://learn.microsoft.com',
     'https://azure.microsoft.com',
-    'https://portal.azure.com'
+    'https://portal.azure.com',
+    'https://shell.azure.com'
 ];
 
 class Main {
