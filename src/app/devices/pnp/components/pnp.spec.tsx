@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { Pnp } from './pnp';
 
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 const search = '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1';
 const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/${search}`;
@@ -17,7 +17,9 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('pnp', () => {
-    it('matches snapshot', () => {
-        expect(render(<MemoryRouter><Pnp /></MemoryRouter>)).toBeDefined();
+    it('matches snapshot', async () => {
+        await act(async () => {
+            expect(render(<MemoryRouter><Pnp /></MemoryRouter>)).toBeDefined();
+        });
     });
 });

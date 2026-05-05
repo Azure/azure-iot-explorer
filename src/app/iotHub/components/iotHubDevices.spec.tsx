@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { IotHubDevices } from './iotHubDevices';
 
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -13,7 +13,9 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('IotHubDevices', () => {
-    it('matches snapshot', () => {
-        expect(render(<MemoryRouter><IotHubDevices /></MemoryRouter>)).toBeDefined();
+    it('matches snapshot', async () => {
+        await act(async () => {
+            expect(render(<MemoryRouter><IotHubDevices /></MemoryRouter>)).toBeDefined();
+        });
     });
 });

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { DeviceList } from './deviceList';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
@@ -30,20 +30,26 @@ jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
 ]);
 
 describe('DeviceList', () => {
-    it('renders no device text when list is empty', () => {
-        render(<MemoryRouter><DeviceList/></MemoryRouter>);
+    it('renders no device text when list is empty', async () => {
+        await act(async () => {
+            render(<MemoryRouter><DeviceList/></MemoryRouter>);
+        });
 
         expect(screen.getAllByText('deviceLists.noDevice').length).toBeGreaterThan(0);
     });
 
-    it('renders add device button', () => {
-        render(<MemoryRouter><DeviceList/></MemoryRouter>);
+    it('renders add device button', async () => {
+        await act(async () => {
+            render(<MemoryRouter><DeviceList/></MemoryRouter>);
+        });
 
         expect(screen.getByText('deviceLists.commands.add')).toBeInTheDocument();
     });
 
-    it('renders device query search area', () => {
-        render(<MemoryRouter><DeviceList/></MemoryRouter>);
+    it('renders device query search area', async () => {
+        await act(async () => {
+            render(<MemoryRouter><DeviceList/></MemoryRouter>);
+        });
 
         expect(screen.getByLabelText('deviceLists.query.deviceId.ariaLabel')).toBeInTheDocument();
     });

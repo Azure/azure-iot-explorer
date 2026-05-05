@@ -6,7 +6,7 @@ import 'jest';
 import * as React from 'react';
 import { DeviceContent } from './deviceContent';
 
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 const pathname = '/#/devices/detail/?id=testDevice';
 jest.mock('react-router-dom', () => ({
@@ -17,7 +17,9 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('deviceContent', () => {
-    it('matches snapshot', () => {
-        expect(render(<MemoryRouter><DeviceContent /></MemoryRouter>)).toBeDefined();
+    it('matches snapshot', async () => {
+        await act(async () => {
+            expect(render(<MemoryRouter><DeviceContent /></MemoryRouter>)).toBeDefined();
+        });
     });
 });

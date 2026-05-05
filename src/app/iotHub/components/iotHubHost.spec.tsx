@@ -6,7 +6,7 @@ import * as React from 'react';
 import { IotHubHost } from './iotHubHost';
 import * as BreadcrumbEntry from '../../navigation/hooks/useBreadcrumbEntry';
 
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
@@ -15,8 +15,10 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('IotHubHost', () => {
-    it('matches snapshot', () => {
+    it('matches snapshot', async () => {
         jest.spyOn(BreadcrumbEntry, 'useBreadcrumbEntry').mockImplementation(() => {});
-        expect(render(<MemoryRouter><IotHubHost /></MemoryRouter>)).toBeDefined();
+        await act(async () => {
+            expect(render(<MemoryRouter><IotHubHost /></MemoryRouter>)).toBeDefined();
+        });
     });
 });
