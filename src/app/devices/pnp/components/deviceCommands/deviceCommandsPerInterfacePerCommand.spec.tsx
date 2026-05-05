@@ -39,13 +39,13 @@ describe('components/devices/deviceCommandsPerInterfacePerCommand', () => {
     it('renders command name', () => {
         render(<MemoryRouter><DeviceCommandsPerInterfacePerCommand {...defaultProps as any}/></MemoryRouter>);
 
-        expect(screen.getByText(/testCmd/)).toBeDefined();
+        expect(screen.getByText(/testCmd/)).toBeInTheDocument();
     });
 
     it('renders submit button when not collapsed and no request schema', () => {
         render(<MemoryRouter><DeviceCommandsPerInterfacePerCommand {...defaultProps as any}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceCommands.command.submit')).toBeDefined();
+        expect(screen.getByText('deviceCommands.command.submit')).toBeInTheDocument();
     });
 
     it('hides detail section when collapsed', () => {

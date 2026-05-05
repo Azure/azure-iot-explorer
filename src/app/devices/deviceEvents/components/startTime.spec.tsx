@@ -55,7 +55,7 @@ describe('StartTime', () => {
 
     it('renders toggle switch', () => {
         render(<StartTime {...defaultProps} />);
-        expect(screen.getByRole('switch')).toBeDefined();
+        expect(screen.getByRole('switch')).toBeInTheDocument();
     });
 
     it('does not show date/time pickers when specifyStartTime is false', () => {
@@ -147,7 +147,7 @@ describe('StartTime', () => {
         render(<StartTime {...defaultProps} specifyStartTime={true} startTime={time} />);
 
         const timePicker = screen.getByRole('combobox', { name: /time/i });
-        expect(timePicker).toBeDefined();
+        expect(timePicker).toBeInTheDocument();
     });
 
     it('displays formatted time for AM hours', () => {
@@ -155,7 +155,7 @@ describe('StartTime', () => {
         render(<StartTime {...defaultProps} specifyStartTime={true} startTime={time} />);
 
         const timePicker = screen.getByRole('combobox', { name: /time/i });
-        expect(timePicker).toBeDefined();
+        expect(timePicker).toBeInTheDocument();
     });
 
     it('displays time picker for noon', () => {
@@ -163,7 +163,7 @@ describe('StartTime', () => {
         render(<StartTime {...defaultProps} specifyStartTime={true} startTime={time} />);
 
         const timePicker = screen.getByRole('combobox', { name: /time/i });
-        expect(timePicker).toBeDefined();
+        expect(timePicker).toBeInTheDocument();
     });
 
     it('displays time picker for midnight', () => {
@@ -171,6 +171,6 @@ describe('StartTime', () => {
         render(<StartTime {...defaultProps} specifyStartTime={true} startTime={time} />);
 
         const timePicker = screen.getByRole('combobox', { name: /time/i });
-        expect(timePicker).toBeDefined();
+        expect(timePicker).toBeInTheDocument();
     });
 });

@@ -37,7 +37,7 @@ describe('DigitalTwinInterfacesList', () => {
 
         render(<DigitalTwinInterfacesList/>);
 
-        expect(screen.getByText('digitalTwin.headerText')).toBeDefined();
+        expect(screen.getByText('digitalTwin.headerText')).toBeInTheDocument();
     });
 
     it('renders configuration steps when not loading', () => {

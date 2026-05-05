@@ -37,8 +37,8 @@ describe('deviceInterfaces', () => {
         render(<MemoryRouter><DeviceInterfaces/></MemoryRouter>);
 
         // Note: refresh button name uses deviceProperties key (see source line 133)
-        expect(screen.getByText('deviceProperties.command.refresh')).toBeDefined();
-        expect(screen.getByText('deviceInterfaces.command.close')).toBeDefined();
+        expect(screen.getByText('deviceProperties.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceInterfaces.command.close')).toBeInTheDocument();
     });
 
     it('renders interface ID field when model is valid', () => {
@@ -59,7 +59,7 @@ describe('deviceInterfaces', () => {
 
         render(<MemoryRouter><DeviceInterfaces/></MemoryRouter>);
 
-        expect(screen.getByLabelText('deviceInterfaces.columns.id')).toBeDefined();
+        expect(screen.getByLabelText('deviceInterfaces.columns.id')).toBeInTheDocument();
     });
 
     it('shows not found message when payload is null', () => {
@@ -76,6 +76,6 @@ describe('deviceInterfaces', () => {
 
         render(<MemoryRouter><DeviceInterfaces/></MemoryRouter>);
 
-        expect(screen.getByText('deviceInterfaces.interfaceNotFound')).toBeDefined();
+        expect(screen.getByText('deviceInterfaces.interfaceNotFound')).toBeInTheDocument();
     });
 });

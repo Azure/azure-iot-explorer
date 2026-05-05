@@ -10,18 +10,18 @@ describe('Header', () => {
     it('renders application name', () => {
         render(<Header/>);
 
-        expect(screen.getByText('header.applicationName')).toBeDefined();
+        expect(screen.getByText('header.applicationName')).toBeInTheDocument();
     });
 
     it('renders header element', () => {
         const { container } = render(<Header/>);
 
-        expect(container.querySelector('header.header-container')).toBeDefined();
+        expect(container.querySelector('header.header-container')).toBeInTheDocument();
     });
 
     it('renders settings button', () => {
         render(<Header/>);
 
-        expect(screen.getByText('header.settings.launch')).toBeDefined();
+        expect(screen.getByText('header.settings.launch')).toBeInTheDocument();
     });
 });

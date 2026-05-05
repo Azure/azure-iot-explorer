@@ -18,14 +18,14 @@ describe('ListPaging', () => {
     it('renders pages label', () => {
         render(<ListPaging {...defaultProps}/>);
 
-        expect(screen.getByText('deviceLists.paging.pages')).toBeDefined();
+        expect(screen.getByText('deviceLists.paging.pages')).toBeInTheDocument();
     });
 
     it('renders page buttons for each continuation token', () => {
         render(<ListPaging {...defaultProps}/>);
 
         const navigation = screen.getByRole('navigation');
-        expect(navigation).toBeDefined();
+        expect(navigation).toBeInTheDocument();
         const listItems = navigation.querySelectorAll('[role="list"] > div');
         expect(listItems.length).toBe(3);
     });

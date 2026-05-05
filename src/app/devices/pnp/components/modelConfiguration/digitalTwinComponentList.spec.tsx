@@ -54,7 +54,7 @@ describe('DigitalTwinComponentList', () => {
 
         // With no components, should show the default component entry
         const tablist = screen.queryByRole('tablist');
-        expect(tablist).toBeDefined();
+        expect(tablist).toBeInTheDocument();
     });
 
     it('renders component entries when definition has components', () => {

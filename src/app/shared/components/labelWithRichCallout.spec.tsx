@@ -17,7 +17,7 @@ describe('components/shared/labelWithRichCallout', () => {
                 {'labelText'}
             </LabelWithRichCallout>
         );
-        expect(screen.getByText('labelText')).toBeDefined();
-        expect(screen.getByRole('button', { name: 'More information' })).toBeDefined();
+        expect(screen.getByText('labelText')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'More information' })).toBeInTheDocument();
     });
 });

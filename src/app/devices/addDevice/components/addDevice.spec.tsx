@@ -24,25 +24,25 @@ describe('AddDevice', () => {
     it('renders device ID input field', () => {
         render(<MemoryRouter><AddDevice/></MemoryRouter>);
 
-        expect(screen.getByText('deviceIdentity.deviceID')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.deviceID')).toBeInTheDocument();
     });
 
     it('renders authentication type section', () => {
         render(<MemoryRouter><AddDevice/></MemoryRouter>);
 
-        expect(screen.getByText('deviceIdentity.authenticationType.symmetricKey.type')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.authenticationType.symmetricKey.type')).toBeInTheDocument();
     });
 
     it('renders save and close command bar buttons', () => {
         render(<MemoryRouter><AddDevice/></MemoryRouter>);
 
-        expect(screen.getByText('deviceLists.commands.save')).toBeDefined();
-        expect(screen.getByText('deviceLists.commands.close')).toBeDefined();
+        expect(screen.getByText('deviceLists.commands.save')).toBeInTheDocument();
+        expect(screen.getByText('deviceLists.commands.close')).toBeInTheDocument();
     });
 
     it('renders hub connectivity switch', () => {
         render(<MemoryRouter><AddDevice/></MemoryRouter>);
 
-        expect(screen.getByText('deviceIdentity.hubConnectivity.label')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.hubConnectivity.label')).toBeInTheDocument();
     });
 });

@@ -35,6 +35,6 @@ describe('useAsyncSagaReducer', () => {
     render(<TestReactComponent />);
 
     expect(useReducerSpy).toHaveBeenCalledWith(fooReducer, initialState);
-    expect(screen.getByText('baz')).toBeDefined();
+    expect(screen.getByText('baz')).toBeInTheDocument();
   });
 });

@@ -17,22 +17,22 @@ describe('ConnectionStringsEmpty', () => {
     it('renders empty state header and description', () => {
         render(<MemoryRouter><ConnectionStringsEmpty/></MemoryRouter>);
 
-        expect(screen.getByText('connectionStrings.empty.header')).toBeDefined();
-        expect(screen.getByText('connectionStrings.empty.description')).toBeDefined();
+        expect(screen.getByText('connectionStrings.empty.header')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.empty.description')).toBeInTheDocument();
     });
 
     it('renders Home link pointing to root', () => {
         render(<MemoryRouter><ConnectionStringsEmpty/></MemoryRouter>);
 
         const homeLink = screen.getByText('Home.');
-        expect(homeLink).toBeDefined();
+        expect(homeLink).toBeInTheDocument();
         expect(homeLink.closest('a').getAttribute('href')).toBe('/');
     });
 
     it('renders questions header and external help link', () => {
         render(<MemoryRouter><ConnectionStringsEmpty/></MemoryRouter>);
 
-        expect(screen.getByText('settings.questions.headerText')).toBeDefined();
-        expect(screen.getByText('connectivityPane.connectionStringComboBox.linkText')).toBeDefined();
+        expect(screen.getByText('settings.questions.headerText')).toBeInTheDocument();
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.linkText')).toBeInTheDocument();
     });
 });

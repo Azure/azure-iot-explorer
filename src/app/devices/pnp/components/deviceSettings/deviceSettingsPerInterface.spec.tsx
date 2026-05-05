@@ -36,7 +36,7 @@ describe('components/devices/deviceSettingsPerInterface', () => {
     it('renders the settings list container', () => {
         const { container } = render(<MemoryRouter><DeviceSettingsPerInterface {...defaultProps as any}/></MemoryRouter>);
 
-        expect(container.querySelector('.pnp-detail-list')).toBeDefined();
+        expect(container.querySelector('.pnp-detail-list')).toBeInTheDocument();
     });
 
     it('renders with empty twinWithSchema', () => {

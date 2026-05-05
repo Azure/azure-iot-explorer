@@ -15,18 +15,18 @@ describe('DeviceListQuery', () => {
     it('renders device ID search input', () => {
         render(<DeviceListQuery {...defaultProps}/>);
 
-        expect(screen.getByLabelText('deviceLists.query.deviceId.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('deviceLists.query.deviceId.ariaLabel')).toBeInTheDocument();
     });
 
     it('renders search button', () => {
         render(<DeviceListQuery {...defaultProps}/>);
 
-        expect(screen.getByLabelText('deviceLists.query.deviceId.searchButton.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('deviceLists.query.deviceId.searchButton.ariaLabel')).toBeInTheDocument();
     });
 
     it('renders add filter pill button', () => {
         render(<DeviceListQuery {...defaultProps}/>);
 
-        expect(screen.getByText('deviceLists.query.searchPills.add.text')).toBeDefined();
+        expect(screen.getByText('deviceLists.query.searchPills.add.text')).toBeInTheDocument();
     });
 });

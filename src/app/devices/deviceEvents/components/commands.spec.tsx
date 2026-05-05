@@ -52,13 +52,13 @@ describe('Commands (non-PnP mode)', () => {
     it('renders start monitoring button', () => {
         render(<MemoryRouter><Commands {...defaultProps}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceEvents.command.start')).toBeDefined();
+        expect(screen.getByText('deviceEvents.command.start')).toBeInTheDocument();
     });
 
     it('renders clear events button', () => {
         render(<MemoryRouter><Commands {...defaultProps}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceEvents.command.clearEvents')).toBeDefined();
+        expect(screen.getByText('deviceEvents.command.clearEvents')).toBeInTheDocument();
     });
 
     it('calls fetchData when start button is clicked', () => {
@@ -76,7 +76,7 @@ describe('Commands (non-PnP mode)', () => {
         const setMonitoringData = jest.fn();
         render(<MemoryRouter><Commands {...defaultProps} monitoringData={true} stopFetching={stopFetching} setMonitoringData={setMonitoringData}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceEvents.command.stop')).toBeDefined();
+        expect(screen.getByText('deviceEvents.command.stop')).toBeInTheDocument();
         fireEvent.click(screen.getByText('deviceEvents.command.stop'));
         expect(stopFetching).toHaveBeenCalled();
     });
@@ -84,7 +84,7 @@ describe('Commands (non-PnP mode)', () => {
     it('renders simulation and content type buttons in non-PnP mode', () => {
         render(<MemoryRouter><Commands {...defaultProps}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceEvents.command.simulate')).toBeDefined();
-        expect(screen.getByText('deviceEvents.command.customizeContentType')).toBeDefined();
+        expect(screen.getByText('deviceEvents.command.simulate')).toBeInTheDocument();
+        expect(screen.getByText('deviceEvents.command.customizeContentType')).toBeInTheDocument();
     });
 });

@@ -39,12 +39,12 @@ describe('DeviceList', () => {
     it('renders add device button', () => {
         render(<MemoryRouter><DeviceList/></MemoryRouter>);
 
-        expect(screen.getByText('deviceLists.commands.add')).toBeDefined();
+        expect(screen.getByText('deviceLists.commands.add')).toBeInTheDocument();
     });
 
     it('renders device query search area', () => {
         render(<MemoryRouter><DeviceList/></MemoryRouter>);
 
-        expect(screen.getByLabelText('deviceLists.query.deviceId.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('deviceLists.query.deviceId.ariaLabel')).toBeInTheDocument();
     });
 });

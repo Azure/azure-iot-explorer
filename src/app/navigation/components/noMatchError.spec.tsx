@@ -11,8 +11,8 @@ describe('shared/components/noMatchError', () => {
 
     it('renders title and button properly', () => {
         const { container } = render(<NoMatchError/>);
-        expect(container.querySelector('h2')).toBeDefined();
-        expect(container.querySelector('p')).toBeDefined();
-        expect(container.querySelector('a, button')).toBeDefined();
+        expect(container.querySelector('h2')).toBeInTheDocument();
+        expect(container.querySelector('p')).toBeInTheDocument();
+        expect(container.querySelector('a, button')).toBeInTheDocument();
     });
 });

@@ -25,14 +25,14 @@ describe('AuthenticationSelection', () => {
     it('renders heading', () => {
         render(<MemoryRouter><AuthenticationSelection/></MemoryRouter>);
 
-        expect(screen.getByRole('heading')).toBeDefined();
+        expect(screen.getByRole('heading')).toBeInTheDocument();
     });
 
     it('renders connection string and Azure AD buttons', () => {
         render(<MemoryRouter><AuthenticationSelection/></MemoryRouter>);
 
-        expect(screen.getByText('authentication.authSelection.selection.connectionString')).toBeDefined();
-        expect(screen.getByText('authentication.authSelection.selection.azureActiveDirectory')).toBeDefined();
+        expect(screen.getByText('authentication.authSelection.selection.connectionString')).toBeInTheDocument();
+        expect(screen.getByText('authentication.authSelection.selection.azureActiveDirectory')).toBeInTheDocument();
     });
 
     it('calls setLoginPreference when connection string button is clicked', () => {

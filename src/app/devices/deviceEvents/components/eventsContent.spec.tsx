@@ -60,7 +60,7 @@ describe('EventsContent', () => {
         const { container } = render(<MemoryRouter><EventsContent showSystemProperties={false} showPnpModeledEvents={false}/></MemoryRouter>);
 
         expect(container.querySelectorAll('article').length).toBe(1);
-        expect(screen.getByText('2024-01-01T00:00:00Z:')).toBeDefined();
+        expect(screen.getByText('2024-01-01T00:00:00Z:')).toBeInTheDocument();
         expect(container.querySelector('pre').textContent).toContain('"temperature": 25');
     });
 

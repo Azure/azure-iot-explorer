@@ -17,13 +17,13 @@ describe('DeviceIdentityCommandBar', () => {
     it('renders save button', () => {
         render(<DeviceIdentityCommandBar {...defaultProps}/>);
 
-        expect(screen.getByText('deviceIdentity.commands.save')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.commands.save')).toBeInTheDocument();
     });
 
     it('renders manage keys menu button', () => {
         render(<DeviceIdentityCommandBar {...defaultProps}/>);
 
-        expect(screen.getByText('deviceIdentity.commands.manageKeys.label')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.commands.manageKeys.label')).toBeInTheDocument();
     });
 
     it('disables save button when disableSave is true', () => {

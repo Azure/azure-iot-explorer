@@ -18,7 +18,7 @@ describe('MaskedCopyableTextField', () => {
                     value="value1"
                 />
             );
-            expect(screen.getByLabelText('ariaLabel1')).toBeDefined();
+            expect(screen.getByLabelText('ariaLabel1')).toBeInTheDocument();
         });
 
         it('renders when allowMask = true', () => {
@@ -30,7 +30,7 @@ describe('MaskedCopyableTextField', () => {
                     value="value1"
                 />
             );
-            expect(screen.getByLabelText('ariaLabel1')).toBeDefined();
+            expect(screen.getByLabelText('ariaLabel1')).toBeInTheDocument();
         });
     });
 
@@ -47,7 +47,7 @@ describe('MaskedCopyableTextField', () => {
 
             const showButton = screen.getByLabelText('common.maskedCopyableTextField.toggleMask.label.show');
             fireEvent.click(showButton);
-            expect(screen.getByLabelText('common.maskedCopyableTextField.toggleMask.label.hide')).toBeDefined();
+            expect(screen.getByLabelText('common.maskedCopyableTextField.toggleMask.label.hide')).toBeInTheDocument();
         });
     });
 

@@ -30,7 +30,7 @@ describe('DigitalTwinModelDefinition', () => {
 
         render(<MemoryRouter><DigitalTwinModelDefinition/></MemoryRouter>);
 
-        expect(screen.getByText(/digitalTwin\.steps\.secondFailure/)).toBeDefined();
+        expect(screen.getByText(/digitalTwin\.steps\.secondFailure/)).toBeInTheDocument();
     });
 
     it('shows success heading when model definition is available', () => {
@@ -52,6 +52,6 @@ describe('DigitalTwinModelDefinition', () => {
 
         render(<MemoryRouter><DigitalTwinModelDefinition/></MemoryRouter>);
 
-        expect(screen.getByText('digitalTwin.steps.secondSuccess')).toBeDefined();
+        expect(screen.getByText('digitalTwin.steps.secondSuccess')).toBeInTheDocument();
     });
 });

@@ -17,16 +17,16 @@ describe('ConnectionStringProperties', () => {
     it('renders three MaskedCopyableTextField labels', () => {
         render(<ConnectionStringProperties {...defaultProps}/>);
 
-        expect(screen.getByText('connectionStrings.properties.hostName.label')).toBeDefined();
-        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyName.label')).toBeDefined();
-        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyKey.label')).toBeDefined();
+        expect(screen.getByText('connectionStrings.properties.hostName.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyName.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyKey.label')).toBeInTheDocument();
     });
 
     it('renders host name and policy name fields with correct aria labels', () => {
         render(<ConnectionStringProperties {...defaultProps}/>);
 
-        expect(screen.getByLabelText('connectionStrings.properties.hostName.ariaLabel')).toBeDefined();
-        expect(screen.getByLabelText('connectionStrings.properties.sharedAccessPolicyName.ariaLabel')).toBeDefined();
-        expect(screen.getByLabelText('connectionStrings.properties.sharedAccessPolicyKey.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('connectionStrings.properties.hostName.ariaLabel')).toBeInTheDocument();
+        expect(screen.getByLabelText('connectionStrings.properties.sharedAccessPolicyName.ariaLabel')).toBeInTheDocument();
+        expect(screen.getByLabelText('connectionStrings.properties.sharedAccessPolicyKey.ariaLabel')).toBeInTheDocument();
     });
 });

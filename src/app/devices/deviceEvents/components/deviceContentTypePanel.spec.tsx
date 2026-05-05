@@ -35,7 +35,7 @@ describe('DeviceContentTypePanel', () => {
     it('renders drawer with header when panel is shown', () => {
         render(<DeviceContentTypePanel showContentTypePanel={true} onToggleContentTypePanel={jest.fn()}/>);
 
-        expect(screen.getByText('deviceEvents.customizeContentType.header')).toBeDefined();
+        expect(screen.getByText('deviceEvents.customizeContentType.header')).toBeInTheDocument();
     });
 
     it('does not render drawer content when panel is hidden', () => {
@@ -47,8 +47,8 @@ describe('DeviceContentTypePanel', () => {
     it('renders content type dropdown label and save button', () => {
         render(<DeviceContentTypePanel showContentTypePanel={true} onToggleContentTypePanel={jest.fn()}/>);
 
-        expect(screen.getByText('deviceEvents.customizeContentType.contentTypeOption.label')).toBeDefined();
-        expect(screen.getByText('deviceEvents.customizeContentType.save')).toBeDefined();
+        expect(screen.getByText('deviceEvents.customizeContentType.contentTypeOption.label')).toBeInTheDocument();
+        expect(screen.getByText('deviceEvents.customizeContentType.save')).toBeInTheDocument();
     });
 
     it('calls onToggleContentTypePanel when close button is clicked', () => {

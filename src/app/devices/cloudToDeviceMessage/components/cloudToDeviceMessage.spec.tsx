@@ -27,24 +27,24 @@ describe('CloudToDeviceMessage', () => {
     it('renders send message button', () => {
         render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
 
-        expect(screen.getByText('cloudToDeviceMessage.sendMessageButtonText')).toBeDefined();
+        expect(screen.getByText('cloudToDeviceMessage.sendMessageButtonText')).toBeInTheDocument();
     });
 
     it('renders message body section', () => {
         render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
 
-        expect(screen.getByLabelText('cloudToDeviceMessage.body')).toBeDefined();
+        expect(screen.getByLabelText('cloudToDeviceMessage.body')).toBeInTheDocument();
     });
 
     it('renders add timestamp checkbox', () => {
         render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
 
-        expect(screen.getByLabelText('cloudToDeviceMessage.addTimestamp')).toBeDefined();
+        expect(screen.getByLabelText('cloudToDeviceMessage.addTimestamp')).toBeInTheDocument();
     });
 
     it('renders properties section with add custom property button', () => {
         render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
 
-        expect(screen.getByText('cloudToDeviceMessage.properties.addCustomProperty')).toBeDefined();
+        expect(screen.getByText('cloudToDeviceMessage.properties.addCustomProperty')).toBeInTheDocument();
     });
 });

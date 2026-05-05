@@ -19,7 +19,7 @@ describe('ConnectionStringEditView', () => {
     it('renders add mode title when connectionStringUnderEdit is empty', () => {
         render(<ConnectionStringEditView {...baseProps}/>);
 
-        expect(screen.getByText('connectionStrings.editConnection.title.add')).toBeDefined();
+        expect(screen.getByText('connectionStrings.editConnection.title.add')).toBeInTheDocument();
     });
 
     it('renders edit mode title when connectionStringUnderEdit is provided', () => {
@@ -29,28 +29,28 @@ describe('ConnectionStringEditView', () => {
         };
         render(<ConnectionStringEditView {...props}/>);
 
-        expect(screen.getByText('connectionStrings.editConnection.title.edit')).toBeDefined();
+        expect(screen.getByText('connectionStrings.editConnection.title.edit')).toBeInTheDocument();
     });
 
     it('renders textarea with correct placeholder and label', () => {
         render(<ConnectionStringEditView {...baseProps}/>);
 
-        expect(screen.getByLabelText('connectionStrings.editConnection.editField.ariaLabel')).toBeDefined();
-        expect(screen.getByText('connectionStrings.editConnection.editField.label')).toBeDefined();
+        expect(screen.getByLabelText('connectionStrings.editConnection.editField.ariaLabel')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.editConnection.editField.label')).toBeInTheDocument();
     });
 
     it('renders save and cancel buttons', () => {
         render(<ConnectionStringEditView {...baseProps}/>);
 
-        expect(screen.getByText('connectionStrings.editConnection.save.label')).toBeDefined();
-        expect(screen.getByText('connectionStrings.editConnection.cancel.label')).toBeDefined();
+        expect(screen.getByText('connectionStrings.editConnection.save.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.editConnection.cancel.label')).toBeInTheDocument();
     });
 
     it('renders external help link and warning text', () => {
         render(<ConnectionStringEditView {...baseProps}/>);
 
-        expect(screen.getByText('connectivityPane.connectionStringComboBox.linkText')).toBeDefined();
-        expect(screen.getByText('connectivityPane.connectionStringComboBox.warning')).toBeDefined();
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.linkText')).toBeInTheDocument();
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.warning')).toBeInTheDocument();
     });
 
     it('calls onDismiss when cancel button is clicked', () => {
@@ -78,7 +78,7 @@ describe('ConnectionStringEditView', () => {
         fireEvent.change(textarea, { target: { value: 'invalid-string' } });
 
         // Validation message should appear
-        expect(screen.getByText('connectivityPane.connectionStringComboBox.errorMessages.invalid')).toBeDefined();
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.errorMessages.invalid')).toBeInTheDocument();
     });
 
     it('shows duplicate validation error when connection string already exists', () => {
@@ -92,6 +92,6 @@ describe('ConnectionStringEditView', () => {
         const textarea = screen.getByLabelText('connectionStrings.editConnection.editField.ariaLabel');
         fireEvent.change(textarea, { target: { value: existingCS } });
 
-        expect(screen.getByText('connectionStrings.editConnection.validations.duplicate')).toBeDefined();
+        expect(screen.getByText('connectionStrings.editConnection.validations.duplicate')).toBeInTheDocument();
     });
 });

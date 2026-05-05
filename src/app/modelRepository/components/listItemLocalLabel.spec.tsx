@@ -11,13 +11,13 @@ describe('ListItemLocalLabel', () => {
     it('renders local label for Local type', () => {
         render(<ListItemLocalLabel repoType={REPOSITORY_LOCATION_TYPE.Local}/>);
 
-        expect(screen.getByText('modelRepository.types.local.label')).toBeDefined();
-        expect(screen.getByText('modelRepository.types.local.infoText')).toBeDefined();
+        expect(screen.getByText('modelRepository.types.local.label')).toBeInTheDocument();
+        expect(screen.getByText('modelRepository.types.local.infoText')).toBeInTheDocument();
     });
 
     it('renders DMR label for LocalDMR type', () => {
         render(<ListItemLocalLabel repoType={REPOSITORY_LOCATION_TYPE.LocalDMR}/>);
 
-        expect(screen.getByText('modelRepository.types.dmr.label')).toBeDefined();
+        expect(screen.getByText('modelRepository.types.dmr.label')).toBeInTheDocument();
     });
 });

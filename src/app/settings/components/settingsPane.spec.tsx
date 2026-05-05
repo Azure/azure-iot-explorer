@@ -10,12 +10,12 @@ describe('settingsPane', () => {
     it('renders settings launch button', () => {
         render(<SettingsPane/>);
 
-        expect(screen.getByText('header.settings.launch')).toBeDefined();
+        expect(screen.getByText('header.settings.launch')).toBeInTheDocument();
     });
 
     it('settings button has aria-label', () => {
         render(<SettingsPane/>);
 
-        expect(screen.getByLabelText('header.settings.launch')).toBeDefined();
+        expect(screen.getByLabelText('header.settings.launch')).toBeInTheDocument();
     });
 });

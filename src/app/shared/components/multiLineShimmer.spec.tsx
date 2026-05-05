@@ -11,7 +11,7 @@ describe('shared/components/multiLineShimmer', () => {
     it('renders default shimmer lines', () => {
         const { container } = render(<MultiLineShimmer/>);
         const shimmerDiv = container.querySelector('.fixed-shimmer');
-        expect(shimmerDiv).toBeDefined();
+        expect(shimmerDiv).toBeInTheDocument();
         // Default renders 3 skeleton lines
         expect(shimmerDiv!.children.length).toBe(3);
     });

@@ -34,13 +34,13 @@ describe('deviceSettings', () => {
     it('renders refresh and close buttons', () => {
         render(<MemoryRouter><DeviceSettings/></MemoryRouter>);
 
-        expect(screen.getByText('deviceSettings.command.refresh')).toBeDefined();
-        expect(screen.getByText('deviceSettings.command.close')).toBeDefined();
+        expect(screen.getByText('deviceSettings.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceSettings.command.close')).toBeInTheDocument();
     });
 
     it('shows no settings label when there are no settings', () => {
         render(<MemoryRouter><DeviceSettings/></MemoryRouter>);
 
-        expect(screen.getByText(/deviceSettings\.noSettings/)).toBeDefined();
+        expect(screen.getByText(/deviceSettings\.noSettings/)).toBeInTheDocument();
     });
 });

@@ -35,13 +35,13 @@ describe('components/devices/deviceCommands', () => {
     it('renders refresh and close buttons', () => {
         render(<MemoryRouter><DeviceCommands/></MemoryRouter>);
 
-        expect(screen.getByText('deviceCommands.command.refresh')).toBeDefined();
-        expect(screen.getByText('deviceCommands.command.close')).toBeDefined();
+        expect(screen.getByText('deviceCommands.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceCommands.command.close')).toBeInTheDocument();
     });
 
     it('renders no commands label when there are no command schemas', () => {
         render(<MemoryRouter><DeviceCommands/></MemoryRouter>);
 
-        expect(screen.getByText(/deviceCommands\.noCommands/)).toBeDefined();
+        expect(screen.getByText(/deviceCommands\.noCommands/)).toBeInTheDocument();
     });
 });

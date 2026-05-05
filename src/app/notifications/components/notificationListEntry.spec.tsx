@@ -27,7 +27,7 @@ describe('notificationListEntry', () => {
                 }}
             showAnnouncement={true}
         />);
-        expect(screen.getByText('test')).toBeDefined();
+        expect(screen.getByText('test')).toBeInTheDocument();
     });
 
     describe('getNotificationIcon', () => {

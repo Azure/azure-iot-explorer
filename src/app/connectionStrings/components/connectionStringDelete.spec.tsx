@@ -23,8 +23,8 @@ describe('ConnectionStringDelete', () => {
 
     it('renders dialog with title and body when visible', () => {
         render(<ConnectionStringDelete {...baseProps}/>);
-        expect(screen.getByText('connectionStrings.deleteConnection.title')).toBeDefined();
-        expect(screen.getByText('connectionStrings.deleteConnection.body')).toBeDefined();
+        expect(screen.getByText('connectionStrings.deleteConnection.title')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.deleteConnection.body')).toBeInTheDocument();
     });
 
     it('shows the connection string in a readonly textarea', () => {

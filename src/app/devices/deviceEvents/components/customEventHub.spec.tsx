@@ -28,7 +28,7 @@ describe('CustomEventHub', () => {
     it('renders the switch label for default event hub', () => {
         render(<MemoryRouter><CustomEventHub {...defaultProps}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceEvents.toggleUseDefaultEventHub.label')).toBeDefined();
+        expect(screen.getByText('deviceEvents.toggleUseDefaultEventHub.label')).toBeInTheDocument();
     });
 
     it('does not show custom connection string input when useBuiltInEventHub is true', () => {
@@ -40,7 +40,7 @@ describe('CustomEventHub', () => {
     it('shows custom connection string input when useBuiltInEventHub is false', () => {
         render(<MemoryRouter><CustomEventHub {...defaultProps} useBuiltInEventHub={false}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceEvents.customEventHub.connectionString.label')).toBeDefined();
+        expect(screen.getByText('deviceEvents.customEventHub.connectionString.label')).toBeInTheDocument();
     });
 
     it('calls setUseBuiltInEventHub when switch is toggled', () => {

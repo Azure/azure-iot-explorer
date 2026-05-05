@@ -18,18 +18,18 @@ describe('DeviceIdentityInformation', () => {
     it('renders header text', () => {
         render(<DeviceIdentityInformation/>);
 
-        expect(screen.getByText('deviceIdentity.headerText')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.headerText')).toBeInTheDocument();
     });
 
     it('renders device ID field label', () => {
         render(<DeviceIdentityInformation/>);
 
-        expect(screen.getByText('deviceIdentity.deviceID')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.deviceID')).toBeInTheDocument();
     });
 
     it('renders hub connectivity label', () => {
         render(<DeviceIdentityInformation/>);
 
-        expect(screen.getByText('deviceIdentity.hubConnectivity.label')).toBeDefined();
+        expect(screen.getByText('deviceIdentity.hubConnectivity.label')).toBeInTheDocument();
     });
 });

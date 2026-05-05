@@ -205,6 +205,9 @@
       "jest-plugin-context/setup",
       "./jestSetup.ts"
     ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom"
+    ],
     "transform": {
       "^.+\\.(js|jsx|ts|tsx)$": [
         "ts-jest",

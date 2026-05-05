@@ -17,8 +17,8 @@ describe('components/shared/labelWithTooltip', () => {
                 {'labelText'}
             </LabelWithTooltip>
         );
-        expect(screen.getByText('labelText')).toBeDefined();
-        expect(screen.getByRole('button', { name: 'More information' })).toBeDefined();
+        expect(screen.getByText('labelText')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'More information' })).toBeInTheDocument();
     });
 
     it('renders label text when no tooltip specified', () => {
@@ -27,6 +27,6 @@ describe('components/shared/labelWithTooltip', () => {
                 {'labelText'}
             </LabelWithTooltip>
         );
-        expect(screen.getByText('labelText')).toBeDefined();
+        expect(screen.getByText('labelText')).toBeInTheDocument();
     });
 });

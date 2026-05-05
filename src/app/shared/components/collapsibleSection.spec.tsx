@@ -23,15 +23,15 @@ describe('collapsibleSection', () => {
 
     it('renders with label', () => {
         render(getComponent());
-        expect(screen.getByText('Label')).toBeDefined();
+        expect(screen.getByText('Label')).toBeInTheDocument();
     });
 
     it('toggles section', () => {
         render(getComponent());
         const button = screen.getByTitle('collapsibleSection.open');
-        expect(button).toBeDefined();
+        expect(button).toBeInTheDocument();
 
         fireEvent.click(button);
-        expect(screen.getByTitle('collapsibleSection.close')).toBeDefined();
+        expect(screen.getByTitle('collapsibleSection.close')).toBeInTheDocument();
     });
 });

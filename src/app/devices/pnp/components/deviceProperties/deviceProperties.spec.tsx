@@ -34,13 +34,13 @@ describe('components/devices/deviceProperties', () => {
     it('renders refresh and close command bar buttons', () => {
         render(<MemoryRouter><DeviceProperties/></MemoryRouter>);
 
-        expect(screen.getByText('deviceProperties.command.refresh')).toBeDefined();
-        expect(screen.getByText('deviceProperties.command.close')).toBeDefined();
+        expect(screen.getByText('deviceProperties.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceProperties.command.close')).toBeInTheDocument();
     });
 
     it('shows no properties label when there are no property schemas', () => {
         render(<MemoryRouter><DeviceProperties/></MemoryRouter>);
 
-        expect(screen.getByText(/deviceProperties\.noProperties/)).toBeDefined();
+        expect(screen.getByText(/deviceProperties\.noProperties/)).toBeInTheDocument();
     });
 });

@@ -37,6 +37,6 @@ describe('DigitalTwinDetail', () => {
     it('renders the tab list with proper aria label', () => {
         render(<MemoryRouter><DigitalTwinDetail/></MemoryRouter>);
 
-        expect(screen.getByRole('tablist')).toBeDefined();
+        expect(screen.getByRole('tablist')).toBeInTheDocument();
     });
 });

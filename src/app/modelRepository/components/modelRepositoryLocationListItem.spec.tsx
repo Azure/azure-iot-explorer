@@ -25,7 +25,7 @@ describe('ModelRepositoryLocationListItem', () => {
         const item = { repositoryLocationType: 'public', value: '' };
         render(<MemoryRouter><ModelRepositoryLocationListItem index={0} item={item as any} formState={formState as any}/></MemoryRouter>);
 
-        expect(screen.getByRole('listitem')).toBeDefined();
+        expect(screen.getByRole('listitem')).toBeInTheDocument();
     });
 
     it('renders remove button', () => {
@@ -36,6 +36,6 @@ describe('ModelRepositoryLocationListItem', () => {
         const item = { repositoryLocationType: 'public', value: '' };
         render(<MemoryRouter><ModelRepositoryLocationListItem index={0} item={item as any} formState={formState as any}/></MemoryRouter>);
 
-        expect(screen.getByLabelText('modelRepository.commands.remove.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('modelRepository.commands.remove.ariaLabel')).toBeInTheDocument();
     });
 });

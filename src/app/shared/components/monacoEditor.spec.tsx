@@ -6,7 +6,7 @@ describe('MonacoEditorComponent', () => {
     it('renders editor region with aria-label', () => {
         render(<MonacoEditorComponent content="test" height={100} ariaLabel="test label" />);
 
-        expect(screen.getByRole('region')).toBeDefined();
+        expect(screen.getByRole('region')).toBeInTheDocument();
     });
 
     it('renders with correct content', () => {

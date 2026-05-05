@@ -53,12 +53,12 @@ describe('deviceSettingsPerInterfacePerSetting', () => {
 
         // When not collapsed, button title should be "collapse"
         const collapseButton = screen.getByTitle('deviceSettings.command.collapse');
-        expect(collapseButton).toBeDefined();
+        expect(collapseButton).toBeInTheDocument();
     });
 
     it('renders dialog element for reported value panel', () => {
         render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...defaultProps as any}/></MemoryRouter>);
 
-        expect(screen.getByRole('dialog')).toBeDefined();
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 });

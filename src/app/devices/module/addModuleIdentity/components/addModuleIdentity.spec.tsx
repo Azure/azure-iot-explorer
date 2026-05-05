@@ -17,13 +17,13 @@ describe('devices/components/addModuleIdentity', () => {
     it('renders save and cancel buttons', () => {
         render(<MemoryRouter><AddModuleIdentity/></MemoryRouter>);
 
-        expect(screen.getByText('moduleIdentity.command.save')).toBeDefined();
-        expect(screen.getByText('moduleIdentity.command.cancel')).toBeDefined();
+        expect(screen.getByText('moduleIdentity.command.save')).toBeInTheDocument();
+        expect(screen.getByText('moduleIdentity.command.cancel')).toBeInTheDocument();
     });
 
     it('renders module ID input field', () => {
         render(<MemoryRouter><AddModuleIdentity/></MemoryRouter>);
 
-        expect(screen.getByLabelText('moduleIdentity.moduleId')).toBeDefined();
+        expect(screen.getByLabelText('moduleIdentity.moduleId')).toBeInTheDocument();
     });
 });

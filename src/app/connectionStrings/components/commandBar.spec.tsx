@@ -37,8 +37,8 @@ describe('ConnectionStringCommandBar', () => {
     it('renders add and switch auth buttons', () => {
         render(<ConnectionStringCommandBar onAddConnectionStringClick={mockOnAdd}/>);
 
-        expect(screen.getByText('connectionStrings.addConnectionCommand.label')).toBeDefined();
-        expect(screen.getByText('authentication.authSelection.switchAuthType')).toBeDefined();
+        expect(screen.getByText('connectionStrings.addConnectionCommand.label')).toBeInTheDocument();
+        expect(screen.getByText('authentication.authSelection.switchAuthType')).toBeInTheDocument();
     });
 
     it('calls onAddConnectionStringClick when add button is clicked', () => {

@@ -18,7 +18,7 @@ describe('Breadcrumbs', () => {
 
         const { container } = render(<MemoryRouter><Breadcrumbs/></MemoryRouter>);
 
-        expect(container.querySelector('ul.breadcrumb')).toBeDefined();
+        expect(container.querySelector('ul.breadcrumb')).toBeInTheDocument();
     });
 
     it('renders breadcrumb items from stack', () => {

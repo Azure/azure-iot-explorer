@@ -21,13 +21,13 @@ describe('DeviceQueryClause', () => {
     it('renders parameter type dropdown', () => {
         render(<DeviceQueryClause {...defaultProps}/>);
 
-        expect(screen.getByLabelText('deviceLists.query.searchPills.clause.parameterType.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('deviceLists.query.searchPills.clause.parameterType.ariaLabel')).toBeInTheDocument();
     });
 
     it('renders remove button', () => {
         render(<DeviceQueryClause {...defaultProps}/>);
 
-        expect(screen.getByLabelText('deviceLists.query.searchPills.clause.remove.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('deviceLists.query.searchPills.clause.remove.ariaLabel')).toBeInTheDocument();
     });
 
     it('calls removeClause when remove button is clicked', () => {

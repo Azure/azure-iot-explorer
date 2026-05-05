@@ -17,7 +17,7 @@ describe('ListItemPublicRepo', () => {
     it('renders public repo label', () => {
         render(<MemoryRouter><ListItemPublicRepo/></MemoryRouter>);
 
-        expect(screen.getByText('modelRepository.types.public.label')).toBeDefined();
+        expect(screen.getByText('modelRepository.types.public.label')).toBeInTheDocument();
     });
 
     it('renders read-only input with URL', () => {

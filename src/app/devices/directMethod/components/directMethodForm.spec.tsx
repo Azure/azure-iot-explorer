@@ -22,20 +22,20 @@ describe('DirectMethodForm', () => {
     it('renders method name input', () => {
         render(<DirectMethodForm {...defaultProps}/>);
 
-        expect(screen.getByLabelText('directMethod.methodName')).toBeDefined();
+        expect(screen.getByLabelText('directMethod.methodName')).toBeInTheDocument();
     });
 
     it('renders payload textarea', () => {
         render(<DirectMethodForm {...defaultProps}/>);
 
-        expect(screen.getByText('directMethod.payload')).toBeDefined();
+        expect(screen.getByText('directMethod.payload')).toBeInTheDocument();
     });
 
     it('renders connection and response timeout sliders', () => {
         render(<DirectMethodForm {...defaultProps}/>);
 
-        expect(screen.getByLabelText('directMethod.connectionTimeout')).toBeDefined();
-        expect(screen.getByLabelText('directMethod.responseTimeout')).toBeDefined();
+        expect(screen.getByLabelText('directMethod.connectionTimeout')).toBeInTheDocument();
+        expect(screen.getByLabelText('directMethod.responseTimeout')).toBeInTheDocument();
     });
 
     it('calls setMethodName when method name input changes', () => {

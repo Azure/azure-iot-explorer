@@ -28,20 +28,20 @@ describe('components/devices/deviceCommandsPerInterface', () => {
     it('renders column headers', () => {
         render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
 
-        expect(screen.getByText('deviceCommands.columns.name')).toBeDefined();
-        expect(screen.getByText('deviceCommands.columns.type')).toBeDefined();
+        expect(screen.getByText('deviceCommands.columns.name')).toBeInTheDocument();
+        expect(screen.getByText('deviceCommands.columns.type')).toBeInTheDocument();
     });
 
     it('renders collapse all button', () => {
         const { container } = render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
 
         const collapseBtn = container.querySelector('.collapse-button button');
-        expect(collapseBtn).toBeDefined();
+        expect(collapseBtn).toBeInTheDocument();
     });
 
     it('renders empty list role when no commands', () => {
         render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
 
-        expect(screen.getByRole('main')).toBeDefined();
+        expect(screen.getByRole('main')).toBeInTheDocument();
     });
 });

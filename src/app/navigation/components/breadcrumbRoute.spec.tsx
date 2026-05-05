@@ -17,6 +17,6 @@ describe('BreadcrumbRoute', () => {
     it('renders children within wrapper', () => {
         const { container } = render(<MemoryRouter><BreadcrumbRoute><span data-testid="child">Hello</span></BreadcrumbRoute></MemoryRouter>);
 
-        expect(container.querySelector('[data-testid="child"]')).toBeDefined();
+        expect(container.querySelector('[data-testid="child"]')).toBeInTheDocument();
     });
 });

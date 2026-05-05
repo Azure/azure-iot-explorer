@@ -10,6 +10,6 @@ import { CloseButton } from './notificationToast';
 describe('shared/components/CloseButton', () => {
     it('renders button with aria-label', () => {
         render(<CloseButton/>);
-        expect(screen.getByLabelText('common.close')).toBeDefined();
+        expect(screen.getByLabelText('common.close')).toBeInTheDocument();
     });
 });

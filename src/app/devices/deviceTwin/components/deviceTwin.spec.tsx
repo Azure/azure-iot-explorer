@@ -28,8 +28,8 @@ describe('DeviceTwin', () => {
 
         render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
 
-        expect(screen.getByText('deviceTwin.command.refresh')).toBeDefined();
-        expect(screen.getByText('deviceTwin.command.save')).toBeDefined();
+        expect(screen.getByText('deviceTwin.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceTwin.command.save')).toBeInTheDocument();
     });
 
     it('renders header view', () => {
@@ -40,7 +40,7 @@ describe('DeviceTwin', () => {
 
         render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
 
-        expect(screen.getByText('deviceTwin.headerText')).toBeDefined();
+        expect(screen.getByText('deviceTwin.headerText')).toBeInTheDocument();
     });
 
     it('shows shimmer when syncing', () => {
@@ -52,6 +52,6 @@ describe('DeviceTwin', () => {
         render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
 
         // MultiLineShimmer renders with role="status"
-        expect(screen.getByRole('status')).toBeDefined();
+        expect(screen.getByRole('status')).toBeInTheDocument();
     });
 });

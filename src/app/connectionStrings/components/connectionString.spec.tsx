@@ -27,14 +27,14 @@ describe('ConnectionString', () => {
     it('renders resource name derived from host name', () => {
         render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
-        expect(screen.getByText('test')).toBeDefined();
+        expect(screen.getByText('test')).toBeInTheDocument();
     });
 
     it('renders edit and delete buttons', () => {
         render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
-        expect(screen.getByLabelText('connectionStrings.editConnectionCommand.ariaLabel')).toBeDefined();
-        expect(screen.getByLabelText('connectionStrings.deleteConnectionCommand.ariaLabel')).toBeDefined();
+        expect(screen.getByLabelText('connectionStrings.editConnectionCommand.ariaLabel')).toBeInTheDocument();
+        expect(screen.getByLabelText('connectionStrings.deleteConnectionCommand.ariaLabel')).toBeInTheDocument();
     });
 
     it('calls onEditConnectionString when edit button is clicked', () => {
@@ -71,15 +71,15 @@ describe('ConnectionString', () => {
         fireEvent.click(screen.getByLabelText('connectionStrings.deleteConnectionCommand.ariaLabel'));
 
         // Dialog should now be visible
-        expect(screen.getByText('connectionStrings.deleteConnection.title')).toBeDefined();
+        expect(screen.getByText('connectionStrings.deleteConnection.title')).toBeInTheDocument();
     });
 
     it('renders connection string properties labels', () => {
         render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
-        expect(screen.getByText('connectionStrings.properties.hostName.label')).toBeDefined();
-        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyName.label')).toBeDefined();
-        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyKey.label')).toBeDefined();
-        expect(screen.getByText('connectionStrings.properties.connectionString.label')).toBeDefined();
+        expect(screen.getByText('connectionStrings.properties.hostName.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyName.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyKey.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.connectionString.label')).toBeInTheDocument();
     });
 });

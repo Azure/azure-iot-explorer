@@ -47,12 +47,12 @@ describe('ConnectionStringsView', () => {
 
     it('renders empty state when payload is empty', () => {
         render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
-        expect(screen.getByText('connectionStrings.empty.header')).toBeDefined();
+        expect(screen.getByText('connectionStrings.empty.header')).toBeInTheDocument();
     });
 
     it('renders add command bar button', () => {
         render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
-        expect(screen.getByText('connectionStrings.addConnectionCommand.label')).toBeDefined();
+        expect(screen.getByText('connectionStrings.addConnectionCommand.label')).toBeInTheDocument();
     });
 
     it('renders connection string items when payload has entries', () => {
@@ -69,7 +69,7 @@ describe('ConnectionStringsView', () => {
         render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
 
         // Should show the resource name from the host name
-        expect(screen.getByText('hub1')).toBeDefined();
+        expect(screen.getByText('hub1')).toBeInTheDocument();
         // Should NOT show empty state
         expect(screen.queryByText('connectionStrings.empty.header')).toBeNull();
     });

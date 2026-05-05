@@ -27,25 +27,25 @@ describe('DirectMethod', () => {
     it('renders invoke method button', () => {
         render(<MemoryRouter><DirectMethod/></MemoryRouter>);
 
-        expect(screen.getByText('directMethod.invokeMethodButtonText')).toBeDefined();
+        expect(screen.getByText('directMethod.invokeMethodButtonText')).toBeInTheDocument();
     });
 
     it('renders method name input field', () => {
         render(<MemoryRouter><DirectMethod/></MemoryRouter>);
 
-        expect(screen.getByText('directMethod.methodName')).toBeDefined();
+        expect(screen.getByText('directMethod.methodName')).toBeInTheDocument();
     });
 
     it('renders payload section', () => {
         render(<MemoryRouter><DirectMethod/></MemoryRouter>);
 
-        expect(screen.getByText('directMethod.payload')).toBeDefined();
+        expect(screen.getByText('directMethod.payload')).toBeInTheDocument();
     });
 
     it('renders timeout sliders', () => {
         render(<MemoryRouter><DirectMethod/></MemoryRouter>);
 
-        expect(screen.getByLabelText('directMethod.connectionTimeout')).toBeDefined();
-        expect(screen.getByLabelText('directMethod.responseTimeout')).toBeDefined();
+        expect(screen.getByLabelText('directMethod.connectionTimeout')).toBeInTheDocument();
+        expect(screen.getByLabelText('directMethod.responseTimeout')).toBeInTheDocument();
     });
 });
