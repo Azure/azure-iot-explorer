@@ -47,7 +47,7 @@ export const SettingsPane: React.FC = () => {
             <OverlayDrawer
                 className="headerPane"
                 open={showPanel}
-                onOpenChange={(e, data) => { if (!data.open) setShowPanel(false); }}
+                onOpenChange={(e, data) => { if (!data.open) {setShowPanel(false);} }}
                 position="end"
                 size="small"
             >

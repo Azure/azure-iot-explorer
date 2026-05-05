@@ -51,7 +51,7 @@ export const ComplexReportedFormPanel: React.FC<ReportedFormDataProps & Reported
     };
 
     return (
-        <OverlayDrawer open={showPanel} onOpenChange={(e, data) => { if (!data.open) props.handleDismiss(); }} position="end" size="large">
+        <OverlayDrawer open={showPanel} onOpenChange={(e, data) => { if (!data.open) {props.handleDismiss();} }} position="end" size="large">
             <DrawerHeader>
                 <DrawerHeaderTitle>
                     {t(ResourceKeys.deviceSettings.panel.title)}

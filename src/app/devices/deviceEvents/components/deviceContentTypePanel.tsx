@@ -66,7 +66,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
             open={props.showContentTypePanel}
             position="end"
             size="medium"
-            onOpenChange={(e, data) => { if (!data.open) props.onToggleContentTypePanel(); }}
+            onOpenChange={(e, data) => { if (!data.open) {props.onToggleContentTypePanel();} }}
         >
             <DrawerHeader>
                 <DrawerHeaderTitle

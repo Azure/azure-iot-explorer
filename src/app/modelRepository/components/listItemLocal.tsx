@@ -101,7 +101,7 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
         return (
             <Dialog
                 open={showFolderPicker}
-                onOpenChange={(e, data) => { if (!data.open) dismissFolderPicker(); }}
+                onOpenChange={(e, data) => { if (!data.open) {dismissFolderPicker();} }}
             >
                 <DialogSurface className="folder-picker-dialog">
                     <DialogBody>

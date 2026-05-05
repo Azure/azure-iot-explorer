@@ -247,7 +247,7 @@ export const DeviceList: React.FC = () => {
         return (
             <Dialog
                 open={showDeleteConfirmation}
-                onOpenChange={(e, data) => { if (!data.open) closeDeleteDialog(); }}
+                onOpenChange={(e, data) => { if (!data.open) {closeDeleteDialog();} }}
                 modalType="alert"
             >
                 <DialogSurface>

@@ -83,7 +83,7 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
             open={true}
             position="end"
             size="medium"
-            onOpenChange={(e, data) => { if (!data.open) onDismiss(); }}
+            onOpenChange={(e, data) => { if (!data.open) {onDismiss();} }}
         >
             <DrawerHeader>
                 <DrawerHeaderTitle

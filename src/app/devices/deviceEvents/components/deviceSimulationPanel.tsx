@@ -46,7 +46,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                 open={props.showSimulationPanel}
                 position="end"
                 size="medium"
-                onOpenChange={(e, data) => { if (!data.open) props.onToggleSimulationPanel(); }}
+                onOpenChange={(e, data) => { if (!data.open) {props.onToggleSimulationPanel();} }}
             >
                 <DrawerHeader>
                     <DrawerHeaderTitle>

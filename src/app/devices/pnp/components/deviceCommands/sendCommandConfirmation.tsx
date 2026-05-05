@@ -20,7 +20,7 @@
      return (
          <Dialog
              open={!hidden}
-             onOpenChange={(e, data) => { if (!data.open) onSendCancel(); }}
+             onOpenChange={(e, data) => { if (!data.open) {onSendCancel();} }}
              modalType="alert"
          >
              <DialogSurface>

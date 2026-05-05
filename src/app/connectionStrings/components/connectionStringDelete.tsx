@@ -25,7 +25,7 @@ export const ConnectionStringDelete: React.FC<ConnectionStringDeleteProps> = (pr
     return (
         <Dialog
             open={!hidden}
-            onOpenChange={(e, data) => { if (!data.open) onDeleteCancel(); }}
+            onOpenChange={(e, data) => { if (!data.open) {onDeleteCancel();} }}
             modalType="alert"
         >
             <DialogSurface>
