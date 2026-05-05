@@ -10,13 +10,14 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 
 export interface BackButtonProps {
     backToSubscription: () => void;
+    labelKey?: string;
 }
 
 export const BackButton: React.FC<BackButtonProps> = props => {
     const { t } = useTranslation();
     return (
         <Button appearance="transparent" icon={<ArrowLeftRegular />} onClick={props.backToSubscription}>
-            {t(ResourceKeys.authentication.azureActiveDirectory.hubList.backButton)}
+            {t(props.labelKey || ResourceKeys.authentication.azureActiveDirectory.hubList.backButton)}
         </Button>
     );
 };

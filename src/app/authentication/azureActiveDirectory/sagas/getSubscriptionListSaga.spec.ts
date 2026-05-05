@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import { put, call } from 'redux-saga/effects';
+import { put, call, select } from 'redux-saga/effects';
 import { getSubscriptionListAction } from '../actions';
 import { getSubscriptionListSaga } from './getSubscriptionListSaga';
 import * as AzureSubscriptionService from '../../../api/services/azureSubscriptionService';
@@ -14,25 +14,26 @@ import { NotificationType } from '../../../api/models/notification';
 
 describe('getSubscriptionListSaga', () => {
 
-    const mockGetProfileToken = jest.spyOn(AuthenticationService, 'getProfileToken').mockImplementationOnce(() => {
+    const mockGetTenantToken = jest.spyOn(AuthenticationService, 'getTenantToken').mockImplementationOnce(() => {
         return 'token';
     });
-    const mockGetIubscriptions = jest.spyOn(AzureSubscriptionService, 'getAzureSubscriptions').mockImplementationOnce(() => {
+    const mockGetSubscriptions = jest.spyOn(AzureSubscriptionService, 'getAzureSubscriptions').mockImplementationOnce(() => {
         return [];
     });
-    const sagaGenerator = cloneableGenerator(getSubscriptionListSaga)(getSubscriptionListAction.started());
+    const tenantId = 'test-tenant-id';
+    const sagaGenerator = cloneableGenerator(getSubscriptionListSaga)(getSubscriptionListAction.started(tenantId));
 
-    it('calls getProfileToken', () => {
+    it('calls getTenantToken with tenantId', () => {
         expect(sagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockGetProfileToken)
+            value: call(mockGetTenantToken, tenantId)
         });
     });
 
-    it('calls getIotHubsBySubscription', () => {
+    it('calls getAzureSubscriptions', () => {
         expect(sagaGenerator.next('token')).toEqual({
             done: false,
-            value: call(mockGetIubscriptions, {
+            value: call(mockGetSubscriptions, {
                 authorizationToken: 'token',
                 endpoint: undefined
             })
@@ -44,6 +45,7 @@ describe('getSubscriptionListSaga', () => {
         expect(success.next([])).toEqual({
             done: false,
             value: put(getSubscriptionListAction.done({
+                params: tenantId,
                 result: []
             }))
         });
@@ -67,6 +69,7 @@ describe('getSubscriptionListSaga', () => {
         expect(failure.next(error)).toEqual({
             done: false,
             value: put(getSubscriptionListAction.failed({
+                params: tenantId,
                 error
             }))
         });

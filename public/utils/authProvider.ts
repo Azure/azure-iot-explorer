@@ -91,6 +91,45 @@ export class AuthProvider {
         return authResponse?.accessToken || null;
     }
 
+    async getTokenForTenant(authWindow: BrowserWindow, tenantId: string): Promise<string> {
+        const account = this.account || await this.getAccount();
+        if (!account) {
+            return null;
+        }
+
+        const guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (!guidRegex.test(tenantId)) {
+            console.error('Invalid tenant ID format');
+            return null;
+        }
+
+        const tenantAuthority = `https://login.microsoftonline.com/${tenantId}`;
+        const tenantRequest: SilentFlowRequest = {
+            account,
+            scopes: ['https://management.azure.com/user_impersonation'],
+            authority: tenantAuthority,
+            forceRefresh: false
+        };
+
+        try {
+            const authResponse = await this.clientApplication.acquireTokenSilent(tenantRequest);
+            return authResponse?.accessToken || null;
+        } catch (error) {
+            // If silent acquisition fails, try interactive
+            try {
+                const authResponse = await this.getTokenInteractive(authWindow, {
+                    ...this.authCodeUrlParams,
+                    scopes: ['https://management.azure.com/user_impersonation'],
+                    authority: tenantAuthority
+                });
+                return authResponse?.accessToken || null;
+            } catch (interactiveError) {
+                console.log('Failed to acquire tenant-scoped token:', interactiveError);
+                return null;
+            }
+        }
+    }
+
     async getToken(authWindow: BrowserWindow, request: SilentFlowRequest): Promise<string> {
         let authResponse: AuthenticationResult;
         const account = this.account || await this.getAccount();
@@ -114,11 +153,35 @@ export class AuthProvider {
     }
 
     async getTokenInteractive(authWindow: BrowserWindow, tokenRequest: AuthorizationUrlRequest ): Promise<AuthenticationResult> {
-        const authCodeUrlParams = { ...this.authCodeUrlParams, scopes: tokenRequest.scopes };
+        const authCodeUrlParams = { ...this.authCodeUrlParams, scopes: tokenRequest.scopes, ...(tokenRequest.authority && { authority: tokenRequest.authority }) };
         const authCodeUrl = await this.clientApplication.getAuthCodeUrl(authCodeUrlParams);
-        const authCode = await this.listenForAuthCode(authCodeUrl, authWindow);
-        const authResult = await this.clientApplication.acquireTokenByCode({ ...this.authCodeRequest, scopes: tokenRequest.scopes, code: authCode});
-        return authResult;
+
+        // Use a separate popup for auth so the main window is never affected
+        const authPopup = new BrowserWindow({
+            width: 600,
+            height: 800,
+            parent: authWindow,
+            modal: true,
+            webPreferences: {
+                contextIsolation: true,
+                nodeIntegration: false
+            }
+        });
+
+        try {
+            const authCode = await this.listenForAuthCode(authCodeUrl, authPopup);
+            const authResult = await this.clientApplication.acquireTokenByCode({
+                ...this.authCodeRequest,
+                scopes: tokenRequest.scopes,
+                code: authCode,
+                ...(tokenRequest.authority && { authority: tokenRequest.authority })
+            });
+            return authResult;
+        } finally {
+            if (!authPopup.isDestroyed()) {
+                authPopup.close();
+            }
+        }
     }
 
     async login(authWindow: BrowserWindow): Promise<void> {
@@ -141,20 +204,66 @@ export class AuthProvider {
         }
     }
 
+    async logoutWithSessionClear(mainWindow: BrowserWindow): Promise<void> {
+        // Clear MSAL token cache
+        if (this.account) {
+            await this.clientApplication.getTokenCache().removeAccount(this.account);
+            this.account = null;
+        }
+
+        // Clear browser session cookies to fully sign out of Microsoft SSO
+        // Clear Microsoft SSO cookies so the user can log in as a different account
+        await mainWindow.webContents.session.clearStorageData({
+            storages: ['cookies']
+        });
+    }
+
     private async listenForAuthCode(navigateUrl: string, authWindow: BrowserWindow): Promise<string> {
         authWindow.loadURL(navigateUrl);
         return new Promise((resolve, reject) => {
-            authWindow.webContents.on('will-redirect', (event, responseUrl) => {
+            let settled = false;
+
+            const onRedirect = (event: Electron.Event, responseUrl: string) => {
                 try {
                     const parsedUrl = new URL(responseUrl);
                     const authCode = parsedUrl.searchParams.get('code');
-                    if(authCode) {
+                    if (authCode) {
+                        event.preventDefault();
+                        settled = true;
+                        cleanup();
                         resolve(authCode);
                     }
+                    const error = parsedUrl.searchParams.get('error');
+                    if (error) {
+                        event.preventDefault();
+                        settled = true;
+                        cleanup();
+                        reject(new Error(`${error}: ${parsedUrl.searchParams.get('error_description') || 'Authentication failed'}`));
+                    }
                 } catch (err) {
+                    settled = true;
+                    cleanup();
                     reject(err);
                 }
-            });
+            };
+
+            const onClose = () => {
+                if (!settled) {
+                    settled = true;
+                    cleanup();
+                    reject(new Error('Authentication cancelled by user'));
+                }
+            };
+
+            const cleanup = () => {
+                if (!authWindow.isDestroyed()) {
+                    authWindow.webContents.removeListener('will-redirect', onRedirect);
+                    authWindow.removeListener('closed', onClose);
+                }
+            };
+
+            authWindow.webContents.on('will-redirect', onRedirect);
+            authWindow.on('closed', onClose);
         });
     }
 

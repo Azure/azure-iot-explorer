@@ -31,17 +31,24 @@ export class ResourceKeys {
          notification : {
             getIotHubKeyError : "authentication.azureActiveDirectory.notification.getIotHubKeyError",
             getIotHubListError : "authentication.azureActiveDirectory.notification.getIotHubListError",
+            getTenantListError : "authentication.azureActiveDirectory.notification.getTenantListError",
             getsubscriptionListError : "authentication.azureActiveDirectory.notification.getsubscriptionListError",
             loginError : "authentication.azureActiveDirectory.notification.loginError",
             logoutError : "authentication.azureActiveDirectory.notification.logoutError",
          },
          subscriptionList : {
+            backButton : "authentication.azureActiveDirectory.subscriptionList.backButton",
             columns : {
                id : "authentication.azureActiveDirectory.subscriptionList.columns.id",
                name : "authentication.azureActiveDirectory.subscriptionList.columns.name",
                state : "authentication.azureActiveDirectory.subscriptionList.columns.state",
             },
             noItemText : "authentication.azureActiveDirectory.subscriptionList.noItemText",
+         },
+         tenantList : {
+            label : "authentication.azureActiveDirectory.tenantList.label",
+            noItemText : "authentication.azureActiveDirectory.tenantList.noItemText",
+            placeholder : "authentication.azureActiveDirectory.tenantList.placeholder",
          },
       },
    };

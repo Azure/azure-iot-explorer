@@ -8,6 +8,7 @@ export const PLATFORMS = {
 
 export const MESSAGE_CHANNELS = {
     AUTHENTICATION_GET_PROFILE_TOKEN: 'authentication_get_profile_token',
+    AUTHENTICATION_GET_TENANT_TOKEN: 'authentication_get_tenant_token',
     AUTHENTICATION_LOGIN: 'authentication_login',
     AUTHENTICATION_LOGOUT: 'authentication_logout',
     CREDENTIAL_DELETE: 'credential_delete',

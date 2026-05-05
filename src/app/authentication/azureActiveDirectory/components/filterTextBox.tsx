@@ -8,6 +8,7 @@ import { Input } from '@fluentui/react-components';
 import { FilterRegular } from '@fluentui/react-icons';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
+import { AzureTenant } from '../../../api/models/azureTenant';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
 import './filterTextBox.scss';
@@ -15,7 +16,8 @@ import { LiveRegion } from '../../../shared/components/liveRegion';
 
 export enum FilterType {
     Subscription,
-    IoTHub
+    IoTHub,
+    Tenant
 }
 
 export type FilterTextBoxPros = {
@@ -24,11 +26,14 @@ export type FilterTextBoxPros = {
 } | {
     filterType: FilterType.IoTHub;
     setFilteredList: (listValue: IotHubDescription[]) => void;
+} | {
+    filterType: FilterType.Tenant;
+    setFilteredList: (listValue: AzureTenant[]) => void;
 }
 
 export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
     const { t } = useTranslation();
-    const [{ subscriptions, iotHubs }, ] =  useAzureActiveDirectoryStateContext();
+    const [{ subscriptions, iotHubs, tenants }, ] =  useAzureActiveDirectoryStateContext();
     const [ filterValue, setFilterValue ] = React.useState('');
     const [ searchResultCount, setSearchResultCount] = React.useState(0);
 
@@ -37,6 +42,11 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
         setFilterValue(newValue);
         if (props.filterType === FilterType.IoTHub) {
             const filtered = iotHubs.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()));
+            props.setFilteredList(filtered);
+            setSearchResultCount(filtered.length);
+        }
+        else if (props.filterType === FilterType.Tenant) {
+            const filtered = tenants.filter(item => (item.displayName || item.defaultDomain || '').toLowerCase().includes(newValue.toLowerCase()));
             props.setFilteredList(filtered);
             setSearchResultCount(filtered.length);
         }

@@ -8,19 +8,27 @@ import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirec
 import { AzureActiveDirectoryCommandBar } from './commandBar';
 import { HubList } from './hubList';
 import { SubscriptionList } from './subscrptionList';
+import { TenantList } from './tenantList';
 import { BackButton } from './backButton';
+import { ResourceKeys } from '../../../../localization/resourceKeys';
 import './hubSelection.scss';
 
+type ViewState = 'tenants' | 'subscriptions' | 'hubs';
+
 export const HubSelection: React.FC = () => {
-    const [{ token, formState }, { getToken, getSubscriptions }] =  useAzureActiveDirectoryStateContext();
-    const [ showHubList, setShowHubList ] = React.useState<boolean>(false);
+    const [{ token, formState }, { getToken, getTenants }] =  useAzureActiveDirectoryStateContext();
+    const [ viewState, setViewState ] = React.useState<ViewState>('tenants');
+
+    const renderTenantList = () => {
+        setViewState('tenants');
+    };
 
     const renderSubscriptionList = () => {
-        setShowHubList(false);
+        setViewState('subscriptions');
     };
 
     const renderHubList = () => {
-        setShowHubList(true);
+        setViewState('hubs');
     };
 
     React.useEffect(() => {
@@ -29,7 +37,7 @@ export const HubSelection: React.FC = () => {
 
     React.useEffect(() => {
         if (token) {
-            getSubscriptions();
+            getTenants();
         }
     },              [token]);
 
@@ -37,10 +45,16 @@ export const HubSelection: React.FC = () => {
         <>
             <AzureActiveDirectoryCommandBar/>
             {formState === 'working' ? <MultiLineShimmer/> : <div className="hub-selection-list">
-                {token && !showHubList &&
-                    <SubscriptionList renderHubList={renderHubList}/>
+                {token && viewState === 'tenants' &&
+                    <TenantList renderSubscriptionList={renderSubscriptionList}/>
                 }
-                {showHubList &&
+                {viewState === 'subscriptions' &&
+                    <>
+                        <BackButton backToSubscription={renderTenantList} labelKey={ResourceKeys.authentication.azureActiveDirectory.subscriptionList.backButton}/>
+                        <SubscriptionList renderHubList={renderHubList}/>
+                    </>
+                }
+                {viewState === 'hubs' &&
                     <>
                         <BackButton backToSubscription={renderSubscriptionList}/>
                         <HubList/>

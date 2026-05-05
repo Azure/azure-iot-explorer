@@ -3,9 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
-import { getUserProfileTokenAction, loginAction, logoutAction, getSubscriptionListAction, getIotHubsBySubscriptionAction, getIoTHubKeyAction, GetIotHubKeyActionParmas } from './actions';
+import { getUserProfileTokenAction, loginAction, logoutAction, getSubscriptionListAction, getIotHubsBySubscriptionAction, getIoTHubKeyAction, GetIotHubKeyActionParmas, getTenantListAction, selectTenantAction } from './actions';
 import { getInitialAzureActiveDirectoryState, AzureActiveDirectoryStateInterface } from './state';
 import { AzureSubscription } from '../../api/models/azureSubscription';
+import { AzureTenant } from '../../api/models/azureTenant';
 import { IotHubDescription } from '../../api/models/iotHubDescription';
 
 export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDirectoryStateInterface>(getInitialAzureActiveDirectoryState())
@@ -62,6 +63,33 @@ export const azureActiveDirectoryReducer = reducerWithInitialState<AzureActiveDi
         return {
             ...state,
             formState: 'failed'
+        };
+    })
+    .case(getTenantListAction.started, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'working'
+        };
+    })
+    .case(getTenantListAction.done, (state: AzureActiveDirectoryStateInterface, payload: {result: AzureTenant[]}) => {
+        return {
+            ...state,
+            formState: 'idle',
+            tenants: payload.result
+        };
+    })
+    .case(getTenantListAction.failed, (state: AzureActiveDirectoryStateInterface) => {
+        return {
+            ...state,
+            formState: 'failed'
+        };
+    })
+    .case(selectTenantAction, (state: AzureActiveDirectoryStateInterface, tenantId: string) => {
+        return {
+            ...state,
+            selectedTenantId: tenantId,
+            subscriptions: [],
+            iotHubs: []
         };
     })
     .case(getSubscriptionListAction.started, (state: AzureActiveDirectoryStateInterface) => {
