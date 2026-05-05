@@ -12,7 +12,7 @@ import { IColumn, ResizableDetailsList } from '../../../shared/resizeDetailsList
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { MailRegular, LocationRegular, AddCircleRegular, AddCircleFilled, DeleteRegular } from '@fluentui/react-icons';
-import { CLOUD_TO_DEVICE_MESSAGE } from '../../../constants/iconNames';
+import { CLOUD_TO_DEVICE_MESSAGE } from '../../../constants/commandBarItemKeys';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { cloudToDeviceMessageAction } from '../actions';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';

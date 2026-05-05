@@ -11,7 +11,7 @@ import { IColumn, SelectionMode, ResizableDetailsList } from '../../../../shared
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { BoxRegular, ArrowSyncRegular } from '@fluentui/react-icons';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH } from '../../../../constants/commandBarItemKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';

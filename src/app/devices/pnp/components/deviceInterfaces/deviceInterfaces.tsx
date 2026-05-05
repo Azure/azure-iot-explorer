@@ -11,7 +11,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
 import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/commandBarItemKeys';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';

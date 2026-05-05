@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeleteRegular, CheckboxCheckedRegular, CheckboxUncheckedRegular, PlayRegular, StopFilled, ArrowLeftRegular, ArrowSyncRegular, CodeRegular, ArrowUploadRegular } from '@fluentui/react-icons';
-import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, UPLOAD } from '../../../constants/iconNames';
+import { CLEAR, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, UPLOAD } from '../../../constants/commandBarItemKeys';
 import { getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../pnp/context/pnpStateContext';
 import { getBackUrl } from '../../pnp/utils';

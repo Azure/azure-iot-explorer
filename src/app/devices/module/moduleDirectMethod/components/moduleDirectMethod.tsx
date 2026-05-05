@@ -9,7 +9,7 @@ import { CommandBarV9 as CommandBar } from '../../../../shared/components/comman
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { RemoteRegular } from '@fluentui/react-icons';
-import { DIRECT_METHOD, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { DIRECT_METHOD } from '../../../../constants/commandBarItemKeys';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { invokeModuleDirectMethodSaga } from '../saga';
 import { invokeModuleDirectMethodAction } from '../actions';

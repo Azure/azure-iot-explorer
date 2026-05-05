@@ -7,7 +7,7 @@ import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBa
 import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { SaveRegular, KeyRegular, ArrowSwapRegular } from '@fluentui/react-icons';
-import { SAVE } from '../../../constants/iconNames';
+import { SAVE } from '../../../constants/commandBarItemKeys';
 
 export interface DeviceIdentityCommandBarDataProps {
     disableSave?: boolean;

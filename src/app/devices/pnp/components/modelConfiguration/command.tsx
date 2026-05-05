@@ -9,7 +9,7 @@ import { CommandBarV9 as CommandBar } from '../../../../shared/components/comman
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { ArrowSyncRegular } from '@fluentui/react-icons';
-import { REFRESH } from '../../../../constants/iconNames';
+import { REFRESH } from '../../../../constants/commandBarItemKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { dispatchGetTwinAction } from '../../utils';
 import './digitalTwinDetail.scss';

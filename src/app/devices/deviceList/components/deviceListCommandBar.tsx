@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { BoxRegular, ArrowSyncRegular, DeleteRegular } from '@fluentui/react-icons';
-import { REFRESH } from '../../../constants/iconNames';
+import { REFRESH } from '../../../constants/commandBarItemKeys';
 
 export interface DeviceListCommandBarDataProps {
     disableAdd?: boolean;

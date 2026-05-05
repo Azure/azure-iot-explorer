@@ -10,7 +10,7 @@ import { Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogActions, 
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ArrowSyncRegular, DeleteRegular } from '@fluentui/react-icons';
-import { REFRESH, REMOVE } from '../../../../constants/iconNames';
+import { REFRESH, REMOVE } from '../../../../constants/commandBarItemKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';

@@ -17,7 +17,7 @@ import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { SaveRegular, DismissRegular } from '@fluentui/react-icons';
-import { SAVE, CANCEL } from '../../../constants/iconNames';
+import { SAVE, CANCEL } from '../../../constants/commandBarItemKeys';
 import { addDeviceSaga } from '../saga';
 import { addDeviceReducer } from '../reducer';
 import { addDeviceStateInitial } from '../state';

@@ -11,7 +11,7 @@ import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DevicePropertiesPerInterface } from './devicePropertiesPerInterface';
 import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/commandBarItemKeys';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';

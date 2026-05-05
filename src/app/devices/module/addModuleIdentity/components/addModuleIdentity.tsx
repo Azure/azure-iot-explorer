@@ -11,7 +11,7 @@ import { PasswordField } from '../../../../shared/components/passwordField';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { SaveRegular, DismissRegular } from '@fluentui/react-icons';
-import { CANCEL, SAVE } from '../../../../constants/iconNames';
+import { CANCEL, SAVE } from '../../../../constants/commandBarItemKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ROUTE_PARAMS } from '../../../../constants/routes';
 import { HeaderView } from '../../../../shared/components/headerView';

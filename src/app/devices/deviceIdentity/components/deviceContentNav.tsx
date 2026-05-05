@@ -18,7 +18,7 @@ import {
 } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import { NAVIGATE_BACK } from '../../../constants/iconNames';
+import { NAVIGATE_BACK } from '../../../constants/commandBarItemKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import './deviceContentNav.scss';
 import { LiveRegion } from '../../../shared/components/liveRegion';

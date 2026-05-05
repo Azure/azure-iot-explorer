@@ -9,7 +9,7 @@ import { CommandBarV9 as CommandBar } from '../../../../shared/components/comman
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ArrowSyncRegular, SaveRegular } from '@fluentui/react-icons';
-import { REFRESH, SAVE } from '../../../../constants/iconNames';
+import { REFRESH, SAVE } from '../../../../constants/commandBarItemKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from '../actions';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';

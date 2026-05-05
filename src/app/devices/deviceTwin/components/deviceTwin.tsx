@@ -10,7 +10,7 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
 import { ArrowSyncRegular, SaveRegular } from '@fluentui/react-icons';
-import { REFRESH, SAVE } from '../../../constants/iconNames';
+import { REFRESH, SAVE } from '../../../constants/commandBarItemKeys';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
 import { HeaderView } from '../../../shared/components/headerView';

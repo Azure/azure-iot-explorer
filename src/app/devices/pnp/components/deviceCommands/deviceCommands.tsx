@@ -11,7 +11,7 @@ import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/commandBarItemKeys';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
