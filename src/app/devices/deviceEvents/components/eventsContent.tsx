@@ -36,7 +36,8 @@ export const EventsContent: React.FC<EventsContentProps> = ({showSystemPropertie
                 AppInsightsClient.getInstance()?.trackPageView({ name: TELEMETRY_PAGE_NAMES.DEVICE_TELEMETRY });
             }
         },
-        []);
+        [],  // eslint-disable-line react-hooks/exhaustive-deps -- mount-only telemetry tracking
+    );
 
     const { t } = useTranslation();
     const { search } = useLocation();

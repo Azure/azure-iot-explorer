@@ -13,8 +13,7 @@ export const fetchLatestReleaseTagName = async (): Promise<string> => {
         const result = await response.json();
         const tagName = 'tag_name';
         return result[tagName];
-    } catch (error) {
-        // swallow the exception
+    } catch {
         return undefined;
     }
 };

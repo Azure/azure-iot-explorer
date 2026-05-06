@@ -41,7 +41,7 @@ export const DeviceSettings: React.FC = () => {
     const twin = pnpState.twin.payload;
     const twinWithSchema = React.useMemo(() => {
         return generateTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
-    },                                   [modelDefinition, twin, extendedModelDefinition]);
+    },                                   [modelDefinition, twin, extendedModelDefinition, componentName]);
 
     const patchTwin = (parameters: Partial<Twin>) => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_UPDATE_PROPERTY);

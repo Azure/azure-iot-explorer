@@ -5,7 +5,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MessageBar, MessageBarBody } from '@fluentui/react-components';
-import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
@@ -16,13 +15,8 @@ export interface ListItemConfigurableRepoProps{
     formState: ModelRepositoryFormType;
 }
 
-export const ListItemConfigurableRepo: React.FC<ListItemConfigurableRepoProps> = ({index, item, formState}) => {
+export const ListItemConfigurableRepo: React.FC<ListItemConfigurableRepoProps> = ({item: _item}) => {
     const { t } = useTranslation();
-
-    let initialConfigurableRepositoryPath = '';
-    if (item && item.repositoryLocationType === REPOSITORY_LOCATION_TYPE.Configurable) {
-        initialConfigurableRepositoryPath = item.value;
-    }
 
     return(
         <>

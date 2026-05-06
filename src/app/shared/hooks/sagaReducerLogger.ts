@@ -17,4 +17,4 @@ export const useSagaReducerLogger = <S, A>(reducer: Reducer<S, A>, stateName: st
     }
     // tslint:enable
     return next;
-  },                                                                                                    [reducer]);
+  },                                                                                                    [reducer]); // eslint-disable-line react-hooks/exhaustive-deps

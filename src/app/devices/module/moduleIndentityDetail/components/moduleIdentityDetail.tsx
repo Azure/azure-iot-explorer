@@ -47,13 +47,13 @@ export const ModuleIdentityDetail: React.FC = () => {
 
     React.useEffect(() => {
         retrieveData();
-    },              []);
+    },              []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     React.useEffect(() => {
         if (isDeleted) {
             navigateToModuleList();
         }
-    },              [isDeleted]);
+    },              [isDeleted]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to deletion
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_IDENTITY});

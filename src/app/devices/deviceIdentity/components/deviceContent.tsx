@@ -32,8 +32,7 @@ import '../../../css/_deviceContent.scss';
 
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
-    const { search, pathname } = useLocation();
-    const url = pathname.replace(/\/(identity|twin|events|methods|cloudToDeviceMessage|ioTPlugAndPlay|moduleIdentity)(\/.*)?$/, '');
+    const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
     useBreadcrumbEntry({ name: deviceId, disableLink: true });
 
@@ -47,7 +46,7 @@ export const DeviceContent: React.FC = () => {
         () => {
             dispatch(getDeviceIdentityAction.started(deviceId));
         },
-        [deviceId]);
+        [deviceId, dispatch]);
 
     const renderNav = () => {
         return (
@@ -141,10 +140,6 @@ export const DeviceContent: React.FC = () => {
                 </Routes>
             </div>
         );
-    };
-
-    const collapseToggle = () => {
-        setAppMenuVisible(!appMenuVisible);
     };
 
     const createNavLinks = () => {

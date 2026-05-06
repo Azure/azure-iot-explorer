@@ -14,7 +14,7 @@ export const addDeviceReducer = reducerWithInitialState<AddDeviceStateInterface>
             synchronizationStatus: SynchronizationStatus.working
         });
     }) as any)
-    .case(addDeviceAction.done as any, ((state: AddDeviceStateType, payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
+    .case(addDeviceAction.done as any, ((state: AddDeviceStateType, _payload: {params: DeviceIdentity} & {result: DeviceIdentity}) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.upserted
         });

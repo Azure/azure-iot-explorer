@@ -47,7 +47,7 @@ export const DeviceList: React.FC = () => {
 
     React.useEffect(() => {
         setQueryAndExecute(deviceQuery);
-    },              []);
+    },              []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only initial query
 
     const setQueryAndExecute = (query: DeviceQuery) => {
         dispatch(listDevicesAction.started({

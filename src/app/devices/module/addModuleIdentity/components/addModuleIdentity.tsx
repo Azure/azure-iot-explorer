@@ -53,7 +53,7 @@ export const AddModuleIdentity: React.FC = () => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when module identity has been added successfully would navigate to module list view
             navigateToModuleList();
         }
-    },              [synchronizationStatus]);
+    },              [synchronizationStatus]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to status change
 
     const showCommandBar = () => {
         return (

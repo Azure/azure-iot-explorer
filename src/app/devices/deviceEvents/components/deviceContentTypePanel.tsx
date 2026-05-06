@@ -26,7 +26,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
         if (state.formMode === 'setDecoderSucceeded') {
             props.onToggleContentTypePanel();
         }
-    },              [state.formMode]);
+    },              [state.formMode]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to formMode change
 
     const onSaveContentType = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

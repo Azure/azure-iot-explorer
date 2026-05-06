@@ -82,7 +82,7 @@ export default tseslint.config(
 
             // React rules
             'react/jsx-key': 'error',
-            'react/jsx-no-bind': 'warn',
+            'react/jsx-no-bind': 'off',
             'react/no-string-refs': 'error',
             'react/self-closing-comp': 'error',
             'react/prop-types': 'off',

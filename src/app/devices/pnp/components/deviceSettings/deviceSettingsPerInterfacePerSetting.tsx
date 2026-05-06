@@ -80,14 +80,6 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
         );
     };
 
-    const onViewReportedValue = (event: React.MouseEvent<HTMLElement>) => {
-        setShowReportedValuePanel(true);
-        handleOverlayToggle();
-        if (event) {
-            event.stopPropagation();
-        }
-    };
-
     const handleDismissViewReportedPanel = () => {
         setShowReportedValuePanel(false);
         handleOverlayToggle();

@@ -70,7 +70,7 @@ export const DeviceEvents: React.FC = () => {
                 }
             };
         },
-        []);
+        []);  // eslint-disable-line react-hooks/exhaustive-deps -- cleanup effect, runs once on mount
 
     React.useEffect(
         () => {
@@ -87,7 +87,7 @@ export const DeviceEvents: React.FC = () => {
                 }
             }
         },
-        [monitoringData]);
+        [monitoringData]);  // eslint-disable-line react-hooks/exhaustive-deps -- only react to monitoringData toggle
 
     React.useEffect(    // tslint:disable-next-line: cyclomatic-complexity
         () => {

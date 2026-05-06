@@ -35,7 +35,7 @@ export const DeviceProperties: React.FC = () => {
     const twin = pnpState.twin.payload;
     const twinAndSchema = React.useMemo(() => {
         return generateReportedTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
-    },                                  [twin, modelDefinition, extendedModelDefinition]);
+    },                                  [twin, modelDefinition, extendedModelDefinition, componentName]);
 
     const renderProperties = () => {
         return (

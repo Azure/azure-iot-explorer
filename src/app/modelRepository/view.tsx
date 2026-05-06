@@ -27,11 +27,11 @@ export const ModelRepositoryLocationView: React.FC = () => {
         };
         window.addEventListener('beforeunload', handleBeforeUnload);
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-    }, [formState[0].dirty]);
+    }, [formState[0].dirty]); // eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_REPO_SETTINGS});
-    }, []); // tslint:disable-line: align
+    }, []);
 
     return (
         <div>

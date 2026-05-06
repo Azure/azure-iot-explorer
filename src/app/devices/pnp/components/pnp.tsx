@@ -28,13 +28,13 @@ export const Pnp: React.FC = () => {
 
     React.useEffect(() => {
         dispatchGetTwinAction(search, dispatch);
-    },              [deviceId, moduleId]);
+    },              [deviceId, moduleId]); // eslint-disable-line react-hooks/exhaustive-deps -- dispatch and search are stable
 
     React.useEffect(() => {
         if (interfaceIdModified && deviceId) {
             getModelDefinition();
         }
-    },              [interfaceIdModified, deviceId]);
+    },              [interfaceIdModified, deviceId]); // eslint-disable-line react-hooks/exhaustive-deps -- getModelDefinition is stable
 
     return (
         <PnpStateContextProvider value={{ pnpState, dispatch, getModelDefinition }}>

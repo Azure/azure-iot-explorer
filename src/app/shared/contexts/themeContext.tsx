@@ -42,7 +42,7 @@ export const ThemeProperties: Record<Theme, ThemeProperties> = {
 export const ThemeContext = React.createContext<ThemeContextInterface>({
     editorTheme: undefined,
     theme: undefined,
-    updateTheme: (isDarkTheme: boolean) => undefined
+    updateTheme: (_isDarkTheme: boolean) => undefined
 });
 export const ThemeContextProvider = ThemeContext.Provider;
 export const useThemeContext = () => React.useContext(ThemeContext);

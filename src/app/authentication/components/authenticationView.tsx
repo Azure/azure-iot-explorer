@@ -16,7 +16,7 @@ export const AuthenticationView: React.FC = () => {
     const [{ formState, preference }, api] = useAuthenticationStateContext();
     React.useEffect(() => {
         api.getLoginPreference();
-    }, []); // tslint:disable-line: align
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     return (
         <>

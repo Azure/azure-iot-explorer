@@ -95,7 +95,7 @@ export const DataForm: React.FC<DataFormDataProps & DataFormActionProps> = (prop
 
         try {
             payload = formData;
-        } catch (e) {
+        } catch {
             payload = null;
             buttonDisabled = true;
         }

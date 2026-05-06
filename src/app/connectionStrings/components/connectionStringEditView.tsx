@@ -34,7 +34,7 @@ export const ConnectionStringEditView: React.FC<ConnectionStringEditViewProps> =
         if (connectionString) {
             validateConnectionString(connectionString);
         }
-    }, []); // tslint:disable-line:align
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps -- validate initial value only
 
     const onConnectionStringChange = (event: React.ChangeEvent<HTMLTextAreaElement>, data: { value: string }) => {
          setConnectionString(data.value);

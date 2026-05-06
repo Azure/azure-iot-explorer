@@ -97,7 +97,7 @@ export const DeviceInterfaces: React.FC = () => {
         );
     };
 
-    const renderInterfaceViewer = (isValidInterface: boolean) => {
+    const renderInterfaceViewer = (_isValidInterface: boolean) => {
         const jsonViewerHeight = 500;
         return (
             <div className="pnp-interface-info-editor">

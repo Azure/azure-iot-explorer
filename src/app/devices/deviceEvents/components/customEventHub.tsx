@@ -38,7 +38,7 @@ export const CustomEventHub: React.FC<CustomEventHubProps> = ({
             setError('');
             setHasError(false);
         }
-    },              [customEventHubConnectionString]);
+    },              [customEventHubConnectionString]); // eslint-disable-line react-hooks/exhaustive-deps -- setHasError and t are stable
 
     const toggleChange = () => {
         setUseBuiltInEventHub(!useBuiltInEventHub);

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
@@ -24,8 +24,7 @@ import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
-    const { search, pathname } = useLocation();
-    const navigate = useNavigate();
+    const { search } = useLocation();
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
@@ -40,7 +39,7 @@ export const ModuleIdentityTwin: React.FC = () => {
 
     React.useEffect(() => {
         retrieveData();
-    },              [deviceId, moduleId]);
+    },              [deviceId, moduleId]); // eslint-disable-line react-hooks/exhaustive-deps -- retrieveData uses these values
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_TWIN});

@@ -29,7 +29,7 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
             setDeviceId('');
         }
 
-    },              [refresh]);
+    },              [refresh]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to refresh counter
 
     const removePill = (index: number) => {
         const newClauses = [...clauses];

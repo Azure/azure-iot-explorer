@@ -33,7 +33,7 @@ export const DigitalTwinDetail: React.FC = () => {
         () => {
             getModelDefinition();
         },
-        []);
+        []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     const [selectedKey, setSelectedKey] = React.useState((NAV_LINK_ITEMS_PNP.find(item => pathname.indexOf(item) > 0) || ROUTE_PARTS.INTERFACES).toString());
     const path = pathname.replace(/\/ioTPlugAndPlayDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogContent, DialogActions, Field, Input, Link } from '@fluentui/react-components';
+import { Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogContent, DialogActions, Field, Input } from '@fluentui/react-components';
 import { ArrowLeftRegular, FolderOpenRegular } from '@fluentui/react-icons';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -92,7 +92,7 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
         fetchDirectories(folderName).then(result => {
             setShowError(false);
             setSubFolders(result);
-        }).catch(error => {
+        }).catch(_error => {
             setShowError(true);
         });
     };

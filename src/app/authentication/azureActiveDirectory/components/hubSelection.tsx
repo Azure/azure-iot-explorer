@@ -33,13 +33,13 @@ export const HubSelection: React.FC = () => {
 
     React.useEffect(() => {
         getToken();
-    },              []);
+    },              []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     React.useEffect(() => {
         if (token) {
             getTenants();
         }
-    },              [token]);
+    },              [token]); // eslint-disable-line react-hooks/exhaustive-deps -- only re-run when token changes
 
     return (
         <>

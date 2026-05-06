@@ -21,7 +21,7 @@ export const Command: React.FC = () => {
     const twinSynchronizationStatus = pnpState.twin.synchronizationStatus;
     const isTwinLoading = twinSynchronizationStatus === SynchronizationStatus.working;
 
-    const onRefresh = (ev?: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => {
+    const onRefresh = (_ev?: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => {
         dispatchGetTwinAction(search, dispatch);
     };
 

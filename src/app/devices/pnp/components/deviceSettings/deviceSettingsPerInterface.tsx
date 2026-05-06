@@ -130,7 +130,7 @@ export const DeviceSettingsPerInterface: React.FC<DeviceSettingDataProps & Devic
                     />
                 ));
         },
-        [collapseMap, props, twinWithSchema]
+        [collapseMap, props, twinWithSchema] // eslint-disable-line react-hooks/exhaustive-deps
     );
 
     const onViewReportedValue = React.useCallback(

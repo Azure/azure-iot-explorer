@@ -36,7 +36,7 @@ const NotificationEntry = (props: { notification: Notification }): React.JSX.Ele
 
     React.useEffect(() => {
         addNotification(props.notification);
-    },              [props.notification]);
+    },              [props.notification]); // eslint-disable-line react-hooks/exhaustive-deps -- addNotification is stable
 
     return <NotificationListEntry notification={props.notification} showAnnouncement={true}/>;
 };

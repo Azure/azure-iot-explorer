@@ -99,7 +99,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
         const foundRoutes = navItems.filter(nav => pathname.includes(nav));
         const currentRoute = foundRoutes?.[foundRoutes.length - 1] ?? '';
         setSelectedRoute(currentRoute);
-    }, [pathname]); // tslint:disable-line: align
+    }, [pathname, navItems]);
 
     return (
         <div role="navigation" className={`nav-link-left ${appMenuVisible ? '' : 'nav-collapsed'}`}>

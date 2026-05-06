@@ -186,7 +186,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
         return indexFound;
     };
 
-    const renderItemValueColumn = (item: PropertyItem, column: IColumn) => {
+    const renderItemValueColumn = (item: PropertyItem, _column: IColumn) => {
         const index = findMatchingItemIndex(item);
 
         const handleEditPropertyValue = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {

@@ -35,7 +35,7 @@ export const moduleIdentityDetailReducer = reducerWithInitialState<ModuleIdentit
             synchronizationStatus: SynchronizationStatus.updating
         });
     })
-    .case(deleteModuleIdentityAction.done, (state: ModuleIdentityDetailStateType, payload: {params: DeleteModuleIdentityActionParameters}) => {
+    .case(deleteModuleIdentityAction.done, (state: ModuleIdentityDetailStateType, _payload: {params: DeleteModuleIdentityActionParameters}) => {
         return state.merge({
             synchronizationStatus: SynchronizationStatus.deleted
         });

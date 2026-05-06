@@ -237,7 +237,7 @@ export const CloudToDeviceMessage: React.FC = () => {
         }
     };
 
-    const renderItemValueColumn = (item: PropertyItem, column: IColumn) => {
+    const renderItemValueColumn = (item: PropertyItem, _column: IColumn) => {
         const index = findMatchingItemIndex(item);
 
         const handleEditPropertyValue = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {

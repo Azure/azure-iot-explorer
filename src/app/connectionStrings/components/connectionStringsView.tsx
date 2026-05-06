@@ -74,7 +74,7 @@ export const ConnectionStringsView: React.FC = () => {
 
     React.useEffect(() => {
         api.getConnectionStrings();
-    },              []);
+    },              []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.HUBS});
@@ -85,7 +85,7 @@ export const ConnectionStringsView: React.FC = () => {
             const hostName = getConnectionInfoFromConnectionString(connectionStringsWithExpiry[0] && connectionStringsWithExpiry[0].connectionString).hostName;
             navigate(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
         }
-    },              [synchronizationStatus]);
+    },              [synchronizationStatus]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to status change
 
     if (synchronizationStatus === SynchronizationStatus.updating || synchronizationStatus === SynchronizationStatus.working) {
         return (

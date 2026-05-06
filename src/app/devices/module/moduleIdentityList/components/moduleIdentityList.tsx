@@ -40,7 +40,7 @@ export const ModuleIdentityList: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getModuleIdentitiesAction.started(deviceId));
-    },              [deviceId]);
+    },              [deviceId, dispatch]);
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_LIST});

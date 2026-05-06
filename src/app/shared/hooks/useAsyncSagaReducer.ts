@@ -30,7 +30,7 @@ export const useAsyncSagaReducer = <S, A>(reducer: React.Reducer<S, A>, saga: Sa
     return () => {
       task.cancel();
     };
-  },              [sagaChannel]);
+  },              [sagaChannel]); // eslint-disable-line react-hooks/exhaustive-deps -- saga is stable (passed once)
 
   return [state, sagaChannel.dispatch];
 };

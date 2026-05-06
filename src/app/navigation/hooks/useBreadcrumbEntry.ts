@@ -23,5 +23,5 @@ export const useBreadcrumbEntry = ({ name, disableLink, suffix }: UseBreadcrumbE
         return () => {
             unregisterEntry({ name, disableLink, path, suffix, url });
         };
-    }, [ suffix, name, disableLink ]); // tslint:disable-line: align
+    }, [ suffix, name, disableLink ]); // eslint-disable-line react-hooks/exhaustive-deps -- only re-register on key prop changes
 };

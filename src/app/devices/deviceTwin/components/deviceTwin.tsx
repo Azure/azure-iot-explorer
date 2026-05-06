@@ -46,7 +46,7 @@ export const DeviceTwin: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getDeviceTwinAction.started(deviceId));
-    },              [deviceId]);
+    },              [deviceId, dispatch]);
 
     const showCommandBar = () => {
         return (
