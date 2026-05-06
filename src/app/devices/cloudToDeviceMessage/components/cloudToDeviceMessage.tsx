@@ -249,7 +249,7 @@ export const CloudToDeviceMessage: React.FC = () => {
         const handleEditExpiryTime = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
             const items = [...properties];
             items[index] = {...items[index], value: data.value};
-            setShowExpiryError(!parseInt(data.value) || new Date(parseInt(data.value)) <= new Date()); // tslint:disable-line:radix
+            setShowExpiryError(!parseInt(data.value, 10) || new Date(parseInt(data.value, 10)) <= new Date());
             setProperties(items);
         };
 

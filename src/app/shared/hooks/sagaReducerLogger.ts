@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import { useCallback, Reducer } from 'react';
 
-export const sagaReducerLogger = <S, A>(reducer: Reducer<S, A>, stateName: string) => useCallback((state: S, action: A) => {
+export const useSagaReducerLogger = <S, A>(reducer: Reducer<S, A>, stateName: string) => useCallback((state: S, action: A) => {
     const next = reducer(state, action);
     // tslint:disable
     try {

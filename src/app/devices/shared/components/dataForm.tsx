@@ -4,9 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@fluentui/react-components';
+import { Button, Label } from '@fluentui/react-components';
 import { CloudArrowUpRegular } from '@fluentui/react-icons';
-import { Label } from '@fluentui/react-components';
 import { Form as FluentForm } from '@rjsf/fluentui-rc';
 import validator from '@rjsf/validator-ajv8';
 import { ResourceKeys } from '../../../../localization/resourceKeys';

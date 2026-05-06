@@ -17,7 +17,7 @@ export class AppInsightsClient {
                 appInsights.trackEvent({name: TELEMETRY_EVENTS.INTERNAL_USER}, {isInternal: isMicrosoftInternalDomain()});
                 AppInsightsClient.instance = appInsights;
             } catch (e) {
-                // tslint:disable-next-line:no-console
+                // eslint-disable-next-line no-console
                 console.log(e);
             }
         }

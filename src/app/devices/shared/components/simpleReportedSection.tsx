@@ -43,12 +43,12 @@ export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, displ
                 <Label>{getDisplayValue()}</Label> :
                 <Label>--</Label>
             }
-            {desired && !!result?.errors && renderSchemaErrors(result.errors)}
+            {desired && !!result?.errors && <SchemaErrors errors={result.errors} />}
         </>
     );
 };
 
-const renderSchemaErrors = (errors: ValidationError[]) => {
+const SchemaErrors: React.FC<{errors: ValidationError[]}> = ({errors}) => {
     const { t } = useTranslation();
     const errorLabel = t(ResourceKeys.deviceSettings.columns.error);
     if (!errors || errors.length === 0) {

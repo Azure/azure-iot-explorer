@@ -8,7 +8,7 @@ interface LocalStorageInformation {
     hostName: string;
 }
 
-export const getHubInformationFromLocalStorage = (): LocalStorageInformation => {
+export const useHubInformationFromLocalStorage = (): LocalStorageInformation => {
     const [ hubConnectionString, setHubConnectionString ] = React.useState<string>('');
     const [ hostName, setHostName ] = React.useState<string>('');
     const connectionStrings = localStorage.getItem(CONNECTION_STRING_NAME_LIST);

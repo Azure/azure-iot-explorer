@@ -25,7 +25,7 @@ export const storeConnectionStrings = async (value: ConnectionStringWithExpiry[]
             return;
         }
     } catch (error) {
-        // tslint:disable-next-line: no-console
+        // eslint-disable-next-line no-console
         console.warn('Failed to use encrypted storage, falling back to localStorage:', error);
     }
 
@@ -60,7 +60,7 @@ export const getConnectionStrings = async (): Promise<ConnectionStringWithExpiry
             return [];
         }
     } catch (error) {
-        // tslint:disable-next-line: no-console
+        // eslint-disable-next-line no-console
         console.warn('Failed to use encrypted storage, falling back to localStorage:', error);
     }
 
@@ -77,7 +77,7 @@ export const deleteConnectionStrings = async (): Promise<void> => {
         const credentialsApi = getCredentialsInterface();
         await credentialsApi.delete(CONN_STRINGS_KEY);
     } catch (error) {
-        // tslint:disable-next-line: no-console
+        // eslint-disable-next-line no-console
         console.warn('Failed to delete from encrypted storage:', error);
     }
     localStorage.removeItem(CONNECTION_STRING_NAME_LIST);

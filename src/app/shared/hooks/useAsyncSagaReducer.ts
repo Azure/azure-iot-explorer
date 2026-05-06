@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { runSaga, stdChannel, Saga } from 'redux-saga';
-import { sagaReducerLogger } from './sagaReducerLogger';
+import { useSagaReducerLogger } from './sagaReducerLogger';
 
 export const useAsyncSagaReducer = <S, A>(reducer: React.Reducer<S, A>, saga: Saga, initialState?: S, stateName?: string): [S, (action: A) => void]  => {
-  const effectiveReducer = process.env.NODE_ENV === 'development' ? sagaReducerLogger(reducer, stateName) : reducer;
+  const loggedReducer = useSagaReducerLogger(reducer, stateName);
+  const effectiveReducer = process.env.NODE_ENV === 'development' ? loggedReducer : reducer;
   const [state, reactDispatch] = React.useReducer(effectiveReducer, initialState as S);
   const stateRef = React.useRef(state);
   React.useEffect(() => {

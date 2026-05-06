@@ -13,7 +13,7 @@ import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHel
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
-import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
+import { useHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
 import { AddCircleRegular, DeleteRegular } from '@fluentui/react-icons';
 import './deviceSimulationPanel.scss';
 
@@ -34,7 +34,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
 
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const hubConnectionString = getHubInformationFromLocalStorage().hubConnectionString;
+    const hubConnectionString = useHubInformationFromLocalStorage().hubConnectionString;
     const [ simulationBody, setSimulationBody ] = React.useState<string>('');
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
     const [ selectedIndices, setSelectedIndices ] = React.useState<Set<number>>(new Set());
