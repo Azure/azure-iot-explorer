@@ -27,7 +27,7 @@ export const CustomEventHub: React.FC<CustomEventHubProps> = ({
     setHasError}) => {
 
     const { t } = useTranslation();
-    const [ error, setError ] = React.useState<string>();
+    const [ error, setError ] = React.useState<string>('');
 
     React.useEffect(() => {
         if (!isValidEventHubConnectionString(customEventHubConnectionString)) {

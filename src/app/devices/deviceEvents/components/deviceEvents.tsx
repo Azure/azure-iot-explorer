@@ -37,7 +37,7 @@ export const DeviceEvents: React.FC = () => {
     const [specifyStartTime, setSpecifyStartTime] = React.useState<boolean>(false);
     const [startTime, setStartTime] = React.useState<Date>();
     const [useBuiltInEventHub, setUseBuiltInEventHub] = React.useState<boolean>(true);
-    const [customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>(undefined);
+    const [customEventHubConnectionString, setCustomEventHubConnectionString] = React.useState<string>('');
     const [showSystemProperties, setShowSystemProperties] = React.useState<boolean>(false);
 
     // event message state

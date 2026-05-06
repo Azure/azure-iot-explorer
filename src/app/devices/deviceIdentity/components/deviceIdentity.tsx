@@ -98,7 +98,7 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                         >
                             <Input
                                 aria-label={t(ResourceKeys.deviceIdentity.deviceID)}
-                                value={state.identity && state.identity.deviceId}
+                                value={state.identity?.deviceId ?? ''}
                                 readOnly={true}
                             />
                         </Field>

@@ -58,7 +58,7 @@ export const DeviceContentNavComponent: React.FC<DeviceContentNavProps> =  (prop
     const { isEdgeDevice, appMenuVisible = true } = props;
     const { search, pathname } = useLocation();
     const url = pathname.replace(/\/(identity|twin|events|methods|cloudToDeviceMessage|ioTPlugAndPlay|moduleIdentity)(\/.*)?$/, '');
-    const [ selectedRoute, setSelectedRoute] = React.useState<string>();
+    const [ selectedRoute, setSelectedRoute] = React.useState<string>('');
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
