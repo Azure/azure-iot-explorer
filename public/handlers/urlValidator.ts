@@ -3,11 +3,11 @@
  * Licensed under the MIT License
  **********************************************************/
 
-// Allowed Azure IoT Hub domain suffix
-const ALLOWED_DOMAIN_SUFFIX = '.azure-devices.net';
+// Allowed Azure IoT Hub domain suffixes (global + Azure China/21Vianet)
+const ALLOWED_DOMAIN_SUFFIXES = ['.azure-devices.net', '.azure-devices.cn'];
 
-// Allowed Azure Event Hubs domain suffix
-const ALLOWED_EVENTHUB_DOMAIN_SUFFIX = '.servicebus.windows.net';
+// Allowed Azure Event Hubs domain suffixes (global + Azure China/21Vianet)
+const ALLOWED_EVENTHUB_DOMAIN_SUFFIXES = ['.servicebus.windows.net', '.servicebus.chinacloudapi.cn'];
 
 // Allowlist of headers that can be passed through from client
 const ALLOWED_HEADERS = new Set([
@@ -45,8 +45,8 @@ export function validateAzureIoTHostname(hostname: string): boolean {
     // Normalize to lowercase for validation
     const normalizedHost = hostname.toLowerCase().trim();
 
-    // Must end with .azure-devices.net
-    if (!normalizedHost.endsWith(ALLOWED_DOMAIN_SUFFIX)) {
+    // Must end with .azure-devices.net or .azure-devices.cn
+    if (!ALLOWED_DOMAIN_SUFFIXES.some(suffix => normalizedHost.endsWith(suffix))) {
         return false;
     }
 
@@ -65,20 +65,23 @@ export function validateAzureIoTHostname(hostname: string): boolean {
     // e.g., 'myhub.privatelink.azure-devices.net' -> ['myhub', 'privatelink', 'azure-devices', 'net']
     const labels = normalizedHost.split('.');
 
-    // Must have exactly 3 labels (<hubname>.azure-devices.net)
-    // or exactly 4 labels (<hubname>.privatelink.azure-devices.net)
+    // Must have exactly 3 labels (<hubname>.azure-devices.net or <hubname>.azure-devices.cn)
+    // or exactly 4 labels (<hubname>.privatelink.azure-devices.net or <hubname>.privatelink.azure-devices.cn)
     if (labels.length !== 3 && labels.length !== 4) {
         return false;
     }
 
+    // Valid TLDs for Azure IoT Hub
+    const validTLDs = ['net', 'cn'];
+
     if (labels.length === 3) {
-        // Verify the domain is exactly 'azure-devices.net'
-        if (labels[1] !== 'azure-devices' || labels[2] !== 'net') {
+        // Verify the domain is exactly 'azure-devices.net' or 'azure-devices.cn'
+        if (labels[1] !== 'azure-devices' || !validTLDs.includes(labels[2])) {
             return false;
         }
     } else {
         // 4 labels: second must be 'privatelink'
-        if (labels[1] !== 'privatelink' || labels[2] !== 'azure-devices' || labels[3] !== 'net') {
+        if (labels[1] !== 'privatelink' || labels[2] !== 'azure-devices' || !validTLDs.includes(labels[3])) {
             return false;
         }
     }
@@ -102,11 +105,12 @@ export function validateAzureIoTHostname(hostname: string): boolean {
 }
 
 /**
- * Validates hostname is *.servicebus.windows.net or *.privatelink.servicebus.windows.net
+ * Validates hostname is *.servicebus.windows.net, *.privatelink.servicebus.windows.net,
+ * *.servicebus.chinacloudapi.cn, or *.privatelink.servicebus.chinacloudapi.cn
  * - No path components (no slashes)
  * - No special characters except dots and hyphens in valid positions
  * - Each label follows DNS naming rules
- * - Must end with .servicebus.windows.net
+ * - Must end with a valid Event Hubs domain suffix
  */
 export function validateEventHubHostname(hostname: string): boolean {
     if (!hostname || typeof hostname !== 'string') {
@@ -115,7 +119,7 @@ export function validateEventHubHostname(hostname: string): boolean {
 
     const normalizedHost = hostname.toLowerCase().trim();
 
-    if (!normalizedHost.endsWith(ALLOWED_EVENTHUB_DOMAIN_SUFFIX)) {
+    if (!ALLOWED_EVENTHUB_DOMAIN_SUFFIXES.some(suffix => normalizedHost.endsWith(suffix))) {
         return false;
     }
 
@@ -129,21 +133,42 @@ export function validateEventHubHostname(hostname: string): boolean {
         return false;
     }
 
-    // e.g., 'mynamespace.servicebus.windows.net' -> ['mynamespace', 'servicebus', 'windows', 'net']
-    // e.g., 'mynamespace.privatelink.servicebus.windows.net' -> ['mynamespace', 'privatelink', 'servicebus', 'windows', 'net']
+    // Global: 'mynamespace.servicebus.windows.net' -> ['mynamespace', 'servicebus', 'windows', 'net']
+    // Global: 'mynamespace.privatelink.servicebus.windows.net' -> ['mynamespace', 'privatelink', 'servicebus', 'windows', 'net']
+    // China: 'mynamespace.servicebus.chinacloudapi.cn' -> ['mynamespace', 'servicebus', 'chinacloudapi', 'cn']
+    // China: 'mynamespace.privatelink.servicebus.chinacloudapi.cn' -> ['mynamespace', 'privatelink', 'servicebus', 'chinacloudapi', 'cn']
     const labels = normalizedHost.split('.');
 
-    if (labels.length !== 4 && labels.length !== 5) {
-        return false;
-    }
+    // Validate domain structure based on suffix
+    const isChinaSuffix = normalizedHost.endsWith('.servicebus.chinacloudapi.cn');
 
-    if (labels.length === 4) {
-        if (labels[1] !== 'servicebus' || labels[2] !== 'windows' || labels[3] !== 'net') {
+    if (isChinaSuffix) {
+        // China: 4 labels or 5 labels (with privatelink)
+        if (labels.length !== 4 && labels.length !== 5) {
             return false;
         }
+        if (labels.length === 4) {
+            if (labels[1] !== 'servicebus' || labels[2] !== 'chinacloudapi' || labels[3] !== 'cn') {
+                return false;
+            }
+        } else {
+            if (labels[1] !== 'privatelink' || labels[2] !== 'servicebus' || labels[3] !== 'chinacloudapi' || labels[4] !== 'cn') {
+                return false;
+            }
+        }
     } else {
-        if (labels[1] !== 'privatelink' || labels[2] !== 'servicebus' || labels[3] !== 'windows' || labels[4] !== 'net') {
+        // Global: 4 labels or 5 labels (with privatelink)
+        if (labels.length !== 4 && labels.length !== 5) {
             return false;
+        }
+        if (labels.length === 4) {
+            if (labels[1] !== 'servicebus' || labels[2] !== 'windows' || labels[3] !== 'net') {
+                return false;
+            }
+        } else {
+            if (labels[1] !== 'privatelink' || labels[2] !== 'servicebus' || labels[3] !== 'windows' || labels[4] !== 'net') {
+                return false;
+            }
         }
     }
 
