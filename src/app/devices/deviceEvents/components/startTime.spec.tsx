@@ -98,21 +98,21 @@ describe('StartTime', () => {
         comboboxes.forEach(cb => expect((cb as HTMLInputElement).disabled).toBe(true));
     });
 
-    it('calls setStartTime with updated date when date is selected', () => {
+    it('calls setStartTime with updated date and cleared time when date is selected', () => {
         const existingTime = new Date(2026, 0, 1, 15, 45);
         const setStartTime = jest.fn();
         render(<StartTime {...defaultProps} specifyStartTime={true} startTime={existingTime} setStartTime={setStartTime} />);
 
         fireEvent.click(screen.getByRole('combobox', { name: /select date/i }));
 
-        // Should update the date to May 4 2026 but keep the time (15:45)
+        // Should update the date to May 4 2026 and clear the time to midnight
         expect(setStartTime).toHaveBeenCalled();
         const newDate: Date = setStartTime.mock.calls[0][0];
         expect(newDate.getFullYear()).toBe(2026);
         expect(newDate.getMonth()).toBe(4); // May
         expect(newDate.getDate()).toBe(4);
-        expect(newDate.getHours()).toBe(15);
-        expect(newDate.getMinutes()).toBe(45);
+        expect(newDate.getHours()).toBe(0);
+        expect(newDate.getMinutes()).toBe(0);
     });
 
     it('calls setStartTime with updated time when time is selected', () => {
