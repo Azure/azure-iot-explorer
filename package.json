@@ -61,7 +61,7 @@
     "start:dev": "concurrently \"npm run start:web:dev\" \"npm run start:electron:dev\"",
     "start:web:dev": "npm run localization && npm run webpack:compile && webpack-dev-server --config webpack.dev.js --mode development --hot --port 3000 --host 127.0.0.1",
     "start:electron:dev": "wait-on http://localhost:3000 && npm run electron:compile && npm run preload:compile && cross-env NODE_ENV=development electron .",
-    "test": "npm run localization && jest --coverage --detectOpenHandles",
+    "test": "npm run localization && jest --coverage",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand -i --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
     "test:watch": "jest --watch"
