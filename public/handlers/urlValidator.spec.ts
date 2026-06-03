@@ -52,6 +52,48 @@ describe('validateAzureIoTHostname', () => {
         it('accepts Azure US Gov Private Link hostname', () => {
             expect(validateAzureIoTHostname('myhub.privatelink.azure-devices.us')).toBe(true);
         });
+
+        // TLS 1.3 device/service hostnames
+        it('accepts device hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts service hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts Azure China device hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure China service hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure US Gov device hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.azure-devices.us')).toBe(true);
+        });
+
+        it('accepts Azure US Gov service hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.azure-devices.us')).toBe(true);
+        });
+
+        // TLS 1.3 device/service + Private Link hostnames
+        it('accepts device Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.privatelink.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts service Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.privatelink.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts Azure China device Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.privatelink.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure US Gov service Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.privatelink.azure-devices.us')).toBe(true);
+        });
     });
 
     describe('invalid hostnames — attacker-controlled', () => {

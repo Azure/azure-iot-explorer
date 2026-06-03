@@ -75,16 +75,31 @@ export function validateAzureIoTHostname(hostname: string): boolean {
     // Extract the prefix before the matched suffix
     // e.g., 'myhub.azure-devices.net' -> prefix = 'myhub'
     // e.g., 'myhub.privatelink.azure-devices.cn' -> prefix = 'myhub.privatelink'
+    // e.g., 'myhub.service.azure-devices.net' -> prefix = 'myhub.service'
+    // e.g., 'myhub.device.privatelink.azure-devices.net' -> prefix = 'myhub.device.privatelink'
     const prefix = normalizedHost.slice(0, normalizedHost.length - matchedSuffix.length);
     const prefixLabels = prefix.split('.').filter(l => l.length > 0);
 
-    // Must have exactly 1 label (hubname) or 2 labels (hubname.privatelink)
-    if (prefixLabels.length !== 1 && prefixLabels.length !== 2) {
+    // Allowed prefix patterns:
+    //   1 label:  <hub>
+    //   2 labels: <hub>.privatelink | <hub>.device | <hub>.service
+    //   3 labels: <hub>.device.privatelink | <hub>.service.privatelink
+    if (prefixLabels.length < 1 || prefixLabels.length > 3) {
         return false;
     }
 
-    if (prefixLabels.length === 2 && prefixLabels[1] !== 'privatelink') {
-        return false;
+    if (prefixLabels.length === 2) {
+        const allowedSecondLabels = ['privatelink', 'device', 'service'];
+        if (!allowedSecondLabels.includes(prefixLabels[1])) {
+            return false;
+        }
+    }
+
+    if (prefixLabels.length === 3) {
+        const allowedEndpointTypes = ['device', 'service'];
+        if (!allowedEndpointTypes.includes(prefixLabels[1]) || prefixLabels[2] !== 'privatelink') {
+            return false;
+        }
     }
 
     // Validate hub name (first label) follows DNS naming rules

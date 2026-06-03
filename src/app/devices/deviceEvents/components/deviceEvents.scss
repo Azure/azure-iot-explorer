@@ -105,4 +105,11 @@
         }
         width: 100%;
     }
+
+    .loader-content {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
 }

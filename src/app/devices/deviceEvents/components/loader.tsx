@@ -17,7 +17,7 @@ export const Loader: React.FC<{monitoringData: boolean}> = ({monitoringData}) =>
                     intent="info"
                 >
                     <MessageBarBody>
-                    <div style={{ display: 'flex', flexDirection: 'row', gap: '10px', alignItems: 'center' }}>
+                    <div className="loader-content">
                         <div>{t(ResourceKeys.deviceEvents.infiniteScroll.loading)}</div>
                         {<Spinner size="small" />}
                     </div>
