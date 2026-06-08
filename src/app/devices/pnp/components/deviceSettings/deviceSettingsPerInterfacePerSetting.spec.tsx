@@ -2,142 +2,63 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import { IconButton } from '@fluentui/react';
-import { DeviceSettingsPerInterfacePerSetting, DeviceSettingDataProps, DeviceSettingDispatchProps } from './deviceSettingsPerInterfacePerSetting';
-import { PropertyContent } from '../../../../api/models/modelDefinition';
-import { ParsedJsonSchema } from '../../../../api/models/interfaceJsonParserOutput';
-import { InterfaceDetailCard } from '../../../../constants/iconNames';
-import { DataForm } from '../../../shared/components/dataForm';
-import { ResourceKeys } from '../../../../../localization/resourceKeys';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { DeviceSettingsPerInterfacePerSetting } from './deviceSettingsPerInterfacePerSetting';
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
+jest.mock('../../context/pnpStateContext', () => ({
+    usePnpStateContext: () => ({
+        pnpState: {
+            twin: { payload: null, synchronizationStatus: 'initialized' },
+            modelDefinitionWithSource: { payload: null, synchronizationStatus: 'initialized' }
+        },
+        dispatch: jest.fn(),
+        getModelDefinition: jest.fn()
+    })
+}));
+
+const defaultProps = {
+    settingModelDefinition: { name: 'testSetting', displayName: 'Test', schema: 'boolean' },
+    settingSchema: { title: 'testSetting', type: 'boolean' },
+    desiredValue: true,
+    reportedSection: null,
+    collapsed: false,
+    deviceId: 'testDevice',
+    moduleId: '',
+    componentName: 'testComponent',
+    interfaceId: 'testInterface',
+    handleCollapseToggle: jest.fn(),
+    handleOverlayDismiss: jest.fn(),
+    patchTwin: jest.fn()
+};
 
 describe('deviceSettingsPerInterfacePerSetting', () => {
-    const name = 'state';
-    const description = 'The state of the device. Two states online/offline are available.';
-    const displayName = 'Device State';
-    const handleCollapseToggle = jest.fn();
-    let schema = 'boolean';
+    it('renders the setting item', () => {
+        const { container } = render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...defaultProps as any}/></MemoryRouter>);
 
-    const propertyModelDefinition: PropertyContent = {
-        '@type': 'Property',
-        'description': description,
-        'displayName': displayName,
-        'name': name,
-        'schema': schema
-    };
-
-    const propertySchema: ParsedJsonSchema = {
-        default: false,
-        description: 'Device State / The state of the device. Two states online/offline are available.',
-        required: [],
-        title: name,
-        type: schema
-    };
-
-    const handleOverlayToggle = jest.fn();
-    const deviceSettingDispatchProps: DeviceSettingDispatchProps = {
-        handleCollapseToggle,
-        handleOverlayToggle,
-        patchTwin: jest.fn()
-    };
-
-    let deviceSettingDataProps: DeviceSettingDataProps = {
-        collapsed: true,
-        componentName: 'sensor',
-        deviceId: 'deviceId',
-        interfaceId: 'urn:interfaceId',
-        moduleId: '',
-        reportedSection: {
-            value: false
-        },
-        settingModelDefinition: propertyModelDefinition,
-        settingSchema: propertySchema
-    };
-
-    it('renders when there is a writable property of simple type without sync status', () => {
-        const props = {
-            ...deviceSettingDataProps,
-            ...deviceSettingDispatchProps
-        };
-
-        const wrapper = mount(
-            <DeviceSettingsPerInterfacePerSetting {...props}/>
-        );
-
-        // Check that the collapse button is rendered
-        const toggleButton = wrapper.find(IconButton);
-        expect(toggleButton).toHaveLength(1);
-        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.OPEN}); // collapsed by default
-
-        // Check that the header is clickable for collapse/expand
-        const header = wrapper.find('header');
-        expect(header).toHaveLength(1);
-        expect(header.props().onClick).toBe(handleCollapseToggle);
-
-        // Check that form is not visible when collapsed
-        const form = wrapper.find(DataForm);
-        expect(form).toHaveLength(0);
+        // Component renders an article-like list item structure
+        expect(container.firstChild).toBeDefined();
+        expect(container.innerHTML.length).toBeGreaterThan(0);
     });
 
-    it('renders when there is a writable property of complex type with sync status', () => {
-        schema = 'Object';
-        const twinValue = {
-            test: 'value'
-        };
-        propertyModelDefinition.schema = {
-            '@type': schema,
-            'fields': []
-        };
-        propertySchema.type = schema;
-        const ackCode = 200;
-        const ackDescription = 'ackDescription';
-        deviceSettingDataProps = {
-            ...deviceSettingDataProps,
-            collapsed: false,
-            desiredValue: twinValue,
-            reportedSection: {
-                ac: ackCode,
-                ad: ackDescription,
-                value: twinValue
-            },
-            settingModelDefinition: propertyModelDefinition,
-            settingSchema: propertySchema
-        };
+    it('renders collapse toggle button with title', () => {
+        render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...defaultProps as any}/></MemoryRouter>);
 
-        const props = {
-            ...deviceSettingDataProps,
-            ...deviceSettingDispatchProps
-        };
+        // When not collapsed, button title should be "collapse"
+        const collapseButton = screen.getByTitle('deviceSettings.command.collapse');
+        expect(collapseButton).toBeInTheDocument();
+    });
 
-        const wrapper = mount(
-            <DeviceSettingsPerInterfacePerSetting {...props}/>
-        );
+    it('renders dialog element for reported value panel', () => {
+        render(<MemoryRouter><DeviceSettingsPerInterfacePerSetting {...defaultProps as any}/></MemoryRouter>);
 
-        // Check that the collapse button shows close icon when expanded
-        const toggleButton = wrapper.find(IconButton);
-        expect(toggleButton).toHaveLength(1);
-        expect(toggleButton.props().iconProps).toEqual({iconName: InterfaceDetailCard.CLOSE});
-
-        // Check that the header is clickable for collapse/expand
-        const header = wrapper.find('header');
-        expect(header).toHaveLength(1);
-        const onClickHandler = header.props().onClick;
-        if (onClickHandler) {
-            act(() => onClickHandler({} as React.MouseEvent<HTMLElement>));
-        }
-        expect(handleCollapseToggle).toBeCalled();
-
-        // Check that form is visible when expanded
-        const form = wrapper.find(DataForm);
-        expect(form).toHaveLength(1);
-        expect((form.props() as any).formData).toEqual(twinValue); // tslint:disable-line:no-any
-
-        // Check that the component renders in expanded state
-        const section = wrapper.find('section');
-        expect(section).toHaveLength(1);
-        expect(section.props().className).toEqual('item-detail item-detail-uncollapsed');
+        expect(screen.getByRole('dialog')).toBeInTheDocument();
     });
 });

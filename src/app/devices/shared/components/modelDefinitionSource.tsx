@@ -4,8 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import { Stack, ActionButton, Label } from '@fluentui/react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Label } from '@fluentui/react-components';
+import { SettingsRegular } from '@fluentui/react-icons';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import { REPOSITORY_LOCATION_TYPE } from '../../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -25,27 +26,23 @@ const getModelDefinitionSourceResourceKeys = (source: REPOSITORY_LOCATION_TYPE) 
 
 export const ModelDefinitionSourceView: React.FC<ModelDefinitionSourceViewProps> = props => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const onConfigureClick = () => {
-        history.push(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
+        navigate(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
     };
 
     return (
-        <Stack horizontal={true}>
-            <Stack.Item align="start">
-                <Label>{t(ResourceKeys.deviceInterfaces.columns.source)}: {t(getModelDefinitionSourceResourceKeys(props.source))}</Label>
-            </Stack.Item>
-
-            <Stack.Item align="center">
-                <ActionButton
-                    className="configure-button"
-                    onClick={onConfigureClick}
-                    iconProps={{iconName: 'Settings'}}
-                >
-                    {t(ResourceKeys.deviceInterfaces.command.configure)}
-                </ActionButton>
-            </Stack.Item>
-        </Stack>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Label>{t(ResourceKeys.deviceInterfaces.columns.source)}: {t(getModelDefinitionSourceResourceKeys(props.source))}</Label>
+            <Button
+                appearance="transparent"
+                className="configure-button"
+                onClick={onConfigureClick}
+                icon={<SettingsRegular />}
+            >
+                {t(ResourceKeys.deviceInterfaces.command.configure)}
+            </Button>
+        </div>
     );
 };

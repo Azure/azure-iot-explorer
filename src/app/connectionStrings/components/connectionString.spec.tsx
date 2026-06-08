@@ -3,127 +3,83 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { IconButton, Link } from '@fluentui/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { ConnectionString, ConnectionStringProps } from './connectionString';
-import { ConnectionStringDelete } from './connectionStringDelete';
 
-describe('connectionString', () => {
-    const connectionString = 'HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key';
-    const connectionStringWithExpiry = {connectionString, expiration: (new Date(0)).toUTCString()};
-    it('matches snapshot', () => {
-        const props: ConnectionStringProps = {
-            connectionStringWithExpiry,
-            onDeleteConnectionString: jest.fn(),
-            onEditConnectionString: jest.fn(),
-            onSelectConnectionString: jest.fn()
-        };
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
 
-        const wrapper = shallow(<ConnectionString {...props}/>);
-        expect(wrapper).toMatchSnapshot();
+describe('ConnectionString', () => {
+    const testConnectionString = 'HostName=test.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=abc123';
+    const defaultProps: ConnectionStringProps = {
+        connectionStringWithExpiry: { connectionString: testConnectionString, expiration: new Date(Date.now() + 365 * 86400000).toISOString() },
+        onEditConnectionString: jest.fn(),
+        onDeleteConnectionString: jest.fn(),
+        onSelectConnectionString: jest.fn()
+    };
+
+    beforeEach(() => jest.clearAllMocks());
+
+    it('renders resource name derived from host name', () => {
+        render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
+
+        expect(screen.getByText('test')).toBeInTheDocument();
     });
 
-    it('calls onSelectConnectionString when link clicked', () => {
-        const onSelectConnectionString = jest.fn();
-        const props: ConnectionStringProps = {
-            connectionStringWithExpiry,
-            onDeleteConnectionString: jest.fn(),
-            onEditConnectionString: jest.fn(),
-            onSelectConnectionString
-        };
+    it('renders edit and delete buttons', () => {
+        render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
-        const wrapper = shallow(<ConnectionString {...props}/>);
-        wrapper.find(Link).first().props().onClick(undefined);
-
-        expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString);
+        expect(screen.getByLabelText('connectionStrings.editConnectionCommand.ariaLabel')).toBeInTheDocument();
+        expect(screen.getByLabelText('connectionStrings.deleteConnectionCommand.ariaLabel')).toBeInTheDocument();
     });
 
-    it('calls onSelectConnectionString when convenience link clicked', () => {
-        const onSelectConnectionString = jest.fn();
-        const props: ConnectionStringProps = {
-            connectionStringWithExpiry,
-            onDeleteConnectionString: jest.fn(),
-            onEditConnectionString: jest.fn(),
-            onSelectConnectionString
-        };
+    it('calls onEditConnectionString when edit button is clicked', () => {
+        const onEdit = jest.fn();
+        render(<MemoryRouter><ConnectionString {...defaultProps} onEditConnectionString={onEdit}/></MemoryRouter>);
 
-        const wrapper = shallow(<ConnectionString {...props}/>);
-        wrapper.find(Link).last().props().onClick(undefined);
-
-        expect(onSelectConnectionString).toHaveBeenCalledWith(connectionString);
+        fireEvent.click(screen.getByLabelText('connectionStrings.editConnectionCommand.ariaLabel'));
+        expect(onEdit).toHaveBeenCalledWith(testConnectionString);
     });
 
-    it('calls onEditConnectionString when edit button clicked', () => {
-        const onEditConnectionString = jest.fn();
-        const props: ConnectionStringProps = {
-            connectionStringWithExpiry,
-            onDeleteConnectionString: jest.fn(),
-            onEditConnectionString,
-            onSelectConnectionString: jest.fn()
-        };
+    it('renders visit button that calls onSelectConnectionString', () => {
+        const onSelect = jest.fn();
+        render(<MemoryRouter><ConnectionString {...defaultProps} onSelectConnectionString={onSelect}/></MemoryRouter>);
 
-        const wrapper = shallow(<ConnectionString {...props}/>);
-        wrapper.find(IconButton).first().props().onClick(undefined);
-
-        expect(onEditConnectionString).toHaveBeenCalledWith(connectionString);
+        const visitButton = screen.getByText('connectionStrings.visitConnectionCommand.label');
+        fireEvent.click(visitButton);
+        expect(onSelect).toHaveBeenCalledWith(testConnectionString);
     });
 
-    describe('delete scenario', () => {
-        it('launches delete confirmation when delete clicked', () => {
-            const props: ConnectionStringProps = {
-                connectionStringWithExpiry,
-                onDeleteConnectionString: jest.fn(),
-                onEditConnectionString: jest.fn(),
-                onSelectConnectionString: jest.fn()
-            };
+    it('clicking resource name link calls onSelectConnectionString', () => {
+        const onSelect = jest.fn();
+        render(<MemoryRouter><ConnectionString {...defaultProps} onSelectConnectionString={onSelect}/></MemoryRouter>);
 
-            const wrapper = shallow(<ConnectionString {...props}/>);
-            wrapper.find(IconButton).get(1).props.onClick(undefined);
-            wrapper.update();
+        fireEvent.click(screen.getByText('test'));
+        expect(onSelect).toHaveBeenCalledWith(testConnectionString);
+    });
 
-            const connectionStringDelete = wrapper.find(ConnectionStringDelete);
-            expect(connectionStringDelete.props().hidden).toEqual(false);
-        });
+    it('opens delete confirmation dialog when delete button is clicked', () => {
+        render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
-        it('calls onDeleteConnectionString when ConnectionStringDelete confirmed', () => {
-            const onDeleteConnectionString = jest.fn();
-            const props: ConnectionStringProps = {
-                connectionStringWithExpiry,
-                onDeleteConnectionString,
-                onEditConnectionString: jest.fn(),
-                onSelectConnectionString: jest.fn()
-            };
+        // Initially dialog should not be open
+        expect(screen.queryByText('connectionStrings.deleteConnection.title')).toBeNull();
 
-            const wrapper = shallow(<ConnectionString {...props}/>);
-            wrapper.find(IconButton).get(1).props.onClick(undefined);
-            wrapper.update();
+        fireEvent.click(screen.getByLabelText('connectionStrings.deleteConnectionCommand.ariaLabel'));
 
-            const connectionStringDelete = wrapper.find(ConnectionStringDelete);
-            connectionStringDelete.props().onDeleteConfirm();
+        // Dialog should now be visible
+        expect(screen.getByText('connectionStrings.deleteConnection.title')).toBeInTheDocument();
+    });
 
-            expect (onDeleteConnectionString).toHaveBeenCalledWith(connectionString);
-        });
+    it('renders connection string properties labels', () => {
+        render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
-        it('hides delete confirmation when ConnnectionStringDelete canceled', () => {
-            const props: ConnectionStringProps = {
-                connectionStringWithExpiry,
-                onDeleteConnectionString: jest.fn(),
-                onEditConnectionString: jest.fn(),
-                onSelectConnectionString: jest.fn()
-            };
-
-            const wrapper = shallow(<ConnectionString {...props}/>);
-            wrapper.find(IconButton).get(1).props.onClick(undefined);
-            wrapper.update();
-
-            const connectionStringDelete = wrapper.find(ConnectionStringDelete);
-            expect(connectionStringDelete.props().hidden).toEqual(false);
-
-            connectionStringDelete.props().onDeleteCancel();
-            wrapper.update();
-
-            const updatedConnectionStringDelete = wrapper.find(ConnectionStringDelete);
-            expect(updatedConnectionStringDelete.props().hidden).toEqual(true);
-        });
+        expect(screen.getByText('connectionStrings.properties.hostName.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyName.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyKey.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.properties.connectionString.label')).toBeInTheDocument();
     });
 });

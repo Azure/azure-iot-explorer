@@ -3,69 +3,67 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
 import 'jest';
-import { shallow, mount } from 'enzyme';
-import { IconButton, TooltipHost } from '@fluentui/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MaskedCopyableTextField } from './maskedCopyableTextField';
 
 describe('MaskedCopyableTextField', () => {
-    describe('snapshots', () => {
-        it('it matches snapshot when allowMask = false', () => {
-            expect(shallow(
+    describe('rendering', () => {
+        it('renders when allowMask = false', () => {
+            render(
                 <MaskedCopyableTextField
                     allowMask={false}
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
                 />
-            )).toMatchSnapshot();
+            );
+            expect(screen.getByLabelText('ariaLabel1')).toBeInTheDocument();
         });
 
-        it('it matches snapshot when allowMask = true', () => {
-            expect(shallow(
+        it('renders when allowMask = true', () => {
+            render(
                 <MaskedCopyableTextField
                     allowMask={true}
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
                 />
-            )).toMatchSnapshot();
+            );
+            expect(screen.getByLabelText('ariaLabel1')).toBeInTheDocument();
         });
     });
 
     describe('toggleDisplay', () => {
-        it('toggles display on toggleDisplay click', () => {
-            const wrapper = mount(
+        it('toggles display on button click', () => {
+            render(
                 <MaskedCopyableTextField
                     allowMask={true}
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                />);
+                />
+            );
 
-            expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.show');
-            const showButton = wrapper.find(IconButton).first();
-            act(() => showButton.props().onClick(undefined));
-
-            wrapper.update();
-            expect(wrapper.find(TooltipHost).first().props().content).toEqual('common.maskedCopyableTextField.toggleMask.label.hide');
+            const showButton = screen.getByLabelText('common.maskedCopyableTextField.toggleMask.label.show');
+            fireEvent.click(showButton);
+            expect(screen.getByLabelText('common.maskedCopyableTextField.toggleMask.label.hide')).toBeInTheDocument();
         });
     });
 
     describe('copyToClipboard', () => {
-        it('executes copyToClipboard', async () => {
-            const wrapper = mount(
+        it('executes copyToClipboard', () => {
+            render(
                 <MaskedCopyableTextField
                     allowMask={false}
                     ariaLabel="ariaLabel1"
                     label="label1"
                     value="value1"
-                />);
+                />
+            );
 
-            const clipboardButton = wrapper.find(IconButton).first();
-            act(() => clipboardButton.props().onClick(undefined));
-
+            const clipboardButton = screen.getByLabelText('common.maskedCopyableTextField.copy.label');
+            fireEvent.click(clipboardButton);
             expect(document.execCommand).toHaveBeenLastCalledWith('copy');
         });
     });

@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import "variables";
- @import "themes";
+ @use 'variables' as *;
+ @use 'themes' as *;
 
  @media screen and (min-width: $screenSize) {
     .mainarea {
@@ -21,9 +21,6 @@
         }
 
         .mainleftnav.collapsed {
-            .ms-Nav-linkText {
-                display: none;
-            }
         }
 
         .maincontent {
@@ -37,7 +34,7 @@
     }
 
     .mainarea.collapsed {
-        grid-template-columns: 1fr 15fr;
+        grid-template-columns: auto 1fr;
     }
 }
 
@@ -66,9 +63,6 @@
     }
 
     .mainleftnav.collapsed {
-        .ms-Nav-linkText {
-            display: block;
-        }
     }
 
     .mainContainer.collapsed {

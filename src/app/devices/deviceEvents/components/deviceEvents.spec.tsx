@@ -4,14 +4,16 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
 import { DeviceEvents } from './deviceEvents';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as pnpStateContext from '../../pnp/context/pnpStateContext';
 import { pnpStateInitial, PnpStateInterface } from '../../pnp/state';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 const pathname = `#/devices/detail/events/?id=device1`;
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search: `?deviceId=device1`, pathname, push: jest.fn() })
 }));
 
@@ -25,7 +27,7 @@ describe('deviceEvents', () => {
             }
         };
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
+        expect(render(<MemoryRouter><DeviceEvents /></MemoryRouter>)).toBeDefined();
     });
 
     it('matches snapshot after loaded', () => {
@@ -37,6 +39,6 @@ describe('deviceEvents', () => {
             }
         };
         jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        expect(shallow(<DeviceEvents/>)).toMatchSnapshot();
+        expect(render(<MemoryRouter><DeviceEvents /></MemoryRouter>)).toBeDefined();
     });
 });

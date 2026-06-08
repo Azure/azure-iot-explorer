@@ -3,11 +3,12 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import {  } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { validateRepositoryLocationSettings } from './commands';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
+import { render } from '@testing-library/react';
 describe('validateRepositoryLocationSettings', () => {
     it('adds validation error when local repository lacks value', () => {
         const result = validateRepositoryLocationSettings([

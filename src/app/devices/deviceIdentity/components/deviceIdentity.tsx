@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Label, Toggle, TextField } from '@fluentui/react';
+import { Field, Input, InputOnChangeData, Label, Switch } from '@fluentui/react-components';
+import { PasswordField } from '../../../shared/components/passwordField';
 import { useTranslation } from 'react-i18next';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
@@ -91,13 +92,16 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                 {props.synchronizationStatus === SynchronizationStatus.working || props.synchronizationStatus === SynchronizationStatus.updating ?
                     <MultiLineShimmer /> :
                     <>
-                        <TextField
-                            ariaLabel={t(ResourceKeys.deviceIdentity.deviceID)}
+                        <Field
                             label={t(ResourceKeys.deviceIdentity.deviceID)}
-                            value={state.identity && state.identity.deviceId}
-                            readOnly={true}
-                            description={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
-                        />
+                            hint={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
+                        >
+                            <Input
+                                aria-label={t(ResourceKeys.deviceIdentity.deviceID)}
+                                value={state.identity?.deviceId ?? ''}
+                                readOnly={true}
+                            />
+                        </Field>
                         {renderDeviceAuthProperties()}
                         <br />
                         {authType === DeviceAuthenticationType.SymmetricKey && renderSasTokenSection()}
@@ -125,32 +129,26 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                 return (
                     <>
                         <Label>{t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.text)}</Label>
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                             value={state.identity.authentication.x509Thumbprint.primaryThumbprint}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                         />
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                             value={state.identity.authentication.x509Thumbprint.secondaryThumbprint}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
                         />
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionString)}
                             value={generateX509ConnectionString(hostName, identity.deviceId)}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.connectionStringTooltip)}
@@ -161,12 +159,10 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
                 return (
                     <>
                         <Label>{t(ResourceKeys.deviceIdentity.authenticationType.ca.text)}</Label>
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionString)}
                             value={generateX509ConnectionString(hostName, identity.deviceId)}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.ca.connectionStringTooltip)}
@@ -176,45 +172,37 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
             case DeviceAuthenticationType.SymmetricKey:
                 return (
                     <>
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                             value={state.identity.authentication.symmetricKey.primaryKey}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             onChange={changePrimaryKey}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                         />
 
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                             value={state.identity.authentication.symmetricKey.secondaryKey}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             onChange={changeSecondaryKey}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
                         />
 
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionString)}
                             value={generateConnectionString(hostName, identity.deviceId, identity.authentication.symmetricKey.primaryKey)}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryConnectionStringTooltip)}
                         />
 
-                        <TextField
+                        <PasswordField
                             ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionString)}
                             value={generateConnectionString(hostName, identity.deviceId, identity.authentication.symmetricKey.secondaryKey)}
-                            type={'password'}
-                            canRevealPassword={true}
                             revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                             readOnly={true}
                             description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryConnectionStringTooltip)}
@@ -228,20 +216,18 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
 
     const renderHubRelatedInformation = () => {
         return (
-            <Toggle
+            <Switch
                 checked={state.identity && state.identity.status === DeviceStatus.Enabled}
-                ariaLabel={t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
+                aria-label={t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
                 label={t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
-                onText={t(ResourceKeys.deviceIdentity.hubConnectivity.enable)}
-                offText={t(ResourceKeys.deviceIdentity.hubConnectivity.disable)}
                 onChange={changeToggle}
             />
         );
     };
 
-    const changePrimaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, value: string) => {
+    const changePrimaryKey = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
         const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
-        identityDeepCopy.authentication.symmetricKey.primaryKey = value;
+        identityDeepCopy.authentication.symmetricKey.primaryKey = data.value;
         setState({
             ...state,
             identity: identityDeepCopy,
@@ -249,9 +235,9 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
         });
     };
 
-    const changeSecondaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, value: string) => {
+    const changeSecondaryKey = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
         const identityDeepCopy: DeviceIdentity = JSON.parse(JSON.stringify(state.identity));
-        identityDeepCopy.authentication.symmetricKey.secondaryKey = value;
+        identityDeepCopy.authentication.symmetricKey.secondaryKey = data.value;
         setState({
             ...state,
             identity: identityDeepCopy,
@@ -312,10 +298,10 @@ export const DeviceIdentityInformation: React.FC<DeviceIdentityDataProps & Devic
         });
     };
 
-    const changeToggle = (event: React.MouseEvent<HTMLElement>, checked?: boolean) => {
+    const changeToggle = (ev: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean }) => {
         const identity = {
             ...state.identity,
-            status: checked ? DeviceStatus.Enabled.toString() : DeviceStatus.Disabled.toString()
+            status: data.checked ? DeviceStatus.Enabled.toString() : DeviceStatus.Disabled.toString()
         };
         setState({
             ...state,

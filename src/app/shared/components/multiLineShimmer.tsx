@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Shimmer, ShimmerElementType } from '@fluentui/react';
+import { Skeleton, SkeletonItem } from '@fluentui/react-components';
 import '../../css/_multilineShimmer.scss';
 
-const SHIMMER_HEIGHT = 20;
+const SHIMMER_HEIGHT = 16;
 const SHIMMER_COUNT = 3;
 
 export interface MultiLineShimmerProps {
@@ -20,17 +20,17 @@ export const MultiLineShimmer = (props: MultiLineShimmerProps) => {
     const shimmers = [];
     for (let i = 0; i < shimmerCount; i++) {
         shimmers.push(
-            <Shimmer
+            <Skeleton
                 key={i}
-                style={{paddingLeft: 10, paddingRight: 10}}
-                shimmerElements={[
-                    { type: ShimmerElementType.line, height: SHIMMER_HEIGHT }
-                ]}
-            />
+                animation="wave"
+                style={{padding: '6px 10px'}}
+            >
+                <SkeletonItem size={SHIMMER_HEIGHT} />
+            </Skeleton>
         );
     }
     return (
-        <div className={className}>
+        <div className={className} role="status" aria-label="Loading" aria-busy="true">
             {shimmers}
         </div>
     );

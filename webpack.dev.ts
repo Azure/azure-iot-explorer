@@ -2,11 +2,10 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Configuration as WebpackConfig, NormalModuleReplacementPlugin } from 'webpack';
+import { Configuration as WebpackConfig, NormalModuleReplacementPlugin, ProvidePlugin } from 'webpack';
 import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
 import { merge } from 'webpack-merge';
 import common from './webpack.common';
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // tslint:disable-line: no-var-requires
 
 interface Config extends WebpackConfig {
     devServer?: WebpackDevServerConfig
@@ -27,7 +26,6 @@ const config: Config = merge(common, {
                 test: /\.(scss|css)$/,
                 use: [
                     { loader: 'style-loader'},
-                    MiniCssExtractPlugin.loader,
                     { loader: 'css-loader', options: { sourceMap: true}},
                     { loader: 'sass-loader', options: {sourceMap: true, implementation: require('sass')}}]
             }
@@ -35,12 +33,8 @@ const config: Config = merge(common, {
     },
 
     plugins: [
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // all options are optional
-            chunkFilename: '[id].css',
-            filename: '[name].css',
-            ignoreOrder: false, // Enable to remove warnings about conflicting order
+        new ProvidePlugin({
+            process: require.resolve('process/browser'),
         }),
         new NormalModuleReplacementPlugin(
             /(.*)appConfig.ENV(\.*)/,
@@ -51,6 +45,7 @@ const config: Config = merge(common, {
     devServer: {
         compress: true,
         historyApiFallback: true,
+        allowedHosts: ['localhost', '127.0.0.1'],
     }
 });
 

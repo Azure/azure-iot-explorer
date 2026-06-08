@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { runSaga, stdChannel, Saga } from 'redux-saga';
-import { sagaReducerLogger } from './sagaReducerLogger';
+import { useSagaReducerLogger } from './sagaReducerLogger';
 
-export const useAsyncSagaReducer = <S, A>(reducer: React.Reducer<S, A>, saga: Saga<never[]>, initialState?: S, stateName?: string): [S, (action: A) => void]  => {
-  const effectiveReducer = process.env.NODE_ENV === 'development' ? sagaReducerLogger(reducer, stateName) : reducer;
-  const [state, reactDispatch] = React.useReducer<React.Reducer<S, A>>(effectiveReducer, initialState);
+export const useAsyncSagaReducer = <S, A>(reducer: React.Reducer<S, A>, saga: Saga, initialState?: S, stateName?: string): [S, (action: A) => void]  => {
+  const loggedReducer = useSagaReducerLogger(reducer, stateName);
+  const effectiveReducer = process.env.NODE_ENV === 'development' ? loggedReducer : reducer;
+  const [state, reactDispatch] = React.useReducer(effectiveReducer, initialState as S);
   const stateRef = React.useRef(state);
   React.useEffect(() => {
     stateRef.current = state;
@@ -29,7 +30,7 @@ export const useAsyncSagaReducer = <S, A>(reducer: React.Reducer<S, A>, saga: Sa
     return () => {
       task.cancel();
     };
-  },              [sagaChannel]);
+  },              [sagaChannel]); // eslint-disable-line react-hooks/exhaustive-deps -- saga is stable (passed once)
 
   return [state, sagaChannel.dispatch];
 };

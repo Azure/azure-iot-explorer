@@ -4,12 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar, Label } from '@fluentui/react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Label } from '@fluentui/react-components';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/commandBarItemKeys';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -21,7 +23,7 @@ import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app
 
 export const DeviceCommands: React.FC = () => {
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { t } = useTranslation();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
@@ -58,7 +60,7 @@ export const DeviceCommands: React.FC = () => {
     const handleRefresh = () => getModelDefinition();
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/commands\/.*/, ``);
-        history.push(getBackUrl(path, search));
+        navigate(getBackUrl(path, search));
     };
 
     React.useEffect(() => {
@@ -78,7 +80,7 @@ export const DeviceCommands: React.FC = () => {
                 items={[
                     {
                         ariaLabel: t(ResourceKeys.deviceCommands.command.refresh),
-                        iconProps: {iconName: REFRESH},
+                        icon: <ArrowSyncRegular />,
                         key: REFRESH,
                         name: t(ResourceKeys.deviceCommands.command.refresh),
                         onClick: handleRefresh
@@ -87,7 +89,7 @@ export const DeviceCommands: React.FC = () => {
                 farItems={[
                     {
                         ariaLabel: t(ResourceKeys.deviceCommands.command.close),
-                        iconProps: {iconName: NAVIGATE_BACK},
+                        icon: <ArrowLeftRegular />,
                         key: NAVIGATE_BACK,
                         name: t(ResourceKeys.deviceCommands.command.close),
                         onClick: handleClose

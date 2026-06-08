@@ -4,9 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { ArrayOperation, REFRESH } from '../../../constants/iconNames';
+import { BoxRegular, ArrowSyncRegular, DeleteRegular } from '@fluentui/react-icons';
+import { REFRESH } from '../../../constants/commandBarItemKeys';
 
 export interface DeviceListCommandBarDataProps {
     disableAdd?: boolean;
@@ -31,19 +32,15 @@ export const DeviceListCommandBar: React.FC<DeviceListCommandBarDataProps & Devi
                 {
                     ariaLabel: t(ResourceKeys.deviceLists.commands.add),
                     disabled: disableAdd,
-                    iconProps: {
-                        iconName: ArrayOperation.ADD
-                    },
-                    key: ArrayOperation.ADD,
+                    icon: <BoxRegular />,
+                    key: 'add',
                     name: t(ResourceKeys.deviceLists.commands.add),
                     onClick: handleAdd
                 },
                 {
                     ariaLabel: t(ResourceKeys.deviceLists.commands.refresh),
                     disabled: disableRefresh,
-                    iconProps: {
-                        iconName: REFRESH
-                    },
+                    icon: <ArrowSyncRegular />,
                     key: REFRESH,
                     name: t(ResourceKeys.deviceLists.commands.refresh),
                     onClick: handleRefresh
@@ -51,10 +48,8 @@ export const DeviceListCommandBar: React.FC<DeviceListCommandBarDataProps & Devi
                 {
                     ariaLabel: t(ResourceKeys.deviceLists.commands.delete.buttonText),
                     disabled: disableDelete,
-                    iconProps: {
-                        iconName: ArrayOperation.REMOVE
-                    },
-                    key: ArrayOperation.REMOVE,
+                    icon: <DeleteRegular />,
+                    key: 'delete',
                     name: t(ResourceKeys.deviceLists.commands.delete.buttonText),
                     onClick: handleDelete
                 },

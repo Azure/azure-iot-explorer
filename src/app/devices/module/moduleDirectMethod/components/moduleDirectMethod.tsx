@@ -4,16 +4,16 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar } from '@fluentui/react';
+import { useLocation } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { DIRECT_METHOD, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { RemoteRegular } from '@fluentui/react-icons';
+import { DIRECT_METHOD } from '../../../../constants/commandBarItemKeys';
 import { useAsyncSagaReducer } from '../../../../shared/hooks/useAsyncSagaReducer';
 import { invokeModuleDirectMethodSaga } from '../saga';
 import { invokeModuleDirectMethodAction } from '../actions';
 import { DirectMethodForm } from '../../../../devices/directMethod/components/directMethodForm';
-import { ROUTE_PARAMS, ROUTE_PARTS } from '../../../../constants/routes';
 import '../../../../css/_deviceDetail.scss';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app/constants/telemetry';
@@ -22,21 +22,15 @@ const DEFAULT_TIMEOUT = 10;
 
 export const ModuleDirectMethod: React.FC = () => {
     const { t } = useTranslation();
-    const { search, pathname } = useLocation();
-    const history = useHistory();
+    const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
 
-    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeModuleDirectMethodSaga, undefined);
+    const [ , dispatch ] = useAsyncSagaReducer((): undefined => undefined, invokeModuleDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
     const [methodName, setMethodName] = React.useState<string>('');
     const [payload, setPayload] = React.useState<string>('');
     const [responseTimeOut, setResponseTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
-
-    const navigateToModuleList = () => {
-        const path = pathname.replace(/\/moduleIdentity\/moduleMethod\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
-    };
 
     const showCommandBar = () => {
         return (
@@ -46,7 +40,7 @@ export const ModuleDirectMethod: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.directMethod.invokeMethodButtonText),
                         disabled: !formReady(),
-                        iconProps: {iconName: DIRECT_METHOD},
+                        icon: <RemoteRegular />,
                         key: DIRECT_METHOD,
                         name: t(ResourceKeys.directMethod.invokeMethodButtonText),
                         onClick: onInvokeMethodClickHandler

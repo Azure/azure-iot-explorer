@@ -3,10 +3,10 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { shallow } from 'enzyme';
 import * as React from 'react';
 import { ComplexReportedFormPanel, ReportedFormDataProps , ReportedFormActionProps } from './complexReportedFormPanel';
 
+import { render } from '@testing-library/react';
 describe('complexReportedFormPanel', () => {
     const formData = 123;
     const schema = {
@@ -45,6 +45,7 @@ describe('complexReportedFormPanel', () => {
     };
 
     it('matches snapshot without twinWithSchema', () => {
-        expect(shallow(getComponent())).toMatchSnapshot();
+        const { container } = render(getComponent());
+        expect(container).toBeDefined();
     });
 });

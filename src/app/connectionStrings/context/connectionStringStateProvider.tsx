@@ -13,7 +13,7 @@ export interface ConnectionStringInterface {
     deleteConnectionString(connectionString: string): void;
 }
 
-export const ConnectionStringStateContextProvider: React.FC = props => {
+export const ConnectionStringStateContextProvider: React.FC<React.PropsWithChildren> = props => {
     const [ state, dispatch ] = useAsyncSagaReducer(connectionStringsReducer, connectionStringsSaga, connectionStringsStateInitial(), 'connectionStringsState');
 
     const connectionStringApi: ConnectionStringInterface = {

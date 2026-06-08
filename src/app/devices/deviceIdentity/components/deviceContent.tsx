@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useRouteMatch } from 'react-router-dom';
+import { useLocation, Routes, Route } from 'react-router-dom';
 import { DeviceIdentityInformation } from './deviceIdentity';
 import { DeviceTwin } from '../../deviceTwin/components/deviceTwin';
 import { DeviceEvents } from '../../deviceEvents/components/deviceEvents';
@@ -33,7 +33,6 @@ import '../../../css/_deviceContent.scss';
 export const DeviceContent: React.FC = () => {
     const { t } = useTranslation();
     const { search } = useLocation();
-    const { url } = useRouteMatch();
     const deviceId = getDeviceIdFromQueryString(search);
     useBreadcrumbEntry({ name: deviceId, disableLink: true });
 
@@ -47,7 +46,7 @@ export const DeviceContent: React.FC = () => {
         () => {
             dispatch(getDeviceIdentityAction.started(deviceId));
         },
-        [deviceId]);
+        [deviceId, dispatch]);
 
     const renderNav = () => {
         return (
@@ -79,55 +78,68 @@ export const DeviceContent: React.FC = () => {
     const renderDeviceContentDetail = () => {
         return (
             <div className="device-content-detail maincontent">
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.IDENTITY}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.identity) }}
-                    children={createDeviceIdentityComponent()}
-                />
-
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.TWIN}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.twin) }}
-                    children={<DeviceTwin />}
-                />
-
-                <DeviceEventsStateContextProvider>
-                    <BreadcrumbRoute
-                        path={`${url}/${ROUTE_PARTS.EVENTS}`}
-                        breadcrumb={{ name: t(ResourceKeys.breadcrumb.events) }}
-                        children={<DeviceEvents />}
+                <Routes>
+                    <Route
+                        path={`${ROUTE_PARTS.IDENTITY}`}
+                        element={
+                            <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.identity) }}>
+                                {createDeviceIdentityComponent()}
+                            </BreadcrumbRoute>
+                        }
                     />
-                </DeviceEventsStateContextProvider>
-
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.METHODS}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.methods) }}
-                    children={<DirectMethod />}
-                />
-
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.cloudToDeviceMessage) }}
-                    children={<CloudToDeviceMessage />}
-                />
-
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.DIGITAL_TWINS}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}
-                    children={<Pnp />}
-                />
-
-                <BreadcrumbRoute
-                    path={`${url}/${ROUTE_PARTS.MODULE_IDENTITY}`}
-                    breadcrumb={{ name: t(ResourceKeys.breadcrumb.moduleIdentity), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}
-                    children={<DeviceModules />}
-                />
+                    <Route
+                        path={`${ROUTE_PARTS.TWIN}`}
+                        element={
+                            <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.twin) }}>
+                                <DeviceTwin />
+                            </BreadcrumbRoute>
+                        }
+                    />
+                    <Route
+                        path={`${ROUTE_PARTS.EVENTS}/*`}
+                        element={
+                            <DeviceEventsStateContextProvider>
+                                <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.events) }}>
+                                    <DeviceEvents />
+                                </BreadcrumbRoute>
+                            </DeviceEventsStateContextProvider>
+                        }
+                    />
+                    <Route
+                        path={`${ROUTE_PARTS.METHODS}`}
+                        element={
+                            <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.methods) }}>
+                                <DirectMethod />
+                            </BreadcrumbRoute>
+                        }
+                    />
+                    <Route
+                        path={`${ROUTE_PARTS.CLOUD_TO_DEVICE_MESSAGE}`}
+                        element={
+                            <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.cloudToDeviceMessage) }}>
+                                <CloudToDeviceMessage />
+                            </BreadcrumbRoute>
+                        }
+                    />
+                    <Route
+                        path={`${ROUTE_PARTS.DIGITAL_TWINS}/*`}
+                        element={
+                            <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}>
+                                <Pnp />
+                            </BreadcrumbRoute>
+                        }
+                    />
+                    <Route
+                        path={`${ROUTE_PARTS.MODULE_IDENTITY}/*`}
+                        element={
+                            <BreadcrumbRoute breadcrumb={{ name: t(ResourceKeys.breadcrumb.moduleIdentity), suffix: `?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` }}>
+                                <DeviceModules />
+                            </BreadcrumbRoute>
+                        }
+                    />
+                </Routes>
             </div>
         );
-    };
-
-    const collapseToggle = () => {
-        setAppMenuVisible(!appMenuVisible);
     };
 
     const createNavLinks = () => {
@@ -137,6 +149,7 @@ export const DeviceContent: React.FC = () => {
                 (
                     <DeviceContentNavComponent
                         isEdgeDevice={deviceIdentity && deviceIdentity.capabilities && deviceIdentity.capabilities.iotEdge}
+                        appMenuVisible={appMenuVisible}
                     />
                 )
         );

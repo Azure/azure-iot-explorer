@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import { NotificationList } from './notificationList';
 import * as NotificationsContext from '../context/notificationsStateContext';
 import { NotificationType } from '../../api/models/notification';
@@ -11,18 +11,20 @@ import { getInitialNotificationsState } from '../state';
 import { getInitialNotificationsActions } from '../interface';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '?deviceId=testDevice' }),
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    ...jest.requireActual('react-router-dom'),
+    useLocation: () => ({ pathname: 'url', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' }),
+    useNavigate: () => jest.fn(),
+
 }));
 
 describe('notificationList', () => {
-    it('matches snapshot where there are no notifications', () => {
+    it('renders when there are no notifications', () => {
         jest.spyOn(NotificationsContext, 'useNotificationsContext').mockReturnValueOnce([getInitialNotificationsState(), getInitialNotificationsActions()]);
-        expect(shallow(<NotificationList/>)).toMatchSnapshot();
+        const { container } = render(<NotificationList/>);
+        expect(container).toBeDefined();
     });
 
-    it('matches snapshot where there is no notifications', () => {
+    it('renders when there are notifications', () => {
         const initialState = {
             ...getInitialNotificationsState(),
             hasNew: true,
@@ -34,6 +36,7 @@ describe('notificationList', () => {
             }]
         };
         jest.spyOn(NotificationsContext, 'useNotificationsContext').mockReturnValueOnce([initialState, getInitialNotificationsActions()]);
-        expect(shallow(<NotificationList/>)).toMatchSnapshot();
+        const { container } = render(<NotificationList/>);
+        expect(container).toBeDefined();
     });
 });

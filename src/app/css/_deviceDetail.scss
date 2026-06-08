@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'themes';
- @import 'variables';
+ @use 'themes' as *;
+ @use 'variables' as *;
 
 @media screen and (min-width: $screenSize) {
     .device-detail {
@@ -30,11 +30,23 @@
     padding-top: 10px;
     .payload-input {
         margin-bottom: 20px;
+        width: 100%;
     }
 }
 
 .cloud-to-device-message-text-field {
     margin-bottom: 15px;
+    width: 100%;
+}
+
+// Ensure DataGrid cell Field inputs have spacing and fill cell width
+.rdl-cell .fui-Field {
+    padding: 4px 0;
+    width: 100%;
+}
+
+.rdl-cell .fui-Input {
+    width: 100%;
 }
 
 .ms-ContextualMenu-secondaryText {

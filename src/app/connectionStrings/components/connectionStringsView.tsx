@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ConnectionString  } from './connectionString';
 import { ConnectionStringEditView } from './connectionStringEditView';
 import { ResourceKeys } from '../../../localization/resourceKeys';
@@ -25,7 +25,7 @@ import './connectionStringsView.scss';
 // tslint:disable-next-line: cyclomatic-complexity
 export const ConnectionStringsView: React.FC = () => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
     const [ state, api ] = useConnectionStringContext();
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
@@ -74,7 +74,7 @@ export const ConnectionStringsView: React.FC = () => {
 
     React.useEffect(() => {
         api.getConnectionStrings();
-    },              []);
+    },              []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.HUBS});
@@ -83,9 +83,9 @@ export const ConnectionStringsView: React.FC = () => {
     React.useEffect(() => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when connection string updated successfully would navigate to device list view
             const hostName = getConnectionInfoFromConnectionString(connectionStringsWithExpiry[0] && connectionStringsWithExpiry[0].connectionString).hostName;
-            history.push(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
+            navigate(`/${ROUTE_PARTS.IOT_HUB}/${ROUTE_PARTS.HOST_NAME}/${hostName}/`);
         }
-    },              [synchronizationStatus]);
+    },              [synchronizationStatus]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to status change
 
     if (synchronizationStatus === SynchronizationStatus.updating || synchronizationStatus === SynchronizationStatus.working) {
         return (

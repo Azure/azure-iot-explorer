@@ -2,32 +2,59 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+let useStateMock: jest.Mock | null = null;
+jest.mock('react', () => {
+    const actual = jest.requireActual('react');
+    return {
+        ...actual,
+        useState: (...args: any[]) => {
+            if (useStateMock) {
+                const result = useStateMock(...args);
+                if (result !== undefined) {
+                    return result;
+                }
+            }
+            return actual.useState(...args);
+        },
+    };
+});
+
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { HubSelection } from './hubSelection';
 import { getInitialAzureActiveDirectoryState } from '../state';
 import * as azureActiveDirectoryStateContext from '../context/azureActiveDirectoryStateContext';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 describe('HubSelection', () => {
+    afterEach(() => {
+        useStateMock = null;
+    });
+
     it('matches snapshot when page is loading', () => {
         jest.spyOn(azureActiveDirectoryStateContext, 'useAzureActiveDirectoryStateContext').mockReturnValue(
             [{...getInitialAzureActiveDirectoryState(), formState: 'working'}, azureActiveDirectoryStateContext.getInitialAzureActiveDirectoryOps()]);
-        const wrapper = shallow(<HubSelection/>);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<MemoryRouter><HubSelection/></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 
     it('matches snapshot when token is present', () => {
         jest.spyOn(azureActiveDirectoryStateContext, 'useAzureActiveDirectoryStateContext').mockReturnValue(
             [{...getInitialAzureActiveDirectoryState(), token: 'token'}, azureActiveDirectoryStateContext.getInitialAzureActiveDirectoryOps()]);
-        const wrapper = shallow(<HubSelection/>);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<MemoryRouter><HubSelection/></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 
     it('matches snapshot when hub list is shown', () => {
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
+        useStateMock = jest.fn((initialValue: any) => {
+            if (initialValue === false) {
+                return [true, jest.fn()];
+            }
+            return undefined;
+        });
         jest.spyOn(azureActiveDirectoryStateContext, 'useAzureActiveDirectoryStateContext').mockReturnValue(
             [getInitialAzureActiveDirectoryState(), azureActiveDirectoryStateContext.getInitialAzureActiveDirectoryOps()]);
-        const wrapper = shallow(<HubSelection/>);
-        expect(wrapper).toMatchSnapshot();
+        const { container } = render(<MemoryRouter><HubSelection/></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 });

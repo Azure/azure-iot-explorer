@@ -2,69 +2,46 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import { IconButton } from '@fluentui/react';
-import { DeviceCommandsPerInterface, DeviceCommandDataProps, DeviceCommandDispatchProps } from './deviceCommandsPerInterface';
-import { DeviceCommandsPerInterfacePerCommand } from './deviceCommandsPerInterfacePerCommand';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { DeviceCommandsPerInterface } from './deviceCommandsPerInterface';
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
+jest.mock('../../context/pnpStateContext', () => ({
+    usePnpStateContext: () => ({
+        pnpState: {
+            twin: { payload: null, synchronizationStatus: 'initialized' },
+            modelDefinitionWithSource: { payload: null, synchronizationStatus: 'initialized' }
+        },
+        dispatch: jest.fn(),
+        getModelDefinition: jest.fn()
+    })
+}));
 
 describe('components/devices/deviceCommandsPerInterface', () => {
-    const deviceCommandsDispatchProps: DeviceCommandDispatchProps = {
-        invokeCommand: jest.fn()
-    };
-    const deviceCommandDataProps: DeviceCommandDataProps = {
-        commandSchemas: [
-            {
-                commandModelDefinition: {
-                    '@type': 'Command',
-                    'name': 'command1'
-                },
-                parsedSchema: {
-                    description: 'command1 description',
-                    name: 'command1'
-                }
-            }
-        ],
-        componentName: 'urn:interfaceId',
-        deviceId: 'device1',
-        moduleId: ''
-    };
+    it('renders column headers', () => {
+        render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
 
-    const getComponent = (overrides = {}) => {
-        const props = {
-            ...deviceCommandDataProps,
-            ...deviceCommandsDispatchProps,
-            ...overrides
-        };
-
-        return (
-            <DeviceCommandsPerInterface {...props} />
-        );
-    };
-
-    it('matches snapshot', () => {
-        expect(shallow(getComponent())).toMatchSnapshot();
+        expect(screen.getByText('deviceCommands.columns.name')).toBeInTheDocument();
+        expect(screen.getByText('deviceCommands.columns.type')).toBeInTheDocument();
     });
 
-    it('toggles collapsed', () => {
-        const wrapper = mount(getComponent());
-        expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.collapseAll');
+    it('renders collapse all button', () => {
+        const { container } = render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
 
-        const button = wrapper.find(IconButton).first();
-        button.simulate('click');
-        wrapper.update();
-        expect(wrapper.find('.collapse-button').find(IconButton).first().props().title).toEqual('deviceCommands.command.expandAll');
+        const collapseBtn = container.querySelector('.collapse-button button');
+        expect(collapseBtn).toBeInTheDocument();
     });
 
-    it('executes handle toggle from child', () => {
-        const wrapper = mount(getComponent());
+    it('renders empty list role when no commands', () => {
+        render(<MemoryRouter><DeviceCommandsPerInterface commandSchemas={[]} deviceId="test" moduleId="" componentName="comp" invokeCommand={jest.fn()}/></MemoryRouter>);
 
-        expect(wrapper.find(DeviceCommandsPerInterfacePerCommand).first().props().collapsed).toBeFalsy();
-
-        act(() => wrapper.find(DeviceCommandsPerInterfacePerCommand).first().props().handleCollapseToggle());
-        wrapper.update();
-        expect(wrapper.find(DeviceCommandsPerInterfacePerCommand).first().props().collapsed).toBeTruthy();
+        expect(screen.getByRole('main')).toBeInTheDocument();
     });
 });

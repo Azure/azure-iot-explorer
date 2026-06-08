@@ -4,10 +4,11 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { CLEAR, CHECKED_CHECKBOX, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, REMOVE, CODE, UPLOAD } from '../../../constants/iconNames';
+import { DeleteRegular, CheckboxCheckedRegular, CheckboxUncheckedRegular, PlayRegular, StopFilled, ArrowLeftRegular, ArrowSyncRegular, CodeRegular, ArrowUploadRegular } from '@fluentui/react-icons';
+import { CLEAR, EMPTY_CHECKBOX, START, STOP, NAVIGATE_BACK, REFRESH, UPLOAD } from '../../../constants/commandBarItemKeys';
 import { getComponentNameFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { usePnpStateContext } from '../../pnp/context/pnpStateContext';
 import { getBackUrl } from '../../pnp/utils';
@@ -45,12 +46,12 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const {t} = useTranslation();
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { getModelDefinition } = usePnpStateContext();
     const componentName = getComponentNameFromQueryString(search); // if component name exist, we are in pnp context
     const [ state, api ] = useDeviceEventsStateContext();
 
-    const createCommandBarItems = (): ICommandBarItemProps[] => {
+    const createCommandBarItems = () => {
         if (componentName) {
             return [createStartMonitoringCommandItem(),
                 createPnpModeledEventsCommandItem(),
@@ -67,24 +68,20 @@ export const Commands: React.FC<CommandsProps> = ({
         }
     };
 
-    const createClearCommandItem = (): ICommandBarItemProps => {
+    const createClearCommandItem = () => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.clearEvents),
-            iconProps: {
-                iconName: REMOVE
-            },
+            icon: <DeleteRegular />,
             key: CLEAR,
             name: t(ResourceKeys.deviceEvents.command.clearEvents),
             onClick: onClearData
         };
     };
 
-    const createPnpModeledEventsCommandItem = (): ICommandBarItemProps => {
+    const createPnpModeledEventsCommandItem = () => {
         return {
             ariaLabel: 'Show modeled events',
-            iconProps: {
-                iconName: showPnpModeledEvents ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
-            },
+            icon: showPnpModeledEvents ? <CheckboxCheckedRegular /> : <CheckboxUncheckedRegular />,
             key: EMPTY_CHECKBOX,
             name: 'Show modeled events',
             onClick: onShowPnpModeledEvents
@@ -92,62 +89,56 @@ export const Commands: React.FC<CommandsProps> = ({
     };
 
     // tslint:disable-next-line: cyclomatic-complexity
-    const createStartMonitoringCommandItem = (): ICommandBarItemProps => {
+    const createStartMonitoringCommandItem = () => {
         const label = monitoringData ? t(ResourceKeys.deviceEvents.command.stop) : t(ResourceKeys.deviceEvents.command.start);
         const icon = monitoringData ? STOP : START;
         return {
             ariaLabel: label,
             disabled: startDisabled,
-            iconProps: {
-                iconName: icon
-            },
+            icon: monitoringData ? <StopFilled /> : <PlayRegular />,
             key: icon,
             name: label,
             onClick: onToggleStart
         };
     };
 
-    const createSimulationCommandItem = (): ICommandBarItemProps => {
+    const createSimulationCommandItem = () => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.simulate),
-            iconProps: {
-                iconName: CODE
-            },
+            icon: <CodeRegular />,
             key: t(ResourceKeys.deviceEvents.command.simulate),
             name: t(ResourceKeys.deviceEvents.command.simulate),
             onClick: onToggleSimulationPanel
         };
     };
 
-    const createRefreshCommandItem = (): ICommandBarItemProps => {
+    const createRefreshCommandItem = () => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.refresh),
             disabled: state.formMode === 'updating',
-            iconProps: {iconName: REFRESH},
+            icon: <ArrowSyncRegular />,
             key: REFRESH,
             name: t(ResourceKeys.deviceEvents.command.refresh),
             onClick: getModelDefinition
         };
     };
 
-    const createNavigateBackCommandItem = (): ICommandBarItemProps => {
+    const createNavigateBackCommandItem = () => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.close),
-            iconProps: {iconName: NAVIGATE_BACK},
+            icon: <ArrowLeftRegular />,
             key: NAVIGATE_BACK,
             name: t(ResourceKeys.deviceEvents.command.close),
             onClick: handleClose
         };
     };
 
-    const createContentTypeCommandItem = (): ICommandBarItemProps => {
+    const createContentTypeCommandItem = () => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.customizeContentType),
             disabled: state.formMode !== 'upserted' && state.formMode !== 'initialized'
                         && state.formMode !== 'setDecoderSucceeded' && state.formMode !== 'setDecoderFailed',
-            iconProps: {
-                iconName: UPLOAD
-            },
+            icon: <ArrowUploadRegular />,
             key: UPLOAD,
             name: t(ResourceKeys.deviceEvents.command.customizeContentType),
             onClick: onToggleContentTypePanel
@@ -156,7 +147,7 @@ export const Commands: React.FC<CommandsProps> = ({
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/events\/.*/, ``);
-        history.push(getBackUrl(path, search));
+        navigate(getBackUrl(path, search));
     };
 
     const onToggleStart = () => {

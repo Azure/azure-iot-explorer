@@ -4,9 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, useLocation, useHistory } from 'react-router-dom';
-import { Icon, Label, Dialog, DialogFooter, DialogType, PrimaryButton, DefaultButton, DetailsListLayoutMode, IColumn, Selection, MarqueeSelection, Announced } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogContent, DialogActions, Label } from '@fluentui/react-components';
+import { CheckmarkRegular } from '@fluentui/react-icons';
+import { IColumn, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceSummary } from '../../../api/models/deviceSummary';
 import { DeviceQuery } from '../../../api/models/deviceQuery';
@@ -14,7 +15,6 @@ import { DeviceListCommandBar } from './deviceListCommandBar';
 import { DeviceListQuery } from './deviceListQuery';
 import { ListPaging } from './listPaging';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
-import { CHECK } from '../../../constants/iconNames';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { deviceListReducer } from '../reducer';
 import { MultiLineShimmer } from '../../../shared/components/multiLineShimmer';
@@ -25,12 +25,13 @@ import { SynchronizationStatus } from '../../../api/models/synchronizationStatus
 import { AppInsightsClient } from '../../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../../../app/constants/telemetry';
 import '../../../css/_deviceList.scss';
+import { LiveRegion } from '../../../shared/components/liveRegion';
 
 const SHIMMER_COUNT = 10;
 export const DeviceList: React.FC = () => {
     const { t } = useTranslation();
     const { pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(deviceListReducer, deviceListSaga, deviceListStateInitial(), 'deviceListState');
     const { devices, synchronizationStatus, deviceQuery } = localState;
@@ -39,11 +40,6 @@ export const DeviceList: React.FC = () => {
     const [ refreshQuery, setRefreshQuery ] = React.useState<number>(0);
     const [ selectedDeviceIds, setSelectedDeviceIds ] = React.useState([]);
     const [ showDeleteConfirmation, setShowDeleteConfirmation ] = React.useState<boolean>(false);
-    const selection = new Selection({
-        onSelectionChanged: () => {
-            setSelectedDeviceIds(selection.getSelection() && selection.getSelection().map(selectedItem => (selectedItem as DeviceSummary).deviceId));
-        }
-    });
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.DEVICE_LIST});
@@ -51,7 +47,7 @@ export const DeviceList: React.FC = () => {
 
     React.useEffect(() => {
         setQueryAndExecute(deviceQuery);
-    },              []);
+    },              []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only initial query
 
     const setQueryAndExecute = (query: DeviceQuery) => {
         dispatch(listDevicesAction.started({
@@ -93,22 +89,21 @@ export const DeviceList: React.FC = () => {
                     {isFetching ?
                         <MultiLineShimmer shimmerCount={SHIMMER_COUNT}/> :
                         (devices && devices.length !== 0 ?
-                            <MarqueeSelection selection={selection}>
-                                <ResizableDetailsList
+                            <ResizableDetailsList
                                     items={!isFetching && devices}
                                     columns={getColumns()}
-                                    layoutMode={DetailsListLayoutMode.justified}
-                                    selection={selection}
                                     onRenderItemColumn={onRenderItemColumn}
+                                    onSelectionChange={(selectedIndices) => {
+                                        const selected = [...selectedIndices].map(i => devices[i]?.deviceId).filter(Boolean);
+                                        setSelectedDeviceIds(selected);
+                                    }}
                                     ariaLabelForSelectAllCheckbox={t(ResourceKeys.deviceLists.selectAllCheckboxAriaLabel)}
                                     ariaLabelForSelectionColumn={t(ResourceKeys.deviceLists.toggleSelectionColumnAriaLabel)}
-                                    checkButtonAriaLabel={t(ResourceKeys.deviceLists.rowCheckBoxAriaLabel)}
-                                />
-                            </MarqueeSelection> :
+                                    checkButtonAriaLabel={(item: any) => `${t(ResourceKeys.deviceLists.rowCheckBoxAriaLabel)} ${item.deviceId || ''}`}
+                                />:
                             <>
                                 <span className="no-device">{t(ResourceKeys.deviceLists.noDevice)}</span>
-                                <Announced
-                                    message={t(ResourceKeys.deviceLists.noDevice)}
+                                <LiveRegion message={t(ResourceKeys.deviceLists.noDevice)}
                                 />
                             </>
                         )
@@ -129,7 +124,7 @@ export const DeviceList: React.FC = () => {
     };
 
     // tslint:disable-next-line: cyclomatic-complexity
-    const onRenderItemColumn = (item: DeviceSummary, index: number, column: IColumn): JSX.Element | string => {
+    const onRenderItemColumn = (item: DeviceSummary, index: number, column: IColumn): React.JSX.Element | string => {
         switch (column.key) {
             case 'id':
                 const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
@@ -181,10 +176,7 @@ export const DeviceList: React.FC = () => {
             case 'edge':
                 const isEdge = item.iotEdge;
                 return (
-                    <Icon
-                        key={column.key}
-                        iconName={isEdge && CHECK}
-                    />
+                    isEdge ? <CheckmarkRegular key={column.key} /> : <span key={column.key} />
             );
             default:
                 return <></>;
@@ -253,31 +245,29 @@ export const DeviceList: React.FC = () => {
 
     const deleteConfirmationDialog = () => {
         return (
-            <div role="dialog" aria-label={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.title)}>
-                <Dialog
-                    hidden={!showDeleteConfirmation}
-                    onDismiss={closeDeleteDialog}
-                    dialogContentProps={{
-                        subText: t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.subText),
-                        title: t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.title),
-                        type: DialogType.close,
-                    }}
-                    modalProps={{
-                        className: 'delete-dialog',
-                        isBlocking: true
-                    }}
-                >
-                    <ul className="deleting-devices">
-                        {selectedDeviceIds && selectedDeviceIds.map(deviceId =>
-                            <li key={`deleting_${deviceId}`}>{deviceId}</li>
-                        )}
-                    </ul>
-                    <DialogFooter>
-                        <PrimaryButton onClick={handleDelete} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
-                        <DefaultButton onClick={closeDeleteDialog} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
-                    </DialogFooter>
-                </Dialog>
-            </div>
+            <Dialog
+                open={showDeleteConfirmation}
+                onOpenChange={(e, data) => { if (!data.open) {closeDeleteDialog();} }}
+                modalType="alert"
+            >
+                <DialogSurface>
+                    <DialogBody>
+                        <DialogTitle>{t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.title)}</DialogTitle>
+                        <DialogContent>
+                            <div>{t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.subText)}</div>
+                            <ul className="deleting-devices">
+                                {selectedDeviceIds && selectedDeviceIds.map(deviceId =>
+                                    <li key={`deleting_${deviceId}`}>{deviceId}</li>
+                                )}
+                            </ul>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button appearance="primary" onClick={handleDelete}>{t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)}</Button>
+                            <Button onClick={closeDeleteDialog}>{t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)}</Button>
+                        </DialogActions>
+                    </DialogBody>
+                </DialogSurface>
+            </Dialog>
         );
     };
 
@@ -286,14 +276,12 @@ export const DeviceList: React.FC = () => {
 
     const handleAdd = () => {
         const path = pathname.replace(/\/devices\/.*/, `/${ROUTE_PARTS.DEVICES}`);
-        history.push(`${path}/${ROUTE_PARTS.ADD}`);
+        navigate(`${path}/${ROUTE_PARTS.ADD}`);
     };
 
     const handleDelete = () => {
         dispatch(deleteDevicesAction.started(selectedDeviceIds));
         setShowDeleteConfirmation(false);
-        // clear selection
-        selection.setItems([]);
     };
 
     return (

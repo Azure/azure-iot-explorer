@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dropdown, IDropdown, IDropdownOption, IconButton } from '@fluentui/react';
+import { Button, Dropdown, Option } from '@fluentui/react-components';
+import { DismissCircleRegular } from '@fluentui/react-icons';
 import { QueryClause, ParameterType, DeviceCapability, DeviceStatus } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import '../../../css/_deviceListQuery.scss';
@@ -20,7 +21,7 @@ export interface DeviceQueryClauseActions {
 export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryClauseActions> = (props: DeviceQueryClauseProps & DeviceQueryClauseActions) => {
     const { t } = useTranslation();
 
-    const parameterTypeRef = React.createRef<IDropdown>();
+    const parameterTypeRef = React.useRef<HTMLButtonElement>(null);
     const { removeClause, setClause, index, operation, parameterType, value } = props;
 
     React.useEffect(() => {
@@ -37,31 +38,33 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
 
     const remove = () => removeClause(index);
 
-    const onValueDropdownChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+    const onValueDropdownChange = (event: React.SyntheticEvent, data: { optionValue?: string }) => {
+        const selectedValue = data.optionValue;
         setClause(
             index, {
                 isError: isError({
                     operation,
                     parameterType,
-                    value: option.key as string
+                    value: selectedValue
                 }),
                 operation,
                 parameterType,
-                value: option.key as string
+                value: selectedValue
             }
         );
     };
 
-    const onTypeChange = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption) => {
+    const onTypeChange = (event: React.SyntheticEvent, data: { optionValue?: string }) => {
+        const selectedValue = data.optionValue;
         setClause(
             index, {
                 isError: isError({
                     operation,
-                    parameterType: option.key as ParameterType,
+                    parameterType: selectedValue as ParameterType,
                     value: undefined
                 }),
                 operation,
-                parameterType: option.key as ParameterType,
+                parameterType: selectedValue as ParameterType,
                 value: undefined
             }
         );
@@ -71,34 +74,45 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
         return (
             <Dropdown
                 className="parameter-type"
-                options={Object.keys(ParameterType).map(
-                    parameter => ({
-                        key: (ParameterType as any)[parameter], // tslint:disable-line: no-any
-                        text: t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])// tslint:disable-line: no-any
-                    }))}
-                onChange={onTypeChange}
+                onOptionSelect={onTypeChange}
                 placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.placeholder)}
-                ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
-                componentRef={parameterTypeRef}
-            />
+                aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
+                ref={parameterTypeRef}
+            >
+                {Object.keys(ParameterType).map(parameter => (
+                    <Option
+                        key={(ParameterType as any)[parameter]}
+                        value={(ParameterType as any)[parameter]}
+                    >
+                        {t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])}
+                    </Option>
+                ))}
+            </Dropdown>
         );
     };
 
     const renderEdgeDropdownOptions = () => {
         return Object.keys(DeviceCapability).map
-        (deviceCapability => ({
-            ariaLabel: t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceCapability as any)[deviceCapability]), // tslint:disable-line: no-any
-            key: (DeviceCapability as any)[deviceCapability], // tslint:disable-line: no-any
-            text: t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceCapability as any)[deviceCapability]), // tslint:disable-line: no-any
-        }));
+        (deviceCapability => (
+            <Option
+                key={(DeviceCapability as any)[deviceCapability]}
+                value={(DeviceCapability as any)[deviceCapability]}
+            >
+                {t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceCapability as any)[deviceCapability])}
+            </Option>
+        ));
     };
 
     const renderStatusDropdownOptions = () => {
         return Object.keys(DeviceStatus).map
-        (deviceStatus => ({
-            key: (DeviceStatus as any)[deviceStatus], // tslint:disable-line: no-any
-            text: t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceStatus as any)[deviceStatus]), // tslint:disable-line: no-any
-        }));
+        (deviceStatus => (
+            <Option
+                key={(DeviceStatus as any)[deviceStatus]}
+                value={(DeviceStatus as any)[deviceStatus]}
+            >
+                {t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceStatus as any)[deviceStatus])}
+            </Option>
+        ));
     };
 
     const renderValueInput =  () => {
@@ -107,23 +121,25 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                 return (
                     <Dropdown
                         className="clause-value"
-                        options={renderEdgeDropdownOptions()}
-                        onChange={onValueDropdownChange}
+                        onOptionSelect={onValueDropdownChange}
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        selectedKey={value || ''}
-                    />
+                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        selectedOptions={value ? [value] : []}
+                    >
+                        {renderEdgeDropdownOptions()}
+                    </Dropdown>
                 );
             case ParameterType.status:
                 return (
                     <Dropdown
                         className="clause-value"
-                        options={renderStatusDropdownOptions()}
-                        onChange={onValueDropdownChange}
+                        onOptionSelect={onValueDropdownChange}
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        selectedKey={value || ''}
-                    />
+                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        selectedOptions={value ? [value] : []}
+                    >
+                        {renderStatusDropdownOptions()}
+                    </Dropdown>
                 );
             default: return <></>;
         }
@@ -136,13 +152,12 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
         >
             {renderParameterDropdown()}
             {renderValueInput()}
-            <IconButton
+            <Button
+                appearance="subtle"
                 className="remove-pill"
-                data={index}
-                iconProps={{ iconName: 'Clear' }}
-                type="button"
+                icon={<DismissCircleRegular />}
                 onClick={remove}
-                ariaLabel={t(ResourceKeys.deviceLists.query.searchPills.clause.remove.ariaLabel)}
+                aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.remove.ariaLabel)}
             />
         </section>
     );

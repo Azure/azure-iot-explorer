@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import 'variables';
-@import 'themes';
+@use 'variables' as *;
+@use 'themes' as *;
 
 @media screen and (min-width: $screenSize) {
     body {
@@ -36,6 +36,17 @@ body {
             background: themed('backgroundColor');
         }
     }
+}
+
+// Toolbar button icons should use brand color (matching v8 CommandBar behavior)
+.fui-Toolbar button svg {
+    color: var(--colorBrandForeground1);
+}
+
+// v9 Field labels should be semibold (matching v8 Label behavior for input fields)
+// Note: .fui- prefixed class names are stable in FluentUI v9
+.fui-Field .fui-Label {
+    font-weight: 600;
 }
 
 .embedded-link {

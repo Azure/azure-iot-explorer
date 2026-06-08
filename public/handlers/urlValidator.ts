@@ -3,11 +3,19 @@
  * Licensed under the MIT License
  **********************************************************/
 
-// Allowed Azure IoT Hub domain suffix
-const ALLOWED_DOMAIN_SUFFIX = '.azure-devices.net';
+// Allowed Azure IoT Hub domain suffixes (global + national clouds)
+const ALLOWED_IOT_HUB_SUFFIXES = [
+    '.azure-devices.net',  // Global Azure
+    '.azure-devices.cn',   // Azure China (21Vianet)
+    '.azure-devices.us',   // Azure US Government
+];
 
-// Allowed Azure Event Hubs domain suffix
-const ALLOWED_EVENTHUB_DOMAIN_SUFFIX = '.servicebus.windows.net';
+// Allowed Azure Event Hubs domain suffixes (global + national clouds)
+const ALLOWED_EVENTHUB_SUFFIXES = [
+    '.servicebus.windows.net',        // Global Azure
+    '.servicebus.chinacloudapi.cn',   // Azure China (21Vianet)
+    '.servicebus.usgovcloudapi.net',  // Azure US Government
+];
 
 // Allowlist of headers that can be passed through from client
 const ALLOWED_HEADERS = new Set([
@@ -31,22 +39,26 @@ const BLOCKED_HEADERS = new Set([
 ]);
 
 /**
- * Validates hostname is *.azure-devices.net or *.privatelink.azure-devices.net
+ * Validates hostname is a valid Azure IoT Hub endpoint.
+ * Supports global and national cloud domains:
+ * - *.azure-devices.net (Global), *.azure-devices.cn (China), *.azure-devices.us (US Gov)
+ * - Also accepts privatelink variants: *.privatelink.azure-devices.{net|cn|us}
+ *
+ * Security checks:
  * - No path components (no slashes)
  * - No special characters except dots and hyphens in valid positions
  * - Each label follows DNS naming rules
- * - Must end with .azure-devices.net
  */
 export function validateAzureIoTHostname(hostname: string): boolean {
     if (!hostname || typeof hostname !== 'string') {
         return false;
     }
 
-    // Normalize to lowercase for validation
     const normalizedHost = hostname.toLowerCase().trim();
 
-    // Must end with .azure-devices.net
-    if (!normalizedHost.endsWith(ALLOWED_DOMAIN_SUFFIX)) {
+    // Must end with one of the allowed IoT Hub suffixes
+    const matchedSuffix = ALLOWED_IOT_HUB_SUFFIXES.find(suffix => normalizedHost.endsWith(suffix));
+    if (!matchedSuffix) {
         return false;
     }
 
@@ -60,34 +72,38 @@ export function validateAzureIoTHostname(hostname: string): boolean {
         return false;
     }
 
-    // Split into labels and validate each
-    // e.g., 'myhub.azure-devices.net' -> ['myhub', 'azure-devices', 'net']
-    // e.g., 'myhub.privatelink.azure-devices.net' -> ['myhub', 'privatelink', 'azure-devices', 'net']
-    const labels = normalizedHost.split('.');
+    // Extract the prefix before the matched suffix
+    // e.g., 'myhub.azure-devices.net' -> prefix = 'myhub'
+    // e.g., 'myhub.privatelink.azure-devices.cn' -> prefix = 'myhub.privatelink'
+    // e.g., 'myhub.service.azure-devices.net' -> prefix = 'myhub.service'
+    // e.g., 'myhub.device.privatelink.azure-devices.net' -> prefix = 'myhub.device.privatelink'
+    const prefix = normalizedHost.slice(0, normalizedHost.length - matchedSuffix.length);
+    const prefixLabels = prefix.split('.').filter(l => l.length > 0);
 
-    // Must have exactly 3 labels (<hubname>.azure-devices.net)
-    // or exactly 4 labels (<hubname>.privatelink.azure-devices.net)
-    if (labels.length !== 3 && labels.length !== 4) {
+    // Allowed prefix patterns:
+    //   1 label:  <hub>
+    //   2 labels: <hub>.privatelink | <hub>.device | <hub>.service
+    //   3 labels: <hub>.device.privatelink | <hub>.service.privatelink
+    if (prefixLabels.length < 1 || prefixLabels.length > 3) {
         return false;
     }
 
-    if (labels.length === 3) {
-        // Verify the domain is exactly 'azure-devices.net'
-        if (labels[1] !== 'azure-devices' || labels[2] !== 'net') {
-            return false;
-        }
-    } else {
-        // 4 labels: second must be 'privatelink'
-        if (labels[1] !== 'privatelink' || labels[2] !== 'azure-devices' || labels[3] !== 'net') {
+    if (prefixLabels.length === 2) {
+        const allowedSecondLabels = ['privatelink', 'device', 'service'];
+        if (!allowedSecondLabels.includes(prefixLabels[1])) {
             return false;
         }
     }
 
-    // Validate hub name (first label) follows DNS naming rules:
-    // - 1-63 characters
-    // - Alphanumeric and hyphens only
-    // - Cannot start or end with hyphen
-    const hubName = labels[0];
+    if (prefixLabels.length === 3) {
+        const allowedEndpointTypes = ['device', 'service'];
+        if (!allowedEndpointTypes.includes(prefixLabels[1]) || prefixLabels[2] !== 'privatelink') {
+            return false;
+        }
+    }
+
+    // Validate hub name (first label) follows DNS naming rules
+    const hubName = prefixLabels[0];
     const labelRegex = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
 
     if (hubName.length === 0 || hubName.length > 63) {
@@ -102,11 +118,17 @@ export function validateAzureIoTHostname(hostname: string): boolean {
 }
 
 /**
- * Validates hostname is *.servicebus.windows.net or *.privatelink.servicebus.windows.net
+ * Validates hostname is a valid Azure Event Hubs endpoint.
+ * Supports global and national cloud domains:
+ * - *.servicebus.windows.net (Global)
+ * - *.servicebus.chinacloudapi.cn (China)
+ * - *.servicebus.usgovcloudapi.net (US Gov)
+ * - Also accepts privatelink variants for each
+ *
+ * Security checks:
  * - No path components (no slashes)
  * - No special characters except dots and hyphens in valid positions
  * - Each label follows DNS naming rules
- * - Must end with .servicebus.windows.net
  */
 export function validateEventHubHostname(hostname: string): boolean {
     if (!hostname || typeof hostname !== 'string') {
@@ -115,7 +137,9 @@ export function validateEventHubHostname(hostname: string): boolean {
 
     const normalizedHost = hostname.toLowerCase().trim();
 
-    if (!normalizedHost.endsWith(ALLOWED_EVENTHUB_DOMAIN_SUFFIX)) {
+    // Must end with one of the allowed Event Hub suffixes
+    const matchedSuffix = ALLOWED_EVENTHUB_SUFFIXES.find(suffix => normalizedHost.endsWith(suffix));
+    if (!matchedSuffix) {
         return false;
     }
 
@@ -129,25 +153,22 @@ export function validateEventHubHostname(hostname: string): boolean {
         return false;
     }
 
-    // e.g., 'mynamespace.servicebus.windows.net' -> ['mynamespace', 'servicebus', 'windows', 'net']
-    // e.g., 'mynamespace.privatelink.servicebus.windows.net' -> ['mynamespace', 'privatelink', 'servicebus', 'windows', 'net']
-    const labels = normalizedHost.split('.');
+    // Extract the prefix before the matched suffix
+    // e.g., 'mynamespace.servicebus.windows.net' -> prefix = 'mynamespace'
+    // e.g., 'mynamespace.privatelink.servicebus.chinacloudapi.cn' -> prefix = 'mynamespace.privatelink'
+    const prefix = normalizedHost.slice(0, normalizedHost.length - matchedSuffix.length);
+    const prefixLabels = prefix.split('.').filter(l => l.length > 0);
 
-    if (labels.length !== 4 && labels.length !== 5) {
+    // Must have exactly 1 label (namespace) or 2 labels (namespace.privatelink)
+    if (prefixLabels.length !== 1 && prefixLabels.length !== 2) {
         return false;
     }
 
-    if (labels.length === 4) {
-        if (labels[1] !== 'servicebus' || labels[2] !== 'windows' || labels[3] !== 'net') {
-            return false;
-        }
-    } else {
-        if (labels[1] !== 'privatelink' || labels[2] !== 'servicebus' || labels[3] !== 'windows' || labels[4] !== 'net') {
-            return false;
-        }
+    if (prefixLabels.length === 2 && prefixLabels[1] !== 'privatelink') {
+        return false;
     }
 
-    const namespaceName = labels[0];
+    const namespaceName = prefixLabels[0];
     const labelRegex = /^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/;
 
     if (namespaceName.length === 0 || namespaceName.length > 63) {

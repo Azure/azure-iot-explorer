@@ -3,33 +3,34 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { SemanticUnit } from './semanticUnit';
 import * as SemanticUnits from '../semanticUnits';
 
 describe('SemanticUnit', () => {
-    it('matches snapshot when unit host is undefined', () => {
-        expect(shallow(<SemanticUnit unitHost={undefined}/>)).toMatchSnapshot();
-
+    it('renders empty marker when unit host is undefined', () => {
+        render(<SemanticUnit unitHost={undefined}/>);
+        expect(screen.getByText('--')).toBeInTheDocument();
     });
 
-    it('matches snapshot when unit is undefined', () => {
-        expect(shallow(<SemanticUnit unitHost={{}}/>)).toMatchSnapshot();
-
+    it('renders empty marker when unit is undefined', () => {
+        render(<SemanticUnit unitHost={{}}/>);
+        expect(screen.getByText('--')).toBeInTheDocument();
     });
 
-    it('matches snapshot when unit is unlisted', () => {
-        expect(shallow(<SemanticUnit unitHost={{unit: 'fizzbin'}}/>)).toMatchSnapshot();
-
+    it('renders unit name when unit is unlisted', () => {
+        render(<SemanticUnit unitHost={{unit: 'fizzbin'}}/>);
+        expect(screen.getByText('fizzbin')).toBeInTheDocument();
     });
 
-    it('matches snapshot when unit is listed', () => {
+    it('renders unit info when unit is listed', () => {
         const spy = jest.spyOn(SemanticUnits, 'getSemanticUnit');
         spy.mockReturnValue({
             abbreviation: 'abbr',
             displayName: 'displayName'
         });
 
-        expect(shallow(<SemanticUnit unitHost={{unit: 'fizzbin'}}/>)).toMatchSnapshot();
+        render(<SemanticUnit unitHost={{unit: 'fizzbin'}}/>);
+        expect(screen.getByText(/abbr/)).toBeInTheDocument();
     });
 });

@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import fetch, { Response } from 'node-fetch';
-import * as ssrfFilter from 'ssrf-req-filter';
+// @ts-ignore no type declarations available
+import ssrfFilter from 'ssrf-req-filter';
 import {
     validateAzureIoTHostname,
     sanitizeHeaders,
@@ -50,9 +51,9 @@ export const handleDataPlaneRequest = async (
 export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) => {
     const hostname = request.hostName;
 
-    // Strict hostname validation - must be exactly *.azure-devices.net
+    // Strict hostname validation - must be a valid Azure IoT Hub endpoint
     if (!validateAzureIoTHostname(hostname)) {
-        throw new Error('Invalid hostname: must be a valid Azure IoT Hub endpoint (*.azure-devices.net)');
+        throw new Error('Invalid hostname: must be a valid Azure IoT Hub endpoint (e.g., *.azure-devices.net, *.azure-devices.cn, *.azure-devices.us)');
     }
 
     // Validate path

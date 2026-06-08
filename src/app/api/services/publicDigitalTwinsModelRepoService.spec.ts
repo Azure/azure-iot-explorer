@@ -72,7 +72,7 @@ describe('digitalTwinsModelService', () => {
                 method: HTTP_OPERATION_TYPES.Get
             };
 
-            expect(fetch).toBeCalledWith(resourceUrl, fetchModelParameters);
+            expect(fetch).toHaveBeenCalledWith(resourceUrl, fetchModelParameters);
             expect(result).toEqual({
                 createdDate: '',
                 etag: '',

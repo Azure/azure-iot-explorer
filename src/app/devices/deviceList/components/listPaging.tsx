@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import '../../../css/_deviceListPaging.scss';
 
@@ -42,11 +42,12 @@ export const ListPaging: React.FC<ListPagingDataProps & ListPagingDispatchProps>
                 className={index === currentPageIndex ? 'selected' : ''}
             >
                 {index !== currentPageIndex ?
-                    (<ActionButton
+                    (<Button
+                        appearance="transparent"
                         onClick={onFetchPageClick}
                     >
                         {index === continuationTokens.length - 1 ? '»' : index + 1}
-                    </ActionButton>) :
+                    </Button>) :
                     (<span>{index + 1}</span>)
                 }
             </div>

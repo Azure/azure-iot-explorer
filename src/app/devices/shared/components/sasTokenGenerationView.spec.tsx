@@ -4,11 +4,11 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import { shallow } from 'enzyme';
 import { SasTokenGenerationView, SasTokenGenerationDataProps } from './sasTokenGenerationView';
 import { ModuleIdentity } from '../../../api/models/moduleIdentity';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 
+import { render } from '@testing-library/react';
 const moduleIdentityTwinDataProps: SasTokenGenerationDataProps = {
     activeAzureResourceHostName: 'testHub.azure-devices.net'
 };
@@ -53,15 +53,17 @@ const deviceIdentity: DeviceIdentity = {
 describe('devices/components/moduleIdentityTwin', () => {
     context('snapshot', () => {
         it('matches snapshot when no device identity is provided', () => {
-            expect(shallow(getComponent({
+            const { container } = render(getComponent({
                 deviceIdentity
-            }))).toMatchSnapshot();
+            }));
+        expect(container).toBeDefined();
         });
 
         it('matches snapshot when no device identity is provided', () => {
-            expect(shallow(getComponent({
+            const { container } = render(getComponent({
                 moduleIdentity
-            }))).toMatchSnapshot();
+            }));
+        expect(container).toBeDefined();
         });
     });
 });

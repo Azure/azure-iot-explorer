@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { CompoundButton, Link, Stack } from '@fluentui/react';
+import { CompoundButton, Link } from '@fluentui/react-components';
+import { KeyRegular, OrganizationRegular } from '@fluentui/react-icons';
 import { useTranslation, Trans } from 'react-i18next';
 import { useAuthenticationStateContext } from '../context/authenticationStateContext';
 import { AuthenticationMethodPreference } from '../state';
@@ -24,31 +25,31 @@ export const AuthenticationSelection: React.FC = () => {
 
     return (
         <div className="auth-slection-container">
-            <Stack tokens={{ childrenGap: 10 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <h3 role="heading" aria-level={1}>{t(ResourceKeys.authentication.authSelection.header)}</h3>
                 <div>
                     <Trans components={[<Link key="0" href="https://aka.ms/iothubPermissions" target="_blank"/>]}>
                         {ResourceKeys.authentication.authSelection.subText}
                     </Trans>
                 </div>
-                <Stack tokens={{ childrenGap: 80 }} horizontal={true} >
+                <div style={{ display: 'flex', flexDirection: 'row', gap: '80px' }}>
                     <CompoundButton
-                        primary={true}
-                        iconProps={{ iconName: 'Permissions' }}
+                        appearance="primary"
+                        icon={<KeyRegular />}
                         onClick={connectViaConnectionString}
                         className="auth-selection-tile"
                     >
                         {t(ResourceKeys.authentication.authSelection.selection.connectionString)}
                     </CompoundButton>
                     <CompoundButton
-                        iconProps={{ iconName: 'AADLogo' }}
+                        icon={<OrganizationRegular />}
                         className="auth-selection-tile"
                         onClick={loginViaAad}
                     >
                         {t(ResourceKeys.authentication.authSelection.selection.azureActiveDirectory)}
                     </CompoundButton>
-                </Stack>
-            </Stack>
+                </div>
+            </div>
         </div>
     );
 };

@@ -3,15 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 
-// Polyfill globalThis.crypto for Azure SDK compatibility
-// Electron 22 uses Node.js 16 which doesn't have globalThis.crypto by default
-import * as crypto from 'crypto';
-if (typeof globalThis.crypto === 'undefined') {
-    (globalThis as any).crypto = crypto.webcrypto; // tslint:disable-line:no-any
-}
-
 import { app, Menu, BrowserWindow, dialog, ipcMain, session, shell } from 'electron';
-import * as windowState from 'electron-window-state';
+import windowState from 'electron-window-state';
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
 import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
@@ -37,11 +30,11 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 // 'unsafe-inline' is required for Fluent UI which uses inline styles
 const CSP_HEADER = [
     "default-src 'self' https://login.live.com https://login.microsoftonline.com",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://aadcdn.msauth.net https://login.live.com", //unsafe eval required for aad auth and webpackdev
-    "style-src 'self' 'unsafe-inline' https://aadcdn.msauth.net", // Fluent UI uses inline styles
-    "img-src 'self' data: https://aadcdn.msauth.net https://aadcdn.msauthimages.net https://login.microsoftonline.com https://login.live.com https://*.microsoft.com https://*.azure.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://aadcdn.msauth.net https://aadcdn.msftauth.net https://login.live.com", //unsafe eval required for aad auth and webpackdev
+    "style-src 'self' 'unsafe-inline' https://aadcdn.msauth.net https://aadcdn.msftauth.net", // Fluent UI uses inline styles
+    "img-src 'self' data: https://aadcdn.msauth.net https://aadcdn.msftauth.net https://aadcdn.msauthimages.net https://aadcdn.msftauthimages.net https://login.microsoftonline.com https://login.live.com https://*.microsoft.com https://*.azure.com",
     "font-src 'self' https://*.cdn.office.net data:",
-    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.servicebus.windows.net https://login.microsoftonline.com https://login.live.com https://aadcdn.msauth.net https://aadcdn.msauthimages.net" + (isDevelopment ? " ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*" : ""),
+    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.azure-devices.cn https://*.azure-devices.us https://*.servicebus.windows.net https://*.servicebus.chinacloudapi.cn https://*.servicebus.usgovcloudapi.net https://login.microsoftonline.com https://login.live.com https://aadcdn.msauth.net https://aadcdn.msftauth.net https://aadcdn.msauthimages.net https://aadcdn.msftauthimages.net https://login.chinacloudapi.cn https://login.microsoftonline.us" + (isDevelopment ? " ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*" : ""),
     "frame-src 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
     "frame-ancestors 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
     "form-action 'self' https://*.login.microsoftonline.com https://login.microsoftonline.com https://login.live.com",
@@ -62,9 +55,13 @@ const ALLOWED_AUTH_ORIGINS = [
 // Allowed external URLs that can be opened with shell.openExternal
 const ALLOWED_EXTERNAL_URLS = [
     'https://github.com/Azure/azure-iot-explorer',
+    'https://github.com/Azure/iot-plugandplay-models',
+    'https://aka.ms',
     'https://docs.microsoft.com',
+    'https://learn.microsoft.com',
     'https://azure.microsoft.com',
-    'https://portal.azure.com'
+    'https://portal.azure.com',
+    'https://shell.azure.com'
 ];
 
 class Main {
@@ -86,6 +83,7 @@ class Main {
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGIN, Main.onLogin);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_LOGOUT, Main.onLogout);
         Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_GET_PROFILE_TOKEN, Main.onGetProfileToken);
+        Main.registerHandler(MESSAGE_CHANNELS.AUTHENTICATION_GET_TENANT_TOKEN, Main.onGetTenantToken);
 
         // Credential storage IPC handlers
         Main.registerHandler(MESSAGE_CHANNELS.CREDENTIAL_STORE, Main.onCredentialStore);
@@ -117,17 +115,26 @@ class Main {
     }
 
     private static async onLogin(): Promise<void> {
-        await Main.authProvider.login(Main.mainWindow);
+        try {
+            await Main.authProvider.login(Main.mainWindow);
+        } catch (error) {
+            console.log('Login cancelled or failed:', error?.message);
+        }
         await Main.loadTarget();
     }
 
     private static async onLogout(): Promise<void> {
-        await Main.authProvider.logout();
+        await Main.authProvider.logoutWithSessionClear(Main.mainWindow);
         await Main.loadTarget();
     }
 
     private static async onGetProfileToken(): Promise<string> {
         const token = await Main.authProvider.getProfileTokenIfPresent();
+        return token;
+    }
+
+    private static async onGetTenantToken(_event: Electron.IpcMainInvokeEvent, tenantId: string): Promise<string> {
+        const token = await Main.authProvider.getTokenForTenant(Main.mainWindow, tenantId);
         return token;
     }
 
@@ -338,7 +345,7 @@ class Main {
             try {
                 return { result: await Promise.resolve(handler(event, ...args)) };
             } catch (e) {
-                const error = formatError(e);
+                const error = formatError(e as Error);
                 return { error };
             }
         });

@@ -1,8 +1,9 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // tslint:disable-line: no-var-requires
-const CopyPlugin = require('copy-webpack-plugin'); // tslint:disable-line: no-var-requires
-const NodePolyfillPlugin = require('node-polyfill-webpack-plugin'); // tslint:disable-line: no-var-requires
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line @typescript-eslint/no-var-requires
+const CopyPlugin = require('copy-webpack-plugin'); // eslint-disable-line @typescript-eslint/no-var-requires
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin'); // eslint-disable-line @typescript-eslint/no-var-requires
+const ESLintPlugin = require('eslint-webpack-plugin'); // eslint-disable-line @typescript-eslint/no-var-requires
 const config: webpack.Configuration = {
     entry: {
         main: ['./src/index.tsx']
@@ -15,12 +16,6 @@ const config: webpack.Configuration = {
     module: {
         rules: [
             { test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/ },
-            {
-                exclude: /node_modules/,
-                loader: 'tslint-loader',
-                test: /\.tsx?$/
-
-            },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 type: 'asset/resource'
@@ -50,12 +45,21 @@ const config: webpack.Configuration = {
         }),
         new webpack.DefinePlugin({
             'process.env.userdnsdomain': JSON.stringify(process.env.userdnsdomain),
-          })
+          }),
+        new ESLintPlugin({
+            extensions: ['ts', 'tsx'],
+            failOnError: false,
+            emitWarning: true,
+        })
     ],
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ['.ts', '.tsx', '.js', '.json']
-    }
+    },
+    ignoreWarnings: [
+        // protobufjs uses dynamic require() — safe to ignore
+        { module: /@protobufjs[\\/]inquire/ }
+    ]
 };
 
 export default config;

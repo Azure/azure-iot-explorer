@@ -21,7 +21,7 @@ export interface DeviceEventsInterface {
     stopEventsMonitoring(): void;
 }
 
-export const DeviceEventsStateContextProvider: React.FC = props => {
+export const DeviceEventsStateContextProvider: React.FC<React.PropsWithChildren> = props => {
     const [state, dispatch] = useAsyncSagaReducer(deviceEventsReducer, EventMonitoringSaga, getInitialDeviceEventsState());
 
     const deviceEventsApi: DeviceEventsInterface = {

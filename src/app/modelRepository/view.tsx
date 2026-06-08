@@ -4,7 +4,6 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Prompt } from 'react-router-dom';
 import { ResourceKeys } from '../../localization/resourceKeys';
 import { ModelRepositoryLocationList } from './components/modelRepositoryLocationList';
 import { ModelRepositoryInstruction } from './components/modelRepositoryInstruction';
@@ -19,13 +18,23 @@ export const ModelRepositoryLocationView: React.FC = () => {
     useBreadcrumbEntry({ name: t(ResourceKeys.breadcrumb.ioTPlugAndPlay)});
     const formState = useModelRepositoryForm();
 
+    // Warn user about unsaved changes when leaving the page
+    React.useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (formState[0].dirty) {
+                e.preventDefault();
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [formState[0].dirty]); // eslint-disable-line react-hooks/exhaustive-deps
+
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.PNP_REPO_SETTINGS});
-    }, []); // tslint:disable-line: align
+    }, []);
 
     return (
         <div>
-            <Prompt when={formState[0].dirty} message={t(ResourceKeys.common.navigation.confirm)}/>
             <Commands formState={formState}/>
             <div>
                 <ModelRepositoryInstruction/>

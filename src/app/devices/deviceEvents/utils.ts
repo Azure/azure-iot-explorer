@@ -14,8 +14,8 @@ export const setDecoderInfo = async (parameters: SetDecoderInfoParameters): Prom
                 try {
                     prototype = parse(fileContents).root.lookupType(parameters.decoderPrototype);
                     resolve(prototype);
-                } catch (e) {
-                    reject(new Error(e.message));
+                } catch (parseError) {
+                    reject(new Error(parseError.message));
                 }
             };
             fr.readAsText(parameters.decoderFile);

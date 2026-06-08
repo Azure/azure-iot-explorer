@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { useConnectionStringContext } from '../context/connectionStringStateContext';
 import { CONNECTION_STRING_LIST_MAX_LENGTH } from '../../constants/browserStorage';
-import { ADD, NAVIGATE_BACK } from '../../constants/iconNames';
+import { AddRegular, ArrowLeftRegular } from '@fluentui/react-icons';
 import { useAuthenticationStateContext } from '../../authentication/context/authenticationStateContext';
 
 interface ConnectionStringCommandBarProps {
@@ -26,14 +26,14 @@ export const ConnectionStringCommandBar: React.FC<ConnectionStringCommandBarProp
                 {
                     ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
                     disabled: state.payload.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
-                    iconProps: { iconName: ADD },
+                    icon: <AddRegular />,
                     key: 'add',
                     onClick: props.onAddConnectionStringClick,
                     text: t(ResourceKeys.connectionStrings.addConnectionCommand.label)
                 },
                 {
                     ariaLabel: t(ResourceKeys.authentication.authSelection.switchAuthType),
-                    iconProps: { iconName: NAVIGATE_BACK },
+                    icon: <ArrowLeftRegular />,
                     key: 'switch',
                     onClick: switchAuth,
                     text: t(ResourceKeys.authentication.authSelection.switchAuthType)

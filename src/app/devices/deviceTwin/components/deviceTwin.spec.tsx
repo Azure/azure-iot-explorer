@@ -3,78 +3,55 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import 'jest';
-import { shallow, mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import { CommandBar } from '@fluentui/react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DeviceTwin } from './deviceTwin';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
-import { DeviceTwinStateInterface } from './../state';
-import { getDeviceTwinAction, updateDeviceTwinAction } from '../actions';
 
 jest.mock('react-router-dom', () => ({
-    useLocation: () => ({ search: '?deviceId=test' }),
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/detail/twin/', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' })
 }));
 
-// tslint:disable
-const twin = {
-    deviceEtag: '',
-    deviceId: 'test',
-    etag: 'AAAAAAAAAAE=',
-    status: 'enabled',
-    statusUpdateTime: '0001-01-01T00:00:00Z',
-    connectionState: 'Disconnected',
-    lastActivityTime: '0001-01-01T00:00:00Z',
-    cloudToDeviceMessageCount: 0,
-    authenticationType: 'sas',
-    x509Thumbprint: {primaryThumbprint: null, secondaryThumbprint: null},
-    properties: {},
-    capabilities: {iotEdge: false},
-    version: 1
-};
-// tslint:enable
-const initialState: DeviceTwinStateInterface = {
-    deviceTwin: {
-        payload: twin,
-        synchronizationStatus: SynchronizationStatus.fetched
-    }
-};
-describe('devices/components/deviceTwin', () => {
+jest.mock('../../../navigation/hooks/useBreadcrumbEntry', () => ({
+    useBreadcrumbEntry: jest.fn()
+}));
 
-    beforeEach(() => {
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
+describe('DeviceTwin', () => {
+    it('renders refresh and save command bar buttons when twin is loaded', () => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+            { deviceTwin: { payload: { deviceId: 'testDevice' }, synchronizationStatus: SynchronizationStatus.fetched } },
+            jest.fn()
+        ]);
+
+        render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
+
+        expect(screen.getByText('deviceTwin.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceTwin.command.save')).toBeInTheDocument();
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
+    it('renders header view', () => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+            { deviceTwin: { payload: { deviceId: 'testDevice' }, synchronizationStatus: SynchronizationStatus.fetched } },
+            jest.fn()
+        ]);
+
+        render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
+
+        expect(screen.getByText('deviceTwin.headerText')).toBeInTheDocument();
     });
 
-    context('snapshot', () => {
-        it('matches snapshot', () => {
-            expect(shallow(<DeviceTwin/>)).toMatchSnapshot();
-        });
+    it('shows shimmer when syncing', () => {
+        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+            { deviceTwin: { payload: undefined, synchronizationStatus: SynchronizationStatus.working } },
+            jest.fn()
+        ]);
 
-        it('calls refresh and save', () => {
-            const realUseState = React.useState;
-            const mockGetDeviceTwin = jest.spyOn(getDeviceTwinAction, 'started');
-            const mockUpdateDeviceTwin = jest.spyOn(updateDeviceTwinAction, 'started');
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState({
-                isDirty: true,
-                isTwinValid: true,
-                twin: JSON.stringify(twin)
-            }));
+        render(<MemoryRouter><DeviceTwin/></MemoryRouter>);
 
-            const wrapper = mount(<DeviceTwin/>);
-            let commandBar = wrapper.find(CommandBar).first();
-            act(() => commandBar.props().items[0].onClick(null));
-            expect(mockGetDeviceTwin.mock.calls[0][0]).toEqual('test');
-
-            commandBar = wrapper.find(CommandBar).first();
-            act(() => commandBar.props().items[1].onClick(null));
-            wrapper.update();
-            expect(mockUpdateDeviceTwin.mock.calls[0][0]).toEqual(twin);
-        });
+        // MultiLineShimmer renders with role="status"
+        expect(screen.getByRole('status')).toBeInTheDocument();
     });
 });

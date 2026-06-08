@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dialog, DialogFooter, PrimaryButton, DefaultButton } from '@fluentui/react';
+import { Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogActions } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import './connectionStringDelete.scss';
 
@@ -24,37 +24,40 @@ export const ConnectionStringDelete: React.FC<ConnectionStringDeleteProps> = (pr
 
     return (
         <Dialog
-            hidden={hidden}
-            onDismiss={onDeleteCancel}
-            dialogContentProps={{
-                title: t(ResourceKeys.connectionStrings.deleteConnection.title)
-            }}
-            modalProps={{
-                isBlocking: true
-            }}
+            open={!hidden}
+            onOpenChange={(e, data) => { if (!data.open) {onDeleteCancel();} }}
+            modalType="alert"
         >
-            <div className="connection-string-delete">
-            <div>{t(ResourceKeys.connectionStrings.deleteConnection.body)}</div>
-                <textarea
-                    readOnly={true}
-                    aria-label={t(ResourceKeys.connectionStrings.deleteConnection.input)}
-                    cols={COLS_FOR_CONNECTION}
-                    rows={ROWS_FOR_CONNECTION}
-                    value={connectionString}
-                />
-            </div>
-            <DialogFooter>
-                <PrimaryButton
-                    onClick={onDeleteConfirm}
-                    ariaLabel={t(ResourceKeys.connectionStrings.deleteConnection.yes.ariaLabel, {connectionString})}
-                    text={t(ResourceKeys.connectionStrings.deleteConnection.yes.label)}
-                />
-                <DefaultButton
-                    onClick={onDeleteCancel}
-                    ariaLabel={t(ResourceKeys.connectionStrings.deleteConnection.no.ariaLabel, {connectionString})}
-                    text={t(ResourceKeys.connectionStrings.deleteConnection.no.label)}
-                />
-            </DialogFooter>
+            <DialogSurface>
+                <DialogBody>
+                    <DialogTitle>{t(ResourceKeys.connectionStrings.deleteConnection.title)}</DialogTitle>
+                    <div className="connection-string-delete">
+                        <div>{t(ResourceKeys.connectionStrings.deleteConnection.body)}</div>
+                        <textarea
+                            readOnly={true}
+                            aria-label={t(ResourceKeys.connectionStrings.deleteConnection.input)}
+                            cols={COLS_FOR_CONNECTION}
+                            rows={ROWS_FOR_CONNECTION}
+                            value={connectionString}
+                        />
+                    </div>
+                    <DialogActions>
+                        <Button
+                            appearance="primary"
+                            onClick={onDeleteConfirm}
+                            aria-label={t(ResourceKeys.connectionStrings.deleteConnection.yes.ariaLabel, {connectionString})}
+                        >
+                            {t(ResourceKeys.connectionStrings.deleteConnection.yes.label)}
+                        </Button>
+                        <Button
+                            onClick={onDeleteCancel}
+                            aria-label={t(ResourceKeys.connectionStrings.deleteConnection.no.ariaLabel, {connectionString})}
+                        >
+                            {t(ResourceKeys.connectionStrings.deleteConnection.no.label)}
+                        </Button>
+                    </DialogActions>
+                </DialogBody>
+            </DialogSurface>
         </Dialog>
     );
 };

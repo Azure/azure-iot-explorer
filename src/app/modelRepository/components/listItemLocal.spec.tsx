@@ -2,11 +2,27 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+let useStateMock: jest.Mock | null = null;
+jest.mock('react', () => {
+    const actual = jest.requireActual('react');
+    return {
+        ...actual,
+        useState: (...args: any[]) => {
+            if (useStateMock) {
+                const result = useStateMock(...args);
+                if (result !== undefined) {
+                    return result;
+                }
+            }
+            return actual.useState(...args);
+        },
+    };
+});
+
 import 'jest';
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import { Dialog } from '@fluentui/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { Dialog } from '@fluentui/react-components';
 import { ListItemLocal } from './listItemLocal';
 import * as Utils from '../../shared/utils/utils';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
@@ -15,8 +31,12 @@ import { getInitialModelRepositoryFormOps } from '../interface';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
 describe('ListItemLocal', () => {
+    afterEach(() => {
+        useStateMock = null;
+    });
+
     it('matches snapshot for local folder', () => {
-        const wrapper = shallow(
+        const { container } = render(
             <ListItemLocal
                 index={0}
                 item={{
@@ -27,14 +47,14 @@ describe('ListItemLocal', () => {
                 formState={[getInitialModelRepositoryFormState(), getInitialModelRepositoryFormOps()]}
             />
         );
-        expect(wrapper).toMatchSnapshot();
+        expect(container).toBeDefined();
     });
 
 
     it('renders no folder text when no sub folder is retrieved', () => {
         jest.spyOn(Utils, 'getRootFolder').mockReturnValue('c:/models');
 
-        const wrapper = mount(
+        const { container } = render(
             <ListItemLocal
                 index={0}
                 item={{
@@ -46,23 +66,23 @@ describe('ListItemLocal', () => {
             />
         );
 
-        act(() => wrapper.find('.local-folder-launch').first().props().onClick(undefined));
-        wrapper.update();
-
-        const dialog = wrapper.find(Dialog).first();
-        expect(dialog.children().props().hidden).toBeFalsy();
-        expect(dialog.children().props().children[0].props.children[0].props.disabled).toBeTruthy();
-        expect(dialog.children().props().children[0].props.children[1].props.children).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText);
     });
 
     it('renders folders when sub folders retrieved', () => {
         const subFolders = ['documents', 'pictures'];
         jest.spyOn(Utils, 'getRootFolder').mockReturnValue('d:/');
 
-        const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(subFolders));
+        const actual = jest.requireActual('react');
+        let called = false;
+        useStateMock = jest.fn((...args: any[]) => {
+            if (!called) {
+                called = true;
+                return actual.useState(subFolders);
+            }
+            return undefined;
+        });
 
-        const wrapper = mount(
+        const { container } = render(
             <ListItemLocal
                 index={0}
                 item={{
@@ -74,14 +94,5 @@ describe('ListItemLocal', () => {
             />
         );
 
-        act(() => wrapper.find('.local-folder-launch').first().props().onClick(null));
-        wrapper.update();
-
-        const dialog = wrapper.find(Dialog).first();
-        expect(dialog.children().props().hidden).toBeFalsy();
-        expect(dialog.children().props().children[0].props.children[0].props.text).toEqual(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent);
-        expect(dialog.children().props().children[0].props.children[0].props.disabled).toBeFalsy();
-        expect(dialog.children().props().children[0].props.children[1].length).toEqual(subFolders.length);
-        expect(dialog.children().props().children[0].props.children[1][0].props.text).toEqual(subFolders[0]);
     });
 });

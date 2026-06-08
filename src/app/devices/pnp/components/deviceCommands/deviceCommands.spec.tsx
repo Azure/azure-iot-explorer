@@ -2,57 +2,46 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Shimmer, CommandBar } from '@fluentui/react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DeviceCommands } from './deviceCommands';
 import * as PnpContext from '../../context/pnpStateContext';
-import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
-import { PnpStateInterface, pnpStateInitial } from '../../state';
+import { pnpStateInitial } from '../../state';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
-import { pnpStateWithTestData } from './testData';
-
-const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/commands/?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1:1`;
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1', pathname }),
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '?deviceId=test', hash: '', state: null, key: 'default' })
 }));
 
 describe('components/devices/deviceCommands', () => {
-    it('shows Shimmer while loading', () => {
-        const pnpState: PnpStateInterface = {
-            ...pnpStateInitial(),
-            modelDefinitionWithSource: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        };
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        const wrapper = mount(<DeviceCommands/>);
-        expect(wrapper.find(Shimmer)).toBeDefined();
+    const mockGetModelDefinition = jest.fn();
+
+    beforeEach(() => {
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({
+            pnpState: pnpStateInitial().merge({
+                modelDefinitionWithSource: {
+                    payload: { modelDefinition: { contents: [] }, isModelValid: true },
+                    synchronizationStatus: SynchronizationStatus.fetched
+                }
+            }),
+            dispatch: jest.fn(),
+            getModelDefinition: mockGetModelDefinition
+        });
     });
 
-    it('matches snapshot while interface cannot be found', () => {
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({pnpState: pnpStateInitial(), dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        expect(shallow(<DeviceCommands/>)).toMatchSnapshot();
-        const wrapper = mount(<DeviceCommands/>);
-        expect(wrapper.find(InterfaceNotFoundMessageBar)).toBeDefined();
+    it('renders refresh and close buttons', () => {
+        render(<MemoryRouter><DeviceCommands/></MemoryRouter>);
+
+        expect(screen.getByText('deviceCommands.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceCommands.command.close')).toBeInTheDocument();
     });
 
-    it('matches snapshot with a commandSchema', () => {
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({pnpState: pnpStateWithTestData, dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        expect(shallow(<DeviceCommands/>)).toMatchSnapshot();
-    });
+    it('renders no commands label when there are no command schemas', () => {
+        render(<MemoryRouter><DeviceCommands/></MemoryRouter>);
 
-    it('dispatch action when refresh button is clicked', () => {
-        const getModelDefinitionSpy = jest.fn();
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({pnpState: pnpStateInitial(), dispatch: jest.fn(), getModelDefinition: getModelDefinitionSpy});
-        const wrapper = shallow(<DeviceCommands/>);
-        const commandBar = wrapper.find(CommandBar).first();
-
-        commandBar.props().items[0].onClick(null);
-        wrapper.update();
-        expect(getModelDefinitionSpy).toBeCalled();
+        expect(screen.getByText(/deviceCommands\.noCommands/)).toBeInTheDocument();
     });
 });

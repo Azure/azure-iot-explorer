@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
-import { Announced, IColumn, Label, Pivot, PivotItem, SelectionMode } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
+import { NavLink, useLocation } from 'react-router-dom';
+import { Label, TabList, Tab, SelectTabData, SelectTabEvent } from '@fluentui/react-components';
+import { IColumn, SelectionMode, ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { getComponentNameAndInterfaceIdArray } from '../../utils';
@@ -16,6 +16,7 @@ import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/device
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { MonacoEditorComponent } from '../../../../shared/components/monacoEditor';
 import './digitalTwinDetail.scss';
+import { LiveRegion } from '../../../../shared/components/liveRegion';
 
 interface ModelContent {
     link: string;
@@ -26,8 +27,8 @@ interface ModelContent {
 const jsonViewerHeight = 400;
 export const DigitalTwinComponentList: React.FC = () => {
     const { t } = useTranslation();
-    const { url } = useRouteMatch();
-    const { search } = useLocation();
+    const { search, pathname } = useLocation();
+    const url = pathname;
     const { pnpState } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
     const modelDefinitionWithSource = pnpState.modelDefinitionWithSource.payload;
@@ -36,6 +37,7 @@ export const DigitalTwinComponentList: React.FC = () => {
     const modelId = twin?.modelId;
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const componentNameToIds = getComponentNameAndInterfaceIdArray(modelDefinition);
+    const [selectedTab, setSelectedTab] = React.useState<string>('components');
 
     const modelContents: ModelContent[]  = componentNameToIds && componentNameToIds.map(nameToId => {
         let link = `${url}${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}/${ROUTE_PARTS.INTERFACES}/` +
@@ -116,8 +118,7 @@ export const DigitalTwinComponentList: React.FC = () => {
                     </div> :
                     <>
                         <Label className="no-component">{t(ResourceKeys.digitalTwin.modelContainsNoComponents, {modelId })}</Label>
-                        <Announced
-                            message={t(ResourceKeys.digitalTwin.modelContainsNoComponents, { modelId })}
+                        <LiveRegion message={t(ResourceKeys.digitalTwin.modelContainsNoComponents, { modelId })}
                         />
                     </>
             }
@@ -125,22 +126,30 @@ export const DigitalTwinComponentList: React.FC = () => {
 
     return (
         <>
-            <h4>{t(ResourceKeys.digitalTwin.steps.third)}</h4>
-            <h5>{t(ResourceKeys.digitalTwin.steps.explanation, {modelId})}</h5>
-            <Pivot aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}>
-                <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.components)}>
-                    <ErrorBoundary error={t(ResourceKeys.deviceInterfaces.interfaceListFailedToRender)}>
-                        {listView}
-                    </ErrorBoundary>
-                </PivotItem>
-                <PivotItem headerText={t(ResourceKeys.digitalTwin.pivot.content)} className="modelContent">
+            <h4 style={{ marginBottom: 4 }}>{t(ResourceKeys.digitalTwin.steps.third)}</h4>
+            <h5 style={{ marginTop: 0, marginBottom: 8 }}>{t(ResourceKeys.digitalTwin.steps.explanation, {modelId})}</h5>
+            <TabList
+                aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
+                selectedValue={selectedTab}
+                onTabSelect={(e: SelectTabEvent, data: SelectTabData) => setSelectedTab(data.value as string)}
+            >
+                <Tab value="components">{t(ResourceKeys.digitalTwin.pivot.components)}</Tab>
+                <Tab value="content">{t(ResourceKeys.digitalTwin.pivot.content)}</Tab>
+            </TabList>
+            {selectedTab === 'components' && (
+                <ErrorBoundary error={t(ResourceKeys.deviceInterfaces.interfaceListFailedToRender)}>
+                    {listView}
+                </ErrorBoundary>
+            )}
+            {selectedTab === 'content' && (
+                <div className="modelContent">
                     <MonacoEditorComponent
                         height={jsonViewerHeight}
                         content={JSON.stringify(modelDefinitionWithSource.modelDefinition, null, '\t')}
                         ariaLabel={ResourceKeys.digitalTwin.pivot.content}
                     />
-                </PivotItem>
-            </Pivot>
+                </div>
+            )}
         </>
     );
 };

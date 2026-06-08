@@ -2,8 +2,8 @@
 * Copyright (c) Microsoft Corporation. All rights reserved.
 * Licensed under the MIT License
 **********************************************************/
-@import 'variables';
-@import 'themes';
+@use 'variables' as *;
+@use 'themes' as *;
 
 @media screen and (min-width: $screenSize) {
     header {
@@ -56,6 +56,12 @@
         }
         .ms-Button {
             color: themed('headerButtonColor');
+        }
+        .settings button {
+            color: themed('headerButtonColor');
+        }
+        .settings button svg {
+            color: var(--colorBrandForeground1);
         }
         .active {
             background-color: themed('headerActiveBackgroundColor');

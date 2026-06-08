@@ -17,5 +17,8 @@ export const generateAuthenticationInterface = (): AuthenticationInterface => {
         getProfileToken: async (): Promise<string> => {
             return invokeInMainWorld<string>(MESSAGE_CHANNELS.AUTHENTICATION_GET_PROFILE_TOKEN);
         },
+        getTenantToken: async (tenantId: string): Promise<string> => {
+            return invokeInMainWorld<string>(MESSAGE_CHANNELS.AUTHENTICATION_GET_TENANT_TOKEN, tenantId);
+        },
     };
 };

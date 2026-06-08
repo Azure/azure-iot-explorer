@@ -4,10 +4,11 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { MessageBar, MessageBarType, Link } from '@fluentui/react';
+
+import { Link, MessageBar, MessageBarBody } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { fetchLatestReleaseTagName, latestReleaseUrlPath } from '../../api/services/githubService';
-import * as packageJson from '../../../../package.json';
+import packageJson from '../../../../package.json';
 import { isNewReleaseVersionHigher } from '../utils/appVersionHelper';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_EVENTS } from '../../constants/telemetry';
@@ -46,12 +47,14 @@ export const AppVersionMessageBar: React.FC = () => {
     return hasNewerRelease ?
        (
             <MessageBar
-                messageBarType={MessageBarType.info}
+                intent="info"
             >
+                <MessageBarBody>
                 {t(ResourceKeys.deviceLists.messageBar.message, {version: latestReleaseVersion})}
                 <Link href={latestReleaseUrlPath} target="_blank">
                     {t(ResourceKeys.deviceLists.messageBar.link)}
                 </Link>
+                </MessageBarBody>
             </MessageBar>
         ) : <></>;
 };

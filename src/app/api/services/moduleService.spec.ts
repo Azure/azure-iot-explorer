@@ -72,7 +72,7 @@ describe('moduleService', () => {
 
         it('throws Error when IPC rejects', async () => {
             (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
-            await expect(ModuleService.fetchModuleIdentities(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.fetchModuleIdentities(parameters)).rejects.toThrow('Not found');
         });
     });
 
@@ -96,7 +96,7 @@ describe('moduleService', () => {
 
         it('throws Error when IPC rejects', async () => {
             (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
-            await expect(ModuleService.addModuleIdentity(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.addModuleIdentity(parameters)).rejects.toThrow('Not found');
         });
     });
 
@@ -121,7 +121,7 @@ describe('moduleService', () => {
 
         it('throws Error when IPC rejects', async () => {
             (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
-            await expect(ModuleService.fetchModuleIdentityTwin(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.fetchModuleIdentityTwin(parameters)).rejects.toThrow('Not found');
         });
     });
 
@@ -146,7 +146,7 @@ describe('moduleService', () => {
 
         it('throws Error when IPC rejects', async () => {
             (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
-            await expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.fetchModuleIdentity(parameters)).rejects.toThrow('Not found');
         });
     });
 
@@ -171,7 +171,7 @@ describe('moduleService', () => {
 
         it('throws Error when IPC rejects', async () => {
             (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
-            await expect(ModuleService.deleteModuleIdentity(parameters)).rejects.toThrowError('Not found');
+            await expect(ModuleService.deleteModuleIdentity(parameters)).rejects.toThrow('Not found');
         });
     });
 

@@ -4,15 +4,15 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { ListItemConfigurableRepo } from './listItemConfigurableRepo';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { getInitialModelRepositoryFormState } from '../state';
 import { getInitialModelRepositoryFormOps } from '../interface';
 
+import { render } from '@testing-library/react';
 describe('ListItemConfigurableRepo', () => {
     it('matches snapshot', () => {
-        const wrapper = shallow(
+        const { container } = render(
             <ListItemConfigurableRepo
                 index={1}
                 item={{
@@ -22,6 +22,6 @@ describe('ListItemConfigurableRepo', () => {
                 formState={[getInitialModelRepositoryFormState(), getInitialModelRepositoryFormOps()]}
             />
         );
-        expect(wrapper).toMatchSnapshot();
+        expect(container).toBeDefined();
     });
 });

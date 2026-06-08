@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import "themes";
-@import "variables";
+@use 'themes' as *;
+@use 'variables' as *;
 
 @mixin default-button {
     margin-top: 3px;
@@ -173,5 +173,14 @@
     }
     .close-dialog-icon {
         float: right;
+    }
+    .loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: 1;
     }
 }

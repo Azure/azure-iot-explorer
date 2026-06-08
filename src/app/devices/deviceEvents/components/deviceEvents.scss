@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import '../../../css/variables';
-@import '../../../css/themes';
+@use '../../../css/variables' as *;
+@use '../../../css/themes' as *;
 
 .device-events {
     .device-events-container {
@@ -84,6 +84,10 @@
         }
     }
 
+    .horizontal-item {
+        margin-bottom: 12px;
+    }
+
     .stack-first-column {
         padding-left: 24px;
         min-width: 22%;
@@ -100,5 +104,12 @@
             width: 80%;
         }
         width: 100%;
+    }
+
+    .loader-content {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
     }
 }

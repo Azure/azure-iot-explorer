@@ -4,13 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory, useLocation } from 'react-router-dom';
-import { CommandBar, ICommandBarItemProps } from '@fluentui/react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { NotificationListEntry } from './notificationListEntry';
 import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { ROUTE_PARAMS } from '../../constants/routes';
-import { CANCEL, NAVIGATE_BACK } from '../../constants/iconNames';
+import { DismissRegular, ArrowLeftRegular } from '@fluentui/react-icons';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
 import { useNotificationsContext } from '../context/notificationsStateContext';
@@ -18,7 +18,7 @@ import '../../css/_notification.scss';
 
 export const NotificationList: React.FC = () => {
     const { t } = useTranslation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const navigationBackAvailable = params.has(ROUTE_PARAMS.NAV_FROM);
@@ -26,12 +26,12 @@ export const NotificationList: React.FC = () => {
     const [ {notifications}, {clearNotifications} ] = useNotificationsContext();
     useBreadcrumbEntry({name:  t(ResourceKeys.breadcrumb.notificationCenter)});
 
-    const getCommandBarItems = (): ICommandBarItemProps[] => {
+    const getCommandBarItems = () => {
         const items = [
             {
                 ariaLabel: t(ResourceKeys.header.notifications.dismiss),
                 disabled: notifications.length === 0,
-                iconProps: { iconName: CANCEL},
+                icon: <DismissRegular />,
                 key: 'back',
                 onClick: clearNotifications,
                 text: t(ResourceKeys.header.notifications.dismiss)
@@ -43,9 +43,9 @@ export const NotificationList: React.FC = () => {
                 {
                     ariaLabel: t(ResourceKeys.modelRepository.commands.back.ariaLabel),
                     disabled: false,
-                    iconProps: { iconName: NAVIGATE_BACK},
+                    icon: <ArrowLeftRegular />,
                     key: 'back',
-                    onClick: history.goBack,
+                    onClick: () => navigate(-1),
                     text: t(ResourceKeys.modelRepository.commands.back.label)
                 }
             );

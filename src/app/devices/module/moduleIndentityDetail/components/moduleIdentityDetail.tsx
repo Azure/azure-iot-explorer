@@ -4,11 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar, Label, Dialog, DialogFooter, DialogType, PrimaryButton, DefaultButton } from '@fluentui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogActions, Label } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { REFRESH, REMOVE } from '../../../../constants/iconNames';
+import { ArrowSyncRegular, DeleteRegular } from '@fluentui/react-icons';
+import { REFRESH, REMOVE } from '../../../../constants/commandBarItemKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { DeviceAuthenticationType } from '../../../../api/models/deviceAuthenticationType';
@@ -22,6 +24,7 @@ import { moduleIdentityDetailStateInterfaceInitial } from '../state';
 import { deleteModuleIdentityAction, getModuleIdentityAction } from '../actions';
 import { useIotHubContext } from '../../../../iotHub/hooks/useIotHubContext';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
+import { LiveRegion } from '../../../../shared/components/liveRegion';
 import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 import '../../../../css/_deviceDetail.scss';
 
@@ -29,7 +32,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
     const { hostName } = useIotHubContext();
-    const history = useHistory();
+    const navigate = useNavigate();
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
@@ -37,19 +40,20 @@ export const ModuleIdentityDetail: React.FC = () => {
     const synchronizationStatus = localState.synchronizationStatus;
     const moduleIdentity = localState.payload;
     const [ showDeleteConfirmation, setShowDeleteConfirmation ] = React.useState<boolean>(false);
+    const [ announcement, setAnnouncement ] = React.useState('');
     const isDeleted = synchronizationStatus === SynchronizationStatus.deleted;
     const isFetching = synchronizationStatus === SynchronizationStatus.working;
     const isUpdating = synchronizationStatus === SynchronizationStatus.updating;
 
     React.useEffect(() => {
         retrieveData();
-    },              []);
+    },              []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     React.useEffect(() => {
         if (isDeleted) {
             navigateToModuleList();
         }
-    },              [isDeleted]);
+    },              [isDeleted]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to deletion
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_IDENTITY});
@@ -58,6 +62,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     const retrieveData = () => dispatch(getModuleIdentityAction.started({ deviceId, moduleId }));
 
     const onDelete = () =>  {
+        setAnnouncement(t(ResourceKeys.moduleIdentity.detail.command.delete));
         dispatch(deleteModuleIdentityAction.started({
             deviceId,
             moduleId
@@ -73,7 +78,7 @@ export const ModuleIdentityDetail: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         disabled: isFetching || isUpdating,
-                        iconProps: {iconName: REFRESH},
+                        icon: <ArrowSyncRegular />,
                         key: REFRESH,
                         name: t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         onClick: retrieveData
@@ -81,7 +86,7 @@ export const ModuleIdentityDetail: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.delete),
                         disabled: isFetching || isUpdating,
-                        iconProps: {iconName: REMOVE},
+                        icon: <DeleteRegular />,
                         key: REMOVE,
                         name: t(ResourceKeys.moduleIdentity.detail.command.delete),
                         onClick: deleteConfirmation
@@ -192,7 +197,7 @@ export const ModuleIdentityDetail: React.FC = () => {
 
     const navigateToModuleList = () => {
         const path = pathname.replace(/\/moduleIdentity\/moduleDetail\/.*/, `/${ROUTE_PARTS.MODULE_IDENTITY}`);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        navigate(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     };
 
     const generateConnectionString = (key: string): string => {
@@ -201,24 +206,21 @@ export const ModuleIdentityDetail: React.FC = () => {
 
     const deleteConfirmationDialog = () => {
         return (
-            <div role="dialog">
-                <Dialog
-                    hidden={!showDeleteConfirmation}
-                    onDismiss={closeDeleteDialog}
-                    dialogContentProps={{
-                        title: t(ResourceKeys.moduleIdentity.detail.deleteConfirmation),
-                        type: DialogType.close,
-                    }}
-                    modalProps={{
-                        isBlocking: true,
-                    }}
-                >
-                    <DialogFooter>
-                        <PrimaryButton onClick={onDelete} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)} />
-                        <DefaultButton onClick={closeDeleteDialog} text={t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)} />
-                    </DialogFooter>
-                </Dialog>
-            </div>
+            <Dialog
+                open={showDeleteConfirmation}
+                onOpenChange={(e, data) => { if (!data.open) {closeDeleteDialog();} }}
+                modalType="alert"
+            >
+                <DialogSurface>
+                    <DialogBody>
+                        <DialogTitle>{t(ResourceKeys.moduleIdentity.detail.deleteConfirmation)}</DialogTitle>
+                        <DialogActions>
+                            <Button appearance="primary" onClick={onDelete}>{t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.confirm)}</Button>
+                            <Button onClick={closeDeleteDialog}>{t(ResourceKeys.deviceLists.commands.delete.confirmationDialog.cancel)}</Button>
+                        </DialogActions>
+                    </DialogBody>
+                </DialogSurface>
+            </Dialog>
         );
     };
 
@@ -237,6 +239,7 @@ export const ModuleIdentityDetail: React.FC = () => {
                 }
                 {showDeleteConfirmation && deleteConfirmationDialog()}
             </div>
+            <LiveRegion message={announcement} />
         </>
     );
 };

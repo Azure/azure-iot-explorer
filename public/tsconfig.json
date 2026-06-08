@@ -1,9 +1,13 @@
 {
     "compilerOptions": {
-        "moduleResolution": "node",
-        "module": "commonjs",
-        "target": "es5",
+        "moduleResolution": "node16",
+        "module": "node16",
+        "target": "es2025",
+        "skipLibCheck": true,
+        "strictNullChecks": false,
+        "useUnknownInCatchVariables": false,
         "resolveJsonModule": true,
+        "esModuleInterop": true,
         "sourceMap": false,
         "removeComments": false,
         "outDir": "../host/",

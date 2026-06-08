@@ -2,22 +2,24 @@
     "compilerOptions": {
         "allowJs": true,
         "allowUnreachableCode": false,
-        "baseUrl": ".",
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "importHelpers": true,
         "jsx": "react",
         "lib": [
             "dom",
-            "es2015"
+            "es2025"
         ],
-        "module": "commonjs",
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "esModuleInterop": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": false,
+        "strictNullChecks": false,
         "noImplicitReturns": true,
         "preserveConstEnums": true,
         "removeComments": false,
         "sourceMap": true,
-        "target": "ES5"
+        "target": "es2025"
     }
 }

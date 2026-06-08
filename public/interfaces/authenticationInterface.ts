@@ -6,4 +6,5 @@ export interface AuthenticationInterface {
     login(): Promise<void>;
     logout(): Promise<void>;
     getProfileToken(): Promise<string>;
+    getTenantToken(tenantId: string): Promise<string>;
 }

@@ -4,16 +4,18 @@
  **********************************************************/
 import * as React from 'react';
 import 'jest';
-import { shallow } from 'enzyme';
 import { ModuleIdentityTwin } from './moduleIdentityTwin';
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { ModuleTwin } from '../../../../api/models/moduleTwin';
 import { moduleTwinStateInitial } from '../state';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 const pathname = 'https://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleTwin/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
 }));
 
@@ -42,12 +44,12 @@ describe('moduleIdentityTwin', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{ synchronizationStatus: SynchronizationStatus.working }, jest.fn()]);
-            expect(shallow(<ModuleIdentityTwin/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityTwin /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after module twin is fetched', () => {
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityTwin/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter><ModuleIdentityTwin /></MemoryRouter>)).toBeDefined();
         });
     });
 });

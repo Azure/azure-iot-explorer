@@ -1,41 +1,37 @@
 import * as React from 'react';
-import { mergeStyleSets } from '@fluentui/react';
 import MonacoEditor, { EditorWillMount, monaco } from 'react-monaco-editor';
 import { useThemeContext } from '../contexts/themeContext';
 import { THEME_DARK, THEME_LIGHT } from './style';
 
-export const editorStyles = mergeStyleSets({
-  editorStyleDark: {
-    borderColor: THEME_DARK.BORDER,
-    borderStyle: 'solid',
-    borderWidth: '1px',
-  },
-  editorStyleLight: {
-    borderColor: THEME_LIGHT.BORDER,
-    borderStyle: 'solid',
-    borderWidth: '1px',
-  },
-});
+const editorStyleDarkCss: React.CSSProperties = {
+  borderColor: THEME_DARK.BORDER,
+  borderStyle: 'solid',
+  borderWidth: '1px',
+};
 
-const placeholderStyles = mergeStyleSets({
-  placeholderText: {
-    color: 'gray',
-    fontStyle: 'italic',
-    userSelect: 'text',
-  },
-});
+const editorStyleLightCss: React.CSSProperties = {
+  borderColor: THEME_LIGHT.BORDER,
+  borderStyle: 'solid',
+  borderWidth: '1px',
+};
+
+const placeholderCss: React.CSSProperties = {
+  color: 'gray',
+  fontStyle: 'italic',
+  userSelect: 'text',
+};
 
 const placeholderContentWidget = (
   editor: monaco.editor.IStandaloneCodeEditor,
   placeholder: string
 ): void => {
-  const { placeholderText } = placeholderStyles;
   const widget = {
     domNode: null as HTMLElement | null,
     getDomNode: (): HTMLElement | null => {
       if (!widget.domNode) {
         widget.domNode = document.createElement('pre');
-        widget.domNode.className = placeholderText;
+        widget.domNode.className = '';
+        Object.assign(widget.domNode.style, placeholderCss);
         widget.domNode.textContent = placeholder;
         editor.applyFontInfo(widget.domNode);
       }
@@ -92,7 +88,6 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
   placeholder,
 }) => {
   const { editorTheme } = useThemeContext();
-  const { editorStyleLight, editorStyleDark } = editorStyles;
   const editorRef = React.useRef(null);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
 
@@ -242,12 +237,12 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
       role='region'
       aria-label={`Code editor: ${ariaLabel}. Press Escape or Alt+M to exit editor.`}
       tabIndex={-1}
+      style={editorTheme === 'light' ? editorStyleLightCss : editorStyleDarkCss}
     >
       <MonacoEditor
         height={height}
         width={'98%'}
         theme={editorTheme === 'light' ? 'vs' : 'vs-dark'}
-        className={editorTheme === 'light' ? editorStyleLight : editorStyleDark}
         editorDidMount={handleEditorDidMount}
         value={content}
         language={language || 'json'}

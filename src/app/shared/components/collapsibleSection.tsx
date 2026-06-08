@@ -4,9 +4,9 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
+import { ChevronUpRegular, ChevronDownRegular } from '@fluentui/react-icons';
 import { LabelWithTooltip } from './labelWithTooltip';
-import { GroupedList } from '../../constants/iconNames';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import './collapsibleSection.scss';
 
@@ -31,10 +31,11 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = (props: Col
 
     return (
         <div className="collapsible-section">
-            <IconButton
+            <Button
+                appearance="subtle"
                 className="collapsible-section-icon"
-                iconProps={{iconName: expanded ? GroupedList.CLOSE : GroupedList.OPEN}}
-                ariaLabel={!expanded ?
+                icon={expanded ? <ChevronUpRegular /> : <ChevronDownRegular />}
+                aria-label={!expanded ?
                     `${t(ResourceKeys.collapsibleSection.open)} ${label}` :
                     `${t(ResourceKeys.collapsibleSection.close)} ${label}`}
                 onClick={toggleCollapse}

@@ -2,29 +2,28 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
- @import 'themes';
+ @use 'themes' as *;
 
 .folder-picker-dialog {
-    .ms-Dialog-main {
-        min-width: 50vw;
-        max-width: 356px;
-        min-height: 30vh;
-    }
+    min-width: 50vw;
+    max-width: 356px;
+    min-height: 30vh;
+
     .folder-links{
+        display: flex;
+        flex-direction: column;
         height: 30vh;
         overflow: auto;
-    }
-    .ms-Dialog-header{
-        word-wrap: break-word;
     }
     .labelSection {
         text-overflow: ellipsis;
     }
     .folder-button {
         width: 100%;
-        text-align: left;
+        justify-content: flex-start;
         border: none;
-        margin-bottom: 10px;
+        margin-bottom: 2px;
+        min-height: 36px;
     }
     .no-folders-text {
         margin-left: 22px;

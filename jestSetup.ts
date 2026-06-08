@@ -2,20 +2,23 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { setIconOptions } from '@fluentui/react';
-import * as Enzyme from 'enzyme';
-import * as Adapter from 'enzyme-adapter-react-16';
+
+// react-router-dom v7 requires TextEncoder/TextDecoder in jsdom
+const { TextEncoder, TextDecoder } = require('util');
+global.TextEncoder = global.TextEncoder || TextEncoder;
+global.TextDecoder = global.TextDecoder || TextDecoder;
+
+// FluentUI v9 components use ResizeObserver, which jsdom doesn't provide
+global.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+} as any;
 
 // tslint:disable-next-line: no-string-literal
 global.Headers = jest.fn();
 window.fetch = jest.fn();
 
-// suppress icon warnings.
-setIconOptions({
-  disableWarnings: true,
-});
-
-Enzyme.configure({ adapter: new Adapter() });
 document.execCommand = jest.fn(); // maskedCopyableTextField
 
 // fix for smooth-dnd invocation error in test
@@ -24,7 +27,8 @@ Object.defineProperty(global, 'Node', {
 });
 
 jest.mock('react-i18next', () => ({
-  useTranslation: () => ({t: key => key})
+  useTranslation: () => ({t: key => key}),
+  Trans: ({ children }) => children
 }));
 
 jest.mock('./src/appConfig/appConfig', () => ({

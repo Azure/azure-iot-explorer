@@ -2,12 +2,9 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-@import "variables";
-@import "mixins";
-@import "themes";
-
-$nav-collapsed-width: 40px;
-$nav-width: 20%;
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'themes' as *;
 
 .device-content {
     .device-content-detail {
@@ -44,6 +41,14 @@ $nav-width: 20%;
         h3 {
             font-size: 20px;
             padding-left: 26px;
+        }
+    }
+}
+
+.mainleftnav {
+    .nav-links {
+        .collapsibleButton {
+            margin-left: 4px;
         }
     }
 }

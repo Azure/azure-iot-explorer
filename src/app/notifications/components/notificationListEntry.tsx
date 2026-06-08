@@ -4,25 +4,27 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Icon, Announced, Link, IconButton } from '@fluentui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button, Link } from '@fluentui/react-components';
+import { CopyRegular, ErrorCircleRegular, CheckmarkCircleRegular, WarningRegular, InfoRegular, AlertRegular } from '@fluentui/react-icons';
 import { Notification, NotificationType } from '../../api/models/notification';
 import { ROUTE_PARAMS, ROUTE_PARTS } from '../../constants/routes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import '../../css/_notification.scss';
+import { LiveRegion } from '../../shared/components/liveRegion';
 
 export interface NotificationListEntryProps {
     notification: Notification;
     showAnnouncement: boolean;
 }
 
-export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (props: NotificationListEntryProps) => {
+export const NotificationListEntry: React.FC<NotificationListEntryProps> = (props: NotificationListEntryProps) => {
     const { t } = useTranslation();
     const { notification } = props;
     const { pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
-    const iconName = getIconName(notification.type);
+    const NotificationIcon = getNotificationIcon(notification.type);
     const iconColor = getIconColor(notification.type);
     const message = t(notification.text.translationKey, notification.text.translationOptions);
     const friendlyMessage = <>{message.split('. ').map((m: React.ReactNode, index: number) => (<div className="message" key={index}>{m + '.'}<br/></div>))}</>;
@@ -30,19 +32,20 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
 
     const navigateToNotificationCenter = () => {
         const path = `/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}?${ROUTE_PARAMS.NAV_FROM}`;
-        history.push(path);
+        navigate(path);
     };
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(message);
     };
 
-    const CopyButton = (buttonProps: { isFlex: boolean }): JSX.Element => {
+    const CopyButton = (buttonProps: { isFlex: boolean }): React.JSX.Element => {
         return (
-            <IconButton
-                iconProps={{ iconName: 'copy' }}
+            <Button
+                appearance="subtle"
+                icon={<CopyRegular />}
                 title={t(ResourceKeys.header.notifications.copy)}
-                ariaLabel={t(ResourceKeys.header.notifications.copy)}
+                aria-label={t(ResourceKeys.header.notifications.copy)}
                 onClick={copyToClipboard}
                 style={buttonProps.isFlex ? {flex: '1'} : {}}
             />
@@ -51,9 +54,9 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
 
     return (
         <div className="notification-list-entry">
-            {props.showAnnouncement && <Announced message={message}/>}
+            {props.showAnnouncement && <LiveRegion message={message}/>}
             <div className={iconColor}>
-                <Icon style={{fontSize: 18}} iconName={iconName} />
+                <NotificationIcon style={{fontSize: 18}} />
             </div>
 
             <div className="body">
@@ -77,7 +80,7 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
                         }
                         <div className="notificationEntry-flexContainer">
                             <Link onClick={navigateToNotificationCenter} style={{flex: '5'}}>
-                                <Icon className="notificationEntry-Ringer" iconName={'Ringer'} />
+                                <AlertRegular className="notificationEntry-Ringer" />
                                 {t(ResourceKeys.header.notifications.title)}
                             </Link>
                             <CopyButton isFlex={true}/>
@@ -90,12 +93,12 @@ export const NotificationListEntry: React.SFC<NotificationListEntryProps> = (pro
     );
 };
 
-export const getIconName = (notificationType: NotificationType) => {
+export const getNotificationIcon = (notificationType: NotificationType) => {
     switch (notificationType) {
-        case NotificationType.error: return 'ErrorBadge';
-        case NotificationType.success: return 'Completed';
-        case NotificationType.warning: return 'Warning';
-        default: return 'Info';
+        case NotificationType.error: return ErrorCircleRegular;
+        case NotificationType.success: return CheckmarkCircleRegular;
+        case NotificationType.warning: return WarningRegular;
+        default: return InfoRegular;
     }
 };
 

@@ -5,10 +5,11 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { CommandBar } from '@fluentui/react';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
-import { DIRECT_METHOD } from '../../../constants/iconNames';
+import { RemoteRegular } from '@fluentui/react-icons';
+import { DIRECT_METHOD } from '../../../constants/commandBarItemKeys';
 import { HeaderView } from '../../../shared/components/headerView';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { invokeDirectMethodSaga } from '../saga';
@@ -25,7 +26,7 @@ export const DirectMethod: React.FC = () => {
     const { search } = useLocation();
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const [ , dispatch ] = useAsyncSagaReducer(() => undefined, invokeDirectMethodSaga, undefined);
+    const [ , dispatch ] = useAsyncSagaReducer((): undefined => undefined, invokeDirectMethodSaga, undefined);
     const [connectionTimeOut, setConnectionTimeOut] = React.useState<number>(DEFAULT_TIMEOUT);
     const [methodName, setMethodName] = React.useState<string>('');
     const [payload, setPayload] = React.useState<string>('');
@@ -43,7 +44,7 @@ export const DirectMethod: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.directMethod.invokeMethodButtonText),
                         disabled: !formReady(),
-                        iconProps: {iconName: DIRECT_METHOD},
+                        icon: <RemoteRegular />,
                         key: DIRECT_METHOD,
                         name: t(ResourceKeys.directMethod.invokeMethodButtonText),
                         onClick: onInvokeMethodClickHandler

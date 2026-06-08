@@ -4,11 +4,11 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
+import { ChevronDownRegular, ChevronUpRegular } from '@fluentui/react-icons';
 import { DeviceCommandsPerInterfacePerCommand, CommandSchema } from './deviceCommandsPerInterfacePerCommand';
 import { InvokeCommandActionParameters } from '../../actions';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import '../../../../css/_devicePnpDetailList.scss';
 
 export interface DeviceCommandDataProps {
@@ -41,9 +41,10 @@ export const DeviceCommandsPerInterface: React.FC<DeviceCommandDataProps & Devic
     const renderCollapseAllButton = () => {
         return (
             <div className="col-sm1 collapse-button">
-                <IconButton
-                    iconProps={{iconName: allCollapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
-                    ariaLabel={allCollapsed ?
+                <Button
+                    appearance="subtle"
+                    icon={allCollapsed ? <ChevronDownRegular /> : <ChevronUpRegular />}
+                    aria-label={allCollapsed ?
                         t(ResourceKeys.deviceCommands.command.expandAll) :
                         t(ResourceKeys.deviceCommands.command.collapseAll)}
                     onClick={onToggleCollapseAll}

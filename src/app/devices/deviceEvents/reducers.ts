@@ -22,7 +22,7 @@ export const deviceEventsReducer = reducerWithInitialState<DeviceEventsStateInte
             formMode: 'working'
         };
     })
-    .case(startEventsMonitoringAction.done, (state: DeviceEventsStateInterface, payload: {params: MonitorEventsParameters}) => {
+    .case(startEventsMonitoringAction.done, (state: DeviceEventsStateInterface, _payload: {params: MonitorEventsParameters}) => {
         return {
             ...state,
             formMode: 'fetched',

@@ -4,13 +4,15 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar, Label } from '@fluentui/react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Label } from '@fluentui/react-components';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DeviceSettingsPerInterface } from './deviceSettingsPerInterface';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getInterfaceIdFromQueryString, getComponentNameFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { updateDeviceTwinAction, updateModuleTwinAction } from '../../actions';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/commandBarItemKeys';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -24,7 +26,7 @@ import { TELEMETRY_PAGE_NAMES, TELEMETRY_USER_ACTIONS } from '../../../../../app
 export const DeviceSettings: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const componentName = getComponentNameFromQueryString(search);
@@ -39,9 +41,9 @@ export const DeviceSettings: React.FC = () => {
     const twin = pnpState.twin.payload;
     const twinWithSchema = React.useMemo(() => {
         return generateTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
-    },                                   [modelDefinition, twin, extendedModelDefinition]);
+    },                                   [modelDefinition, twin, extendedModelDefinition, componentName]);
 
-    const patchTwin = (parameters: Twin) => {
+    const patchTwin = (parameters: Partial<Twin>) => {
         AppInsightsClient.trackUserAction(TELEMETRY_USER_ACTIONS.PNP_UPDATE_PROPERTY);
         if (moduleId) {
             dispatch(updateModuleTwinAction.started(parameters));
@@ -76,7 +78,7 @@ export const DeviceSettings: React.FC = () => {
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/settings\/.*/, ``);
-        history.push(getBackUrl(path, search));
+        navigate(getBackUrl(path, search));
     };
 
     React.useEffect(() => {
@@ -96,7 +98,7 @@ export const DeviceSettings: React.FC = () => {
                     items={[
                         {
                             ariaLabel: t(ResourceKeys.deviceSettings.command.refresh),
-                            iconProps: {iconName: REFRESH},
+                            icon: <ArrowSyncRegular />,
                             key: REFRESH,
                             name: t(ResourceKeys.deviceSettings.command.refresh),
                             onClick: onRefresh
@@ -105,7 +107,7 @@ export const DeviceSettings: React.FC = () => {
                     farItems={[
                         {
                             ariaLabel: t(ResourceKeys.deviceSettings.command.close),
-                            iconProps: {iconName: NAVIGATE_BACK},
+                            icon: <ArrowLeftRegular />,
                             key: NAVIGATE_BACK,
                             name: t(ResourceKeys.deviceSettings.command.close),
                             onClick: handleClose

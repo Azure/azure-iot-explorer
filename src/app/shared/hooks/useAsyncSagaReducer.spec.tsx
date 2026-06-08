@@ -1,6 +1,18 @@
+const useReducerSpy = jest.fn();
+jest.mock('react', () => {
+  const actual = jest.requireActual('react');
+  return {
+    ...actual,
+    useReducer: (...args: any[]) => {
+      useReducerSpy(...args);
+      return actual.useReducer(...args);
+    },
+  };
+});
+
 import * as React from 'react';
 import 'jest';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { useAsyncSagaReducer } from './useAsyncSagaReducer';
 
 describe('useAsyncSagaReducer', () => {
@@ -8,7 +20,6 @@ describe('useAsyncSagaReducer', () => {
   type Action<T> = { type: string, payload?: T };
 
   it('initializes reducer with initial state and returns current state', () => {
-    const useReducerSpy = jest.spyOn(React, 'useReducer');
     const initialState: StateInterface = { foo: 'baz' };
     const fooReducer = jest.fn((state: StateInterface, action: Action<string>) => state);
 
@@ -21,11 +32,9 @@ describe('useAsyncSagaReducer', () => {
       return (<p className="current-state">{state.foo}</p>);
     };
 
-    const wrapper = shallow(<TestReactComponent />);
+    render(<TestReactComponent />);
 
     expect(useReducerSpy).toHaveBeenCalledWith(fooReducer, initialState);
-
-    const text = wrapper.find('.current-state').text();
-    expect(text).toEqual('baz');
+    expect(screen.getByText('baz')).toBeInTheDocument();
   });
 });

@@ -2,45 +2,48 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
-import { mount } from 'enzyme';
-import { TextField, Slider } from '@fluentui/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { DirectMethodForm } from './directMethodForm';
 
-describe('directMethodForm', () => {
-    it('makes expected calls', () => {
-        const mockSetMethodName = jest.fn();
-        const mockSetPayload = jest.fn();
-        const mockConnectionTimeOut = jest.fn();
-        const mockResponseTimeOut = jest.fn();
-        const wrapper = mount(
-            <DirectMethodForm
-                methodName={undefined as any}
-                connectionTimeOut={0}
-                responseTimeOut={0}
-                setMethodName={mockSetMethodName}
-                setPayload={mockSetPayload}
-                setConnectionTimeOut={mockConnectionTimeOut}
-                setResponseTimeOut={mockResponseTimeOut}
-            />);
+describe('DirectMethodForm', () => {
+    const defaultProps = {
+        methodName: '',
+        connectionTimeOut: 10,
+        responseTimeOut: 10,
+        setMethodName: jest.fn(),
+        setPayload: jest.fn(),
+        setConnectionTimeOut: jest.fn(),
+        setResponseTimeOut: jest.fn()
+    };
 
-        act(() => wrapper.find(TextField).first().props().onChange?.(undefined as any, 'testMethod'));
-        wrapper.update();
-        expect(mockSetMethodName).toBeCalledWith('testMethod');
+    beforeEach(() => jest.clearAllMocks());
 
-        act(() => wrapper.find(TextField).at(1).props().onChange?.(undefined as any, 'payload'));
-        wrapper.update();
-        expect(mockSetPayload).toBeCalledWith('payload');
+    it('renders method name input', () => {
+        render(<DirectMethodForm {...defaultProps}/>);
 
-        act(() => wrapper.find(Slider).first().props().onChange?.(10));
-        wrapper.update();
-        expect(mockConnectionTimeOut).toBeCalledWith(10);
-        expect(mockResponseTimeOut).toBeCalledWith(10);
+        expect(screen.getByLabelText('directMethod.methodName')).toBeInTheDocument();
+    });
 
-        act(() => wrapper.find(Slider).at(1).props().onChange?.(20));
-        wrapper.update();
-        expect(mockResponseTimeOut).toBeCalledWith(20);
+    it('renders payload textarea', () => {
+        render(<DirectMethodForm {...defaultProps}/>);
+
+        expect(screen.getByText('directMethod.payload')).toBeInTheDocument();
+    });
+
+    it('renders connection and response timeout sliders', () => {
+        render(<DirectMethodForm {...defaultProps}/>);
+
+        expect(screen.getByLabelText('directMethod.connectionTimeout')).toBeInTheDocument();
+        expect(screen.getByLabelText('directMethod.responseTimeout')).toBeInTheDocument();
+    });
+
+    it('calls setMethodName when method name input changes', () => {
+        const setMethodName = jest.fn();
+        render(<DirectMethodForm {...defaultProps} setMethodName={setMethodName}/>);
+
+        const input = screen.getByLabelText('directMethod.methodName');
+        fireEvent.change(input, { target: { value: 'testMethod' } });
+        expect(setMethodName).toHaveBeenCalled();
     });
 });

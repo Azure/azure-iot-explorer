@@ -3,20 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, RouteProps } from 'react-router-dom';
 import { BreadcrumbWrapper, BreadcrumbWrapperProps } from './breadcrumbWrapper';
 
-export type ConstrainedRouteProps = Pick<RouteProps, 'location' | 'path' | 'exact' | 'sensitive' | 'strict'>;
-export interface BreadcrumbRouteProps extends ConstrainedRouteProps {
+export interface BreadcrumbRouteProps {
     breadcrumb: BreadcrumbWrapperProps;
+    children?: React.ReactNode;
 }
 
 export const BreadcrumbRoute: React.FC<BreadcrumbRouteProps> = props => {
     return (
-        <Route {...props}>
-            <BreadcrumbWrapper {...props.breadcrumb} >
-                {props.children}
-            </BreadcrumbWrapper>
-        </Route>
+        <BreadcrumbWrapper {...props.breadcrumb} >
+            {props.children}
+        </BreadcrumbWrapper>
     );
 };

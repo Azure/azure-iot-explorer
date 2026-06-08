@@ -4,11 +4,12 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar } from '@fluentui/react';
+import { useLocation } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString, getModuleIdentityIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { REFRESH, SAVE } from '../../../../constants/iconNames';
+import { ArrowSyncRegular, SaveRegular } from '@fluentui/react-icons';
+import { REFRESH, SAVE } from '../../../../constants/commandBarItemKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { getModuleIdentityTwinAction, updateModuleIdentityTwinAction } from '../actions';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
@@ -23,8 +24,7 @@ import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityTwin: React.FC = () => {
     const { t } = useTranslation();
-    const { search, pathname } = useLocation();
-    const history = useHistory();
+    const { search } = useLocation();
     const moduleId = getModuleIdentityIdFromQueryString(search);
     const deviceId = getDeviceIdFromQueryString(search);
 
@@ -39,7 +39,7 @@ export const ModuleIdentityTwin: React.FC = () => {
 
     React.useEffect(() => {
         retrieveData();
-    },              [deviceId, moduleId]);
+    },              [deviceId, moduleId]); // eslint-disable-line react-hooks/exhaustive-deps -- retrieveData uses these values
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_TWIN});
@@ -65,7 +65,7 @@ export const ModuleIdentityTwin: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         disabled: moduleIdentityTwinSyncStatus === SynchronizationStatus.working,
-                        iconProps: {iconName: REFRESH},
+                        icon: <ArrowSyncRegular />,
                         key: REFRESH,
                         name: t(ResourceKeys.moduleIdentity.detail.command.refresh),
                         onClick: retrieveData
@@ -73,7 +73,7 @@ export const ModuleIdentityTwin: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.detail.command.save),
                         disabled: !state.isDirty || !state.isTwinValid,
-                        iconProps: {iconName: SAVE},
+                        icon: <SaveRegular />,
                         key: SAVE,
                         name: t(ResourceKeys.moduleIdentity.detail.command.save),
                         onClick: handleSave

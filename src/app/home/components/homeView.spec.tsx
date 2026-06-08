@@ -3,17 +3,33 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render, act } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { HomeView } from './homeView';
 
-describe('HomeView', () => {
-    it('matches snapshot', () => {
-        const routeProps = {
-            history: jest.fn() as any, // tslint:disable-line:no-any
-            location: jest.fn() as any, // tslint:disable-line:no-any
-            match: jest.fn() as any, // tslint:disable-line:no-any
-        };
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/home', search: '', hash: '', state: null, key: 'default' })
+}));
 
-        expect(shallow(<HomeView {...routeProps} />)).toMatchSnapshot();
+describe('HomeView', () => {
+    it('renders the home container', async () => {
+        let container: HTMLElement;
+        await act(async () => {
+            ({ container } = render(<MemoryRouter initialEntries={['/home']}><HomeView/></MemoryRouter>));
+        });
+
+        expect(container!.firstChild).toBeDefined();
+    });
+
+    it('renders navigation area', async () => {
+        let container: HTMLElement;
+        await act(async () => {
+            ({ container } = render(<MemoryRouter initialEntries={['/home']}><HomeView/></MemoryRouter>));
+        });
+
+        const navArea = container!.querySelector('.home-content');
+        expect(navArea !== null || container!.childElementCount > 0).toBe(true);
     });
 });

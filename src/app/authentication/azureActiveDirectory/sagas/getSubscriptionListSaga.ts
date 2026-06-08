@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { call, put } from 'redux-saga/effects';
+import { Action } from 'typescript-fsa';
 import { raiseNotificationToast } from '../../../notifications/components/notificationToast';
 import { getAzureSubscriptions } from '../../../api/services/azureSubscriptionService';
 import { getSubscriptionListAction } from '../actions';
@@ -10,16 +11,17 @@ import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { NotificationType } from '../../../api/models/notification';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { appConfig } from '../../../../appConfig/appConfig';
-import { getProfileToken } from '../../../api/services/authenticationService';
+import { getTenantToken } from '../../../api/services/authenticationService';
 
-export function* getSubscriptionListSaga() {
+export function* getSubscriptionListSaga(action: Action<string>) {
+    const tenantId = action.payload;
     try {
-        const authorizationToken: string = yield call(getProfileToken); // always get a fresh token to prevent expiration
+        const authorizationToken: string = yield call(getTenantToken, tenantId);
         const result: AzureSubscription[] = yield call(getAzureSubscriptions, {
             authorizationToken,
             endpoint: appConfig.azureResourceManagementEndpoint
         });
-        yield put(getSubscriptionListAction.done({result: result.sort((a, b) => a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1)}));
+        yield put(getSubscriptionListAction.done({params: tenantId, result: result.sort((a, b) => a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1)}));
     }
     catch (error) {
         yield call(raiseNotificationToast, {
@@ -32,6 +34,6 @@ export function* getSubscriptionListSaga() {
             type: NotificationType.error
         });
 
-        yield put(getSubscriptionListAction.failed({error}));
+        yield put(getSubscriptionListAction.failed({params: tenantId, error}));
     }
 }

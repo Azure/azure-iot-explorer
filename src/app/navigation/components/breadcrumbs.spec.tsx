@@ -3,23 +3,37 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { Breadcrumbs } from './breadcrumbs';
 import * as BreadcrumbContext from '../hooks/useBreadcrumbContext';
 
 describe('Breadcrumbs', () => {
-    it('matches snapshot', () => {
+    it('renders breadcrumb list element', () => {
+        jest.spyOn(BreadcrumbContext, 'useBreadcrumbContext').mockReturnValue({
+            stack: [],
+            push: jest.fn(),
+            pop: jest.fn()
+        } as any);
+
+        const { container } = render(<MemoryRouter><Breadcrumbs/></MemoryRouter>);
+
+        expect(container.querySelector('ul.breadcrumb')).toBeInTheDocument();
+    });
+
+    it('renders breadcrumb items from stack', () => {
         jest.spyOn(BreadcrumbContext, 'useBreadcrumbContext').mockReturnValue({
             stack: [
-                { name: 'name1', url: 'url1', path: 'path1', suffix: '', disableLink: true},
-                { name: 'name2', url: 'url2', path: 'path2', suffix: ''},
-                { name: 'name3', url: 'url3', path: 'path3', suffix: ''},
+                { name: 'Home', path: '/home', url: '/home', disableLink: false },
+                { name: 'Devices', path: '/devices', url: '/devices', disableLink: true }
             ],
-            registerEntry: jest.fn(),
-            unregisterEntry: jest.fn());
+            push: jest.fn(),
+            pop: jest.fn()
+        } as any);
 
-            expect(shallow(
-            <Breadcrumbs/>
-        )).toMatchSnapshot();
+        const { container } = render(<MemoryRouter><Breadcrumbs/></MemoryRouter>);
+
+        const items = container.querySelectorAll('li.breadcrumb-item');
+        expect(items.length).toBe(2);
     });
 });

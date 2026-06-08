@@ -4,14 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, ActionButton, Link } from '@fluentui/react';
+import { Button, Link } from '@fluentui/react-components';
+import { EditRegular, DeleteRegular, ArrowForwardRegular } from '@fluentui/react-icons';
 import { getConnectionInfoFromConnectionString } from '../../api/shared/utils';
 import { getResourceNameFromHostName } from '../../api/shared/hostNameUtils';
 import { ConnectionStringProperties } from './connectionStringProperties';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ConnectionStringDelete } from './connectionStringDelete';
 import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableTextField';
-import { EDIT, REMOVE } from '../../constants/iconNames';
 import { ConnectionStringWithExpiry } from '../state';
 import { CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS } from '../../constants/browserStorage';
 import { getDaysBeforeHubConnectionStringExpires } from '../../shared/utils/hubConnectionStringHelper';
@@ -68,20 +68,18 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
                     </Link>
                 </div>
                 <div className="actions">
-                    <IconButton
-                        iconProps={{
-                            iconName: EDIT
-                        }}
+                    <Button
+                        appearance="subtle"
+                        icon={<EditRegular />}
                         title={t(ResourceKeys.connectionStrings.editConnectionCommand.label)}
-                        ariaLabel={t(ResourceKeys.connectionStrings.editConnectionCommand.ariaLabel, {connectionString})}
+                        aria-label={t(ResourceKeys.connectionStrings.editConnectionCommand.ariaLabel, {connectionString})}
                         onClick={onEditConnectionStringClick}
                     />
-                    <IconButton
-                        iconProps={{
-                            iconName: REMOVE
-                        }}
+                    <Button
+                        appearance="subtle"
+                        icon={<DeleteRegular />}
                         title={t(ResourceKeys.connectionStrings.deleteConnectionCommand.label)}
-                        ariaLabel={t(ResourceKeys.connectionStrings.deleteConnectionCommand.ariaLabel, {connectionString})}
+                        aria-label={t(ResourceKeys.connectionStrings.deleteConnectionCommand.ariaLabel, {connectionString})}
                         onClick={onDeleteConnectionStringClick}
                     />
                 </div>
@@ -104,12 +102,13 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
                     <div className="expiration-warning">
                         {t(ResourceKeys.connectionStrings.expirationWarning, { numberOfDays: daysTillExpire})}
                     </div>}
-                <ActionButton
+                <Button
+                    appearance="transparent"
                     onClick={onSelectConnectionStringClick}
-                    iconProps={{iconName: 'Forward'}}
+                    icon={<ArrowForwardRegular />}
                 >
                     {t(ResourceKeys.connectionStrings.visitConnectionCommand.label)}
-                </ActionButton>
+                </Button>
             </div>
             <ConnectionStringDelete
                 connectionString={connectionString}

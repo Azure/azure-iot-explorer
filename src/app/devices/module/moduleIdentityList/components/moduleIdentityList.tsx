@@ -4,12 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
-import { IColumn, SelectionMode, CommandBar, Label } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Label } from '@fluentui/react-components';
+import { IColumn, SelectionMode, ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
-import { REFRESH, ArrayOperation } from '../../../../constants/iconNames';
+import { BoxRegular, ArrowSyncRegular } from '@fluentui/react-icons';
+import { REFRESH } from '../../../../constants/commandBarItemKeys';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import { parseDateTimeString } from '../../../../api/dataTransforms/transformHelper';
 import { ModuleIdentity } from '../../../../api/models/moduleIdentity';
@@ -28,8 +30,8 @@ import '../../../../css/_deviceDetail.scss';
 export const ModuleIdentityList: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const { url } = useRouteMatch();
-    const history = useHistory();
+    const url = pathname;
+    const navigate = useNavigate();
     const deviceId = getDeviceIdFromQueryString(search);
 
     const [ localState, dispatch ] = useAsyncSagaReducer(moduleIdentityListReducer, getModuleIdentitiesSaga, moduleIndentityListStateInitial(), 'moduleIdentityListState');
@@ -38,7 +40,7 @@ export const ModuleIdentityList: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(getModuleIdentitiesAction.started(deviceId));
-    },              [deviceId]);
+    },              [deviceId, dispatch]);
 
     React.useEffect(() => {
         AppInsightsClient.getInstance()?.trackPageView({name: TELEMETRY_PAGE_NAMES.MODULE_LIST});
@@ -51,15 +53,15 @@ export const ModuleIdentityList: React.FC = () => {
                 items={[
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.command.add),
-                        iconProps: {iconName: ArrayOperation.ADD},
-                        key: ArrayOperation.ADD,
+                        icon: <BoxRegular />,
+                        key: 'add',
                         name: t(ResourceKeys.moduleIdentity.command.add),
                         onClick: handleAdd
                     },
                     {
                         ariaLabel: t(ResourceKeys.moduleIdentity.command.refresh),
                         disabled: synchronizationStatus === SynchronizationStatus.working,
-                        iconProps: {iconName: REFRESH},
+                        icon: <ArrowSyncRegular />,
                         key: REFRESH,
                         name: t(ResourceKeys.moduleIdentity.command.refresh),
                         onClick: handleRefresh
@@ -71,7 +73,7 @@ export const ModuleIdentityList: React.FC = () => {
 
     const handleAdd = () => {
         const path = pathname.concat(ROUTE_PARTS.ADD);
-        history.push(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
+        navigate(`${path}/?${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}`);
     };
 
     const handleRefresh = () => {

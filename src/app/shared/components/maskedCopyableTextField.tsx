@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, getId, TooltipHost } from '@fluentui/react';
+import { Button, Tooltip } from '@fluentui/react-components';
+import { EyeRegular, EyeOffRegular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { LabelWithTooltip } from './labelWithTooltip';
 import { LabelWithRichCallout } from './labelWithRichCallout';
@@ -13,7 +14,7 @@ import '../../css/_maskedCopyableTextField.scss';
 
 export interface MaskedCopyableTextFieldProps {
     ariaLabel: string;
-    calloutContent?: JSX.Element;
+    calloutContent?: React.JSX.Element;
     label: string;
     labelCallout?: string;
     value: string;
@@ -23,10 +24,9 @@ export interface MaskedCopyableTextFieldProps {
 
 // tslint:disable-next-line: cyclomatic-complexity
 export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (props: MaskedCopyableTextFieldProps) => {
-    const hiddenInputRef = React.createRef<HTMLInputElement>();
-    const visibleInputRef = React.createRef<HTMLInputElement>();
-    const labelIdentifier = getId('maskedCopyableTextField');
-    const toggleMaskButtonTooltipHostId = getId('toggleMaskButtonTooltipHost');
+    const hiddenInputRef = React.useRef<HTMLInputElement>(null);
+    const visibleInputRef = React.useRef<HTMLInputElement>(null);
+    const labelIdentifier = React.useId();
 
     const { t } = useTranslation();
 
@@ -72,18 +72,18 @@ export const MaskedCopyableTextField: React.FC<MaskedCopyableTextFieldProps> = (
                     />
 
                     {allowMask &&
-                        <TooltipHost
+                        <Tooltip
                             content={hideContents ?
                                 t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.show) :
                                 t(ResourceKeys.common.maskedCopyableTextField.toggleMask.label.hide)}
-                            id={toggleMaskButtonTooltipHostId}
+                            relationship="label"
                         >
-                            <IconButton
-                                iconProps={hideContents ? { iconName: 'RedEye' } : { iconName: 'Hide' }}
-                                aria-labelledby={toggleMaskButtonTooltipHostId}
+                            <Button
+                                appearance="subtle"
+                                icon={hideContents ? <EyeRegular /> : <EyeOffRegular />}
                                 onClick={toggleDisplay}
                             />
-                        </TooltipHost>
+                        </Tooltip>
                     }
                 </div>
 

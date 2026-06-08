@@ -4,33 +4,49 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, Announced } from '@fluentui/react';
+import { Input } from '@fluentui/react-components';
+import { FilterRegular } from '@fluentui/react-icons';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
+import { AzureTenant } from '../../../api/models/azureTenant';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { IotHubDescription } from '../../../api/models/iotHubDescription';
 import './filterTextBox.scss';
+import { LiveRegion } from '../../../shared/components/liveRegion';
 
 export enum FilterType {
     Subscription,
-    IoTHub
+    IoTHub,
+    Tenant
 }
 
-export interface FilterTextBoxPros {
-    filterType: FilterType;
-    setFilteredList: (listValue: AzureSubscription[] | IotHubDescription[]) => void;
+export type FilterTextBoxPros = {
+    filterType: FilterType.Subscription;
+    setFilteredList: (listValue: AzureSubscription[]) => void;
+} | {
+    filterType: FilterType.IoTHub;
+    setFilteredList: (listValue: IotHubDescription[]) => void;
+} | {
+    filterType: FilterType.Tenant;
+    setFilteredList: (listValue: AzureTenant[]) => void;
 }
 
 export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
     const { t } = useTranslation();
-    const [{ subscriptions, iotHubs }, ] =  useAzureActiveDirectoryStateContext();
+    const [{ subscriptions, iotHubs, tenants }, ] =  useAzureActiveDirectoryStateContext();
     const [ filterValue, setFilterValue ] = React.useState('');
     const [ searchResultCount, setSearchResultCount] = React.useState(0);
 
-    const onValueChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+    const onValueChange = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
+        const newValue = data.value;
         setFilterValue(newValue);
         if (props.filterType === FilterType.IoTHub) {
             const filtered = iotHubs.filter(item => item.name.toLowerCase().includes(newValue.toLowerCase()));
+            props.setFilteredList(filtered);
+            setSearchResultCount(filtered.length);
+        }
+        else if (props.filterType === FilterType.Tenant) {
+            const filtered = tenants.filter(item => (item.displayName || item.defaultDomain || '').toLowerCase().includes(newValue.toLowerCase()));
             props.setFilteredList(filtered);
             setSearchResultCount(filtered.length);
         }
@@ -43,15 +59,15 @@ export const FilterTextBox: React.FC<FilterTextBoxPros> = props => {
 
     return (
         <div className="filter-box">
-            <TextField
+            <Input
                 placeholder={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
-                ariaLabel={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
-                iconProps={{ iconName: 'Filter' }}
+                aria-label={t(ResourceKeys.authentication.azureActiveDirectory.filter.placeHolder)}
+                contentBefore={<FilterRegular />}
                 role="searchbox"
                 value={filterValue}
                 onChange={onValueChange}
             />
-            {filterValue && <Announced message={`${searchResultCount.toString()} ${t(ResourceKeys.authentication.azureActiveDirectory.filter.result)}`}/>}
+            {filterValue && <LiveRegion message={`${searchResultCount.toString()} ${t(ResourceKeys.authentication.azureActiveDirectory.filter.result)}`}/>}
         </div>
     );
 };

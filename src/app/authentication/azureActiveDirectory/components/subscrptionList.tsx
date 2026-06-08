@@ -4,12 +4,12 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IColumn, Label, Link, SelectionMode } from '@fluentui/react';
+import { Label, Link } from '@fluentui/react-components';
 import { FilterTextBox, FilterType } from './filterTextBox';
 import { useAzureActiveDirectoryStateContext } from '../context/azureActiveDirectoryStateContext';
 import { AzureSubscription } from '../../../api/models/azureSubscription';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
-import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
+import { IColumn, SelectionMode, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 
 export interface SubscriptionListPros {
     renderHubList: () => void;

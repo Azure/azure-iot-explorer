@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Stack, Pivot, PivotItem } from '@fluentui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { TabList, Tab, SelectTabData, SelectTabEvent } from '@fluentui/react-components';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../../constants/routes';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { DeviceSettings } from '../deviceSettings/deviceSettings';
@@ -21,7 +21,7 @@ import './digitalTwinDetail.scss';
 export const DigitalTwinDetail: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { getModelDefinition } = usePnpStateContext();
     const deviceId = getDeviceIdFromQueryString(search);
     const moduleId = getModuleIdentityIdFromQueryString(search);
@@ -33,47 +33,45 @@ export const DigitalTwinDetail: React.FC = () => {
         () => {
             getModelDefinition();
         },
-        []);
+        []); // eslint-disable-line react-hooks/exhaustive-deps -- mount-only
 
     const [selectedKey, setSelectedKey] = React.useState((NAV_LINK_ITEMS_PNP.find(item => pathname.indexOf(item) > 0) || ROUTE_PARTS.INTERFACES).toString());
     const path = pathname.replace(/\/ioTPlugAndPlayDetail\/.*/, `/${ROUTE_PARTS.DIGITAL_TWINS_DETAIL}`);
-    const handleLinkClick = (item: PivotItem) => {
-        setSelectedKey(item.props.itemKey);
-        let linkUrl = `${path}/${item.props.itemKey}/?` +
+    const handleTabSelect = (event: SelectTabEvent, data: SelectTabData) => {
+        const key = data.value as string;
+        setSelectedKey(key);
+        let linkUrl = `${path}/${key}/?` +
             `${ROUTE_PARAMS.DEVICE_ID}=${encodeURIComponent(deviceId)}` +
             `&${ROUTE_PARAMS.COMPONENT_NAME}=${componentName}` +
             `&${ROUTE_PARAMS.INTERFACE_ID}=${interfaceId}`;
         if (moduleId) {
             linkUrl += `&${ROUTE_PARAMS.MODULE_ID}=${moduleId}`;
         }
-        history.push(linkUrl);
+        navigate(linkUrl);
     };
 
     return (
-        <Pivot
-            className="digitaltwin-pivot"
-            aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
-            selectedKey={selectedKey}
-            onLinkClick={handleLinkClick}
-            overflowBehavior="menu"
-        >
-            <PivotItem key={ROUTE_PARTS.INTERFACES} headerText={t(ResourceKeys.breadcrumb.interfaces)} itemKey={ROUTE_PARTS.INTERFACES}>
-                <DeviceInterfaces />
-            </PivotItem>
-            <PivotItem key={ROUTE_PARTS.PROPERTIES} headerText={t(ResourceKeys.breadcrumb.properties)} itemKey={ROUTE_PARTS.PROPERTIES}>
-                <DeviceProperties />
-            </PivotItem>
-            <PivotItem key={ROUTE_PARTS.SETTINGS} headerText={t(ResourceKeys.breadcrumb.settings)} itemKey={ROUTE_PARTS.SETTINGS}>
-                <DeviceSettings />
-            </PivotItem>
-            <PivotItem key={ROUTE_PARTS.COMMANDS} headerText={t(ResourceKeys.breadcrumb.commands)} itemKey={ROUTE_PARTS.COMMANDS}>
-                <DeviceCommands />
-            </PivotItem>
-            <PivotItem key={ROUTE_PARTS.EVENTS} headerText={t(ResourceKeys.breadcrumb.events)} itemKey={ROUTE_PARTS.EVENTS}>
+        <div className="digitaltwin-pivot">
+            <TabList
+                aria-label={t(ResourceKeys.digitalTwin.pivot.ariaLabel)}
+                selectedValue={selectedKey}
+                onTabSelect={handleTabSelect}
+            >
+                <Tab key={ROUTE_PARTS.INTERFACES} value={ROUTE_PARTS.INTERFACES}>{t(ResourceKeys.breadcrumb.interfaces)}</Tab>
+                <Tab key={ROUTE_PARTS.PROPERTIES} value={ROUTE_PARTS.PROPERTIES}>{t(ResourceKeys.breadcrumb.properties)}</Tab>
+                <Tab key={ROUTE_PARTS.SETTINGS} value={ROUTE_PARTS.SETTINGS}>{t(ResourceKeys.breadcrumb.settings)}</Tab>
+                <Tab key={ROUTE_PARTS.COMMANDS} value={ROUTE_PARTS.COMMANDS}>{t(ResourceKeys.breadcrumb.commands)}</Tab>
+                <Tab key={ROUTE_PARTS.EVENTS} value={ROUTE_PARTS.EVENTS}>{t(ResourceKeys.breadcrumb.events)}</Tab>
+            </TabList>
+            {selectedKey === ROUTE_PARTS.INTERFACES && <DeviceInterfaces />}
+            {selectedKey === ROUTE_PARTS.PROPERTIES && <DeviceProperties />}
+            {selectedKey === ROUTE_PARTS.SETTINGS && <DeviceSettings />}
+            {selectedKey === ROUTE_PARTS.COMMANDS && <DeviceCommands />}
+            {selectedKey === ROUTE_PARTS.EVENTS && (
                 <DeviceEventsStateContextProvider>
                     <DeviceEvents />
                 </DeviceEventsStateContextProvider>
-            </PivotItem>
-        </Pivot>
+            )}
+        </div>
     );
 };

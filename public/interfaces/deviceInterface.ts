@@ -39,6 +39,7 @@ export interface StartEventHubMonitoringRequest {
     consumerGroup: string;
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
+    startTime?: string;
 }
 
 export interface Message {

@@ -20,6 +20,19 @@ describe('getDarkModeSettings', () => {
 
     it('returns expected value when undefined', () => {
         localStorage.removeItem(THEME_SELECTION);
+        // default matchMedia in jsdom doesn't match dark
+        expect(getDarkModeSetting()).toEqual(false);
+    });
+
+    it('follows OS dark mode when no saved preference', () => {
+        localStorage.removeItem(THEME_SELECTION);
+        window.matchMedia = jest.fn().mockReturnValue({ matches: true });
+        expect(getDarkModeSetting()).toEqual(true);
+    });
+
+    it('follows OS light mode when no saved preference', () => {
+        localStorage.removeItem(THEME_SELECTION);
+        window.matchMedia = jest.fn().mockReturnValue({ matches: false });
         expect(getDarkModeSetting()).toEqual(false);
     });
 });

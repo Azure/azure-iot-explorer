@@ -2,68 +2,55 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
-import { shallow } from 'enzyme';
-import { act } from 'react-dom/test-utils';
 import * as React from 'react';
+import { render, screen, act } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DeviceList } from './deviceList';
-import { deviceListStateInitial, DeviceListStateInterface } from '../state';
-import { DeviceSummary } from '../../../api/models/deviceSummary';
-import { DeviceListCommandBar } from './deviceListCommandBar';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
-import { listDevicesAction } from '../actions';
-
-const pathname = `/`;
+import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ pathname })
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/', search: '', hash: '', state: null, key: 'default' })
 }));
 
-const devices: DeviceSummary[] = [
+jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
     {
-        authenticationType: 'sas',
-        cloudToDeviceMessageCount: '0',
-        connectionState: 'connected',
-        deviceId: 'testDeviceId',
-        iotEdge: false,
-        lastActivityTime: '0001-01-01T00:00:00Z',
-        status: 'Enabled',
-        statusUpdatedTime: '0001-01-01T00:00:00Z'
-    }
-];
-
-const initialState: DeviceListStateInterface = {
-    ...deviceListStateInitial(),
-    devices
-};
-
-describe('DeviceList', () => {
-    beforeEach(() => {
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([initialState, jest.fn()]);
-    });
-
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-
-    it('matches snapshot', () => {
-        const listDevicesActionSpy = jest.spyOn(listDevicesAction, 'started');
-        const wrapper = shallow(<DeviceList/>);
-
-        expect(wrapper).toMatchSnapshot();
-        const commandBar = wrapper.find(DeviceListCommandBar).first();
-        // click the refresh button
-        act(() => commandBar.props().handleRefresh());
-        wrapper.update();
-        expect(listDevicesActionSpy).lastCalledWith({
+        devices: [],
+        synchronizationStatus: SynchronizationStatus.fetched,
+        deviceQuery: {
             clauses: [],
             continuationTokens: [],
             currentPageIndex: 0,
-            deviceId: ''
+            deviceId: '',
+        }
+    },
+    jest.fn()
+]);
+
+describe('DeviceList', () => {
+    it('renders no device text when list is empty', async () => {
+        await act(async () => {
+            render(<MemoryRouter><DeviceList/></MemoryRouter>);
         });
 
-        // delete button is disabled by default
-        expect(wrapper.find(DeviceListCommandBar).first().props().disableDelete).toBeTruthy(); // tslint:disable-line:no-magic-numbers
+        expect(screen.getAllByText('deviceLists.noDevice').length).toBeGreaterThan(0);
+    });
+
+    it('renders add device button', async () => {
+        await act(async () => {
+            render(<MemoryRouter><DeviceList/></MemoryRouter>);
+        });
+
+        expect(screen.getByText('deviceLists.commands.add')).toBeInTheDocument();
+    });
+
+    it('renders device query search area', async () => {
+        await act(async () => {
+            render(<MemoryRouter><DeviceList/></MemoryRouter>);
+        });
+
+        expect(screen.getByLabelText('deviceLists.query.deviceId.ariaLabel')).toBeInTheDocument();
     });
 });

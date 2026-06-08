@@ -4,12 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { CommandBar, Label } from '@fluentui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { Label } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getComponentNameFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { DevicePropertiesPerInterface } from './devicePropertiesPerInterface';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/commandBarItemKeys';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
 import { usePnpStateContext } from '../../context/pnpStateContext';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
@@ -21,7 +23,7 @@ import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
 export const DeviceProperties: React.FC = () => {
     const { t } = useTranslation();
     const { pathname, search } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const componentName = getComponentNameFromQueryString(search);
 
     const { pnpState, dispatch, getModelDefinition } = usePnpStateContext();
@@ -33,7 +35,7 @@ export const DeviceProperties: React.FC = () => {
     const twin = pnpState.twin.payload;
     const twinAndSchema = React.useMemo(() => {
         return generateReportedTwinSchemaAndInterfaceTuple(extendedModelDefinition || modelDefinition, twin, componentName);
-    },                                  [twin, modelDefinition, extendedModelDefinition]);
+    },                                  [twin, modelDefinition, extendedModelDefinition, componentName]);
 
     const renderProperties = () => {
         return (
@@ -53,7 +55,7 @@ export const DeviceProperties: React.FC = () => {
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/properties\/.*/, ``);
-        history.push(getBackUrl(path, search));
+        navigate(getBackUrl(path, search));
     };
 
     React.useEffect(() => {
@@ -71,7 +73,7 @@ export const DeviceProperties: React.FC = () => {
                     items={[
                         {
                             ariaLabel: t(ResourceKeys.deviceProperties.command.refresh),
-                            iconProps: {iconName: REFRESH},
+                            icon: <ArrowSyncRegular />,
                             key: REFRESH,
                             name: t(ResourceKeys.deviceProperties.command.refresh),
                             onClick: handleRefresh
@@ -80,7 +82,7 @@ export const DeviceProperties: React.FC = () => {
                     farItems={[
                         {
                             ariaLabel: t(ResourceKeys.deviceProperties.command.close),
-                            iconProps: {iconName: NAVIGATE_BACK},
+                            icon: <ArrowLeftRegular />,
                             key: NAVIGATE_BACK,
                             name: t(ResourceKeys.deviceProperties.command.close),
                             onClick: handleClose

@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { PrimaryButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import '../../css/_noMatchError.scss';
 
@@ -17,12 +17,13 @@ export const NoMatchError = () => {
                 <p>{t(ResourceKeys.noMatchError.description)}</p>
             </div>
             <div className="no-match-error-button">
-                <PrimaryButton
-                    ariaDescription={t(ResourceKeys.noMatchError.goHome)}
+                <Button
+                    appearance="primary"
+                    as="a"
                     href={'#'}
                 >
                     {t(ResourceKeys.noMatchError.goHome)}
-                </PrimaryButton>
+                </Button>
             </div>
         </div>
     );

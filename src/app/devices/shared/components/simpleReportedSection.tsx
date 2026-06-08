@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { Validator, ValidationError, ValidatorResult } from 'jsonschema';
-import { Label } from '@fluentui/react';
+import { Label } from '@fluentui/react-components';
 import { useTranslation } from 'react-i18next';
 import { ParsedJsonSchema } from '../../../api/models/interfaceJsonParserOutput';
 import { isValueDefined } from './dataForm';
@@ -43,12 +43,12 @@ export const RenderSimplyTypeValue = (twin: any, schema: ParsedJsonSchema, displ
                 <Label>{getDisplayValue()}</Label> :
                 <Label>--</Label>
             }
-            {desired && !!result?.errors && renderSchemaErrors(result.errors)}
+            {desired && !!result?.errors && <SchemaErrors errors={result.errors} />}
         </>
     );
 };
 
-const renderSchemaErrors = (errors: ValidationError[]) => {
+const SchemaErrors: React.FC<{errors: ValidationError[]}> = ({errors}) => {
     const { t } = useTranslation();
     const errorLabel = t(ResourceKeys.deviceSettings.columns.error);
     if (!errors || errors.length === 0) {

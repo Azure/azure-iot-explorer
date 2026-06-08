@@ -2,8 +2,20 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+const useContextSpy = jest.fn();
+jest.mock('react', () => {
+    const actual = jest.requireActual('react');
+    return {
+        ...actual,
+        useContext: (...args: any[]) => {
+            useContextSpy(...args);
+            return actual.useContext(...args);
+        },
+    };
+});
+
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import { useBreadcrumbContext, BreadcrumbContext } from './useBreadcrumbContext';
 
 const TestComponent: React.FC = () => {
@@ -13,9 +25,7 @@ const TestComponent: React.FC = () => {
 
 describe('useBreadcrumbContext', () => {
     it('calls context with expected value', () => {
-        const spy = jest.spyOn(React, 'useContext');
-
-        mount(<TestComponent/>);
-        expect(spy).toHaveBeenCalledWith(BreadcrumbContext);
+        render(<TestComponent/>);
+        expect(useContextSpy).toHaveBeenCalledWith(BreadcrumbContext);
     });
 });

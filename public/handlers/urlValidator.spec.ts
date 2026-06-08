@@ -34,6 +34,66 @@ describe('validateAzureIoTHostname', () => {
         it('accepts Private Link hostname with hyphens', () => {
             expect(validateAzureIoTHostname('my-hub-01.privatelink.azure-devices.net')).toBe(true);
         });
+
+        // Azure China (21Vianet)
+        it('accepts Azure China IoT Hub hostname', () => {
+            expect(validateAzureIoTHostname('myhub.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure China Private Link hostname', () => {
+            expect(validateAzureIoTHostname('myhub.privatelink.azure-devices.cn')).toBe(true);
+        });
+
+        // Azure US Government
+        it('accepts Azure US Gov IoT Hub hostname', () => {
+            expect(validateAzureIoTHostname('myhub.azure-devices.us')).toBe(true);
+        });
+
+        it('accepts Azure US Gov Private Link hostname', () => {
+            expect(validateAzureIoTHostname('myhub.privatelink.azure-devices.us')).toBe(true);
+        });
+
+        // TLS 1.3 device/service hostnames
+        it('accepts device hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts service hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts Azure China device hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure China service hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure US Gov device hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.azure-devices.us')).toBe(true);
+        });
+
+        it('accepts Azure US Gov service hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.azure-devices.us')).toBe(true);
+        });
+
+        // TLS 1.3 device/service + Private Link hostnames
+        it('accepts device Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.privatelink.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts service Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.privatelink.azure-devices.net')).toBe(true);
+        });
+
+        it('accepts Azure China device Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.device.privatelink.azure-devices.cn')).toBe(true);
+        });
+
+        it('accepts Azure US Gov service Private Link hostname (TLS 1.3)', () => {
+            expect(validateAzureIoTHostname('myhub.service.privatelink.azure-devices.us')).toBe(true);
+        });
     });
 
     describe('invalid hostnames — attacker-controlled', () => {
@@ -150,6 +210,24 @@ describe('validateEventHubHostname', () => {
 
         it('accepts Private Link hostname with hyphens', () => {
             expect(validateEventHubHostname('my-ns-01.privatelink.servicebus.windows.net')).toBe(true);
+        });
+
+        // Azure China (21Vianet)
+        it('accepts Azure China Event Hubs hostname', () => {
+            expect(validateEventHubHostname('mynamespace.servicebus.chinacloudapi.cn')).toBe(true);
+        });
+
+        it('accepts Azure China Private Link hostname', () => {
+            expect(validateEventHubHostname('mynamespace.privatelink.servicebus.chinacloudapi.cn')).toBe(true);
+        });
+
+        // Azure US Government
+        it('accepts Azure US Gov Event Hubs hostname', () => {
+            expect(validateEventHubHostname('mynamespace.servicebus.usgovcloudapi.net')).toBe(true);
+        });
+
+        it('accepts Azure US Gov Private Link hostname', () => {
+            expect(validateEventHubHostname('mynamespace.privatelink.servicebus.usgovcloudapi.net')).toBe(true);
         });
     });
 

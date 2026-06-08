@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useBreadcrumbContext } from './useBreadcrumbContext';
 
 export interface UseBreadcrumbEntryProps {
@@ -14,12 +14,14 @@ export interface UseBreadcrumbEntryProps {
 
 export const useBreadcrumbEntry = ({ name, disableLink, suffix }: UseBreadcrumbEntryProps) => {
     const { registerEntry, unregisterEntry } = useBreadcrumbContext();
-    const { path, url } = useRouteMatch();
+    const { pathname } = useLocation();
+    const path = pathname;
+    const url = pathname;
 
     React.useEffect(() => {
         registerEntry({ name, disableLink, path, suffix, url });
         return () => {
             unregisterEntry({ name, disableLink, path, suffix, url });
         };
-    }, [ suffix, name, disableLink ]); // tslint:disable-line: align
+    }, [ suffix, name, disableLink ]); // eslint-disable-line react-hooks/exhaustive-deps -- only re-register on key prop changes
 };

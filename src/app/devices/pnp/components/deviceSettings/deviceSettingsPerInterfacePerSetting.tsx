@@ -4,12 +4,13 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
+import { ChevronDownRegular, ChevronUpRegular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
-import { InterfaceDetailCard } from '../../../../constants/iconNames';
 import { ComplexReportedFormPanel } from '../../../shared/components/complexReportedFormPanel';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { DataForm } from '../../../shared/components/dataForm';
+import { LiveRegion } from '../../../../shared/components/liveRegion';
 import { TwinWithSchema } from './dataHelper';
 import { DEFAULT_COMPONENT_FOR_DIGITAL_TWIN } from '../../../../constants/devices';
 import { getSchemaType } from '../../../../shared/utils/jsonSchemaAdaptor';
@@ -35,6 +36,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
 
     const { settingSchema, settingModelDefinition, collapsed, reportedSection, handleOverlayToggle } = props;
     const [ showReportedValuePanel, setShowReportedValuePanel ] = React.useState<boolean>(false);
+    const [ announcement, setAnnouncement ] = React.useState('');
 
     const createCollapsedSummary = () => {
         return (
@@ -47,9 +49,10 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     const renderCollapseButton = () => {
         return (
         <div className="col-sm1">
-            <IconButton
+            <Button
+                appearance="subtle"
                 title={t(collapsed ? ResourceKeys.deviceSettings.command.expand : ResourceKeys.deviceSettings.command.collapse)}
-                iconProps={{iconName: collapsed ? InterfaceDetailCard.OPEN : InterfaceDetailCard.CLOSE}}
+                icon={collapsed ? <ChevronDownRegular /> : <ChevronUpRegular />}
             />
         </div>);
     };
@@ -75,14 +78,6 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                     />}
             </div>
         );
-    };
-
-    const onViewReportedValue = (event: React.MouseEvent<HTMLElement>) => {
-        setShowReportedValuePanel(true);
-        handleOverlayToggle();
-        if (event) {
-            event.stopPropagation();
-        }
     };
 
     const handleDismissViewReportedPanel = () => {
@@ -125,6 +120,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
     };
 
     const onSubmit = (twin: boolean | number | string | object) => () => {
+        setAnnouncement(t(ResourceKeys.deviceSettings.headerText));
         props.patchTwin(createSettingsPayload(twin));
     };
 
@@ -135,6 +131,7 @@ export const DeviceSettingsPerInterfacePerSetting: React.FC<DeviceSettingDataPro
                 {createUncollapsedCard()}
                 {createReportedValuePanel()}
             </ErrorBoundary>
+            <LiveRegion message={announcement} />
         </li>
     );
 };

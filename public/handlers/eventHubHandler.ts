@@ -7,7 +7,7 @@ import { Buffer } from 'buffer';
 import { AmqpError, Connection, ReceiverEvents, parseConnectionString } from 'rhea-promise';
 import * as rheaPromise from 'rhea-promise';
 import { ErrorNameConditionMapper as AMQPError } from '@azure/core-amqp';
-import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition } from '@azure/event-hubs';
+import { EventHubConsumerClient, Subscription, ReceivedEventData, earliestEventPosition, latestEventPosition } from '@azure/event-hubs';
 import { BrowserWindow } from 'electron';
 import { MESSAGE_CHANNELS } from '../constants';
 import {
@@ -30,6 +30,7 @@ export interface StartEventHubMonitoringRequest {
     consumerGroup: string;
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
+    startTime?: string;
 }
 
 // Module-level state for EventHub monitoring
@@ -85,6 +86,18 @@ const initializeEventHubClient = async (params: StartEventHubMonitoringRequest):
         );
     }
 
+    // Determine start position based on startTime parameter
+    const startPosition = (() => {
+        if (!params.startTime) {
+            return latestEventPosition;
+        }
+        const date = new Date(params.startTime);
+        if (isNaN(date.valueOf())) {
+            throw new Error(`Invalid startTime parameter: ${params.startTime}`);
+        }
+        return { enqueuedOn: date };
+    })();
+
     subscription = client.subscribe(
         {
             processEvents: async (events) => {
@@ -94,7 +107,7 @@ const initializeEventHubClient = async (params: StartEventHubMonitoringRequest):
                 console.log(err); // tslint:disable-line:no-console
             }
         },
-        { startPosition: earliestEventPosition }
+        { startPosition }
     );
 
     // Send messages to renderer in a 0.8 sec interval via IPC
@@ -205,7 +218,7 @@ export async function convertIotHubToEventHubsConnectionString(connectionString:
 
     // Validate hostname to prevent SSRF
     if (!validateAzureIoTHostname(HostName)) {
-        throw new Error('Invalid IoT Hub hostname: must be a valid Azure IoT Hub endpoint (*.azure-devices.net)');
+        throw new Error('Invalid IoT Hub hostname: must be a valid Azure IoT Hub endpoint (e.g., *.azure-devices.net, *.azure-devices.cn, *.azure-devices.us)');
     }
 
     // Extract the IotHub name from the hostname.
@@ -251,7 +264,7 @@ export async function convertIotHubToEventHubsConnectionString(connectionString:
                 if (!hostname || !regexResults) {
                     reject(error);
                 } else if (!validateEventHubHostname(hostname)) {
-                    reject(new Error('Invalid EventHub redirect hostname: must be a valid Azure Event Hubs endpoint (*.servicebus.windows.net)'));
+                    reject(new Error('Invalid EventHub redirect hostname: must be a valid Azure Event Hubs endpoint'));
                 } else {
                     const eventHubName = regexResults[1];
                     resolve(

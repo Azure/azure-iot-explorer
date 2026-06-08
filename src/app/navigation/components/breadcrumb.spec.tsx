@@ -3,43 +3,29 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { Breadcrumb } from './breadcrumb';
 
 describe('Breadcrumb', () => {
-    it('matches snapshot when link is disabled', () => {
-        expect(shallow(
-            <Breadcrumb
-                disableLink={true}
-                url={'url'}
-                name={'name'}
-                suffix={''}
-                path={'path'}
-            />
-        )).toMatchSnapshot();
+    it('renders as link when disableLink is false', () => {
+        render(<MemoryRouter><Breadcrumb name="Home" url="/home" disableLink={false}/></MemoryRouter>);
+
+        const link = screen.getByText('Home');
+        expect(link.closest('a')).toBeInTheDocument();
     });
 
-    it('matches snapshot when link is enabled', () => {
-        expect(shallow(
-            <Breadcrumb
-                disableLink={false}
-                url={'url'}
-                name={'name'}
-                suffix={''}
-                path={'path'}
-            />
-        )).toMatchSnapshot();
+    it('renders as plain text when disableLink is true', () => {
+        const { container } = render(<MemoryRouter><Breadcrumb name="Current" url="/current" disableLink={true}/></MemoryRouter>);
+
+        expect(screen.getByText('Current')).toBeInTheDocument();
+        // Check no anchor within the breadcrumb item specifically
+        expect(container.querySelector('li.breadcrumb-item a')).toBeNull();
     });
 
-    it('matches snapshot when suffix is truthy', () => {
-        expect(shallow(
-            <Breadcrumb
-                disableLink={false}
-                url={'url'}
-                name={'name'}
-                suffix={'suffix'}
-                path={'path'}
-            />
-        )).toMatchSnapshot();
+    it('renders inside a list item', () => {
+        const { container } = render(<MemoryRouter><Breadcrumb name="Test" url="/test" disableLink={false}/></MemoryRouter>);
+
+        expect(container.querySelector('li.breadcrumb-item')).toBeInTheDocument();
     });
 });

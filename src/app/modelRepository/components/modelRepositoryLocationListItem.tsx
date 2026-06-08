@@ -4,10 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@fluentui/react';
+import { Button } from '@fluentui/react-components';
+import { DismissRegular } from '@fluentui/react-icons';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { CANCEL } from '../../constants/iconNames';
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
 import { ListItemPublicRepo } from './listItemPublicRepo';
@@ -67,11 +67,12 @@ export const ModelRepositoryLocationListItem: React.FC<ModelRepositoryLocationLi
                 role="listitem"
             >
                 {renderItemDetail()}
-                <IconButton
+                <Button
+                    appearance="subtle"
                     className="remove-button"
-                    iconProps={{ iconName: CANCEL }}
+                    icon={<DismissRegular />}
                     title={t(ResourceKeys.modelRepository.commands.remove.label)}
-                    ariaLabel={t(ResourceKeys.modelRepository.commands.remove.ariaLabel)}
+                    aria-label={t(ResourceKeys.modelRepository.commands.remove.ariaLabel)}
                     onClick={onRemove}
                 />
             </div>

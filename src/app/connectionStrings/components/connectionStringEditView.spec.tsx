@@ -3,129 +3,95 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
-import { TextField, PrimaryButton, DefaultButton } from '@fluentui/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ConnectionStringEditView, ConnectionStringEditViewProps } from './connectionStringEditView';
 
-describe('ConnectionStringEdit', () => {
-    const connectionString = 'HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key';
+describe('ConnectionStringEditView', () => {
+    const baseProps: ConnectionStringEditViewProps = {
+        connectionStringUnderEdit: '',
+        connectionStrings: [],
+        onDismiss: jest.fn(),
+        onCommit: jest.fn()
+    };
 
-    it('matches snapshot in Add Scenario', () => {
-        const props: ConnectionStringEditViewProps = {
-            connectionStringUnderEdit: '',
-            connectionStrings: [],
-            onCommit: jest.fn(),
-            onDismiss: jest.fn()
-        };
+    beforeEach(() => jest.clearAllMocks());
 
-        const wrapper = shallow(<ConnectionStringEditView {...props}/>);
-        expect(wrapper).toMatchSnapshot();
+    it('renders add mode title when connectionStringUnderEdit is empty', () => {
+        render(<ConnectionStringEditView {...baseProps}/>);
+
+        expect(screen.getByText('connectionStrings.editConnection.title.add')).toBeInTheDocument();
     });
 
-    it('matches snapshot in Edit Scenario', () => {
-        const props: ConnectionStringEditViewProps = {
-            connectionStringUnderEdit: 'connectionString',
-            connectionStrings: [],
-            onCommit: jest.fn(),
-            onDismiss: jest.fn()
+    it('renders edit mode title when connectionStringUnderEdit is provided', () => {
+        const props = {
+            ...baseProps,
+            connectionStringUnderEdit: 'HostName=test.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=abc123'
         };
+        render(<ConnectionStringEditView {...props}/>);
 
-        const wrapper = shallow(<ConnectionStringEditView {...props}/>);
-        expect(wrapper).toMatchSnapshot();
+        expect(screen.getByText('connectionStrings.editConnection.title.edit')).toBeInTheDocument();
     });
 
-    it('matches snapshot in Edit / invalid scenario', () => {
-        const props: ConnectionStringEditViewProps = {
-            connectionStringUnderEdit: 'connectionString',
-            connectionStrings: [],
-            onCommit: jest.fn(),
-            onDismiss: jest.fn()
-        };
+    it('renders textarea with correct placeholder and label', () => {
+        render(<ConnectionStringEditView {...baseProps}/>);
 
-        const wrapper = shallow(<ConnectionStringEditView {...props}/>);
-        expect(wrapper).toMatchSnapshot();
+        expect(screen.getByLabelText('connectionStrings.editConnection.editField.ariaLabel')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.editConnection.editField.label')).toBeInTheDocument();
     });
 
-    it('matches snapshot in Edit / valid scenario', () => {
-        const props: ConnectionStringEditViewProps = {
-            connectionStringUnderEdit: connectionString,
-            connectionStrings: [],
-            onCommit: jest.fn(),
-            onDismiss: jest.fn()
-        };
+    it('renders save and cancel buttons', () => {
+        render(<ConnectionStringEditView {...baseProps}/>);
 
-        const wrapper = shallow(<ConnectionStringEditView {...props}/>);
-        expect(wrapper).toMatchSnapshot();
+        expect(screen.getByText('connectionStrings.editConnection.save.label')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.editConnection.cancel.label')).toBeInTheDocument();
     });
 
-    it('calls onDismiss when Cancel button clicked', () => {
+    it('renders external help link and warning text', () => {
+        render(<ConnectionStringEditView {...baseProps}/>);
+
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.linkText')).toBeInTheDocument();
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.warning')).toBeInTheDocument();
+    });
+
+    it('calls onDismiss when cancel button is clicked', () => {
         const onDismiss = jest.fn();
-        const props: ConnectionStringEditViewProps = {
-            connectionStringUnderEdit: 'connectionString',
-            connectionStrings: [],
-            onCommit: jest.fn(),
-            onDismiss
-        };
+        render(<ConnectionStringEditView {...baseProps} onDismiss={onDismiss}/>);
 
-        const wrapper = mount(<ConnectionStringEditView {...props}/>);
-        wrapper.find(DefaultButton).get(1).props.onClick(undefined);
-
-        expect(onDismiss).toHaveBeenCalled();
+        fireEvent.click(screen.getByText('connectionStrings.editConnection.cancel.label'));
+        expect(onDismiss).toHaveBeenCalledTimes(1);
     });
 
-    describe('edit scenario', () => {
-        it('disables commit when validation fails', () => {
-            const props: ConnectionStringEditViewProps = {
-                connectionStringUnderEdit: connectionString,
-                connectionStrings: [],
-                onCommit: jest.fn(),
-                onDismiss: jest.fn()
-            };
+    it('calls onCommit when save button is clicked with valid connection string', () => {
+        const validCS = 'HostName=test.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=abc123';
+        const onCommit = jest.fn();
+        const props = { ...baseProps, connectionStringUnderEdit: validCS, onCommit };
+        render(<ConnectionStringEditView {...props}/>);
 
-            const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, 'badConnectionString'));
-            wrapper.update();
+        fireEvent.click(screen.getByText('connectionStrings.editConnection.save.label'));
+        expect(onCommit).toHaveBeenCalledWith(validCS);
+    });
 
-            const disabled = wrapper.find(PrimaryButton).props().disabled;
-            expect(disabled).toEqual(true);
-        });
+    it('shows validation error for invalid connection string', () => {
+        render(<ConnectionStringEditView {...baseProps}/>);
 
-        it('disables commit when duplicate validation', () => {
-            const props: ConnectionStringEditViewProps = {
-                connectionStringUnderEdit: '',
-                connectionStrings: [{connectionString, expiration: (new Date(0)).toUTCString()}],
-                onCommit: jest.fn(),
-                onDismiss: jest.fn()
-            };
+        const textarea = screen.getByLabelText('connectionStrings.editConnection.editField.ariaLabel');
+        fireEvent.change(textarea, { target: { value: 'invalid-string' } });
 
-            const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, connectionString));
-            wrapper.update();
+        // Validation message should appear
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.errorMessages.invalid')).toBeInTheDocument();
+    });
 
-            const disabled = wrapper.find(PrimaryButton).props().disabled;
-            expect(disabled).toEqual(true);
-        });
+    it('shows duplicate validation error when connection string already exists', () => {
+        const existingCS = 'HostName=test.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=abc123';
+        const props = {
+            ...baseProps,
+            connectionStrings: [{ connectionString: existingCS, expiration: '' }]
+        };
+        render(<ConnectionStringEditView {...props}/>);
 
-        it('calls onCommit when validation passes', () => {
-            const onCommit = jest.fn();
-            const props: ConnectionStringEditViewProps = {
-                connectionStringUnderEdit: '',
-                connectionStrings: [],
-                onCommit,
-                onDismiss: jest.fn()
-            };
+        const textarea = screen.getByLabelText('connectionStrings.editConnection.editField.ariaLabel');
+        fireEvent.change(textarea, { target: { value: existingCS } });
 
-            const wrapper = mount(<ConnectionStringEditView {...props}/>);
-            act(() => wrapper.find(TextField).props().onChange?.(undefined as any, connectionString));
-            wrapper.update();
-
-            const commitButton = wrapper.find(PrimaryButton);
-            expect(commitButton.props().disabled).toEqual(false);
-            commitButton.props().onClick?.(undefined as any);
-
-            expect(onCommit).toHaveBeenCalled();
-        });
-
+        expect(screen.getByText('connectionStrings.editConnection.validations.duplicate')).toBeInTheDocument();
     });
 });

@@ -2,49 +2,45 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
-import { Shimmer, CommandBar } from '@fluentui/react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DeviceSettings } from './deviceSettings';
-import { pnpStateInitial, PnpStateInterface } from '../../state';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as PnpContext from '../../context/pnpStateContext';
-import { pnpStateWithTestData } from './testData';
-
-const interfaceId = 'urn:contoso:com:EnvironmentalSensor;1';
-const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/settings/?id=device1&componentName=foo&interfaceId=${interfaceId}`;
+import { pnpStateInitial } from '../../state';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: `?id=device1&componentName=foo&interfaceId=${interfaceId}`, pathname }),
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '?deviceId=test', hash: '', state: null, key: 'default' })
 }));
 
 describe('deviceSettings', () => {
-    it('matches snapshot while loading', () => {
-        const pnpState: PnpStateInterface = {
-            ...pnpStateInitial(),
-            twin: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        };
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState, dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        const wrapper = mount(<DeviceSettings/>);
-        expect(wrapper.find(Shimmer)).toBeDefined();
+    beforeEach(() => {
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({
+            pnpState: pnpStateInitial().merge({
+                twin: { payload: null, synchronizationStatus: SynchronizationStatus.fetched },
+                modelDefinitionWithSource: {
+                    payload: { modelDefinition: { contents: [] }, isModelValid: true },
+                    synchronizationStatus: SynchronizationStatus.fetched
+                }
+            }),
+            dispatch: jest.fn(),
+            getModelDefinition: jest.fn()
+        });
     });
 
-    it('matches snapshot with one twinWithSchema', () => {
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState: pnpStateWithTestData, dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        expect(shallow(<DeviceSettings/>)).toMatchSnapshot();
+    it('renders refresh and close buttons', () => {
+        render(<MemoryRouter><DeviceSettings/></MemoryRouter>);
+
+        expect(screen.getByText('deviceSettings.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceSettings.command.close')).toBeInTheDocument();
     });
 
-    it('dispatch action when refresh button is clicked', () => {
-        const getModelDefinitionSpy = jest.fn();
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState: pnpStateWithTestData, dispatch: jest.fn(), getModelDefinition: getModelDefinitionSpy});
-        const wrapper = shallow(<DeviceSettings/>);
-        const commandBar = wrapper.find(CommandBar).first();
-        commandBar.props().items[0].onClick(null);
-        wrapper.update();
-        expect(getModelDefinitionSpy).toBeCalled();
+    it('shows no settings label when there are no settings', () => {
+        render(<MemoryRouter><DeviceSettings/></MemoryRouter>);
+
+        expect(screen.getByText(/deviceSettings\.noSettings/)).toBeInTheDocument();
     });
 });

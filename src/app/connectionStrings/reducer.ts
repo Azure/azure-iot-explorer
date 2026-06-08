@@ -14,7 +14,7 @@ export const connectionStringsReducer = reducerWithInitialState<ConnectionString
         });
     })
 
-    .case(getConnectionStringsAction.done, (state: ConnectionStringsStateType, payload: {params: void, result: ConnectionStringWithExpiry[]}) => {
+    .case(getConnectionStringsAction.done as any, (state: ConnectionStringsStateType, payload: {params: void, result: ConnectionStringWithExpiry[]}) => {
         return state.merge({
             payload: payload.result,
             synchronizationStatus: SynchronizationStatus.fetched

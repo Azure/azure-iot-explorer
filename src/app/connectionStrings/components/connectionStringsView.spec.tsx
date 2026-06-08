@@ -3,73 +3,74 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
-import { act } from 'react-dom/test-utils';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { ConnectionStringsView } from './connectionStringsView';
-import { ConnectionString } from './connectionString';
-import { ConnectionStringEditView } from './connectionStringEditView';
-import { connectionStringsStateInitial } from '../state';
-import * as HubConnectionStringHelper from '../../shared/utils/hubConnectionStringHelper';
 import * as connectionStringContext from '../context/connectionStringStateContext';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
+const mockGetConnectionStrings = jest.fn();
+
+jest.mock('../context/connectionStringStateContext', () => ({
+    useConnectionStringContext: jest.fn()
+}));
+
+jest.mock('../../navigation/hooks/useBreadcrumbEntry', () => ({
+    useBreadcrumbEntry: jest.fn()
+}));
+
+jest.mock('../../authentication/context/authenticationStateContext', () => ({
+    useAuthenticationStateContext: () => [
+        {},
+        { setLoginPreference: jest.fn(), getLoginPreference: jest.fn() }
+    ]
 }));
 
 describe('ConnectionStringsView', () => {
-    const connectionStringWithExpiry = {connectionString: 'connectionString1', expiration: (new Date(0)).toUTCString()};
-
-    it('matches snapshot when no connection strings', () => {
-        jest.spyOn(connectionStringContext, 'useConnectionStringContext').mockReturnValue(
-            [connectionStringsStateInitial(), connectionStringContext.getInitialConnectionStringOps()]);
-        const wrapper = shallow(<ConnectionStringsView/>);
-        expect(wrapper).toMatchSnapshot();
+    beforeEach(() => {
+        jest.clearAllMocks();
+        (connectionStringContext.useConnectionStringContext as jest.Mock).mockReturnValue([
+            { payload: [], synchronizationStatus: 'fetched' },
+            { setConnectionStrings: jest.fn(), upsertConnectionString: jest.fn(), deleteConnectionString: jest.fn(), getConnectionStrings: mockGetConnectionStrings }
+        ]);
     });
 
-    it('matches snapshot when connection strings present', () => {
-        const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry]});
-        jest.spyOn(connectionStringContext, 'useConnectionStringContext').mockReturnValue(
-            [state, connectionStringContext.getInitialConnectionStringOps()]);
-
-        const wrapper = shallow(<ConnectionStringsView/>);
-        expect(wrapper).toMatchSnapshot();
-
+    it('calls getConnectionStrings on mount', () => {
+        render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
+        expect(mockGetConnectionStrings).toHaveBeenCalled();
     });
 
-    describe('edit scenario', () => {
-        const connectionString = 'HostName=test.azure-devices-int.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key';
-        it('mounts edit view when add command clicked', () => {
-            const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry] });
-            jest.spyOn(connectionStringContext, 'useConnectionStringContext').mockReturnValue(
-                [state, connectionStringContext.getInitialConnectionStringOps()]);
-            const wrapper = mount(<ConnectionStringsView/>);
+    it('renders empty state when payload is empty', () => {
+        render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
+        expect(screen.getByText('connectionStrings.empty.header')).toBeInTheDocument();
+    });
 
-            act(() => wrapper.find(ConnectionString).props().onEditConnectionString(connectionString));
-            wrapper.update();
+    it('renders add command bar button', () => {
+        render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
+        expect(screen.getByText('connectionStrings.addConnectionCommand.label')).toBeInTheDocument();
+    });
 
-            expect(wrapper.find(ConnectionStringEditView).length).toEqual(1);
-        });
+    it('renders connection string items when payload has entries', () => {
+        (connectionStringContext.useConnectionStringContext as jest.Mock).mockReturnValue([
+            {
+                payload: [
+                    { connectionString: 'HostName=hub1.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key1', expiration: new Date(Date.now() + 365 * 86400000).toISOString() }
+                ],
+                synchronizationStatus: 'fetched'
+            },
+            { setConnectionStrings: jest.fn(), upsertConnectionString: jest.fn(), deleteConnectionString: jest.fn(), getConnectionStrings: mockGetConnectionStrings }
+        ]);
 
-        it('upserts when edit view applied', () => {
-            const deleteConnectionString = jest.fn();
-            const upsertConnectionString = jest.fn();
-            const state = connectionStringsStateInitial().merge({ payload: [connectionStringWithExpiry] });
-            jest.spyOn(connectionStringContext, 'useConnectionStringContext').mockReturnValue(
-                [state, {...connectionStringContext.getInitialConnectionStringOps(), deleteConnectionString, upsertConnectionString}]);
-            jest.spyOn(HubConnectionStringHelper, 'getExpiryDateInUtcString').mockReturnValue((new Date(0)).toUTCString());
-            const wrapper = mount(<ConnectionStringsView/>);
+        render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
 
-            act(() => wrapper.find(ConnectionString).first().props().onEditConnectionString(connectionString));
-            wrapper.update();
-
-            const connectionStringEditView = wrapper.find(ConnectionStringEditView).first();
-            act(() => connectionStringEditView.props().onCommit('newConnectionString'));
-            wrapper.update();
-
-            expect(deleteConnectionString).toHaveBeenCalledWith(connectionString);
-            expect(upsertConnectionString).toHaveBeenCalledWith({ connectionString: 'newConnectionString', expiration: (new Date(0)).toUTCString() });
-            expect(wrapper.find(ConnectionStringEditView).length).toEqual(0);
-        });
+        // Should show the resource name from the host name
+        expect(screen.getByText('hub1')).toBeInTheDocument();
+        // Should NOT show empty state
+        expect(screen.queryByText('connectionStrings.empty.header')).toBeNull();
     });
 });

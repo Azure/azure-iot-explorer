@@ -17,6 +17,7 @@
     "afterPack": "./scripts/flipFuses.js",
     "linux": {
       "category": "Utility",
+      "executableName": "azure-iot-explorer",
       "target": [
         "deb"
       ]
@@ -34,7 +35,9 @@
       ]
     },
     "msi": {
-      "additionalLightArgs": ["-sval"]
+      "additionalLightArgs": [
+        "-sval"
+      ]
     },
     "publish": null
   },
@@ -44,21 +47,21 @@
     "dist:win": "electron-builder -w --prepackaged ./dist/win-unpacked",
     "clean": "IF EXIST .\\dist RMDIR /Q /S .\\dist",
     "clean:linux": "rm --recursive -f ./dist",
-    "localization": "tsc ./scripts/composeLocalizationKeys.ts --skipLibCheck && node ./scripts/composeLocalizationKeys.js",
-    "import-semantic-units": "tsc ./scripts/importSemanticUnitTypes.ts --skipLibCheck && node ./scripts/importSemanticUnitTypes.js",
+    "localization": "tsc --ignoreConfig --types node --module node16 --moduleResolution node16 ./scripts/composeLocalizationKeys.ts --skipLibCheck && node ./scripts/composeLocalizationKeys.js",
+    "import-semantic-units": "tsc --ignoreConfig --types node --module node16 --moduleResolution node16 ./scripts/importSemanticUnitTypes.ts --skipLibCheck && node ./scripts/importSemanticUnitTypes.js",
     "docker": "docker pull electronuserland/electron-builder && docker run --rm -ti --mount source=$(pwd),target=/project,type=bind electronuserland/electron-builder:latest",
     "electron": "electron .",
     "electron:compile": "tsc --project ./public/tsconfig.json",
     "preload:compile": "webpack --mode production --config webpack.preload.js",
-    "package:win": "npm run clean && npm ci & npm rebuild sass && npm run build && electron-builder -w",
-    "package:linux": "npm run clean:linux && npm ci && npm rebuild sass && npm run build && electron-builder -l",
-    "package:mac": "npm ci && npm rebuild sass && npm run build && electron-builder -m",
-    "webpack:compile": "tsc --target es6 --module CommonJS --moduleResolution node ./webpack.common.ts webpack.electron.ts webpack.dev.ts webpack.preload.ts",
+    "package:win": "npm run clean && npm ci --legacy-peer-deps & npm rebuild sass && npm run build && electron-builder -w",
+    "package:linux": "npm run clean:linux && npm ci --legacy-peer-deps && npm rebuild sass && npm run build && electron-builder -l",
+    "package:mac": "npm ci --legacy-peer-deps && npm rebuild sass && npm run build && electron-builder -m",
+    "webpack:compile": "tsc --ignoreConfig --target es2025 --module node16 --moduleResolution node16 --skipLibCheck ./webpack.common.ts webpack.electron.ts webpack.dev.ts webpack.preload.ts",
     "start": "npm run start:dev",
     "start:dev": "concurrently \"npm run start:web:dev\" \"npm run start:electron:dev\"",
     "start:web:dev": "npm run localization && npm run webpack:compile && webpack-dev-server --config webpack.dev.js --mode development --hot --port 3000 --host 127.0.0.1",
     "start:electron:dev": "wait-on http://localhost:3000 && npm run electron:compile && npm run preload:compile && cross-env NODE_ENV=development electron .",
-    "test": "npm run localization && jest --coverage --detectOpenHandles",
+    "test": "npm run localization && jest --coverage",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand -i --watch",
     "test:updateSnapshot": "jest --updateSnapshot",
     "test:watch": "jest --watch"
@@ -74,114 +77,110 @@
   },
   "homepage": "https://github.com/Azure/azure-iot-explorer#readme",
   "overrides": {
-    "enzyme": {
-      "cheerio": "1.0.0-rc.12"
+    "ts-jest": {
+      "typescript": "$typescript"
+    },
+    "react-monaco-editor": {
+      "monaco-editor": "$monaco-editor"
     }
   },
   "dependencies": {
-    "@azure/core-amqp": "^3.2.0",
-    "@azure/event-hubs": "^5.6.0",
-    "@azure/msal-node": "^1.14.6",
-    "@fluentui/react": "^8.101.2",
-    "@microsoft/applicationinsights-web": "^2.8.4",
-    "@rjsf/fluent-ui": "^5.7.0",
-    "@rjsf/material-ui": "^5.2.1",
-    "@rjsf/validator-ajv8": "^5.2.1",
+    "@azure/core-amqp": "^4.4.2",
+    "@azure/event-hubs": "^6.0.4",
+    "@azure/msal-node": "^5.1.5",
+    "@fluentui/react-components": "^9.73.8",
+    "@fluentui/react-datepicker-compat": "^0.6.31",
+    "@fluentui/react-icons": "^2.0.325",
+    "@fluentui/react-migration-v0-v9": "^9.6.28",
+    "@fluentui/react-timepicker-compat": "^0.4.34",
+    "@microsoft/applicationinsights-web": "^3.4.1",
+    "@rjsf/core": "^6.5.1",
+    "@rjsf/fluentui-rc": "^6.5.1",
+    "@rjsf/utils": "^6.5.1",
+    "@rjsf/validator-ajv8": "^6.5.1",
     "azure-iot-common": "^1.12.14",
     "azure-iothub": "^1.16.5",
-    "body-parser": "^1.20.3",
-    "cors": "^2.8.5",
-    "crypto-browserify": "^3.12.0",
-    "date-fns": "^2.14.0",
+    "date-fns": "^4.1.0",
     "electron-window-state": "^5.0.3",
     "escape-html": "^1.0.3",
-    "express": "^4.21.2",
     "he": "^1.2.0",
-    "i18next": "^20.6.1",
-    "immutable": "^4.0.0-rc.12",
+    "i18next": "^26.0.8",
+    "immutable": "^5.1.5",
     "jsonschema": "^1.2.4",
-    "msal": "^1.2.0",
+    "monaco-editor": "^0.55.1",
     "node-fetch": "^2.6.7",
     "node-forge": "^1.3.3",
-    "protobufjs": "^7.2.5",
-    "react": "^16.14.0",
-    "react-collapsible": "^2.3.2",
-    "react-dom": "^16.13.1",
-    "react-i18next": "^11.11.1",
-    "react-jsonschema-form": "^1.8.1",
-    "react-monaco-editor": "^0.54.0",
-    "react-movable": "^3.4.0",
-    "react-router-dom": "^5.2.0",
-    "react-toastify": "^4.4.0",
+    "protobufjs": "^8.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^17.0.6",
+    "react-monaco-editor": "^0.59.0",
+    "react-movable": "^3.4.1",
+    "react-router-dom": "^7.14.2",
+    "react-toastify": "^11.0.0",
     "redux-saga": "^1.1.3",
-    "semver": "^6.3.1",
+    "semver": "^7.7.4",
     "ssrf-req-filter": "^1.1.1",
     "typescript-fsa": "^3.0.0-beta-2",
     "typescript-fsa-reducers": "^1.0.0",
-    "uuid": "^3.3.3",
-    "ws": "^8.17.1"
+    "uuid": "^14.0.0",
+    "ws": "^8.20.0"
   },
   "devDependencies": {
-    "@electron/fuses": "^1.8.0",
+    "@electron/fuses": "^2.1.1",
     "@redux-saga/testing-utils": "^1.1.3",
-    "@types/async-lock": "^1.1.0",
-    "@types/core-js": "^2.5.0",
-    "@types/cors": "^2.8.4",
-    "@types/enzyme": "^3.10.8",
-    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/escape-html": "^1.0.4",
-    "@types/express": "^4.16.0",
     "@types/he": "^1.2.3",
-    "@types/jest": "^29.5.14",
+    "@types/jest": "^30.0.0",
     "@types/jest-plugin-context": "^2.9.0",
-    "@types/node": "^18.16.15",
+    "@types/node": "^25.6.0",
     "@types/node-fetch": "^2.6.2",
     "@types/node-forge": "^1.3.14",
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-jsonschema-form": "^1.0.10",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/request": "^2.48.1",
-    "@types/semver": "^6.0.2",
-    "@types/uuid": "^3.4.5",
-    "concurrently": "^5.3.0",
-    "copy-webpack-plugin": "^13.0.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/semver": "^7.7.1",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
+    "@typescript-eslint/parser": "^8.59.1",
+    "concurrently": "^9.2.1",
+    "copy-webpack-plugin": "^14.0.0",
     "cross-env": "^10.1.0",
-    "css-loader": "^6.7.1",
-    "css-minimizer-webpack-plugin": "^3.4.1",
-    "electron": "^22.3.25",
+    "css-loader": "^7.1.4",
+    "css-minimizer-webpack-plugin": "^8.0.0",
+    "electron": "^41.5.0",
     "electron-builder": "^26.0.0",
-    "electron-reload": "^2.0.0-alpha.1",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "enzyme-to-json": "^3.3.5",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-webpack-plugin": "^6.0.0",
     "html-webpack-plugin": "^5.5.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "jest-plugin-context": "^2.9.0",
-    "jest-trx-results-processor": "^0.2.0",
+    "jest-trx-results-processor": "^3.0.2",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^2.6.0",
-    "node-polyfill-webpack-plugin": "^1.1.4",
+    "node-polyfill-webpack-plugin": "^4.1.0",
     "nodemon": "^3.1.0",
-    "sass": "^1.35.2",
-    "sass-loader": "^13.0.0",
-    "source-map-loader": "^3.0.1",
-    "ssri": "^8.0.1",
-    "style-loader": "^0.23.1",
+    "sass": "^1.99.0",
+    "sass-loader": "^16.0.7",
+    "source-map-loader": "^5.0.0",
+    "ssri": "^13.0.1",
+    "style-loader": "^4.0.0",
     "ts-jest": "^29.2.0",
     "ts-loader": "^9.2.8",
-    "tslint": "^5.11.0",
-    "tslint-loader": "^3.5.4",
-    "tslint-origin-ordered-imports-rule": "^1.1.2",
-    "tslint-react": "^3.6.0",
-    "typescript": "^4.6.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.2",
     "wait-on": "^9.0.3",
     "webpack": "^5.97.1",
-    "webpack-bundle-analyzer": "^4.5.0",
-    "webpack-cli": "^5.1.4",
+    "webpack-bundle-analyzer": "^5.3.0",
+    "webpack-cli": "^7.0.2",
     "webpack-dev-server": "^5.2.0",
-    "webpack-merge": "^5.8.0",
+    "webpack-merge": "^6.0.1",
     "webpack-shell-plugin": "^0.5.0"
   },
   "jest": {
@@ -207,6 +206,9 @@
       "jest-plugin-context/setup",
       "./jestSetup.ts"
     ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom"
+    ],
     "transform": {
       "^.+\\.(js|jsx|ts|tsx)$": [
         "ts-jest",
@@ -217,7 +219,7 @@
       ]
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!react-movable|cheerio|htmlparser2|dom-serializer|domhandler|domutils|entities|css-select|css-what|boolbase|nth-check|parse5|parse5-htmlparser2-tree-adapter|@azure/event-hubs|@azure/core-amqp|@azure/core-auth|@azure/core-rest-pipeline|@azure/core-tracing|@azure/core-util|@azure/abort-controller|@azure/logger|@typespec/ts-http-runtime)"
+      "node_modules/(?!react-movable|@azure/event-hubs|@azure/core-amqp|@azure/core-auth|@azure/core-rest-pipeline|@azure/core-tracing|@azure/core-util|@azure/abort-controller|@azure/logger|@typespec/ts-http-runtime|@rjsf/utils|@rjsf/core|@rjsf/fluent-ui|@x0k/json-schema-merge|uuid)"
     ],
     "testRegex": "(\\.|/)(spec)\\.(tsx?)$",
     "moduleNameMapper": {
@@ -231,13 +233,19 @@
       "ts",
       "tsx"
     ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
+    "snapshotSerializers": [],
     "testEnvironmentOptions": {
       "url": "http://localhost?trustedAuthority=https://localhost"
     },
-    "testResultsProcessor": "./jestTrxProcessor.ts",
+    "reporters": [
+      "default",
+      [
+        "jest-trx-results-processor",
+        {
+          "outputFile": "jest-test-results.trx"
+        }
+      ]
+    ],
     "preset": "ts-jest/presets/js-with-ts",
     "testMatch": null
   }

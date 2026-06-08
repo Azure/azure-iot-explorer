@@ -4,8 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DetailsListLayoutMode, IColumn, CheckboxVisibility, Label, Overlay, ActionButton, Panel, PanelType } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
+import { Button, Label } from '@fluentui/react-components';
+import { IColumn, CheckboxVisibility, ResizableDetailsList } from '../../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { RenderSimplyTypeValue } from '../../../shared/components/simpleReportedSection';
@@ -93,13 +93,13 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                             item.propertySchema,
                             displayValue) :
                         item.reportedTwin ?
-                            <ActionButton
+                            <Button
+                                appearance="transparent"
                                 className="column-value-button"
-                                ariaDescription={t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
                                 onClick={onViewReportedValue(item)}
                             >
                                 {t(ResourceKeys.deviceProperties.command.openReportedValuePanel)}
-                            </ActionButton> : <Label>--</Label>
+                            </Button> : <Label>--</Label>
                 }
             </div>
         );
@@ -117,7 +117,6 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
         }
         const { reportedTwin, propertyModelDefinition: modelDefinition, propertySchema: schema } = selectedItem;
         return (
-            <Panel type={PanelType.medium} isOpen={showReportedValuePanel} isLightDismiss={true}>
                     <ComplexReportedFormPanel
                         showPanel={showReportedValuePanel}
                         formData={reportedTwin}
@@ -125,7 +124,6 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                         schema={schema}
                         modelDefinition={modelDefinition}
                     />
-            </Panel>
         );
     };
 
@@ -142,10 +140,9 @@ export const DevicePropertiesPerInterface: React.FC<DevicePropertiesDataProps> =
                     onRenderItemColumn={renderItemColumn}
                     items={props.twinAndSchema}
                     columns={getColumns()}
-                    layoutMode={DetailsListLayoutMode.justified}
                     ariaLabel={t(ResourceKeys.deviceProperties.propertiesTableAriaLabel)}
                 />
-                {showOverlay && <Overlay />}
+                {showOverlay && <div className="loading-overlay" />}
                 {createReportedValuePanel()}
             </div>
         </div>

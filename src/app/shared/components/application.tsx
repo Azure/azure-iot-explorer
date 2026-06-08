@@ -4,7 +4,7 @@
  **********************************************************/
 import 'react-toastify/dist/ReactToastify.css';
 import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Navigate, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { NoMatchError } from '../../navigation/components/noMatchError';
@@ -33,12 +33,12 @@ export const Application: React.FC = () => {
                 <Breadcrumbs/>
             </div>
             <main className="main">
-                <Switch>
-                    <Redirect from="/" exact={true} to={`${ROUTE_PARTS.HOME}`}/>
-                    <Route path={`/${ROUTE_PARTS.HOME}`} component={HomeView} />
-                    <Route path={'/microsoft.devices/'} component={IotHub} />
-                    <Route component={NoMatchError}/>
-                </Switch>
+                <Routes>
+                    <Route path="/" element={<Navigate to={`${ROUTE_PARTS.HOME}`} replace/>}/>
+                    <Route path={`/${ROUTE_PARTS.HOME}/*`} element={<HomeView />} />
+                    <Route path={'/microsoft.devices/*'} element={<IotHub />} />
+                    <Route path="*" element={<NoMatchError/>}/>
+                </Routes>
             </main>
             <ToastContainer
                 autoClose={NOTIFICATION_AUTO_CLOSE}

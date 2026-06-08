@@ -2,30 +2,41 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DigitalTwinDetail } from './digitalTwinDetail';
-import * as pnpStateContext from '../../context/pnpStateContext';
-import { PnpStateInterface, pnpStateInitial } from '../../state';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 
-const search = '?id=device1&componentName=foo&interfaceId=urn:iotInterfaces:com:interface1;1';
-const pathname = `/#/devices/deviceDetail/ioTPlugAndPlay/${search}`;
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search, pathname }),
-    useRouteMatch: () => ({ url: pathname })
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/ioTPlugAndPlayDetail/interfaces/', search: '?deviceId=test', hash: '', state: null, key: 'default' })
+}));
+
+jest.mock('../../context/pnpStateContext', () => ({
+    usePnpStateContext: () => ({
+        pnpState: {
+            twin: { payload: null, synchronizationStatus: 'initialized' },
+            modelDefinitionWithSource: { payload: null, synchronizationStatus: 'initialized' }
+        },
+        dispatch: jest.fn(),
+        getModelDefinition: jest.fn()
+    })
 }));
 
 describe('DigitalTwinDetail', () => {
-    it('matches snapshot', () => {
-        const initialState: PnpStateInterface = pnpStateInitial().merge({
-            twin: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        });
-        jest.spyOn(pnpStateContext, 'usePnpStateContext').mockReturnValue({ pnpState: initialState, dispatch: jest.fn()});
-        expect(shallow(<DigitalTwinDetail/>)).toMatchSnapshot();
+    it('renders tab list with PnP tabs', () => {
+        render(<MemoryRouter><DigitalTwinDetail/></MemoryRouter>);
+
+        expect(screen.getAllByText('breadcrumb.interfaces').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('breadcrumb.properties').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('breadcrumb.settings').length).toBeGreaterThan(0);
+        expect(screen.getAllByText('breadcrumb.commands').length).toBeGreaterThan(0);
+    });
+
+    it('renders the tab list with proper aria label', () => {
+        render(<MemoryRouter><DigitalTwinDetail/></MemoryRouter>);
+
+        expect(screen.getByRole('tablist')).toBeInTheDocument();
     });
 });

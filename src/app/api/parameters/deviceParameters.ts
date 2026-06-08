@@ -7,7 +7,7 @@ import { DeviceIdentity } from '../models/deviceIdentity';
 import { DeviceQuery } from '../models/deviceQuery';
 import { InvokeMethodActionParameters } from '../../devices/directMethod/actions';
 import { CloudToDeviceMessageActionParameters } from '../../devices/cloudToDeviceMessage/actions';
-import { DecodeType } from 'src/app/devices/deviceEvents/state';
+import { DecodeType } from '../../devices/deviceEvents/state';
 
 export interface FetchDeviceTwinParameters {
     deviceId: string;
@@ -32,6 +32,7 @@ export interface MonitorEventsParameters {
     customEventHubConnectionString?: string;
     hubConnectionString?: string;
     decoderPrototype?: Type;
+    startTime?: string;
 }
 
 export interface DeleteDevicesParameters  {

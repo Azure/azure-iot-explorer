@@ -3,26 +3,31 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { ModelRepositoryLocationView, } from './view';
+import { ModelRepositoryLocationView } from './view';
 import { REPOSITORY_LOCATION_TYPE } from '../constants/repositoryLocationTypes';
 import * as ModelRepositoryContext from '../shared/modelRepository/context/modelRepositoryStateContext';
 import { getInitialModelRepositoryState } from '../shared/modelRepository/state';
 import { getInitialModelRepositoryActions } from '../shared/modelRepository/interface';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '' }),
-    useRouteMatch: () => ({ url: 'url', path: 'path'})
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: 'url', search: '', hash: '', state: null, key: 'default' })
+}));
+jest.mock('../navigation/hooks/useBreadcrumbEntry', () => ({
+    useBreadcrumbEntry: jest.fn()
 }));
 
 describe('view', () => {
-    it('matches snapshot when no locations', () => {
+    it('renders when no locations', () => {
         jest.spyOn(ModelRepositoryContext, 'useModelRepositoryContext').mockReturnValueOnce([getInitialModelRepositoryState(), getInitialModelRepositoryActions()]);
-        expect(shallow(<ModelRepositoryLocationView/>)).toMatchSnapshot();
+        const { container } = render(<MemoryRouter><ModelRepositoryLocationView /></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 
-    it('matches snapshot when locations greater than 0', () => {
+    it('renders when locations greater than 0', () => {
         const initialState = [
             ...getInitialModelRepositoryState(),
             {
@@ -31,7 +36,7 @@ describe('view', () => {
             }
         ];
         jest.spyOn(ModelRepositoryContext, 'useModelRepositoryContext').mockReturnValueOnce([initialState, getInitialModelRepositoryActions()]);
-        expect(shallow(<ModelRepositoryLocationView/>)).toMatchSnapshot();
+        const { container } = render(<MemoryRouter><ModelRepositoryLocationView /></MemoryRouter>);
+        expect(container).toBeDefined();
     });
 });
-

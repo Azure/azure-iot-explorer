@@ -4,39 +4,36 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
-import { MessageBar, MessageBarType, MessageBarButton } from '@fluentui/react';
+import { useNavigate } from 'react-router-dom';
+import { MessageBar, MessageBarBody, MessageBarActions, Button } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { ROUTE_PARTS, ROUTE_PARAMS } from '../../../constants/routes';
 import '../../../css/_interfaceNotFoundMessageBar.scss';
 
 export const InterfaceNotFoundMessageBar: React.FC = () => {
     const { t } = useTranslation();
-    const history = useHistory();
-    const [redirectToModelRepositories, setRedirectToModelRepositories] = React.useState<boolean>(false);
+    const navigate = useNavigate();
 
     const onConfigureClick = () => {
-        setRedirectToModelRepositories(true);
+        navigate(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
     };
-
-    if (redirectToModelRepositories) {
-        history.push(`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`);
-        return <></>;
-    }
 
     return (
         <div className="message-bar">
             <MessageBar
-                messageBarType={MessageBarType.info}
-                actions={
-                    <MessageBarButton
+                intent="info"
+            >
+                <MessageBarBody>
+                    {t(ResourceKeys.deviceInterfaces.interfaceNotFound)}
+                </MessageBarBody>
+                <MessageBarActions>
+                    <Button
                         className="configure-button"
                         onClick={onConfigureClick}
                     >
                         {t(ResourceKeys.deviceInterfaces.command.configure)}
-                    </MessageBarButton>}
-            >
-                {t(ResourceKeys.deviceInterfaces.interfaceNotFound)}
+                    </Button>
+                </MessageBarActions>
             </MessageBar>
         </div>
     );

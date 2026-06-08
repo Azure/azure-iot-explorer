@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton, IButton, Callout, DirectionalHint, Text } from '@fluentui/react';
+import { Button, Popover, PopoverSurface, PopoverTrigger, Text } from '@fluentui/react-components';
+import { CopyRegular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
 export interface CopyButtonProps {
@@ -9,22 +10,15 @@ export interface CopyButtonProps {
 }
 export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) => {
     const { t } = useTranslation();
-    const [calloutVisible, setCalloutVisible] = React.useState<boolean>(false);
-    const [calloutRole, setCalloutRole] = React.useState<'dialog' | 'alert'>('dialog');
+    const [popoverOpen, setPopoverOpen] = React.useState<boolean>(false);
     const [calloutTextKey, setCalloutTextKey] = React.useState<string>(ResourceKeys.common.maskedCopyableTextField.copy.label);
 
-    const calloutRef = React.useRef<HTMLDivElement | null>(null);
     const hiddenRef = React.useRef<HTMLInputElement | null>(null);
-    const focusRef = React.useRef<IButton | null>(null);
+    const focusRef = React.useRef<HTMLButtonElement | null>(null);
 
-    const enableCallout = () => {
-        setCalloutVisible(true);
-    };
-
-    const dismissCallout = () => {
-        setCalloutVisible(false);
+    const dismissPopover = () => {
+        setPopoverOpen(false);
         setCalloutTextKey(ResourceKeys.common.maskedCopyableTextField.copy.label);
-        setCalloutRole('dialog');
     };
 
     const copyToClipboard = () => {
@@ -35,45 +29,42 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
         if (focusRef.current) {
             focusRef.current.focus();
         }
-        setCalloutRole('alert');
         setCalloutTextKey(ResourceKeys.common.maskedCopyableTextField.copied.label);
     };
 
     return (
         <>
-            <div ref={calloutRef}>
-                <input
-                    aria-hidden={true}
-                    disabled={disabled}
-                    style={{ position: 'absolute', opacity: 0, height: '1px', width: '1px'}}
-                    tabIndex={-1}
-                    ref={hiddenRef}
-                    value={copyText}
-                    className="input"
-                    readOnly={true}
-                />
-                <IconButton
-                    iconProps={{ iconName: 'copy' }}
-                    onClick={copyToClipboard}
-                    onFocus={enableCallout}
-                    onMouseEnter={enableCallout}
-                    onMouseLeave={dismissCallout}
-                    componentRef={focusRef}
-                    ariaLabel={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
-                />
-            </div>
-            {calloutVisible && (
-                <Callout
-                    role={calloutRole}
-                    gapSpace={0}
-                    target={calloutRef.current}
-                    directionalHint={DirectionalHint.topAutoEdge}
-                    setInitialFocus={true}
-                    style={{padding: 4, height: 20}}
-                >
+            <input
+                aria-hidden={true}
+                disabled={disabled}
+                style={{ position: 'absolute', opacity: 0, height: '1px', width: '1px'}}
+                tabIndex={-1}
+                ref={hiddenRef}
+                value={copyText}
+                className="input"
+                readOnly={true}
+            />
+            <Popover
+                open={popoverOpen}
+                onOpenChange={(e, data) => setPopoverOpen(data.open)}
+                positioning="above"
+            >
+                <PopoverTrigger disableButtonEnhancement>
+                    <Button
+                        appearance="subtle"
+                        icon={<CopyRegular />}
+                        onClick={copyToClipboard}
+                        onFocus={() => setPopoverOpen(true)}
+                        onMouseEnter={() => setPopoverOpen(true)}
+                        onMouseLeave={dismissPopover}
+                        ref={focusRef}
+                        aria-label={t(ResourceKeys.common.maskedCopyableTextField.copy.label)}
+                    />
+                </PopoverTrigger>
+                <PopoverSurface style={{padding: 4}}>
                     <Text>{t(calloutTextKey)}</Text>
-                </Callout>
-            )}
+                </PopoverSurface>
+            </Popover>
         </>
     );
 };

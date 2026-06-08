@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Panel, PanelType, Link, DefaultButton, ActionButton, Toggle } from '@fluentui/react';
+import { Button, DrawerBody, DrawerFooter, DrawerHeader, DrawerHeaderTitle, Link, OverlayDrawer, Switch } from '@fluentui/react-components';
+import { DismissRegular, SettingsRegular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { Theme, useThemeContext } from '../../shared/contexts/themeContext';
 import { THEME_SELECTION } from '../../constants/browserStorage';
@@ -32,75 +33,80 @@ export const SettingsPane: React.FC = () => {
         updateTheme(newDarkTheme);
     };
 
-    const renderFooter = () => {
-        return (
-            <footer className="header-footer">
-                <section className="footer-buttons">
-                    <DefaultButton
-                        type="reset"
-                        text={t(ResourceKeys.common.close)}
-                        onClick={togglePanelVisibility}
-                    />
-                </section>
-            </footer>
-        );
-    };
-
     return (
         <>
-            <ActionButton
-                iconProps={{iconName: 'Settings'}}
+            <Button
+                appearance="transparent"
+                icon={<SettingsRegular />}
                 onClick={togglePanelVisibility}
-                text={t(ResourceKeys.header.settings.launch)}
-                ariaLabel={t(ResourceKeys.header.settings.launch)}
-            />
-
-            <Panel
-                className="headerPane"
-                role="dialog"
-                isOpen={showPanel}
-                isLightDismiss={true}
-                onDismiss={togglePanelVisibility}
-                type={PanelType.smallFixedFar}
-                isFooterAtBottom={true}
-                onRenderFooter={renderFooter}
-                closeButtonAriaLabel={t(ResourceKeys.common.close)}
+                aria-label={t(ResourceKeys.header.settings.launch)}
             >
-                <header className="panel-header">
-                    <h2>{t(ResourceKeys.settings.headerText)}</h2>
-                </header>
-                <section aria-label={t(ResourceKeys.settings.configuration.headerText)}>
-                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.configuration.headerText)}</h3>
-                    <span>{t(ResourceKeys.settings.configuration.redirect)}</span>
-                    <Link
-                        className="home-link"
-                        onClick={togglePanelVisibility}
-                        href={`#/${ROUTE_PARTS.HOME}`}
+                {t(ResourceKeys.header.settings.launch)}
+            </Button>
+
+            <OverlayDrawer
+                className="headerPane"
+                open={showPanel}
+                onOpenChange={(e, data) => { if (!data.open) {setShowPanel(false);} }}
+                position="end"
+                size="small"
+            >
+                <DrawerHeader>
+                    <DrawerHeaderTitle
+                        action={
+                            <Button
+                                appearance="subtle"
+                                icon={<DismissRegular />}
+                                onClick={togglePanelVisibility}
+                                aria-label={t(ResourceKeys.common.close)}
+                            />
+                        }
                     >
-                        {t(ResourceKeys.settings.configuration.redirectLink)}
-                    </Link>
-                </section>
-                <section aria-label={t(ResourceKeys.settings.modelDefinitions.headerText)}>
-                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
-                    <span>{t(ResourceKeys.settings.modelDefinitions.redirect)}</span>
-                    <Link
+                        {t(ResourceKeys.settings.headerText)}
+                    </DrawerHeaderTitle>
+                </DrawerHeader>
+                <DrawerBody>
+                    <section aria-label={t(ResourceKeys.settings.configuration.headerText)}>
+                        <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.configuration.headerText)}</h3>
+                        <span>{t(ResourceKeys.settings.configuration.redirect)}</span>
+                        <Link
+                            className="home-link"
+                            onClick={togglePanelVisibility}
+                            href={`#/${ROUTE_PARTS.HOME}`}
+                        >
+                            {t(ResourceKeys.settings.configuration.redirectLink)}
+                        </Link>
+                    </section>
+                    <section aria-label={t(ResourceKeys.settings.modelDefinitions.headerText)}>
+                        <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.modelDefinitions.headerText)}</h3>
+                        <span>{t(ResourceKeys.settings.modelDefinitions.redirect)}</span>
+                        <Link
+                            onClick={togglePanelVisibility}
+                            className="home-link"
+                            href={`#/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`}
+                        >
+                            {t(ResourceKeys.settings.modelDefinitions.redirectLink)}
+                        </Link>
+                    </section>
+                    <section aria-label={t(ResourceKeys.settings.theme.headerText)}>
+                        <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.theme.headerText)}</h3>
+                        <Switch
+                            onChange={toggleTheme}
+                            checked={darkTheme}
+                            label={darkTheme ?
+                                t(ResourceKeys.settings.theme.darkTheme) :
+                                t(ResourceKeys.settings.theme.lightTheme)}
+                        />
+                    </section>
+                </DrawerBody>
+                <DrawerFooter>
+                    <Button
                         onClick={togglePanelVisibility}
-                        className="home-link"
-                        href={`#/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}?${ROUTE_PARAMS.NAV_FROM}`}
                     >
-                        {t(ResourceKeys.settings.modelDefinitions.redirectLink)}
-                    </Link>
-                </section>
-                <section aria-label={t(ResourceKeys.settings.theme.headerText)}>
-                    <h3 role="heading" aria-level={1}>{t(ResourceKeys.settings.theme.headerText)}</h3>
-                    <Toggle
-                        onText={t(ResourceKeys.settings.theme.darkTheme)}
-                        offText={t(ResourceKeys.settings.theme.lightTheme)}
-                        onChange={toggleTheme}
-                        checked={darkTheme}
-                    />
-                </section>
-            </Panel>
+                        {t(ResourceKeys.common.close)}
+                    </Button>
+                </DrawerFooter>
+            </OverlayDrawer>
         </>
     );
 };

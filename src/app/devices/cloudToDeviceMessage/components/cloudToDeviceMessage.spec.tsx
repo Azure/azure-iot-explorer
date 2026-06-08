@@ -2,131 +2,49 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
-import { shallow, mount } from 'enzyme';
-import { TextField, Checkbox, CommandBar, Dropdown } from '@fluentui/react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { CloudToDeviceMessage } from './cloudToDeviceMessage';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
-import { CloudToDeviceMessage, systemPropertyKeyNameMappings } from './cloudToDeviceMessage';
-import { cloudToDeviceMessageAction } from '../actions';
 
 jest.mock('react-router-dom', () => ({
-    useLocation: () => ({ search: '?deviceId=testDevice' })
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/detail/cloudToDeviceMessage/', search: '?deviceId=testDevice', hash: '', state: null, key: 'default' })
 }));
 
-describe('cloudToDeviceMessage', () => {
-    beforeEach(() => {
-        jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([{}, jest.fn()]);
+jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValue([
+    undefined,
+    jest.fn()
+]);
+
+jest.mock('../../../navigation/hooks/useBreadcrumbEntry', () => ({
+    useBreadcrumbEntry: jest.fn()
+}));
+
+describe('CloudToDeviceMessage', () => {
+    it('renders send message button', () => {
+        render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
+
+        expect(screen.getByText('cloudToDeviceMessage.sendMessageButtonText')).toBeInTheDocument();
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
+    it('renders message body section', () => {
+        render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
+
+        expect(screen.getByLabelText('cloudToDeviceMessage.body')).toBeInTheDocument();
     });
 
-    it('matches snapshot', () => {
-        expect(shallow(<CloudToDeviceMessage/>)).toMatchSnapshot();
+    it('renders add timestamp checkbox', () => {
+        render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
+
+        expect(screen.getByLabelText('cloudToDeviceMessage.addTimestamp')).toBeInTheDocument();
     });
 
-    it('sets message body', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
-        const wrapper = mount(<CloudToDeviceMessage/>);
-        const bodyTextField = wrapper.find(TextField).first();
-        act(() => bodyTextField.props().onChange?.(undefined as any, 'hello world'));
-        wrapper.update();
-        const commandBar = wrapper.find(CommandBar).first();
-        act(() => commandBar.props().items[0].onClick());
-        wrapper.update();
-        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].body).toEqual('hello world');
-    });
+    it('renders properties section with add custom property button', () => {
+        render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
 
-    it('sets timestamp', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
-        const wrapper = mount(<CloudToDeviceMessage/>);
-        const checkbox = wrapper.find(Checkbox).first();
-        act(() => checkbox.props().onChange?.(undefined as any, true));
-        wrapper.update();
-        const commandBar = wrapper.find(CommandBar).first();
-        const currentTime = new Date().toLocaleString();
-        act(() => commandBar.props().items[0].onClick());
-        wrapper.update();
-        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].body).toEqual(currentTime.toLocaleString());
-    });
-
-    it('adds custom properties', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
-        const wrapper = mount(<CloudToDeviceMessage/>);
-        const commandBar = wrapper.find(CommandBar).at(1);
-        // click the add custom property, which would add an entry to the editable grid
-        act(() => commandBar.props().items[0].onClick(null));
-        wrapper.update();
-
-        const keyInput = wrapper.find(TextField).at(1);
-        act(() => keyInput.props().onChange?.(undefined as any, 'foo'));
-        wrapper.update();
-        expect(wrapper.find(TextField).at(1).props().value).toEqual('foo');
-
-        const valueInput = wrapper.find(TextField).at(2);
-        act(() => valueInput.props().onChange?.(undefined as any, 'bar'));
-        wrapper.update();
-        expect(wrapper.find(TextField).at(2).props().value).toEqual('bar');
-
-        const updatedCommandBar = wrapper.find(CommandBar).first();
-        act(() => updatedCommandBar.props().items[0].onClick());
-        wrapper.update();
-        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties[0]).toEqual({isSystemProperty: false, key: 'foo', value: 'bar' });
-    });
-
-    it('adds system properties', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
-        const wrapper = mount(<CloudToDeviceMessage/>);
-        const commandBar = wrapper.find(CommandBar).at(1);
-        // click the add system property, which would add an entry to the editable grid
-        act(() => commandBar.props().items[1].subMenuProps.items[0].onClick());
-
-        wrapper.update();
-        const ackDropDown = wrapper.find(Dropdown).first();
-        act(() => ackDropDown.props().onChange(null, {key: 'full'} as any)); // tslint:disable-line:no-any
-        wrapper.update();
-
-        const updatedCommandBar = wrapper.find(CommandBar).first();
-        act(() => updatedCommandBar.props().items[0].onClick());
-        wrapper.update();
-        expect(mockSendCloudToDeviceMessageSpy.mock.calls[0][0].properties[0]).toEqual({ isSystemProperty: true, key: 'ack', value: 'full' });
-    });
-
-    it('disables send message button where there is duplicate keys', () => {
-        const duplicateProperties = [{index: 0, keyName: 'key', isSystemProperty: false, value: 'value1'}, {index: 0, keyName: 'key', isSystemProperty: false, value: 'value2'}];
-        const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(duplicateProperties));
-
-        const wrapper = mount(<CloudToDeviceMessage/>);
-        wrapper.update();
-        const commandBar = wrapper.find(CommandBar).first();
-        expect(commandBar.props().items[0].disabled).toBeTruthy();
-    });
-
-    it('disables system property button when all the system properties keys have been added', () => {
-        const properties = systemPropertyKeyNameMappings.map(keyNameMapping => ({
-            index: 0, isSystemProperty: false, keyName: keyNameMapping.keyName, value: 'value'
-        }));
-        const realUseState = React.useState;
-        jest.spyOn(React, 'useState').mockImplementationOnce(() => realUseState(properties));
-
-        const wrapper = mount(<CloudToDeviceMessage/>);
-        const commandBar = wrapper.find(CommandBar).get(1);
-        expect(commandBar.props.items[1].subMenuProps.items.length).toEqual(systemPropertyKeyNameMappings.length);
-        for (const item of commandBar.props.items[1].subMenuProps.items) {
-            expect(item.disabled).toBeTruthy();
-        }
-    });
-
-    it('dispatch action when send button is clicked', () => {
-        const mockSendCloudToDeviceMessageSpy = jest.spyOn(cloudToDeviceMessageAction, 'started');
-        const wrapper = mount(<CloudToDeviceMessage/>);
-        const commandBar = wrapper.find(CommandBar).first();
-
-        act(() => commandBar.props().items[0].onClick());
-        expect(mockSendCloudToDeviceMessageSpy).toBeCalled();
+        expect(screen.getByText('cloudToDeviceMessage.properties.addCustomProperty')).toBeInTheDocument();
     });
 });

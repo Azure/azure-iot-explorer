@@ -3,16 +3,20 @@
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es5",
+        "strictNullChecks": false,
+        "useUnknownInCatchVariables": false,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "target": "es2025",
         "jsx": "react",
         "resolveJsonModule": true,
-        "lib": ["es5", "es6", "dom"],
+        "lib": ["es2025", "dom"],
         "allowJs": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "rootDir": ".",
-        "baseUrl": ".",
-        "typeRoots": ["./node_modules/@types", "./src/types"]
+        "typeRoots": ["./node_modules/@types", "./src/types"],
+        "types": ["node"]
     },
     "include": [
         "./src/**/*"

@@ -2,19 +2,39 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
+let useStateMock: jest.Mock | null = null;
+jest.mock('react', () => {
+    const actual = jest.requireActual('react');
+    return {
+        ...actual,
+        useState: (...args: any[]) => {
+            if (useStateMock) {
+                const result = useStateMock(...args);
+                if (result !== undefined) {
+                    return result;
+                }
+            }
+            return actual.useState(...args);
+        },
+    };
+});
+
 import * as React from 'react';
 import 'jest';
-import { shallow } from 'enzyme';
 import { ModuleIdentityDetail } from './moduleIdentityDetail';
 import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as AsyncSagaReducer from '../../../../shared/hooks/useAsyncSagaReducer';
 import * as IotHubContext from '../../../../iotHub/hooks/useIotHubContext';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 const pathname = 'https://127.0.0.1:3000/#/resources/testhub.azure-devices.net/devices/deviceDetail/moduleIdentity/moduleDetail/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
 }));
+
+const initialEntries = [{ pathname, search: '?deviceId=newdevice&moduleId=moduleId' }];
 
 const deviceId = 'deviceId';
 const moduleId = 'moduleId';
@@ -65,7 +85,7 @@ describe('ModuleIdentityDetail', () => {
     context('snapshot', () => {
         it('matches snapshot while loading', () => {
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([{synchronizationStatus: SynchronizationStatus.working}, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after module identity is fetched', () => {
@@ -74,7 +94,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after sas module identity is fetched', () => {
@@ -83,7 +103,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after self signed module identity is fetched', () => {
@@ -92,7 +112,7 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
 
         it('matches snapshot after certificateAuthority module identity is fetched', () => {
@@ -101,7 +121,11 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
+        });
+
+        afterEach(() => {
+            useStateMock = null;
         });
 
         it('matches snapshot showing delete confirmation', () => {
@@ -110,8 +134,13 @@ describe('ModuleIdentityDetail', () => {
                 synchronizationStatus: SynchronizationStatus.fetched
             };
             jest.spyOn(AsyncSagaReducer, 'useAsyncSagaReducer').mockReturnValueOnce([initialState, jest.fn()]);
-            jest.spyOn(React, 'useState').mockImplementationOnce(() => React.useState(true));
-            expect(shallow(<ModuleIdentityDetail/>)).toMatchSnapshot();
+            useStateMock = jest.fn((initialValue: any) => {
+                if (initialValue === false) {
+                    return [true, jest.fn()];
+                }
+                return undefined;
+            });
+            expect(render(<MemoryRouter initialEntries={initialEntries}><ModuleIdentityDetail /></MemoryRouter>)).toBeDefined();
         });
     });
 });

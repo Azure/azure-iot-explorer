@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ITextFieldProps, TextField } from '@fluentui/react';
+import { Input } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import './deviceEvents.scss';
@@ -18,29 +18,25 @@ export interface ConsumerGroupProps {
 export const ConsumerGroup: React.FC<ConsumerGroupProps> = ({monitoringData, consumerGroup, setConsumerGroup}) => {
 
     const { t } = useTranslation();
-    const renderConsumerGroupLabel = (textFieldProps: ITextFieldProps) => (
-        <LabelWithTooltip
-            className={'consumer-group-label'}
-            tooltipText={t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
-        >
-            {textFieldProps.label}
-        </LabelWithTooltip>
-    );
-
-    const consumerGroupChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setConsumerGroup(newValue);
+    const consumerGroupChange = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
+        setConsumerGroup(data.value);
     };
 
     return (
-        <TextField
-            className={'consumer-group-text-field'}
-            onRenderLabel={renderConsumerGroupLabel}
-            label={t(ResourceKeys.deviceEvents.consumerGroups.label)}
-            ariaLabel={t(ResourceKeys.deviceEvents.consumerGroups.label)}
-            underlined={true}
-            value={consumerGroup}
-            disabled={monitoringData}
-            onChange={consumerGroupChange}
-        />
+        <div className={'consumer-group-text-field'}>
+            <LabelWithTooltip
+                className={'consumer-group-label'}
+                tooltipText={t(ResourceKeys.deviceEvents.consumerGroups.tooltip)}
+            >
+                {t(ResourceKeys.deviceEvents.consumerGroups.label)}
+            </LabelWithTooltip>
+            <Input
+                appearance="underline"
+                aria-label={t(ResourceKeys.deviceEvents.consumerGroups.label)}
+                value={consumerGroup}
+                disabled={monitoringData}
+                onChange={consumerGroupChange}
+            />
+        </div>
     );
 };

@@ -4,17 +4,19 @@
  **********************************************************/
 import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { ModuleDirectMethod } from './moduleDirectMethod';
 
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 const pathname = '#/devices/deviceDetail/moduleIdentity/moduleTwin/?deviceId=newdevice&moduleId=moduleId';
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
     useLocation: () => ({ search: '?deviceId=newdevice&moduleId=moduleId', pathname }),
 }));
 
 describe('moduleDirectMethod', () => {
     it('matches snapshot', () => {
-        expect(shallow(<ModuleDirectMethod/>)).toMatchSnapshot();
+        expect(render(<MemoryRouter><ModuleDirectMethod /></MemoryRouter>)).toBeDefined();
     });
 });

@@ -4,12 +4,14 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CommandBar, MessageBar, MessageBarType } from '@fluentui/react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../../shared/components/commandBarV9';
+import { MessageBar, MessageBarBody } from '@fluentui/react-components';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ResourceKeys } from '../../../../../localization/resourceKeys';
 import { getInterfaceIdFromQueryString } from '../../../../shared/utils/queryStringHelper';
 import { InterfaceNotFoundMessageBar } from '../../../shared/components/interfaceNotFoundMessageBar';
-import { REFRESH, NAVIGATE_BACK } from '../../../../constants/iconNames';
+import { ArrowSyncRegular, ArrowLeftRegular } from '@fluentui/react-icons';
+import { REFRESH, NAVIGATE_BACK } from '../../../../constants/commandBarItemKeys';
 import { ErrorBoundary } from '../../../shared/components/errorBoundary';
 import { getLocalizedData } from '../../../../api/dataTransforms/modelDefinitionTransform';
 import { MultiLineShimmer } from '../../../../shared/components/multiLineShimmer';
@@ -26,7 +28,7 @@ import '../../../../css/_deviceInterface.scss';
 export const DeviceInterfaces: React.FC = () => {
     const { t } = useTranslation();
     const { search, pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const interfaceId = getInterfaceIdFromQueryString(search);
 
     const { pnpState, getModelDefinition } = usePnpStateContext();
@@ -47,8 +49,10 @@ export const DeviceInterfaces: React.FC = () => {
                             </> :
                             <section className="pnp-interface-info scrollable-lg">
                                 {renderInterfaceInfoDetail(false)}
-                                <MessageBar messageBarType={MessageBarType.error}>
+                                <MessageBar intent="error">
+                                    <MessageBarBody>
                                     {t(ResourceKeys.deviceInterfaces.interfaceNotValid)}
+                                    </MessageBarBody>
                                 </MessageBar>
                                 {renderInterfaceViewer(false)}
                             </section>
@@ -93,7 +97,7 @@ export const DeviceInterfaces: React.FC = () => {
         );
     };
 
-    const renderInterfaceViewer = (isValidInterface: boolean) => {
+    const renderInterfaceViewer = (_isValidInterface: boolean) => {
         const jsonViewerHeight = 500;
         return (
             <div className="pnp-interface-info-editor">
@@ -110,7 +114,7 @@ export const DeviceInterfaces: React.FC = () => {
 
     const handleClose = () => {
         const path = pathname.replace(/\/ioTPlugAndPlayDetail\/interfaces\/.*/, ``);
-        history.push(getBackUrl(path, search));
+        navigate(getBackUrl(path, search));
     };
 
     React.useEffect(() => {
@@ -124,7 +128,7 @@ export const DeviceInterfaces: React.FC = () => {
                 items={[
                     {
                         ariaLabel: t(ResourceKeys.deviceInterfaces.command.refresh),
-                        iconProps: {iconName: REFRESH},
+                        icon: <ArrowSyncRegular />,
                         key: REFRESH,
                         name: t(ResourceKeys.deviceProperties.command.refresh),
                         onClick: getModelDefinition
@@ -133,7 +137,7 @@ export const DeviceInterfaces: React.FC = () => {
                 farItems={[
                     {
                         ariaLabel: t(ResourceKeys.deviceInterfaces.command.close),
-                        iconProps: {iconName: NAVIGATE_BACK},
+                        icon: <ArrowLeftRegular />,
                         key: NAVIGATE_BACK,
                         name: t(ResourceKeys.deviceInterfaces.command.close),
                         onClick: handleClose

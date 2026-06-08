@@ -4,10 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { DefaultButton, PrimaryButton, Dialog, DialogFooter, TextField, Link } from '@fluentui/react';
+import { Button, Dialog, DialogSurface, DialogBody, DialogTitle, DialogContent, DialogActions, Field, Input } from '@fluentui/react-components';
+import { ArrowLeftRegular, FolderOpenRegular } from '@fluentui/react-icons';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { NAVIGATE_BACK, FOLDER } from '../../constants/iconNames';
 import { fetchDirectories } from '../../api/services/localRepoService';
 import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
@@ -56,9 +56,9 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
         setRepositoryLocationSettings(updatedRepositoryLocationSettings);
     };
 
-    const onFolderPathChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setCurrentFolder(newValue);
-        onChangeRepositoryLocationSettingValue(newValue);
+    const onFolderPathChange = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
+        setCurrentFolder(data.value);
+        onChangeRepositoryLocationSettingValue(data.value);
    };
 
     const onShowFolderPicker = () => {
@@ -92,75 +92,82 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
         fetchDirectories(folderName).then(result => {
             setShowError(false);
             setSubFolders(result);
-        }).catch(error => {
+        }).catch(_error => {
             setShowError(true);
         });
     };
 
     const renderFolderPicker = () => {
         return (
-            <div role="dialog">
-                <Dialog
-                    hidden={!showFolderPicker}
-                    title={t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}
-                    modalProps={{
-                        className: 'folder-picker-dialog',
-                        isBlocking: false
-                    }}
-                    dialogContentProps={{
-                        subText: currentFolder && t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, {folder: currentFolder})
-                    }}
-                    onDismiss={dismissFolderPicker}
-                >
-                    <div className="folder-links">
-                        <DefaultButton
-                            className="folder-button"
-                            iconProps={{ iconName: NAVIGATE_BACK }}
-                            text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
-                            ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
-                            onClick={onNavigateBack}
-                            disabled={currentFolder === getRootFolder()}
-                        />
-                        {showError ? <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error)}</div> :
-                            subFolders && subFolders.length > 0 ?
-                                subFolders.map(folder =>
-                                    <DefaultButton
-                                        className="folder-button"
-                                        iconProps={{ iconName: FOLDER }}
-                                        key={folder}
-                                        text={folder}
-                                        onClick={onClickFolderName(folder)}
-                                    />)
-                                :
-                                <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText)}</div>}
-                    </div>
-                    <DialogFooter>
-                        <PrimaryButton onClick={onSelectFolder} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.select)} disabled={!currentFolder}/>
-                        <DefaultButton onClick={dismissFolderPicker} text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel)} />
-                    </DialogFooter>
-                </Dialog>
-            </div>
+            <Dialog
+                open={showFolderPicker}
+                onOpenChange={(e, data) => { if (!data.open) {dismissFolderPicker();} }}
+            >
+                <DialogSurface className="folder-picker-dialog">
+                    <DialogBody>
+                        <DialogTitle>{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.title)}</DialogTitle>
+                        <DialogContent>
+                            {currentFolder && <div>{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.subText, {folder: currentFolder})}</div>}
+                            <div className="folder-links">
+                                <Button
+                                    className="folder-button"
+                                    icon={<ArrowLeftRegular />}
+                                    aria-label={t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
+                                    onClick={onNavigateBack}
+                                    disabled={currentFolder === getRootFolder()}
+                                >
+                                    {t(ResourceKeys.modelRepository.types.local.folderPicker.command.navigateToParent)}
+                                </Button>
+                                {showError ? <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.error)}</div> :
+                                    subFolders && subFolders.length > 0 ?
+                                        subFolders.map(folder =>
+                                            <Button
+                                                className="folder-button"
+                                                icon={<FolderOpenRegular />}
+                                                key={folder}
+                                                onClick={onClickFolderName(folder)}
+                                            >
+                                                {folder}
+                                            </Button>)
+                                        :
+                                        <div className="no-folders-text">{t(ResourceKeys.modelRepository.types.local.folderPicker.dialog.noFolderFoundText)}</div>}
+                            </div>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button appearance="primary" onClick={onSelectFolder} disabled={!currentFolder}>{t(ResourceKeys.modelRepository.types.local.folderPicker.command.select)}</Button>
+                            <Button onClick={dismissFolderPicker}>{t(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel)}</Button>
+                        </DialogActions>
+                    </DialogBody>
+                </DialogSurface>
+            </Dialog>
         );
     };
 
     return(
         <>
             <ListItemLocalLabel repoType={repoType}/>
-            <TextField
-                className="local-folder-textbox"
+            <Field
                 label={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
-                ariaLabel={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
-                value={currentFolder}
-                readOnly={false}
-                errorMessage={errorKey ? t(errorKey) : ''}
-                onChange={onFolderPathChange}
-            />
-            <DefaultButton
-                className="local-folder-launch"
-                text={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                ariaLabel={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
-                onClick={onShowFolderPicker}
-            />
+                validationMessage={errorKey ? t(errorKey) : undefined}
+                validationState={errorKey ? 'error' : 'none'}
+            >
+                <Input
+                    className="local-folder-textbox"
+                    aria-label={t(ResourceKeys.modelRepository.types.local.textBoxLabel)}
+                    value={currentFolder}
+                    readOnly={false}
+                    onChange={onFolderPathChange}
+                />
+            </Field>
+            <div style={{ marginTop: 10, overflow: 'hidden' }}>
+                <Button
+                    className="local-folder-launch"
+                    aria-label={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                    onClick={onShowFolderPicker}
+                >
+                    {t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
+                </Button>
+            </div>
             {renderFolderPicker()}
         </>
     );

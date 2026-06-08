@@ -3,11 +3,36 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { ConnectionStringsEmpty } from './connectionStringsEmpty'
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { ConnectionStringsEmpty } from './connectionStringsEmpty';
 
-describe('ConnectionSTringsEmpty', () => {
-    it('matches snapshot', () => {
-        expect(shallow(<ConnectionStringsEmpty/>)).toMatchSnapshot();
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
+describe('ConnectionStringsEmpty', () => {
+    it('renders empty state header and description', () => {
+        render(<MemoryRouter><ConnectionStringsEmpty/></MemoryRouter>);
+
+        expect(screen.getByText('connectionStrings.empty.header')).toBeInTheDocument();
+        expect(screen.getByText('connectionStrings.empty.description')).toBeInTheDocument();
+    });
+
+    it('renders Home link pointing to root', () => {
+        render(<MemoryRouter><ConnectionStringsEmpty/></MemoryRouter>);
+
+        const homeLink = screen.getByText('Home.');
+        expect(homeLink).toBeInTheDocument();
+        expect(homeLink.closest('a').getAttribute('href')).toBe('/');
+    });
+
+    it('renders questions header and external help link', () => {
+        render(<MemoryRouter><ConnectionStringsEmpty/></MemoryRouter>);
+
+        expect(screen.getByText('settings.questions.headerText')).toBeInTheDocument();
+        expect(screen.getByText('connectivityPane.connectionStringComboBox.linkText')).toBeInTheDocument();
     });
 });

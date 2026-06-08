@@ -70,7 +70,7 @@ describe('deviceTwinService', () => {
 
         it('throws Error when IPC rejects', async () => {
             (window as any).api_device.dataPlaneRequest.mockRejectedValue(new Error('Not found'));
-            await expect(DevicesService.fetchDeviceTwin({deviceId})).rejects.toThrowError('Not found');
+            await expect(DevicesService.fetchDeviceTwin({deviceId})).rejects.toThrow('Not found');
         });
     });
 
@@ -254,7 +254,7 @@ describe('deviceTwinService', () => {
             await expect(DevicesService.fetchDevice({
                 ...parameters,
                 deviceId
-            })).rejects.toThrowError();
+            })).rejects.toThrow();
         });
     });
 

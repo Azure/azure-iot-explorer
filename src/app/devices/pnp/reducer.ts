@@ -71,7 +71,7 @@ export const pnpReducer = reducerWithInitialState<PnpStateType>(pnpStateInitial(
             }
         });
     })
-    .case(updateDeviceTwinAction.done, (state: PnpStateType, payload: {params: Twin, result: Twin}) => {
+    .case(updateDeviceTwinAction.done as any, (state: PnpStateType, payload: {params: Twin, result: Twin}) => {
         return state.merge({
             twin: {
                 payload: payload.result,
@@ -117,7 +117,7 @@ export const pnpReducer = reducerWithInitialState<PnpStateType>(pnpStateInitial(
             }
         });
     })
-    .case(updateModuleTwinAction.done, (state: PnpStateType, payload: {params: Twin, result: Twin}) => {
+    .case(updateModuleTwinAction.done as any, (state: PnpStateType, payload: {params: Twin, result: Twin}) => {
         return state.merge({
             twin: {
                 payload: payload.result,

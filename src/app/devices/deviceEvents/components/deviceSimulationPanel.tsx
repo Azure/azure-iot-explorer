@@ -5,15 +5,16 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { TextField, Panel, PanelType, Label, IColumn, MarqueeSelection, Selection, CommandBar } from '@fluentui/react';
-import { ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
+import { DrawerBody, DrawerHeader, DrawerHeaderTitle, Field, Input, Label, OverlayDrawer, Textarea } from '@fluentui/react-components';
+import { IColumn, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
-import { getHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
-import { CIRCLE_ADD, ArrayOperation } from '../../../constants/iconNames';
+import { useHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
+import { AddCircleRegular, DeleteRegular } from '@fluentui/react-icons';
 import './deviceSimulationPanel.scss';
 
 export interface DeviceSimulationPanelProps {
@@ -33,65 +34,67 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
 
     const deviceId = getDeviceIdFromQueryString(search);
 
-    const hubConnectionString = getHubInformationFromLocalStorage().hubConnectionString;
+    const hubConnectionString = useHubInformationFromLocalStorage().hubConnectionString;
     const [ simulationBody, setSimulationBody ] = React.useState<string>('');
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
     const [ selectedIndices, setSelectedIndices ] = React.useState<Set<number>>(new Set());
     const [ properties, setProperties ] = React.useState<PropertyItem[]>([{index: 0, keyName: '', value: ''}]);
-    const selection = new Selection({
-        onSelectionChanged: () => onSelectionChanged()
-    });
 
-    const renderSimulationPanel = () => {
+    const renderSimulationPanel= () => {
         return (
-            <Panel
-                isOpen={props.showSimulationPanel}
-                type={PanelType.medium}
-                isBlocking={false}
-                onDismiss={props.onToggleSimulationPanel}
-                closeButtonAriaLabel={t(ResourceKeys.common.close)}
-                headerText={t(ResourceKeys.deviceEvents.simulation.header)}
+            <OverlayDrawer
+                open={props.showSimulationPanel}
+                position="end"
+                size="medium"
+                onOpenChange={(e, data) => { if (!data.open) {props.onToggleSimulationPanel();} }}
             >
-                <a target="_blank" role="link" href="https://shell.azure.com">
-                    <img className="cloudShellButton"  alt={t(ResourceKeys.deviceEvents.simulation.cloudShell.imageDescription)} src="images/launchcloudshell.png" />
-                </a>
-                <Label>{t(ResourceKeys.deviceEvents.simulation.cloudShell.textDescription)}</Label>
-                <CollapsibleSection
-                    expanded={true}
-                    label={t(ResourceKeys.deviceEvents.simulation.prerequisite.label)}
-                    tooltipText={t(ResourceKeys.deviceEvents.simulation.prerequisite.tooltiop)}
-                >
-                    <span>{t(ResourceKeys.deviceEvents.simulation.prerequisite.instruction)}</span>
-                </CollapsibleSection>
-                <CollapsibleSection
-                    expanded={true}
-                    label={t(ResourceKeys.deviceEvents.simulation.basic.label)}
-                    tooltipText={t(ResourceKeys.deviceEvents.simulation.basic.tooltiop)}
-                >
-                    <span>{t(ResourceKeys.deviceEvents.simulation.basic.instruction)}</span>
-                    <MaskedCopyableTextField
-                        ariaLabel={t(ResourceKeys.deviceEvents.simulation.basic.copyLabel, {deviceId})}
-                        label={t(ResourceKeys.deviceEvents.simulation.basic.copyLabel, {deviceId})}
-                        value={`az iot device simulate --device-id ${deviceId} --login \"${hubConnectionString}\"`}
-                        allowMask={false}
-                    />
-                </CollapsibleSection>
-                <CollapsibleSection
-                    expanded={false}
-                    label={t(ResourceKeys.deviceEvents.simulation.advanced.label)}
-                    tooltipText={t(ResourceKeys.deviceEvents.simulation.advanced.tooltiop)}
-                >
-                    <span>{t(ResourceKeys.deviceEvents.simulation.advanced.instruction)}</span>
-                    {renderMessageBodySection()}
-                    {renderPropertiesList()}
-                    <MaskedCopyableTextField
-                        ariaLabel={t(ResourceKeys.deviceEvents.simulation.advanced.copyLabel, {deviceId})}
-                        label={t(ResourceKeys.deviceEvents.simulation.advanced.copyLabel, {deviceId})}
-                        value={convertToCliCommand()}
-                        allowMask={false}
-                    />
-                </CollapsibleSection>
-            </Panel>
+                <DrawerHeader>
+                    <DrawerHeaderTitle>
+                        {t(ResourceKeys.deviceEvents.simulation.header)}
+                    </DrawerHeaderTitle>
+                </DrawerHeader>
+                <DrawerBody>
+                    <a target="_blank" role="link" href="https://shell.azure.com">
+                        <img className="cloudShellButton"  alt={t(ResourceKeys.deviceEvents.simulation.cloudShell.imageDescription)} src="images/launchcloudshell.png" />
+                    </a>
+                    <Label>{t(ResourceKeys.deviceEvents.simulation.cloudShell.textDescription)}</Label>
+                    <CollapsibleSection
+                        expanded={true}
+                        label={t(ResourceKeys.deviceEvents.simulation.prerequisite.label)}
+                        tooltipText={t(ResourceKeys.deviceEvents.simulation.prerequisite.tooltiop)}
+                    >
+                        <span>{t(ResourceKeys.deviceEvents.simulation.prerequisite.instruction)}</span>
+                    </CollapsibleSection>
+                    <CollapsibleSection
+                        expanded={true}
+                        label={t(ResourceKeys.deviceEvents.simulation.basic.label)}
+                        tooltipText={t(ResourceKeys.deviceEvents.simulation.basic.tooltiop)}
+                    >
+                        <span>{t(ResourceKeys.deviceEvents.simulation.basic.instruction)}</span>
+                        <MaskedCopyableTextField
+                            ariaLabel={t(ResourceKeys.deviceEvents.simulation.basic.copyLabel, {deviceId})}
+                            label={t(ResourceKeys.deviceEvents.simulation.basic.copyLabel, {deviceId})}
+                            value={`az iot device simulate --device-id ${deviceId} --login \"${hubConnectionString}\"`}
+                            allowMask={false}
+                        />
+                    </CollapsibleSection>
+                    <CollapsibleSection
+                        expanded={false}
+                        label={t(ResourceKeys.deviceEvents.simulation.advanced.label)}
+                        tooltipText={t(ResourceKeys.deviceEvents.simulation.advanced.tooltiop)}
+                    >
+                        <span>{t(ResourceKeys.deviceEvents.simulation.advanced.instruction)}</span>
+                        {renderMessageBodySection()}
+                        {renderPropertiesList()}
+                        <MaskedCopyableTextField
+                            ariaLabel={t(ResourceKeys.deviceEvents.simulation.advanced.copyLabel, {deviceId})}
+                            label={t(ResourceKeys.deviceEvents.simulation.advanced.copyLabel, {deviceId})}
+                            value={convertToCliCommand()}
+                            allowMask={false}
+                        />
+                    </CollapsibleSection>
+                </DrawerBody>
+            </OverlayDrawer>
         );
     };
 
@@ -104,7 +107,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                 >
                     {t(ResourceKeys.deviceEvents.simulation.advanced.body.label)}
                 </LabelWithTooltip>
-                <TextField multiline={true} rows={textFieldRows} onChange={onTextFieldChange}/>
+                <Textarea rows={textFieldRows} onChange={onTextFieldChange}/>
             </>
         );
     };
@@ -117,9 +120,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                     items={[
                         {
                             ariaLabel: t(ResourceKeys.deviceEvents.simulation.advanced.properties.addProperty),
-                            iconProps: {
-                                iconName: CIRCLE_ADD
-                            },
+                            icon: <AddCircleRegular />,
                             key: t(ResourceKeys.deviceEvents.simulation.advanced.properties.addProperty),
                             name: t(ResourceKeys.deviceEvents.simulation.advanced.properties.addProperty),
                             onClick: handleAddProperty
@@ -127,34 +128,30 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                         {
                             ariaLabel: t(ResourceKeys.deviceEvents.simulation.advanced.properties.delete),
                             disabled: selectedIndices.size === 0,
-                            iconProps: {
-                                iconName: ArrayOperation.REMOVE
-                            },
+                            icon: <DeleteRegular />,
                             key: t(ResourceKeys.deviceEvents.simulation.advanced.properties.delete),
                             name: t(ResourceKeys.deviceEvents.simulation.advanced.properties.delete),
                             onClick: handleDelete
                         },
                     ]}
                 />
-                <MarqueeSelection selection={selection}>
-                    <ResizableDetailsList
+                <ResizableDetailsList
                         items={properties}
                         columns={getColumns()}
                         onRenderItemColumn={renderItemColumn}
                         ariaLabelForSelectionColumn={t(ResourceKeys.deviceEvents.simulation.advanced.properties.toggleSelectionColumnAriaLabel)}
                         ariaLabelForSelectAllCheckbox={t(ResourceKeys.deviceEvents.simulation.advanced.properties.selectAllCheckboxAriaLabel)}
-                        checkButtonAriaLabel={t(ResourceKeys.deviceEvents.simulation.advanced.properties.rowCheckBoxAriaLabel)}
-                        selection={selection}
+                        checkButtonAriaLabel={(item: any) => `${t(ResourceKeys.deviceEvents.simulation.advanced.properties.rowCheckBoxAriaLabel)} ${item.keyName || ''}`}
+                        onSelectionChange={(indices) => setSelectedIndices(indices)}
                     />
-                </MarqueeSelection>
             </>
         );
     };
 
     const renderItemColumn = (item: PropertyItem, index: number, column: IColumn) => {
-        const handleEditCustomPropertyKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const handleEditCustomPropertyKey = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
             const items = [...properties];
-            items[index] = {...items[index], keyName: newValue};
+            items[index] = {...items[index], keyName: data.value};
             setProperties(items);
         };
 
@@ -162,12 +159,16 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
             case 'key':
                 const hasDuplicateKey = (keyName: string) => keyName && properties.filter(property => property.keyName === keyName).length > 1;
                 return (
-                    <TextField
-                        ariaLabel={t(ResourceKeys.deviceEvents.simulation.advanced.properties.key)}
-                        errorMessage={hasDuplicateKey(item.keyName) && t(ResourceKeys.deviceEvents.simulation.advanced.properties.keyDup)}
-                        value={item.keyName}
-                        onChange={handleEditCustomPropertyKey}
-                    />);
+                    <Field
+                        validationMessage={hasDuplicateKey(item.keyName) ? t(ResourceKeys.deviceEvents.simulation.advanced.properties.keyDup) : undefined}
+                        validationState={hasDuplicateKey(item.keyName) ? 'error' : 'none'}
+                    >
+                        <Input
+                            aria-label={t(ResourceKeys.deviceEvents.simulation.advanced.properties.key)}
+                            value={item.keyName}
+                            onChange={handleEditCustomPropertyKey}
+                        />
+                    </Field>);
             case 'value':
                 return renderItemValueColumn(item, column);
             default:
@@ -185,18 +186,18 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
         return indexFound;
     };
 
-    const renderItemValueColumn = (item: PropertyItem, column: IColumn) => {
+    const renderItemValueColumn = (item: PropertyItem, _column: IColumn) => {
         const index = findMatchingItemIndex(item);
 
-        const handleEditPropertyValue = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+        const handleEditPropertyValue = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
             const items = [...properties];
-            items[index] = {...items[index], value: newValue};
+            items[index] = {...items[index], value: data.value};
             setProperties(items);
         };
 
         return (
-            <TextField
-                ariaLabel={t(ResourceKeys.deviceEvents.simulation.advanced.properties.value)}
+            <Input
+                aria-label={t(ResourceKeys.deviceEvents.simulation.advanced.properties.value)}
                 value={item.value}
                 onChange={handleEditPropertyValue}
             />);
@@ -217,11 +218,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
         ];
     };
 
-    const onSelectionChanged = () => {
-        setSelectedIndices(new Set(selection.getSelectedIndices()));
-    };
-
-    const handleAddProperty = () => {
+    const handleAddProperty= () => {
         const newIndex = propertyIndex + 1;
         const newProperties = [...properties, {index: newIndex, keyName: '', value: ''}];
         setProperties(newProperties);
@@ -238,8 +235,8 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
         setProperties(updatedProperties);
     };
 
-    const onTextFieldChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newText: string) => {
-        setSimulationBody(newText);
+    const onTextFieldChange = (ev: React.ChangeEvent<HTMLTextAreaElement>, data: { value: string }) => {
+        setSimulationBody(data.value);
     };
 
     const convertToCliPropertyFormat = () => {

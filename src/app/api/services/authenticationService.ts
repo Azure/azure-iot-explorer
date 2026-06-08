@@ -18,3 +18,8 @@ export const getProfileToken = async (): Promise<string> => {
     const api = getAuthenticationInterface();
     return api.getProfileToken();
 };
+
+export const getTenantToken = async (tenantId: string): Promise<string> => {
+    const api = getAuthenticationInterface();
+    return api.getTenantToken(tenantId);
+};

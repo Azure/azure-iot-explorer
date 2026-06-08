@@ -2,94 +2,80 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
-import { CommandBar } from '@fluentui/react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { DeviceInterfaces } from './deviceInterfaces';
-import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
-import { pnpStateInitial, PnpStateInterface } from '../../state';
-import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
 import * as PnpContext from '../../context/pnpStateContext';
+import { pnpStateInitial } from '../../state';
+import { SynchronizationStatus } from '../../../../api/models/synchronizationStatus';
+import { REPOSITORY_LOCATION_TYPE } from '../../../../constants/repositoryLocationTypes';
 
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ pathname: '/devices', search: '' }),
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '?deviceId=test&interfaceId=dtmi:test:Interface;1', hash: '', state: null, key: 'default' })
 }));
 
 describe('deviceInterfaces', () => {
-    /* tslint:disable */
-    const modelDefinition = {
-        "@id": "urn:azureiot:ModelDiscovery:DigitalTwin:1",
-        "@type": "Interface",
-        "contents": [
-            {
-                "@type": "Property",
-                "name": "modelInformation",
-                "displayName": "Model Information",
-                "description": "Providing model and optional interfaces information on a digital twin.",
-                "schema": {
-                    "@type": "Object",
-                    "fields": [
-                        {
-                            "name": "modelId",
-                            "schema": "string"
-                        },
-                        {
-                            "name": "interfaces",
-                            "schema": {
-                                "@type": "Map",
-                                "mapKey": {
-                                    "name": "name",
-                                    "schema": "string"
-                                },
-                                "mapValue": {
-                                    "name": "schema",
-                                    "schema": "string"
-                                }
-                            }
-                        }
-                    ]
+    it('renders refresh and close buttons', () => {
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({
+            pnpState: pnpStateInitial().merge({
+                modelDefinitionWithSource: {
+                    payload: {
+                        modelDefinition: { '@id': 'dtmi:test:Interface;1', displayName: 'TestInterface', description: 'Test desc' },
+                        isModelValid: true,
+                        source: REPOSITORY_LOCATION_TYPE.Public
+                    },
+                    synchronizationStatus: SynchronizationStatus.fetched
                 }
-            }
-        ],
-        "@context": "https://azureiot.com/v1/contexts/Interface.json"
-    };
-    /* tslint:enable */
+            }),
+            dispatch: jest.fn(),
+            getModelDefinition: jest.fn()
+        });
 
-    const initialState: PnpStateInterface = {
-        ...pnpStateInitial(),
-        modelDefinitionWithSource: {
-            payload: {
-                isModelValid: true,
-                modelDefinition,
-                source: REPOSITORY_LOCATION_TYPE.Public,
-            },
-            synchronizationStatus: SynchronizationStatus.fetched
-        }
-    };
+        render(<MemoryRouter><DeviceInterfaces/></MemoryRouter>);
 
-    it('shows Shimmer when status is working', () => {
-        const pnpState = {
-            ...pnpStateInitial(),
-            modelDefinitionWithSource: {
-                synchronizationStatus: SynchronizationStatus.working
-            }
-        };
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState , dispatch: jest.fn(), getModelDefinition: jest.fn()});
-        const wrapper = shallow(<DeviceInterfaces/>);
-        expect(wrapper).toMatchSnapshot();
+        // Note: refresh button name uses deviceProperties key (see source line 133)
+        expect(screen.getByText('deviceProperties.command.refresh')).toBeInTheDocument();
+        expect(screen.getByText('deviceInterfaces.command.close')).toBeInTheDocument();
     });
 
-    it('shows interface information when status is fetched', () => {
-        const getModelDefinitionSpy = jest.fn();
-        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValueOnce({pnpState: initialState , dispatch: jest.fn(), getModelDefinition: getModelDefinitionSpy});
-        const wrapper = shallow(<DeviceInterfaces/>);
-        expect(wrapper).toMatchSnapshot();
+    it('renders interface ID field when model is valid', () => {
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({
+            pnpState: pnpStateInitial().merge({
+                modelDefinitionWithSource: {
+                    payload: {
+                        modelDefinition: { '@id': 'dtmi:test:Interface;1', displayName: 'TestInterface', description: 'Test desc' },
+                        isModelValid: true,
+                        source: REPOSITORY_LOCATION_TYPE.Public
+                    },
+                    synchronizationStatus: SynchronizationStatus.fetched
+                }
+            }),
+            dispatch: jest.fn(),
+            getModelDefinition: jest.fn()
+        });
 
-        const command = wrapper.find(CommandBar);
-        act(() => command.props().items[0].onClick(null));
-        expect(getModelDefinitionSpy).toBeCalled();
+        render(<MemoryRouter><DeviceInterfaces/></MemoryRouter>);
+
+        expect(screen.getByLabelText('deviceInterfaces.columns.id')).toBeInTheDocument();
+    });
+
+    it('shows not found message when payload is null', () => {
+        jest.spyOn(PnpContext, 'usePnpStateContext').mockReturnValue({
+            pnpState: pnpStateInitial().merge({
+                modelDefinitionWithSource: {
+                    payload: null,
+                    synchronizationStatus: SynchronizationStatus.fetched
+                }
+            }),
+            dispatch: jest.fn(),
+            getModelDefinition: jest.fn()
+        });
+
+        render(<MemoryRouter><DeviceInterfaces/></MemoryRouter>);
+
+        expect(screen.getByText('deviceInterfaces.interfaceNotFound')).toBeInTheDocument();
     });
 });

@@ -4,7 +4,8 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextField, Panel, PanelType, Label, PrimaryButton, FontIcon, IconButton, Stack, Dropdown, IDropdownOption } from '@fluentui/react';
+import { Button, DrawerBody, DrawerHeader, DrawerHeaderTitle, Dropdown, Field, Input, Label, Option, OverlayDrawer } from '@fluentui/react-components';
+import { DismissRegular, DocumentCode16Regular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { useDeviceEventsStateContext } from '../context/deviceEventsStateContext';
 import { DecodeType } from '../state';
@@ -25,7 +26,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
         if (state.formMode === 'setDecoderSucceeded') {
             props.onToggleContentTypePanel();
         }
-    },              [state.formMode]);
+    },              [state.formMode]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to formMode change
 
     const onSaveContentType = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -36,8 +37,8 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
         setDecoderProtoFile(event.currentTarget.files[0]);
     };
 
-    const handleDecoderTypeChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        setDecoderPrototype(newValue);
+    const handleDecoderTypeChange = (event: React.ChangeEvent<HTMLInputElement>, data: { value: string }) => {
+        setDecoderPrototype(data.value);
     };
 
     const formDecodePrototypeName = (value: string) => {
@@ -51,82 +52,101 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
         setDecoderPrototype('');
     };
 
-    const options: IDropdownOption[] = [
-        { key: 'JSON', text: 'JSON' },
-        { key: 'Protobuf', text: 'Protobuf' }
-    ];
-
-    const onDropdownSelectedKeyChanged = (event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption): void => {
-        if (option.key === 'JSON') {
+    const onDropdownSelectedKeyChanged = (event: React.SyntheticEvent, data: { optionValue?: string }): void => {
+        if (data.optionValue === 'JSON') {
             setDecodeType('JSON');
         }
-        else if (option.key === 'Protobuf') {
+        else if (data.optionValue === 'Protobuf') {
             setDecodeType('Protobuf');
         }
     };
 
     return (
-        <Panel
-            isOpen={props.showContentTypePanel}
-            type={PanelType.medium}
-            isBlocking={false}
-            onDismiss={props.onToggleContentTypePanel}
-            closeButtonAriaLabel={t(ResourceKeys.common.close)}
-            headerText={t(ResourceKeys.deviceEvents.customizeContentType.header)}
+        <OverlayDrawer
+            open={props.showContentTypePanel}
+            position="end"
+            size="medium"
+            onOpenChange={(e, data) => { if (!data.open) {props.onToggleContentTypePanel();} }}
         >
-            <form onSubmit={onSaveContentType}>
-                <Stack tokens={{childrenGap: 10}}>
-                    <Dropdown
-                        disabled={state.formMode === 'working'}
-                        required={true}
-                        label={t(ResourceKeys.deviceEvents.customizeContentType.contentTypeOption.label)}
-                        options={options}
-                        defaultSelectedKey={decodeType}
-                        onChange={onDropdownSelectedKeyChanged}
-                    />
-                    {decodeType !== 'JSON' &&
-                        <>
-                            <Label>{t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.label)}</Label>
-                            <input
-                                type="file"
-                                id="protoFile"
-                                name="protoFile"
-                                accept=".proto"
-                                required={state.contentType.decoderProtoFile === undefined}
-                                disabled={state.formMode === 'working'}
-                                onChange={handleProtoFileChange}
-                            />
-                            {state.contentType.decoderProtoFile &&
-                                <div style={{display: 'flex', alignItems: 'center'}}>
-                                    <IconButton
-                                        iconProps={{ iconName: 'ChromeClose', style: {fontSize: 12} }}
-                                        title={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.removeFile)}
-                                        ariaLabel={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.removeFile)}
-                                        onClick={OnRemoveDecodePrototype}
-                                        disabled={state.formMode === 'working'}
-                                    />
-                                    <FontIcon aria-label="FileCode" iconName="FileCode" />
-                                    {state.contentType.decoderProtoFile?.name}
-                                </div>
-                            }
-                            <TextField
-                                defaultValue={formDecodePrototypeName(state.contentType.decoderPrototype?.fullName)}
-                                disabled={state.formMode === 'working'}
-                                label={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.type.label)}
-                                readOnly={false}
-                                onChange={handleDecoderTypeChange}
-                                placeholder={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.type.placeholder)}
-                            />
-                        </>
+            <DrawerHeader>
+                <DrawerHeaderTitle
+                    action={
+                        <Button
+                            appearance="subtle"
+                            icon={<DismissRegular />}
+                            onClick={props.onToggleContentTypePanel}
+                            aria-label={t(ResourceKeys.common.close)}
+                        />
                     }
-                    <PrimaryButton
-                        disabled={state.formMode === 'working'}
-                        type="submit"
-                        text={t(ResourceKeys.deviceEvents.customizeContentType.save)}
-                        ariaLabel={t(ResourceKeys.deviceEvents.customizeContentType.save)}
-                    />
-                </Stack>
-            </form>
-        </Panel>
+                >
+                    {t(ResourceKeys.deviceEvents.customizeContentType.header)}
+                </DrawerHeaderTitle>
+            </DrawerHeader>
+            <DrawerBody>
+                <form onSubmit={onSaveContentType}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <Field
+                            label={t(ResourceKeys.deviceEvents.customizeContentType.contentTypeOption.label)}
+                            required={true}
+                        >
+                            <Dropdown
+                                disabled={state.formMode === 'working'}
+                                defaultSelectedOptions={[decodeType]}
+                                onOptionSelect={onDropdownSelectedKeyChanged}
+                            >
+                                <Option value="JSON">JSON</Option>
+                                <Option value="Protobuf">Protobuf</Option>
+                            </Dropdown>
+                        </Field>
+                        {decodeType !== 'JSON' &&
+                            <>
+                                <Label>{t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.label)}</Label>
+                                <input
+                                    type="file"
+                                    id="protoFile"
+                                    name="protoFile"
+                                    accept=".proto"
+                                    required={state.contentType.decoderProtoFile === undefined}
+                                    disabled={state.formMode === 'working'}
+                                    onChange={handleProtoFileChange}
+                                />
+                                {state.contentType.decoderProtoFile &&
+                                    <div style={{display: 'flex', alignItems: 'center'}}>
+                                        <Button
+                                            appearance="subtle"
+                                            icon={<DismissRegular />}
+                                            title={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.removeFile)}
+                                            aria-label={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.removeFile)}
+                                            onClick={OnRemoveDecodePrototype}
+                                            disabled={state.formMode === 'working'}
+                                        />
+                                        <DocumentCode16Regular aria-label="FileCode" />
+                                        {state.contentType.decoderProtoFile?.name}
+                                    </div>
+                                }
+                                <Field
+                                    label={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.type.label)}
+                                >
+                                    <Input
+                                        defaultValue={formDecodePrototypeName(state.contentType.decoderPrototype?.fullName)}
+                                        disabled={state.formMode === 'working'}
+                                        readOnly={false}
+                                        onChange={handleDecoderTypeChange}
+                                        placeholder={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.type.placeholder)}
+                                    />
+                                </Field>
+                            </>
+                        }
+                        <Button
+                            appearance="primary"
+                            disabled={state.formMode === 'working'}
+                            aria-label={t(ResourceKeys.deviceEvents.customizeContentType.save)}
+                        >
+                            {t(ResourceKeys.deviceEvents.customizeContentType.save)}
+                        </Button>
+                    </div>
+                </form>
+            </DrawerBody>
+        </OverlayDrawer>
     );
 };

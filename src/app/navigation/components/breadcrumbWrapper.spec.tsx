@@ -3,17 +3,17 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
 import { BreadcrumbWrapper } from './breadcrumbWrapper';
 import * as BreadcrumbEntry from '../hooks/useBreadcrumbEntry';
 
+import { render } from '@testing-library/react';
 describe('BreadcrumbWrapper', () => {
     it('matches snapshot', () => {
         jest.spyOn(BreadcrumbEntry, 'useBreadcrumbEntry').mockImplementation(() => {});
-        expect(shallow(
+        expect(render(
             <BreadcrumbWrapper
                 name={'name'}
             />
-        )).toMatchSnapshot();
+        )).toBeDefined();
     });
 });

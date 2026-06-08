@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { cloneableGenerator } from '@redux-saga/testing-utils';
-import { put, call } from 'redux-saga/effects';
+import { put, call, select } from 'redux-saga/effects';
 import { getIotHubsBySubscriptionAction } from '../actions';
 import { getIotHubListSaga } from './getIotHubListSaga';
 import * as IotHubService from '../../../api/services/iotHubService';
@@ -14,6 +14,9 @@ import { NotificationType } from '../../../api/models/notification';
 
 describe('getIotHubListSaga', () => {
 
+    const mockGetTenantToken = jest.spyOn(AuthenticationService, 'getTenantToken').mockImplementationOnce(() => {
+        return 'token';
+    });
     const mockGetProfileToken = jest.spyOn(AuthenticationService, 'getProfileToken').mockImplementationOnce(() => {
         return 'token';
     });
@@ -22,10 +25,17 @@ describe('getIotHubListSaga', () => {
     });
     const sagaGenerator = cloneableGenerator(getIotHubListSaga)(getIotHubsBySubscriptionAction.started('subscriptionId'));
 
-    it('calls getProfileToken', () => {
+    it('selects state to get tenantId', () => {
         expect(sagaGenerator.next()).toEqual({
             done: false,
-            value: call(mockGetProfileToken)
+            value: select()
+        });
+    });
+
+    it('calls getTenantToken when tenantId is present', () => {
+        expect(sagaGenerator.next({ selectedTenantId: 'test-tenant' })).toEqual({
+            done: false,
+            value: call(mockGetTenantToken, 'test-tenant')
         });
     });
 

@@ -2,56 +2,39 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { IconButton } from '@fluentui/react';
-import { DeviceQueryClause } from './deviceQueryClause';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { DeviceQueryClause, DeviceQueryClauseProps } from './deviceQueryClause';
 import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
 
 describe('DeviceQueryClause', () => {
-    it('matches snapshot', () => {
-        const wrapper = shallow(
-            <DeviceQueryClause
-                operation={OperationType.equals}
-                parameterType={ParameterType.status}
-                value="enabled"
-                index={0}
-                removeClause={jest.fn()}
-                setClause={jest.fn()}
-            />
-        );
+    const defaultProps: DeviceQueryClauseProps = {
+        index: 0,
+        operation: undefined,
+        parameterType: undefined,
+        value: '',
+        isError: true,
+        removeClause: jest.fn(),
+        setClause: jest.fn()
+    };
 
-        expect(wrapper).toMatchSnapshot();
+    it('renders parameter type dropdown', () => {
+        render(<DeviceQueryClause {...defaultProps}/>);
+
+        expect(screen.getByLabelText('deviceLists.query.searchPills.clause.parameterType.ariaLabel')).toBeInTheDocument();
     });
 
-    it('matches snapshot without operation', () => {
-        const wrapper = shallow(
-            <DeviceQueryClause
-                parameterType={ParameterType.edge}
-                value="true"
-                index={0}
-                removeClause={jest.fn()}
-                setClause={jest.fn()}
-            />
-        );
+    it('renders remove button', () => {
+        render(<DeviceQueryClause {...defaultProps}/>);
 
-        expect(wrapper).toMatchSnapshot();
+        expect(screen.getByLabelText('deviceLists.query.searchPills.clause.remove.ariaLabel')).toBeInTheDocument();
     });
 
-    it('calls removeClause', () => {
+    it('calls removeClause when remove button is clicked', () => {
         const removeClause = jest.fn();
-        const wrapper = shallow(
-            <DeviceQueryClause
-                parameterType={ParameterType.edge}
-                value="enabled"
-                index={0}
-                removeClause={removeClause}
-                setClause={jest.fn()}
-            />
-        );
-        const removeButton = wrapper.find(IconButton);
-        removeButton.simulate('click');
-        expect(removeClause).toBeCalled();
+        render(<DeviceQueryClause {...defaultProps} removeClause={removeClause}/>);
+
+        fireEvent.click(screen.getByLabelText('deviceLists.query.searchPills.clause.remove.ariaLabel'));
+        expect(removeClause).toHaveBeenCalledWith(0);
     });
 });

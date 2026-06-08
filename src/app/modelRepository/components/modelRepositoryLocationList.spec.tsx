@@ -2,39 +2,36 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { ModelRepositoryLocationList } from './modelRepositoryLocationList';
 import { REPOSITORY_LOCATION_TYPE } from '../../constants/repositoryLocationTypes';
 import { getInitialModelRepositoryFormState } from '../state';
 import { getInitialModelRepositoryFormOps } from '../interface';
 
-describe('ModelRepositoryLocationList', () => {
-    jest.mock('react-movable', () => ({
-        List: ({ children }) => <div>{children}</div>,
-        arrayMove: jest.fn(),
-    }));
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
 
-    it('matches snapshot with no items', () => {
-        const component = (
-            <ModelRepositoryLocationList
-                formState={[{...getInitialModelRepositoryFormState(), repositoryLocationSettings: []}, getInitialModelRepositoryFormOps()]}
-            />
-        );
-        expect(shallow(component)).toMatchSnapshot();
+describe('ModelRepositoryLocationList', () => {
+    it('renders the list container', () => {
+        const formState = [
+            { repositoryLocationSettings: [] },
+            { setRepositoryLocationSettings: jest.fn(), setDirtyFlag: jest.fn() }
+        ];
+        const { container } = render(<MemoryRouter><ModelRepositoryLocationList formState={formState as any}/></MemoryRouter>);
+        expect(container.firstChild).toBeDefined();
     });
-    it('matches snapshot with all items', () => {
-        const component = (
-            <ModelRepositoryLocationList
-                formState={[{...getInitialModelRepositoryFormState(), repositoryLocationSettings: [
-                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Public, value: '' },
-                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Configurable, value: 'test.com' },
-                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local, value: 'd:/myModels' },
-                    {repositoryLocationType: REPOSITORY_LOCATION_TYPE.LocalDMR, value: 'c:/dtmi' }
-                ]}, getInitialModelRepositoryFormOps()]}
-            />
-        );
-        expect(shallow(component)).toMatchSnapshot();
+
+    it('renders items when settings are provided', () => {
+        const formState = [
+            { repositoryLocationSettings: [{ repositoryLocationType: 'public', value: '' }] },
+            { setRepositoryLocationSettings: jest.fn(), setDirtyFlag: jest.fn() }
+        ];
+        const { container } = render(<MemoryRouter><ModelRepositoryLocationList formState={formState as any}/></MemoryRouter>);
+        expect(container.querySelectorAll('[role="listitem"]').length).toBeGreaterThan(0);
     });
 });

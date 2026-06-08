@@ -605,6 +605,11 @@
             "label": "Consumer group",
             "tooltip": "Consumer groups are used by applications to pull data from the IoT Hub. To change the current consumer group, stop monitoring telemetry."
         },
+        "startTime": {
+            "error": "Please select a valid date and time",
+            "label": "Start time",
+            "tooltip": "Indicates the local enqueue time that should be used to read messages from the event hub. If not specified, only new messages arriving after you click 'Start' will be shown."
+        },
         "customEventHub": {
             "connectionString": {
                 "label": "Custom event hub connection string",
@@ -1031,9 +1036,15 @@
             "notification": {
                 "loginError": "Failed to login",
                 "logoutError": "Failed to logout",
+                "getTenantListError": "Failed to get tenant list: {{error}}",
                 "getsubscriptionListError": "Failed to get subscription list: {{error}}",
                 "getIotHubListError": "Failed to get IoT hubs under subscription {{id}} list: {{error}}",
                 "getIotHubKeyError": "Failed to get an IoT hub key with proper rights to enable full functionality of the IoT Explorer: {{error}}"
+            },
+            "tenantList": {
+                "label": "Tenant",
+                "placeholder": "Select a tenant",
+                "noItemText": "There are no tenants to show."
             },
             "subscriptionList": {
                 "columns": {
@@ -1041,7 +1052,8 @@
                     "name": "Subscription name",
                     "state": "State"
                 },
-                "noItemText": "There are no subscriptions to show."
+                "noItemText": "There are no subscriptions to show.",
+                "backButton": "Back to tenant list"
             },
             "hubList": {
                 "columns": {

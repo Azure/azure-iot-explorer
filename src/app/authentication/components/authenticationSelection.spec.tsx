@@ -3,33 +3,42 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { shallow } from 'enzyme';
-import { CompoundButton } from '@fluentui/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { AuthenticationSelection } from './authenticationSelection';
-import { AuthenticationMethodPreference, getInitialAuthenticationState } from '../state';
-import * as authenticationStateContext from '../context/authenticationStateContext';
+
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '', search: '', hash: '', state: null, key: 'default' })
+}));
+
+const mockSetLoginPreference = jest.fn();
+jest.mock('../context/authenticationStateContext', () => ({
+    useAuthenticationStateContext: () => [
+        { loginPreference: 'connectionString' },
+        { setLoginPreference: mockSetLoginPreference }
+    ]
+}));
 
 describe('AuthenticationSelection', () => {
-    it('matches snapshot', () => {
-        jest.spyOn(authenticationStateContext, 'useAuthenticationStateContext').mockReturnValue(
-            [getInitialAuthenticationState(), authenticationStateContext.getInitialAuthenticationOps()]);
-        const wrapper = shallow(<AuthenticationSelection/>);
-        expect(wrapper).toMatchSnapshot();
+    it('renders heading', () => {
+        render(<MemoryRouter><AuthenticationSelection/></MemoryRouter>);
+
+        expect(screen.getByRole('heading')).toBeInTheDocument();
     });
 
-    it('calls api respectively', () => {
-        const setLoginPreference = jest.fn();
-        jest.spyOn(authenticationStateContext, 'useAuthenticationStateContext').mockReturnValue(
-            [getInitialAuthenticationState(), {...authenticationStateContext.getInitialAuthenticationOps(), setLoginPreference}]);
+    it('renders connection string and Azure AD buttons', () => {
+        render(<MemoryRouter><AuthenticationSelection/></MemoryRouter>);
 
-        const wrapper = shallow(<AuthenticationSelection/>);
+        expect(screen.getByText('authentication.authSelection.selection.connectionString')).toBeInTheDocument();
+        expect(screen.getByText('authentication.authSelection.selection.azureActiveDirectory')).toBeInTheDocument();
+    });
 
-        wrapper.find(CompoundButton).get(0).props.onClick(undefined);
-        wrapper.update();
-        expect(setLoginPreference).toHaveBeenCalledWith(AuthenticationMethodPreference.ConnectionString);
+    it('calls setLoginPreference when connection string button is clicked', () => {
+        render(<MemoryRouter><AuthenticationSelection/></MemoryRouter>);
 
-        wrapper.find(CompoundButton).get(1).props.onClick(undefined);
-        wrapper.update();
-        expect(setLoginPreference).toHaveBeenCalledWith(AuthenticationMethodPreference.AzureAD);
+        fireEvent.click(screen.getByText('authentication.authSelection.selection.connectionString'));
+        expect(mockSetLoginPreference).toHaveBeenCalled();
     });
 });

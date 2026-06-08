@@ -4,8 +4,10 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Overlay, Toggle, ChoiceGroup, IChoiceGroupOption, Checkbox, CommandBar, TextField } from '@fluentui/react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
+import { Checkbox, Field, Input, InputOnChangeData, Radio, RadioGroup, Switch } from '@fluentui/react-components';
+import { PasswordField } from '../../../shared/components/passwordField';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { DeviceAuthenticationType } from '../../../api/models/deviceAuthenticationType';
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
@@ -14,7 +16,8 @@ import { validateKey, validateThumbprint, validateDeviceId, processThumbprint } 
 import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { useAsyncSagaReducer } from '../../../shared/hooks/useAsyncSagaReducer';
 import { SynchronizationStatus } from '../../../api/models/synchronizationStatus';
-import { SAVE, CANCEL } from '../../../constants/iconNames';
+import { SaveRegular, DismissRegular } from '@fluentui/react-icons';
+import { SAVE, CANCEL } from '../../../constants/commandBarItemKeys';
 import { addDeviceSaga } from '../saga';
 import { addDeviceReducer } from '../reducer';
 import { addDeviceStateInitial } from '../state';
@@ -34,7 +37,7 @@ const initialKeyValue = {
 export const AddDevice: React.FC = () => {
     const { t } = useTranslation();
     const { pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [ localState, dispatch ] = useAsyncSagaReducer(addDeviceReducer, addDeviceSaga, addDeviceStateInitial(), 'addDeviceState');
     const { synchronizationStatus } = localState;
@@ -49,82 +52,82 @@ export const AddDevice: React.FC = () => {
         if (synchronizationStatus === SynchronizationStatus.upserted) { // only when device has been added successfully would navigate to list view
             navigateToDeviceIdentity();
         }
-    },              [synchronizationStatus]);
+    },              [synchronizationStatus]); // eslint-disable-line react-hooks/exhaustive-deps -- only react to status change
 
     const navigateToDeviceList = () => {
         const path = pathname.replace(/\/add/, `/`);
-        history.push(path);
+        navigate(path);
     };
 
     const navigateToDeviceIdentity = () => {
         const path = pathname.replace(/\/add/, `/${ROUTE_PARTS.DEVICE_DETAIL}/${ROUTE_PARTS.IDENTITY}/?${ROUTE_PARAMS.DEVICE_ID}=${device.id}`);
-        history.push(path);
+        navigate(path);
     };
 
     const showDeviceId = () => {
         return (
-            <TextField
-                ariaLabel={t(ResourceKeys.deviceIdentity.deviceID)}
+            <Field
                 label={t(ResourceKeys.deviceIdentity.deviceID)}
-                value={device.id}
                 required={true}
-                onChange={changeDeviceId}
-                errorMessage={!!device.error ? t(device.error) : ''}
-                description={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
-            />
+                validationMessage={!!device.error ? t(device.error) : undefined}
+                validationState={device.error ? 'error' : undefined}
+                hint={t(ResourceKeys.deviceIdentity.deviceIDTooltip)}
+            >
+                <Input
+                    aria-label={t(ResourceKeys.deviceIdentity.deviceID)}
+                    value={device.id}
+                    onChange={changeDeviceId}
+                />
+            </Field>
         );
     };
 
     const getAuthType = () => {
         return (
-            <ChoiceGroup
+            <Field
                 label={t(ResourceKeys.deviceIdentity.authenticationType.text)}
-                selectedKey={authenticationType}
-                onChange={changeAuthenticationType}
-                options={
-                    [
-                        {
-                            key: DeviceAuthenticationType.SymmetricKey,
-                            text: t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.type)
-                        },
-                        {
-                            key: DeviceAuthenticationType.SelfSigned,
-                            text: t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.type)
-                        },
-                        {
-                            key: DeviceAuthenticationType.CACertificate,
-                            text: t(ResourceKeys.deviceIdentity.authenticationType.ca.type)
-                        }
-                    ]
-                }
                 required={true}
-            />
+            >
+                <RadioGroup
+                    value={authenticationType}
+                    onChange={changeAuthenticationType}
+                >
+                    <Radio
+                        value={DeviceAuthenticationType.SymmetricKey}
+                        label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.type)}
+                    />
+                    <Radio
+                        value={DeviceAuthenticationType.SelfSigned}
+                        label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.type)}
+                    />
+                    <Radio
+                        value={DeviceAuthenticationType.CACertificate}
+                        label={t(ResourceKeys.deviceIdentity.authenticationType.ca.type)}
+                    />
+                </RadioGroup>
+            </Field>
         );
     };
 
     const renderSymmetricKeySection = () => {
         return (
             <>
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)}
                     value={primaryKey.value}
                     required={true}
                     onChange={changePrimaryKey}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.error ? t(primaryKey.error) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKeyTooltip)}
                 />
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)}
                     value={secondaryKey.value}
                     required={true}
                     onChange={changeSecondaryKey}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!secondaryKey.error ? t(secondaryKey.error) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKeyTooltip)}
@@ -136,26 +139,22 @@ export const AddDevice: React.FC = () => {
     const renderSelfSignedSection = () => {
         return (
             <>
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprint)}
                     value={primaryKey.thumbprint}
                     required={true}
                     onChange={changePrimaryThumbprint}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!primaryKey.thumbprintError ? t(primaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.primaryThumbprintTooltip)}
                 />
-                <TextField
+                <PasswordField
                     ariaLabel={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     label={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprint)}
                     value={secondaryKey.thumbprint}
                     required={true}
                     onChange={changeSecondaryThumbprint}
-                    type={'password'}
-                    canRevealPassword={true}
                     revealPasswordAriaLabel={t(ResourceKeys.common.revealPassword)}
                     errorMessage={!!secondaryKey.thumbprintError ? t(secondaryKey.thumbprintError) : ''}
                     description={t(ResourceKeys.deviceIdentity.authenticationType.selfSigned.secondaryThumbprintTooltip)}
@@ -197,11 +196,9 @@ export const AddDevice: React.FC = () => {
                 >
                     {t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
                 </LabelWithTooltip>
-                <Toggle
-                    ariaLabel={t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
+                <Switch
+                    aria-label={t(ResourceKeys.deviceIdentity.hubConnectivity.label)}
                     checked={deviceStatus === DeviceStatus.Enabled}
-                    onText={t(ResourceKeys.deviceIdentity.hubConnectivity.enable)}
-                    offText={t(ResourceKeys.deviceIdentity.hubConnectivity.disable)}
                     onChange={changeDeviceStatus}
                 />
             </div>
@@ -215,9 +212,7 @@ export const AddDevice: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.deviceLists.commands.save),
                         disabled: disableSaveButton(),
-                        iconProps: {
-                            iconName: SAVE
-                        },
+                        icon: <SaveRegular />,
                         key: SAVE,
                         name: t(ResourceKeys.deviceLists.commands.save),
                         type: 'submit'
@@ -225,9 +220,7 @@ export const AddDevice: React.FC = () => {
                     {
                         ariaLabel: t(ResourceKeys.deviceLists.commands.close),
                         disabled: false,
-                        iconProps: {
-                            iconName: CANCEL
-                        },
+                        icon: <DismissRegular />,
                         key: CANCEL,
                         name: t(ResourceKeys.deviceLists.commands.close),
                         onClick: navigateToDeviceList
@@ -237,60 +230,60 @@ export const AddDevice: React.FC = () => {
         );
     };
 
-    const changeDeviceId = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const deviceIdError = getDeviceIdValidationMessage(newValue);
+    const changeDeviceId = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const deviceIdError = getDeviceIdValidationMessage(data.value);
         setDevice({
             error: deviceIdError,
-            id: newValue
+            id: data.value
         });
     };
 
-    const changeAuthenticationType = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, option?: IChoiceGroupOption) => {
-        setAuthenticationType(option.key as DeviceAuthenticationType);
+    const changeAuthenticationType = (ev: React.FormEvent<HTMLDivElement>, data: { value: string }) => {
+        setAuthenticationType(data.value as DeviceAuthenticationType);
     };
 
-    const changeDeviceStatus = (event: React.MouseEvent<HTMLElement>, checked?: boolean) => setDeviceStatus(checked ? DeviceStatus.Enabled : DeviceStatus.Disabled);
+    const changeDeviceStatus = (ev: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean }) => setDeviceStatus(data.checked ? DeviceStatus.Enabled : DeviceStatus.Disabled);
 
-    const changeAutoGenerateKeys = (ev?: React.FormEvent<HTMLElement | HTMLInputElement>, checked?: boolean) => {
-        setautoGenerateKeys(checked);
-        if (checked) {
+    const changeAutoGenerateKeys = (ev: React.ChangeEvent<HTMLInputElement>, data: { checked: boolean | 'mixed' }) => {
+        setautoGenerateKeys(!!data.checked);
+        if (data.checked) {
             setPrimaryKey(initialKeyValue);
             setSecondaryKey(initialKeyValue);
         }
     };
 
-    const changePrimaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const primaryKeyError = getSymmetricKeyValidationMessage(newValue);
+    const changePrimaryKey = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const primaryKeyError = getSymmetricKeyValidationMessage(data.value);
         setPrimaryKey({
             ...primaryKey,
             error: primaryKeyError,
-            value: newValue
+            value: data.value
         });
     };
 
-    const changeSecondaryKey = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const secondaryKeyError = getSymmetricKeyValidationMessage(newValue);
+    const changeSecondaryKey = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const secondaryKeyError = getSymmetricKeyValidationMessage(data.value);
         setSecondaryKey({
             ...secondaryKey,
             error: secondaryKeyError,
-            value: newValue
+            value: data.value
         });
     };
 
-    const changePrimaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const primaryThumbprintError = getThumbprintValidationMessage(newValue);
+    const changePrimaryThumbprint = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const primaryThumbprintError = getThumbprintValidationMessage(data.value);
         setPrimaryKey({
             ...primaryKey,
-            thumbprint: newValue,
+            thumbprint: data.value,
             thumbprintError: primaryThumbprintError
         });
     };
 
-    const changeSecondaryThumbprint = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
-        const secondaryThumbprintError = getThumbprintValidationMessage(newValue);
+    const changeSecondaryThumbprint = (event: React.ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => {
+        const secondaryThumbprintError = getThumbprintValidationMessage(data.value);
         setSecondaryKey({
             ...secondaryKey,
-            thumbprint: newValue,
+            thumbprint: data.value,
             thumbprintError: secondaryThumbprintError
         });
     };
@@ -365,7 +358,7 @@ export const AddDevice: React.FC = () => {
                     {showConnectivity()}
                 </div>
             </div>
-            {synchronizationStatus === SynchronizationStatus.updating && <Overlay/>}
+            {synchronizationStatus === SynchronizationStatus.updating && <div className="loading-overlay" />}
         </form>
     );
 };

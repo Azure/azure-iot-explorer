@@ -2,73 +2,89 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import 'jest';
 import * as React from 'react';
-import { act } from 'react-dom/test-utils';
-import { shallow, mount } from 'enzyme';
-import { CommandBar } from '@fluentui/react';
-import { Commands } from './commands';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { Commands, CommandsProps } from './commands';
 import * as deviceEventsStateContext from '../context/deviceEventsStateContext';
-import { getInitialDeviceEventsState } from '../state';
 
-const search = '?deviceId=test&componentName=DEFAULT_COMPONENT&interfaceId=dtmi:com:example:Thermostat;1';
-const pathname = `#devices/deviceDetail/ioTPlugAndPlay/ioTPlugAndPlayDetail/events/${search}`;
 jest.mock('react-router-dom', () => ({
-    useHistory: () => ({ push: jest.fn() }),
-    useLocation: () => ({ search, pathname, push: jest.fn() })
+    ...jest.requireActual('react-router-dom'),
+    useNavigate: () => jest.fn(),
+    useLocation: () => ({ pathname: '/devices/detail/events/', search: '', hash: '', state: null, key: 'default' })
 }));
 
-describe('commands', () => {
-    it('matches snapshot', () => {
-        jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
-            [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
-        expect(shallow(
-            <Commands
-                startDisabled={false}
-                monitoringData={false}
-                showContentTypePanel={true}
-                showPnpModeledEvents={false}
-                showSimulationPanel={false}
-                setShowContentTypePanel={jest.fn()}
-                setMonitoringData={jest.fn()}
-                setShowPnpModeledEvents={jest.fn()}
-                setShowSimulationPanel={jest.fn()}
-                fetchData={jest.fn()}
-                stopFetching={jest.fn()}
-            />)).toMatchSnapshot();
+jest.mock('../../pnp/context/pnpStateContext', () => ({
+    usePnpStateContext: () => ({
+        pnpState: { modelDefinitionWithSource: { payload: null } },
+        getModelDefinition: jest.fn(),
+        dispatch: jest.fn()
+    })
+}));
+
+jest.mock('../context/deviceEventsStateContext', () => ({
+    useDeviceEventsStateContext: jest.fn()
+}));
+
+describe('Commands (non-PnP mode)', () => {
+    const defaultProps: CommandsProps = {
+        startDisabled: false,
+        monitoringData: false,
+        showPnpModeledEvents: false,
+        showSimulationPanel: false,
+        showContentTypePanel: false,
+        setMonitoringData: jest.fn(),
+        setShowPnpModeledEvents: jest.fn(),
+        setShowSimulationPanel: jest.fn(),
+        setShowContentTypePanel: jest.fn(),
+        fetchData: jest.fn(),
+        stopFetching: jest.fn()
+    };
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        (deviceEventsStateContext.useDeviceEventsStateContext as jest.Mock).mockReturnValue([
+            { formMode: 'initialized' },
+            { clearEventsMonitoring: jest.fn() }
+        ]);
     });
 
-    it('makes expected calls', () => {
-        const mockSetMonitoringData = jest.fn();
-        const mockSetShowPnpModeledEvents = jest.fn();
-        jest.spyOn(deviceEventsStateContext, 'useDeviceEventsStateContext').mockReturnValue(
-            [getInitialDeviceEventsState(), deviceEventsStateContext.getInitialDeviceEventsOps()]);
-        const wrapper = mount(
-            <Commands
-                startDisabled={false}
-                monitoringData={true}
-                showContentTypePanel={true}
-                showPnpModeledEvents={true}
-                showSimulationPanel={true}
-                setMonitoringData={mockSetMonitoringData}
-                setShowContentTypePanel={jest.fn()}
-                setShowPnpModeledEvents={mockSetShowPnpModeledEvents}
-                setShowSimulationPanel={jest.fn()}
-                fetchData={jest.fn()}
-                stopFetching={jest.fn()}
-            />);
+    it('renders start monitoring button', () => {
+        render(<MemoryRouter><Commands {...defaultProps}/></MemoryRouter>);
 
-            expect(wrapper.find(CommandBar).props().items.length).toEqual(4);
-            act(() => {
-                wrapper.find(CommandBar).props().items[0].onClick(undefined);
-            });
-            wrapper.update();
-            expect(mockSetMonitoringData).toBeCalledWith(false);
+        expect(screen.getByText('deviceEvents.command.start')).toBeInTheDocument();
+    });
 
-            act(() => {
-                wrapper.find(CommandBar).props().items[1].onClick(undefined);
-            });
-            wrapper.update();
-            expect(mockSetShowPnpModeledEvents).toBeCalledWith(false);
+    it('renders clear events button', () => {
+        render(<MemoryRouter><Commands {...defaultProps}/></MemoryRouter>);
+
+        expect(screen.getByText('deviceEvents.command.clearEvents')).toBeInTheDocument();
+    });
+
+    it('calls fetchData when start button is clicked', () => {
+        const fetchData = jest.fn();
+        const setMonitoringData = jest.fn();
+        render(<MemoryRouter><Commands {...defaultProps} fetchData={fetchData} setMonitoringData={setMonitoringData}/></MemoryRouter>);
+
+        fireEvent.click(screen.getByText('deviceEvents.command.start'));
+        expect(fetchData).toHaveBeenCalled();
+        expect(setMonitoringData).toHaveBeenCalledWith(true);
+    });
+
+    it('shows stop button and calls stopFetching when monitoring', () => {
+        const stopFetching = jest.fn();
+        const setMonitoringData = jest.fn();
+        render(<MemoryRouter><Commands {...defaultProps} monitoringData={true} stopFetching={stopFetching} setMonitoringData={setMonitoringData}/></MemoryRouter>);
+
+        expect(screen.getByText('deviceEvents.command.stop')).toBeInTheDocument();
+        fireEvent.click(screen.getByText('deviceEvents.command.stop'));
+        expect(stopFetching).toHaveBeenCalled();
+    });
+
+    it('renders simulation and content type buttons in non-PnP mode', () => {
+        render(<MemoryRouter><Commands {...defaultProps}/></MemoryRouter>);
+
+        expect(screen.getByText('deviceEvents.command.simulate')).toBeInTheDocument();
+        expect(screen.getByText('deviceEvents.command.customizeContentType')).toBeInTheDocument();
     });
 });

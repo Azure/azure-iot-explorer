@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Navigate, Routes } from 'react-router-dom';
 import { ROUTE_PARTS } from '../../constants/routes';
 import { AppVersionMessageBar } from './appVersionMessageBar';
 import { HomeViewNavigation } from './homeViewNavigation';
@@ -26,12 +26,12 @@ export const HomeView: React.FC = () => {
                 </div>
                 <div className="maincontent">
                     <AuthenticationStateContextProvider>
-                        <Switch>
-                            <Redirect from={`/${ROUTE_PARTS.HOME}`} to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} exact={true}/>
-                            <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} component={AuthenticationView} exact={true} />
-                            <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.MODEL_REPOS}`} component={ModelRepositoryLocationView} exact={true} />
-                            <Route path={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}`} component={NotificationList} exact={true} />
-                        </Switch>
+                        <Routes>
+                            <Route path="/" element={<Navigate to={`/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.RESOURCES}`} replace/>}/>
+                            <Route path={`${ROUTE_PARTS.RESOURCES}`} element={<AuthenticationView />} />
+                            <Route path={`${ROUTE_PARTS.MODEL_REPOS}`} element={<ModelRepositoryLocationView />} />
+                            <Route path={`${ROUTE_PARTS.NOTIFICATIONS}`} element={<NotificationList />} />
+                        </Routes>
                     </AuthenticationStateContextProvider>
                 </div>
             </div>
