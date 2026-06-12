@@ -6,7 +6,8 @@ import 'jest';
 import {
     validateAzureIoTHostname,
     validateEventHubHostname,
-    extractEventHubHostname
+    extractEventHubHostname,
+    validatePath
 } from './urlValidator';
 
 describe('validateAzureIoTHostname', () => {
@@ -356,5 +357,68 @@ describe('extractEventHubHostname', () => {
     it('is case-insensitive for Endpoint prefix', () => {
         const connStr = 'endpoint=sb://mynamespace.servicebus.windows.net/;SharedAccessKeyName=test;SharedAccessKey=dGVzdA==';
         expect(extractEventHubHostname(connStr)).toBe('mynamespace.servicebus.windows.net');
+    });
+});
+
+describe('validatePath', () => {
+    describe('valid paths', () => {
+        it('accepts simple device path', () => {
+            expect(validatePath('devices/mydevice')).toBe(true);
+        });
+
+        it('accepts device ID with dots', () => {
+            expect(validatePath('devices/test.test2')).toBe(true);
+        });
+
+        it('accepts device ID with special characters allowed by IoT Hub', () => {
+            expect(validatePath("devices/my-device_01.v2")).toBe(true);
+        });
+
+        it('accepts module identity path', () => {
+            expect(validatePath('devices/mydevice/modules/mymodule')).toBe(true);
+        });
+
+        it('accepts path with percent-encoded characters', () => {
+            expect(validatePath('devices/my%20device')).toBe(true);
+        });
+
+        it('accepts device query path', () => {
+            expect(validatePath('devices/query')).toBe(true);
+        });
+
+        it('accepts device ID with colon', () => {
+            expect(validatePath('devices/device:001')).toBe(true);
+        });
+
+        it('accepts device ID with @ symbol', () => {
+            expect(validatePath('devices/user@device')).toBe(true);
+        });
+    });
+
+    describe('invalid paths', () => {
+        it('rejects path traversal with double dots', () => {
+            expect(validatePath('devices/../etc/passwd')).toBe(false);
+        });
+
+        it('rejects double slashes', () => {
+            expect(validatePath('devices//mydevice')).toBe(false);
+        });
+
+        it('rejects empty string', () => {
+            expect(validatePath('')).toBe(false);
+        });
+
+        it('rejects null/undefined', () => {
+            expect(validatePath(null as unknown as string)).toBe(false);
+            expect(validatePath(undefined as unknown as string)).toBe(false);
+        });
+
+        it('rejects path with angle brackets', () => {
+            expect(validatePath('devices/<script>')).toBe(false);
+        });
+
+        it('rejects path with backtick', () => {
+            expect(validatePath('devices/test`cmd')).toBe(false);
+        });
     });
 });
