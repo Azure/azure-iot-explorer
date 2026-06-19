@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     createTableColumn,
     DataGrid,
@@ -11,10 +12,19 @@ import {
     DataGridHeader,
     DataGridHeaderCell,
     DataGridRow,
+    Menu,
+    MenuItem,
+    MenuList,
+    MenuPopover,
+    MenuTrigger,
     TableColumnDefinition,
     TableColumnSizingOptions,
     TableRowId,
 } from '@fluentui/react-components';
+import { ResourceKeys } from '../../../localization/resourceKeys';
+import { ChevronDownRegular } from '@fluentui/react-icons';
+import { ResizeColumnDialog } from './resizeColumnDialog';
+import '../../css/_resizableDetailsList.scss';
 
 export interface IColumn {
     ariaLabel?: string;
@@ -43,6 +53,7 @@ export interface ResizableDetailsListProps {
     ariaLabel?: string;
     ariaLabelForSelectionColumn?: string;
     ariaLabelForSelectAllCheckbox?: string;
+    autoFitColumns?: boolean;
     checkboxVisibility?: CheckboxVisibility;
     checkButtonAriaLabel?: string | ((item: any) => string); // tslint:disable-line:no-any
     className?: string;
@@ -57,9 +68,11 @@ export interface ResizableDetailsListProps {
 }
 
 export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props => {
+    const { t } = useTranslation();
     const {
         ariaLabel,
         ariaLabelForSelectAllCheckbox,
+        autoFitColumns = true,
         checkboxVisibility,
         checkButtonAriaLabel,
         className,
@@ -70,6 +83,13 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
         selectionMode,
         getRowId: getRowIdProp,
     } = props;
+
+    // Column being resized via the "Resize Column" dialog (undefined when closed).
+    const [resizeColumnId, setResizeColumnId] = React.useState<string | undefined>(undefined);
+    // Captured from the DataGrid header render prop so the dialog (rendered
+    // outside that scope) can apply an exact width via setColumnWidth.
+    const columnSizingRef = React.useRef<any>(null); // tslint:disable-line:no-any
+
 
     const getRowId = React.useCallback(
         (item: any) => getRowIdProp ? getRowIdProp(item) : String(items.indexOf(item)), // tslint:disable-line:no-any
@@ -128,11 +148,14 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
     );
 
     return (
+        <>
+        <div className="rdl-scroll-container">
         <DataGrid
             items={items}
             columns={dgColumns}
             getRowId={getRowId}
             resizableColumns={true}
+            resizableColumnsOptions={{ autoFitColumns }}
             columnSizingOptions={columnSizingOptions}
             {...(dgSelectionMode ? { selectionMode: dgSelectionMode, onSelectionChange: handleSelectionChange } : {})}
             className={className}
@@ -144,9 +167,31 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
                         'aria-label': ariaLabelForSelectAllCheckbox,
                     } : undefined}
                 >
-                    {({ renderHeaderCell }) => (
-                        <DataGridHeaderCell style={{ fontWeight: 600 }}>{renderHeaderCell()}</DataGridHeaderCell>
-                    )}
+                    {({ renderHeaderCell, columnId }, dataGrid) => {
+                        columnSizingRef.current = dataGrid.columnSizing_unstable;
+                        return (
+                            <Menu>
+                                <MenuTrigger disableButtonEnhancement={true}>
+                                    <DataGridHeaderCell
+                                        className="rdl-header-cell"
+                                    >
+                                        <span className="rdl-header-label">{renderHeaderCell()}</span>
+                                        <ChevronDownRegular className="rdl-header-chevron" aria-hidden={true} />
+                                    </DataGridHeaderCell>
+                                </MenuTrigger>
+                                <MenuPopover>
+                                    <MenuList>
+                                        <MenuItem onClick={() => setResizeColumnId(String(columnId))}>
+                                            {t(ResourceKeys.resizableDetailsList.buttons.resize)}
+                                        </MenuItem>
+                                        <MenuItem onClick={dataGrid.columnSizing_unstable.enableKeyboardMode(columnId)}>
+                                            {t(ResourceKeys.resizableDetailsList.buttons.keyboardResize)}
+                                        </MenuItem>
+                                    </MenuList>
+                                </MenuPopover>
+                            </Menu>
+                        );
+                    }}
                 </DataGridRow>
             </DataGridHeader>
             <DataGridBody<any>>
@@ -158,7 +203,7 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
                         } : undefined}
                     >
                         {({ renderCell }) => (
-                            <DataGridCell focusMode="group" className="rdl-cell" style={{ paddingRight: 8 }}>
+                            <DataGridCell focusMode="group" className="rdl-cell">
                                 {renderCell(item)}
                             </DataGridCell>
                         )}
@@ -166,5 +211,12 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
                 )}
             </DataGridBody>
         </DataGrid>
+        </div>
+        <ResizeColumnDialog
+            open={resizeColumnId !== undefined}
+            onResize={width => columnSizingRef.current?.setColumnWidth(resizeColumnId, width)}
+            onDismiss={() => setResizeColumnId(undefined)}
+        />
+        </>
     );
 };

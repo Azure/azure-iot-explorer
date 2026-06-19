@@ -249,16 +249,17 @@ export function validatePath(path: string): boolean {
         return false;
     }
 
-    // Allow alphanumeric, hyphens, underscores, and forward slashes for path segments
-    // But not double slashes, dots (path traversal), or other special chars
-    const pathRegex = /^[a-zA-Z0-9\-_\/]+$/;
-
-    if (!pathRegex.test(path)) {
+    // Block path traversal and double slashes
+    if (path.includes('..') || path.includes('//')) {
         return false;
     }
 
-    // Block path traversal attempts
-    if (path.includes('..') || path.includes('//')) {
+    // Allow characters valid in IoT Hub device/module IDs per Azure documentation:
+    // alphanumeric plus: - . % _ * ? ! ( ) , : = @ $ '
+    // Also allow / for path segments and URL-encoded characters (%XX)
+    const pathRegex = /^[a-zA-Z0-9\-._~:@!$&'()*+,;=%/]+$/;
+
+    if (!pathRegex.test(path)) {
         return false;
     }
 

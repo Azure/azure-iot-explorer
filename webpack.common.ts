@@ -46,6 +46,14 @@ const config: webpack.Configuration = {
         new webpack.DefinePlugin({
             'process.env.userdnsdomain': JSON.stringify(process.env.userdnsdomain),
           }),
+        // node-polyfill-webpack-plugin v4 no longer injects the `process` global by default
+        // (it was dropped from the plugin's defaultPolyfills set). The packaged Electron renderer
+        // runs without Node integration, so bundled dependencies that reference `process` throw
+        // "process is not defined". Provide it explicitly. The '.js' extension keeps the request
+        // fully specified so it also resolves from strict ESM (.mjs) dependencies.
+        new webpack.ProvidePlugin({
+            process: 'process/browser.js'
+          }),
         new ESLintPlugin({
             extensions: ['ts', 'tsx'],
             failOnError: false,

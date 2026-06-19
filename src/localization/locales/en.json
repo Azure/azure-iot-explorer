@@ -49,8 +49,10 @@
         },
         "buttons": {
             "resize": "Resize",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "keyboardResize": "Resize with keyboard"
         },
+        "columnOptionsAriaLabel": "Column options",
         "defaultAriaLabel": "Data table"
     },
     "header": {
