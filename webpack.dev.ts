@@ -2,7 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import { Configuration as WebpackConfig, NormalModuleReplacementPlugin, ProvidePlugin } from 'webpack';
+import { Configuration as WebpackConfig, NormalModuleReplacementPlugin } from 'webpack';
 import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
 import { merge } from 'webpack-merge';
 import common from './webpack.common';
@@ -33,9 +33,6 @@ const config: Config = merge(common, {
     },
 
     plugins: [
-        new ProvidePlugin({
-            process: require.resolve('process/browser'),
-        }),
         new NormalModuleReplacementPlugin(
             /(.*)appConfig.ENV(\.*)/,
             resource => resource.request = resource.request.replace(/ENV/, 'electrondev')
