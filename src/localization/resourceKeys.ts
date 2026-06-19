@@ -1015,8 +1015,10 @@ export class ResourceKeys {
    public static resizableDetailsList = {
       buttons : {
          cancel : "resizableDetailsList.buttons.cancel",
+         keyboardResize : "resizableDetailsList.buttons.keyboardResize",
          resize : "resizableDetailsList.buttons.resize",
       },
+      columnOptionsAriaLabel : "resizableDetailsList.columnOptionsAriaLabel",
       content : {
          closeButtonAriaLabel : "resizableDetailsList.content.closeButtonAriaLabel",
          subText : "resizableDetailsList.content.subText",
