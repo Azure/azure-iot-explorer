@@ -29,6 +29,7 @@ export const ConnectionStringsView: React.FC = () => {
     useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
     const [ state, api ] = useConnectionStringContext();
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
+    const addButtonRef = React.useRef<HTMLButtonElement>(null);
 
     const connectionStringsWithExpiry = state.payload;
     const synchronizationStatus = state.synchronizationStatus;
@@ -64,12 +65,20 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     const onConnectionStringEditCommit = (connectionString: string) => {
+        const wasAdding = connectionStringUnderEdit === '';
         onUpsertConnectionString(connectionString, connectionStringUnderEdit);
         setConnectionStringUnderEdit(undefined);
+        if (wasAdding) {
+            addButtonRef.current?.focus();
+        }
     };
 
     const onConnectionStringEditDismiss = () => {
+        const wasAdding = connectionStringUnderEdit === '';
         setConnectionStringUnderEdit(undefined);
+        if (wasAdding) {
+            addButtonRef.current?.focus();
+        }
     };
 
     React.useEffect(() => {
@@ -95,7 +104,7 @@ export const ConnectionStringsView: React.FC = () => {
 
     return (
         <div>
-            <ConnectionStringCommandBar onAddConnectionStringClick={onAddConnectionStringClick}/>
+            <ConnectionStringCommandBar onAddConnectionStringClick={onAddConnectionStringClick} addButtonRef={addButtonRef}/>
             <div className="connection-strings">
                 {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
                     <ConnectionString

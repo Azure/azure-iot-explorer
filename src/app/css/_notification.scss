@@ -84,6 +84,9 @@
 
 .notification-toast-body {
     word-break: break-word;
+    @include themify($themes) {
+        background-color: themed('notificationBackgroundColor') !important;
+    }
 }
 
 .Toastify__toast-container {

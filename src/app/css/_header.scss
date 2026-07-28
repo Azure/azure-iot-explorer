@@ -60,6 +60,9 @@
         .settings button {
             color: themed('headerButtonColor');
         }
+        .settings button:focus-visible {
+            outline-color: themed('headerButtonColor');
+        }
         .settings button svg {
             color: var(--colorBrandForeground1);
         }

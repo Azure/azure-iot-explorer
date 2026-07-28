@@ -9,6 +9,7 @@ import { useAuthenticationStateContext } from '../../authentication/context/auth
 
 interface ConnectionStringCommandBarProps {
     onAddConnectionStringClick: () => void;
+    addButtonRef?: React.Ref<HTMLButtonElement>;
 }
 
 export const ConnectionStringCommandBar: React.FC<ConnectionStringCommandBarProps> = props => {
@@ -25,6 +26,7 @@ export const ConnectionStringCommandBar: React.FC<ConnectionStringCommandBarProp
             items={[
                 {
                     ariaLabel: t(ResourceKeys.connectionStrings.addConnectionCommand.ariaLabel),
+                    buttonRef: props.addButtonRef,
                     disabled: state.payload.length >= CONNECTION_STRING_LIST_MAX_LENGTH,
                     icon: <AddRegular />,
                     key: 'add',

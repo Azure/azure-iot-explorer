@@ -44,8 +44,8 @@ export const NotificationListEntry: React.FC<NotificationListEntryProps> = (prop
             <Button
                 appearance="subtle"
                 icon={<CopyRegular />}
-                title={t(ResourceKeys.header.notifications.copy)}
-                aria-label={t(ResourceKeys.header.notifications.copy)}
+                title={t(ResourceKeys.header.notifications.copy.label)}
+                aria-label={t(ResourceKeys.header.notifications.copy.ariaLabel, { notification: message })}
                 onClick={copyToClipboard}
                 style={buttonProps.isFlex ? {flex: '1'} : {}}
             />

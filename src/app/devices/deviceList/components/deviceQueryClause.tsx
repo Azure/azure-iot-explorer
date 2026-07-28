@@ -123,7 +123,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         className="clause-value"
                         onOptionSelect={onValueDropdownChange}
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.ariaLabel)}
                         selectedOptions={value ? [value] : []}
                     >
                         {renderEdgeDropdownOptions()}
@@ -135,7 +135,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         className="clause-value"
                         onOptionSelect={onValueDropdownChange}
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.ariaLabel)}
                         selectedOptions={value ? [value] : []}
                     >
                         {renderStatusDropdownOptions()}

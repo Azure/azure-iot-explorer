@@ -51,7 +51,20 @@ const darkBrand: BrandVariants = {
 };
 
 export const v9ThemeLight: Theme = createLightTheme(lightBrand);
-export const v9ThemeDark: Theme = createDarkTheme(darkBrand);
+
+// createDarkTheme(darkBrand) maps colorBrandBackground/Hover/Pressed/Selected to shades
+// 70/80/40/60 of darkBrand. Shades 70/80/60 (#4ba6d8/#5cafdd/#3d7da0) are too light to give
+// white text (colorNeutralForegroundOnBrand) sufficient contrast (~2.7:1, below the 4.5:1
+// WCAG AA minimum), which is why buttons like "Connect via IoT Hub connection string" on the
+// home screen fail contrast checks in dark mode. Override the brand background tokens with
+// darker shades from the same ramp so white text remains readable in every button state.
+export const v9ThemeDark: Theme = {
+    ...createDarkTheme(darkBrand),
+    colorBrandBackground: darkBrand[40],
+    colorBrandBackgroundHover: darkBrand[50],
+    colorBrandBackgroundPressed: darkBrand[20],
+    colorBrandBackgroundSelected: darkBrand[30],
+};
 
 // High contrast dark (white on black) — use Teams HC theme as-is
 export const v9ThemeHighContrastDark: Theme = teamsHighContrastTheme;

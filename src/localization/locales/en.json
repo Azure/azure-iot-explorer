@@ -70,7 +70,10 @@
                 "redirect": "Looking for notifications?",
                 "redirectLink": "Please visit Notification Center"
             },
-            "copy": "Copy"
+            "copy": {
+                "ariaLabel": "Copy notification: {{notification}}",
+                "label": "Copy"
+            }
         },
         "questions": {
             "launch": "Open ???"
@@ -417,7 +420,7 @@
                     },
                     "value": {
                         "placeholder": "Select value",
-                        "ariaLabel": "Enter a value for this clause",
+                        "ariaLabel": "Query clause value",
                         "deviceCapability": {
                             "edge": "is Edge device",
                             "nonEdge": "is not Edge device"
