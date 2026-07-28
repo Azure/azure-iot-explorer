@@ -2,7 +2,6 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License
  **********************************************************/
-import fetch, { Response } from 'node-fetch';
 // @ts-ignore no type declarations available
 import ssrfFilter from 'ssrf-req-filter';
 import {
@@ -14,7 +13,23 @@ import {
 import { DataPlaneRequest, DataPlaneResponse } from '../interfaces/deviceInterface';
 
 const DEVICE_STATUS_HEADER = 'x-ms-command-statuscode';
+const REQUEST_TIMEOUT_MS = 30_000;
 const SERVER_ERROR = 500;
+
+interface DataPlaneFetchResponse {
+    headers: {
+        entries(): IterableIterator<[string, string]>;
+        get(name: string): string | null;
+    };
+    json(): Promise<unknown>;
+    status: number;
+    statusText: string;
+}
+
+const loadFetch = async () => (await import('node-fetch')).default;
+
+const serializeHeaders = (headers: DataPlaneFetchResponse['headers']): Record<string, string> =>
+    Object.fromEntries(headers.entries());
 
 /**
  * Handle data plane request via IPC
@@ -34,6 +49,7 @@ export const handleDataPlaneRequest = async (
         }
 
         const dataPlaneRequest = await generateDataPlaneRequestBody(request);
+        const fetch = await loadFetch();
         const response = await fetch(dataPlaneRequest.url, dataPlaneRequest.request);
         return await processDataPlaneResponse(response);
     } catch (error) {
@@ -91,7 +107,7 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
             headers,
             method: request.httpMethod.toUpperCase(),
             redirect: 'error' as const,  // Block all HTTP redirects (SSRF protection)
-            timeout: 30000,  // 30 second timeout
+            signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
             // Use ssrf-req-filter for SSRF protection
             // Blocks requests to private IPs, loopback, link-local, etc.
             agent: ssrfFilter(url),
@@ -103,7 +119,7 @@ export const generateDataPlaneRequestBody = async (request: DataPlaneRequest) =>
  * Process the response from Azure IoT Hub
  */
 // tslint:disable-next-line:cyclomatic-complexity
-export const processDataPlaneResponse = async (dataPlaneResponse: Response): Promise<DataPlaneResponse> => {
+export const processDataPlaneResponse = async (dataPlaneResponse: DataPlaneFetchResponse): Promise<DataPlaneResponse> => {
     try {
         if (!dataPlaneResponse) {
             throw new Error('Failed to get any response from iot hub service.');
@@ -123,13 +139,13 @@ export const processDataPlaneResponse = async (dataPlaneResponse: Response): Pro
             };
         } else if (dataPlaneResponse.status === 204) {
             return {
-                body: { body: null, headers: dataPlaneResponse.headers },
+                body: { body: null, headers: serializeHeaders(dataPlaneResponse.headers) },
                 statusCode: dataPlaneResponse.status,
                 statusText: dataPlaneResponse.statusText
             };
         } else {
             return {
-                body: { body: await dataPlaneResponse.json(), headers: dataPlaneResponse.headers },
+                body: { body: await dataPlaneResponse.json(), headers: serializeHeaders(dataPlaneResponse.headers) },
                 statusCode: dataPlaneResponse.status,
                 statusText: dataPlaneResponse.statusText
             };

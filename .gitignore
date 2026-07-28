@@ -343,6 +343,9 @@ scripts/*.js
 
 # test results
 jest-test-results.trx
+playwright-report/
+test-results/
+e2e/.tmp/
 
 # server.js ( auto-generated from server.ts )
 src/server/*.js

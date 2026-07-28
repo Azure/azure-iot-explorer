@@ -37,4 +37,21 @@ describe('DeviceQueryClause', () => {
         fireEvent.click(screen.getByLabelText('deviceLists.query.searchPills.clause.remove.ariaLabel'));
         expect(removeClause).toHaveBeenCalledWith(0);
     });
+
+    it('displays selected parameter and value after a prop-driven rerender', () => {
+        const { rerender } = render(<DeviceQueryClause {...defaultProps}/>);
+
+        rerender(<DeviceQueryClause
+            {...defaultProps}
+            parameterType={ParameterType.status}
+            value="enabled"
+        />);
+
+        expect(screen.getByLabelText(
+            'deviceLists.query.searchPills.clause.parameterType.ariaLabel'
+        ).textContent).toContain('deviceLists.query.searchPills.clause.parameterType.items.status');
+        expect(screen.getByLabelText(
+            'deviceLists.query.searchPills.clause.value.placeholder'
+        ).textContent).toContain('deviceLists.query.searchPills.clause.value.deviceStatus.enabled');
+    });
 });

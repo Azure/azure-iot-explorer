@@ -60,6 +60,7 @@ interface MonacoEditorComponentProps {
   content: string;
   ariaLabel: string;
   height: number;
+  testId?: string;
   readOnly?: boolean;
   language?: string;
   onChange?: (value: string) => void;
@@ -83,6 +84,7 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
   readOnly,
   language,
   height,
+  testId,
   onChange,
   editorWillMount,
   placeholder,
@@ -208,6 +210,19 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
         tabFocusMode: false, // Allow Tab to move focus out of editor
       });
 
+      if (testId && navigator.webdriver && wrapperRef.current) {
+        const wrapper = wrapperRef.current;
+        const setValue = (event: Event) => {
+          const value = (event as CustomEvent<unknown>).detail;
+          if (typeof value !== 'string') {
+            throw new TypeError('Monaco automation value must be a string.');
+          }
+          editor.setValue(value);
+        };
+        wrapper.addEventListener('e2e:set-value', setValue);
+        editor.onDidDispose(() => wrapper.removeEventListener('e2e:set-value', setValue));
+      }
+
       // Handle Tab key for proper navigation
       editor.addCommand(monaco.KeyCode.Tab, () => {
         // If there's no selection and cursor is at end, allow Tab to exit
@@ -228,12 +243,13 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
         editor.trigger('keyboard', 'tab', {});
       });
     },
-    [placeholder, handleEditorEscape]
+    [placeholder, handleEditorEscape, testId]
   );
 
   return (
     <div
       ref={wrapperRef}
+      data-testid={testId}
       role='region'
       aria-label={`Code editor: ${ariaLabel}. Press Escape or Alt+M to exit editor.`}
       tabIndex={-1}

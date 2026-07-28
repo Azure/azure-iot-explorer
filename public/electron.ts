@@ -7,7 +7,7 @@ import { app, Menu, BrowserWindow, dialog, ipcMain, session, shell } from 'elect
 import windowState from 'electron-window-state';
 import * as path from 'path';
 import { generateMenu } from './factories/menuFactory';
-import { PLATFORMS, MESSAGE_CHANNELS } from './constants';
+import { PLATFORMS, MESSAGE_CHANNELS, PUBLIC_MODEL_REPOSITORY } from './constants';
 import { onSettingsHighContrast } from './handlers/settingsHandler';
 import {
     deleteCredential,
@@ -34,7 +34,7 @@ const CSP_HEADER = [
     "style-src 'self' 'unsafe-inline' https://aadcdn.msauth.net https://aadcdn.msftauth.net", // Fluent UI uses inline styles
     "img-src 'self' data: https://aadcdn.msauth.net https://aadcdn.msftauth.net https://aadcdn.msauthimages.net https://aadcdn.msftauthimages.net https://login.microsoftonline.com https://login.live.com https://*.microsoft.com https://*.azure.com",
     "font-src 'self' https://*.cdn.office.net data:",
-    "connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.azure-devices.cn https://*.azure-devices.us https://*.servicebus.windows.net https://*.servicebus.chinacloudapi.cn https://*.servicebus.usgovcloudapi.net https://login.microsoftonline.com https://login.live.com https://aadcdn.msauth.net https://aadcdn.msftauth.net https://aadcdn.msauthimages.net https://aadcdn.msftauthimages.net https://login.chinacloudapi.cn https://login.microsoftonline.us" + (isDevelopment ? " ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*" : ""),
+    `connect-src 'self' https://api.github.com/repos/Azure/azure-iot-explorer/releases/latest ${PUBLIC_MODEL_REPOSITORY.RAW_URL}/ https://*.azure.com https://*.microsoft.com https://*.azure-devices.net https://*.azure-devices.cn https://*.azure-devices.us https://*.servicebus.windows.net https://*.servicebus.chinacloudapi.cn https://*.servicebus.usgovcloudapi.net https://login.microsoftonline.com https://login.live.com https://aadcdn.msauth.net https://aadcdn.msftauth.net https://aadcdn.msauthimages.net https://aadcdn.msftauthimages.net https://login.chinacloudapi.cn https://login.microsoftonline.us` + (isDevelopment ? " ws://localhost:* ws://127.0.0.1:* http://localhost:* http://127.0.0.1:*" : ""),
     "frame-src 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
     "frame-ancestors 'self' https://login.microsoftonline.com https://login.live.com https://*.microsoft.com",
     "form-action 'self' https://*.login.microsoftonline.com https://login.microsoftonline.com https://login.live.com",
@@ -55,7 +55,7 @@ const ALLOWED_AUTH_ORIGINS = [
 // Allowed external URLs that can be opened with shell.openExternal
 const ALLOWED_EXTERNAL_URLS = [
     'https://github.com/Azure/azure-iot-explorer',
-    'https://github.com/Azure/iot-plugandplay-models',
+    PUBLIC_MODEL_REPOSITORY.GITHUB_URL,
     'https://aka.ms',
     'https://docs.microsoft.com',
     'https://learn.microsoft.com',

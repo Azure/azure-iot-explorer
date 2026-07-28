@@ -28,7 +28,7 @@ describe('DirectMethodForm', () => {
     it('renders payload textarea', () => {
         render(<DirectMethodForm {...defaultProps}/>);
 
-        expect(screen.getByText('directMethod.payload')).toBeInTheDocument();
+        expect(screen.getByLabelText('directMethod.payload')).toBeInTheDocument();
     });
 
     it('renders connection and response timeout sliders', () => {
@@ -45,5 +45,14 @@ describe('DirectMethodForm', () => {
         const input = screen.getByLabelText('directMethod.methodName');
         fireEvent.change(input, { target: { value: 'testMethod' } });
         expect(setMethodName).toHaveBeenCalled();
+    });
+
+    it('calls setPayload when payload changes', () => {
+        const setPayload = jest.fn();
+        render(<DirectMethodForm {...defaultProps} setPayload={setPayload}/>);
+
+        fireEvent.change(screen.getByLabelText('directMethod.payload'), { target: { value: '{"request":"ping"}' } });
+
+        expect(setPayload).toHaveBeenCalled();
     });
 });

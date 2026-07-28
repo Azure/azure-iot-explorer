@@ -57,7 +57,12 @@ export const DirectMethodForm: React.FC<DirectMethodForm> = ({
                 >
                     {t(ResourceKeys.directMethod.payload)}
                 </LabelWithTooltip>
-                <Textarea className="payload-input" rows={textFieldRows} onChange={onTextFieldChange}/>
+                <Textarea
+                    aria-label={t(ResourceKeys.directMethod.payload)}
+                    className="payload-input"
+                    rows={textFieldRows}
+                    onChange={onTextFieldChange}
+                />
                 <LabelWithTooltip
                     tooltipText={t(ResourceKeys.directMethod.connectionTimeoutTooltip)}
                 >

@@ -70,11 +70,30 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
         );
     };
 
+    const getParameterTypeText = (selectedParameterType: ParameterType) => {
+        const parameterKey = Object.keys(ParameterType).find(parameter =>
+            (ParameterType as any)[parameter] === selectedParameterType);
+        return parameterKey ?
+            t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameterKey]) :
+            '';
+    };
+
+    const getValueText = (selectedValue: string) => {
+        const values = parameterType === ParameterType.edge ? DeviceCapability : DeviceStatus;
+        const resources = parameterType === ParameterType.edge ?
+            ResourceKeys.deviceLists.query.searchPills.clause.value.deviceCapability :
+            ResourceKeys.deviceLists.query.searchPills.clause.value.deviceStatus;
+        const valueKey = Object.keys(values).find(item => (values as any)[item] === selectedValue);
+        return valueKey ? t((resources as any)[valueKey]) : '';
+    };
+
     const renderParameterDropdown = () => {
         return (
             <Dropdown
                 className="parameter-type"
                 onOptionSelect={onTypeChange}
+                selectedOptions={parameterType ? [parameterType] : []}
+                value={parameterType ? getParameterTypeText(parameterType) : ''}
                 placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.placeholder)}
                 aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
                 ref={parameterTypeRef}
@@ -83,6 +102,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                     <Option
                         key={(ParameterType as any)[parameter]}
                         value={(ParameterType as any)[parameter]}
+                        text={t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])}
                     >
                         {t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])}
                     </Option>
@@ -97,6 +117,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
             <Option
                 key={(DeviceCapability as any)[deviceCapability]}
                 value={(DeviceCapability as any)[deviceCapability]}
+                text={t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceCapability as any)[deviceCapability])}
             >
                 {t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceCapability as any)[deviceCapability])}
             </Option>
@@ -109,6 +130,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
             <Option
                 key={(DeviceStatus as any)[deviceStatus]}
                 value={(DeviceStatus as any)[deviceStatus]}
+                text={t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceStatus as any)[deviceStatus])}
             >
                 {t((ResourceKeys.deviceLists.query.searchPills.clause.value.deviceStatus as any)[deviceStatus])}
             </Option>
@@ -125,6 +147,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
                         aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.ariaLabel)}
                         selectedOptions={value ? [value] : []}
+                        value={value ? getValueText(value) : ''}
                     >
                         {renderEdgeDropdownOptions()}
                     </Dropdown>
@@ -137,6 +160,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
                         aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.ariaLabel)}
                         selectedOptions={value ? [value] : []}
+                        value={value ? getValueText(value) : ''}
                     >
                         {renderStatusDropdownOptions()}
                     </Dropdown>

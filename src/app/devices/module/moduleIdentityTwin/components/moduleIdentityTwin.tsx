@@ -97,6 +97,7 @@ export const ModuleIdentityTwin: React.FC = () => {
                         height={editorHeight}
                         onChange={onChange}
                         ariaLabel={ResourceKeys.moduleIdentity.detail.twin}
+                        testId="module-twin-editor"
                     />
                 }
             </article>

@@ -91,7 +91,8 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
                         >
                             <Dropdown
                                 disabled={state.formMode === 'working'}
-                                defaultSelectedOptions={[decodeType]}
+                                selectedOptions={[decodeType]}
+                                value={decodeType}
                                 onOptionSelect={onDropdownSelectedKeyChanged}
                             >
                                 <Option value="JSON">JSON</Option>
@@ -139,6 +140,7 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
                         }
                         <Button
                             appearance="primary"
+                            type="submit"
                             disabled={state.formMode === 'working'}
                             aria-label={t(ResourceKeys.deviceEvents.customizeContentType.save)}
                         >

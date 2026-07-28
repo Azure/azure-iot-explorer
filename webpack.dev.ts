@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import { Configuration as WebpackConfig, NormalModuleReplacementPlugin } from 'webpack';
-import { Configuration as WebpackDevServerConfig } from "webpack-dev-server";
+import type { Configuration as WebpackDevServerConfig } from 'webpack-dev-server' with { 'resolution-mode': 'import' };
 import { merge } from 'webpack-merge';
 import common from './webpack.common';
 

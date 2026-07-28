@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Field, Input, Link } from '@fluentui/react-components';
 import { ResourceKeys } from '../../../localization/resourceKeys';
-import { PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
+import { PUBLIC_MODEL_REPOSITORY } from '../../../../public/constants';
 
 export const ListItemPublicRepo: React.FC = () => {
     const { t } = useTranslation();
@@ -16,7 +16,7 @@ export const ListItemPublicRepo: React.FC = () => {
             <div className="labelSection">
                 <div className="label">{t(ResourceKeys.modelRepository.types.public.label)}</div>
                 <div className="description">
-                    <Trans components={[<Link key="0" href="https://github.com/Azure/iot-plugandplay-models" target="_blank"/>]}>
+                    <Trans components={[<Link key="0" href={PUBLIC_MODEL_REPOSITORY.GITHUB_URL} target="_blank"/>]}>
                         {ResourceKeys.modelRepository.types.public.infoText}
                     </Trans></div>
                 </div>
@@ -26,9 +26,8 @@ export const ListItemPublicRepo: React.FC = () => {
                 <Input
                     className="local-folder-textbox"
                     aria-label={t(ResourceKeys.modelRepository.types.configurable.textBoxLabel)}
-                    value={PUBLIC_REPO_HOSTNAME}
+                    value={PUBLIC_MODEL_REPOSITORY.RAW_URL}
                     readOnly={true}
-                    contentBefore={<span>https://</span>}
                 />
             </Field>
         </>

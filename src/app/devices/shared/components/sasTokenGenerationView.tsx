@@ -14,6 +14,8 @@ import { generateSASTokenConnectionStringForModuleIdentity, generateSASTokenConn
 import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import '../../../css/_sasToken.scss';
 
+type SasTokenKey = 'primary' | 'secondary';
+
 export interface SasTokenGenerationDataProps {
     activeAzureResourceHostName: string;
     deviceIdentity?: DeviceIdentity;
@@ -23,7 +25,7 @@ export interface SasTokenGenerationDataProps {
 export interface SasTokenGenerationState {
     sasTokenExpiration: number;
     sasTokenConnectionString: string;
-    sasTokenSelectedKey: string;
+    sasTokenSelectedKey: SasTokenKey | '';
 }
 
 export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (props: SasTokenGenerationDataProps) => {
@@ -32,21 +34,20 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
 
     const [ sasTokenConnectionString, setSasTokenConnectionString ] = React.useState('');
     const [ sasTokenExpiration, setSasTokenExpiration ] = React.useState(SAS_EXPIRES_MINUTES);
-    const [ sasTokenSelectedKey, setSasTokenSelectedKey ] = React.useState('');
+    const [ sasTokenSelectedKey, setSasTokenSelectedKey ] = React.useState<SasTokenKey | ''>('');
 
     const renderKeyDropdown = () => {
-
-        const authentication = moduleIdentity ? moduleIdentity.authentication : deviceIdentity.authentication;
         const options = [
             {
-                key: authentication.symmetricKey.primaryKey,
+                key: 'primary' as SasTokenKey,
                 text: t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.primaryKey)
             },
             {
-                key: authentication.symmetricKey.secondaryKey,
+                key: 'secondary' as SasTokenKey,
                 text: t(ResourceKeys.deviceIdentity.authenticationType.symmetricKey.secondaryKey)
             }
         ];
+        const selectedOption = options.find(option => option.key === sasTokenSelectedKey);
 
         return (
             <Field
@@ -56,10 +57,11 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
                 <Dropdown
                     className={'sas-token-key-field'}
                     selectedOptions={sasTokenSelectedKey ? [sasTokenSelectedKey] : []}
+                    value={selectedOption?.text ?? ''}
                     onOptionSelect={onSelectedKeyChanged}
                 >
                     {options.map(opt => (
-                        <Option key={opt.key} value={opt.key}>{opt.text}</Option>
+                        <Option key={opt.key} value={opt.key} text={opt.text}>{opt.text}</Option>
                     ))}
                 </Dropdown>
             </Field>
@@ -67,27 +69,37 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
     };
 
     const onSelectedKeyChanged = (event: React.SyntheticEvent, data: { optionValue?: string }): void => {
-        setSasTokenSelectedKey(data.optionValue);
+        if (data.optionValue === 'primary' || data.optionValue === 'secondary') {
+            setSasTokenSelectedKey(data.optionValue);
+        }
     };
 
     const onExpirationChanged = (event: React.SyntheticEvent, data: { value?: number | null; displayValue?: string }) => {
-        const numValue = data.value ?? 0;
-        const newSasTokenExpiration = numValue >= 0 && numValue <= Number.MAX_SAFE_INTEGER ? numValue : 0;
-        setSasTokenExpiration(newSasTokenExpiration);
+        const numValue = data.value === undefined && data.displayValue !== undefined ?
+            Number(data.displayValue) :
+            data.value;
+
+        if (numValue !== null && numValue !== undefined && Number.isSafeInteger(numValue) && numValue >= 1) {
+            setSasTokenExpiration(numValue);
+        }
     };
 
     const onGenerateSASClicked = () => {
+        const authentication = moduleIdentity ? moduleIdentity.authentication : deviceIdentity.authentication;
+        const selectedKey = sasTokenSelectedKey === 'primary' ?
+            authentication.symmetricKey.primaryKey :
+            authentication.symmetricKey.secondaryKey;
         const newSasTokenConnectionString = moduleIdentity ? generateSASTokenConnectionStringForModuleIdentity(
             activeAzureResourceHostName,
             moduleIdentity.deviceId,
             moduleIdentity.moduleId,
             sasTokenExpiration,
-            sasTokenSelectedKey
+            selectedKey
         ) : generateSASTokenConnectionStringForDevice(
             activeAzureResourceHostName,
             deviceIdentity.deviceId,
             sasTokenExpiration,
-            sasTokenSelectedKey
+            selectedKey
         );
 
         setSasTokenConnectionString(newSasTokenConnectionString);
@@ -110,7 +122,7 @@ export const SasTokenGenerationView: React.FC<SasTokenGenerationDataProps> = (pr
                 >
                     <SpinButton
                         className={'sas-token-expiration-field'}
-                        min={0}
+                        min={1}
                         max={Number.MAX_SAFE_INTEGER}
                         onChange={onExpirationChanged}
                         value={sasTokenExpiration}

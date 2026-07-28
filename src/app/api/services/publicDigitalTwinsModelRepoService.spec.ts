@@ -3,7 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as DigitalTwinsModelService from './publicDigitalTwinsModelRepoService';
-import { HTTP_OPERATION_TYPES, PUBLIC_REPO_HOSTNAME } from '../../constants/apiConstants';
+import { PUBLIC_MODEL_REPOSITORY } from '../../../../public/constants';
+import { HTTP_OPERATION_TYPES } from '../../constants/apiConstants';
 import { appConfig, HostMode } from '../../../appConfig/appConfig';
 
 describe('digitalTwinsModelService', () => {
@@ -61,13 +62,12 @@ describe('digitalTwinsModelService', () => {
             jest.spyOn(window, 'fetch').mockResolvedValue(response);
 
             const result = await DigitalTwinsModelService.fetchModel(parameters);
-            const modelIdentifier = encodeURIComponent(DigitalTwinsModelService.convertModelIdentifier(parameters.id));
-            const resourceUrl = `https://${PUBLIC_REPO_HOSTNAME}/${modelIdentifier}`;
+            const modelIdentifier = DigitalTwinsModelService.convertModelIdentifier(parameters.id);
+            const resourceUrl = `${PUBLIC_MODEL_REPOSITORY.RAW_URL}/${modelIdentifier}`;
 
             const fetchModelParameters = {
                 headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/json'
                 }),
                 method: HTTP_OPERATION_TYPES.Get
             };
@@ -81,6 +81,26 @@ describe('digitalTwinsModelService', () => {
                 publisherId: '',
                 publisherName: ''
             });
+        });
+
+        it('preserves the encoded model endpoint format for configurable repositories', async () => {
+            const response = {
+                json: () => model,
+                headers: {has: () => {}},
+                ok: true
+            } as any; // tslint:disable-line:no-any
+            jest.spyOn(window, 'fetch').mockResolvedValue(response);
+
+            await DigitalTwinsModelService.fetchModel({
+                ...parameters,
+                url: 'models.example.com'
+            });
+
+            const modelIdentifier = encodeURIComponent(DigitalTwinsModelService.convertModelIdentifier(parameters.id));
+            expect(fetch).toHaveBeenCalledWith(
+                `https://models.example.com/${modelIdentifier}`,
+                expect.any(Object)
+            );
         });
 
         it('calls fetch and returns model in array when response is 200', async () => {

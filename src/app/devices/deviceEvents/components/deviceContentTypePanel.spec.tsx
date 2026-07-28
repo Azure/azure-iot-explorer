@@ -4,6 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { DeviceContentTypePanel, DeviceContentTypePanelProps } from './deviceContentTypePanel';
 import * as deviceEventsStateContext from '../context/deviceEventsStateContext';
 
@@ -49,6 +50,24 @@ describe('DeviceContentTypePanel', () => {
 
         expect(screen.getByText('deviceEvents.customizeContentType.contentTypeOption.label')).toBeInTheDocument();
         expect(screen.getByText('deviceEvents.customizeContentType.save')).toBeInTheDocument();
+        expect(screen.getByRole('combobox', {
+            name: 'deviceEvents.customizeContentType.contentTypeOption.label'
+        }).textContent).toContain('JSON');
+    });
+
+    it('submits the selected decoder configuration when save is clicked', async () => {
+        const user = userEvent.setup();
+        render(<DeviceContentTypePanel showContentTypePanel={true} onToggleContentTypePanel={jest.fn()}/>);
+
+        const saveButton = screen.getByRole('button', { name: 'deviceEvents.customizeContentType.save' });
+        expect(saveButton).toHaveAttribute('type', 'submit');
+        await user.click(saveButton);
+
+        expect(mockSetDecoderInfo).toHaveBeenCalledWith({
+            decodeType: 'JSON',
+            decoderFile: undefined,
+            decoderPrototype: ''
+        });
     });
 
     it('calls onToggleContentTypePanel when close button is clicked', () => {

@@ -6,6 +6,12 @@ export const PLATFORMS = {
     MAC: 'darwin'
 };
 
+const PUBLIC_MODEL_REPOSITORY_PATH = 'Azure/iot-plugandplay-models';
+export const PUBLIC_MODEL_REPOSITORY = {
+    GITHUB_URL: `https://github.com/${PUBLIC_MODEL_REPOSITORY_PATH}`,
+    RAW_URL: `https://raw.githubusercontent.com/${PUBLIC_MODEL_REPOSITORY_PATH}/main`
+};
+
 export const MESSAGE_CHANNELS = {
     AUTHENTICATION_GET_PROFILE_TOKEN: 'authentication_get_profile_token',
     AUTHENTICATION_GET_TENANT_TOKEN: 'authentication_get_tenant_token',

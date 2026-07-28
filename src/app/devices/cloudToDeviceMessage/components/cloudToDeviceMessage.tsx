@@ -283,40 +283,52 @@ export const CloudToDeviceMessage: React.FC = () => {
     };
 
     const renderAckDropdown = ( property: PropertyItem) => {
-        const index = findMatchingItemIndex(property);
+        const options = [
+            { value: 'full', text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.full) },
+            { value: 'positive', text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.positive) },
+            { value: 'negative', text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.negative) }
+        ];
+        const selectedOption = options.find(option => option.value === property.value);
 
         const onDropdownSelectedKeyChanged = (event: React.SyntheticEvent, data: { optionValue?: string }): void => {
-            const items = properties;
-            items[index] = {...items[index], value: data.optionValue};
-            setProperties(items);
+            setProperties(currentProperties => currentProperties.map(item =>
+                item.index === property.index ? {...item, value: data.optionValue ?? ''} : item));
         };
 
         return (
             <Dropdown
+                selectedOptions={property.value ? [property.value] : []}
+                value={selectedOption?.text ?? ''}
                 onOptionSelect={onDropdownSelectedKeyChanged}
             >
-                <Option value="full">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.full)}</Option>
-                <Option value="positive">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.positive)}</Option>
-                <Option value="negative">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.ack.negative)}</Option>
+                {options.map(option => (
+                    <Option key={option.value} value={option.value} text={option.text}>{option.text}</Option>
+                ))}
             </Dropdown>);
     };
 
     const renderEncodingDropdown = (property: PropertyItem) => {
-        const index = findMatchingItemIndex(property);
+        const options = [
+            { value: 'utf-8', text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf8) },
+            { value: 'utf-16', text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf16) },
+            { value: 'utf-32', text: t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf32) }
+        ];
+        const selectedOption = options.find(option => option.value === property.value);
 
         const onDropdownSelectedKeyChanged = (event: React.SyntheticEvent, data: { optionValue?: string }): void => {
-            const items = properties;
-            items[index] = {...items[index], value: data.optionValue};
-            setProperties(items);
+            setProperties(currentProperties => currentProperties.map(item =>
+                item.index === property.index ? {...item, value: data.optionValue ?? ''} : item));
         };
 
         return (
             <Dropdown
+                selectedOptions={property.value ? [property.value] : []}
+                value={selectedOption?.text ?? ''}
                 onOptionSelect={onDropdownSelectedKeyChanged}
             >
-                <Option value="utf-8">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf8)}</Option>
-                <Option value="utf-16">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf16)}</Option>
-                <Option value="utf-32">{t(ResourceKeys.cloudToDeviceMessage.properties.systemProperties.contentEncoding.utf32)}</Option>
+                {options.map(option => (
+                    <Option key={option.value} value={option.value} text={option.text}>{option.text}</Option>
+                ))}
             </Dropdown>);
     };
 

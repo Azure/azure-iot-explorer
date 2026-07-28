@@ -101,6 +101,7 @@ export const DeviceTwin: React.FC = () => {
                         content={JSON.stringify(twin, null, '\t')}
                         onChange={onChange}
                         ariaLabel={ResourceKeys.deviceTwin.editorAriaLabel}
+                        testId="device-twin-editor"
                     />
                 }
             </article>

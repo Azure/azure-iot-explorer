@@ -987,7 +987,7 @@
         "types": {
             "public" : {
                 "label": "Public Repository",
-                "infoText": "The <0>iot-plugandplay-models GitHub repository</0> includes DTDL models that are made publicly available on https://devicemodels.azure.com."
+                "infoText": "The application retrieves public DTDL models directly from the <0>iot-plugandplay-models GitHub repository</0>."
             },
             "configurable" : {
                 "label": "Configurable Repository",
