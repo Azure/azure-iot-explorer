@@ -52,16 +52,12 @@ const darkBrand: BrandVariants = {
 
 export const v9ThemeLight: Theme = createLightTheme(lightBrand);
 
-// createDarkTheme(darkBrand) maps colorBrandBackground/Hover/Pressed/Selected to shades
-// 70/80/40/60 of darkBrand. Shades 70/80/60 (#4ba6d8/#5cafdd/#3d7da0) are too light to give
-// white text (colorNeutralForegroundOnBrand) sufficient contrast (~2.7:1, below the 4.5:1
-// WCAG AA minimum), which is why buttons like "Connect via IoT Hub connection string" on the
-// home screen fail contrast checks in dark mode. Override the brand background tokens with
-// darker shades from the same ramp so white text remains readable in every button state.
+// Override the dark theme's primary button colors to maintain sufficient contrast with white text.
+// Uses primary button colors from Azure portal dark mode
 export const v9ThemeDark: Theme = {
     ...createDarkTheme(darkBrand),
-    colorBrandBackground: darkBrand[40],
-    colorBrandBackgroundHover: darkBrand[50],
+    colorBrandBackground: 'rgb(0, 120, 212)',
+    colorBrandBackgroundHover: 'rgb(16, 110, 190)',
     colorBrandBackgroundPressed: darkBrand[20],
     colorBrandBackgroundSelected: darkBrand[30],
 };

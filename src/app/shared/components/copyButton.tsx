@@ -22,6 +22,14 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
         setCalloutTextKey(ResourceKeys.common.maskedCopyableTextField.copy.label);
     };
 
+    const handlePopoverOpenChange = (_event: unknown, data: { open: boolean }) => {
+        if (data.open) {
+            setPopoverOpen(true);
+        } else {
+            dismissPopover();
+        }
+    };
+
     const copyToClipboard = () => {
         if (hiddenRef.current) {
             hiddenRef.current.select();
@@ -48,7 +56,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
             />
             <Popover
                 open={popoverOpen}
-                onOpenChange={(e, data) => setPopoverOpen(data.open)}
+                onOpenChange={handlePopoverOpenChange}
                 positioning="above"
             >
                 <PopoverTrigger disableButtonEnhancement>
