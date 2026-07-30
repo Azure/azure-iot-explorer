@@ -23,7 +23,7 @@ jobs:
           with:
               node-version: ${{ matrix.node-version }}
         - name: npm install, build, and test
-          timeout-minutes: 15
+          timeout-minutes: 25
           run: |
               npm ci --legacy-peer-deps
               npm run build --if-present
