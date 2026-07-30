@@ -420,7 +420,7 @@
                     },
                     "value": {
                         "placeholder": "Select value",
-                        "ariaLabel": "Query clause value",
+                        "ariaLabel": "Value of {{parameter}} query clause",
                         "deviceCapability": {
                             "edge": "is Edge device",
                             "nonEdge": "is not Edge device"

@@ -44,7 +44,6 @@ export const Application: React.FC = () => {
                 </main>
                 <ToastContainer
                     autoClose={NOTIFICATION_AUTO_CLOSE}
-                    toastClassName="toast-notification"
                 />
             </div>
         </AriaLiveAnnouncer>

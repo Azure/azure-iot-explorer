@@ -3,8 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { CloudToDeviceMessage } from './cloudToDeviceMessage';
 import * as AsyncSagaReducer from '../../../shared/hooks/useAsyncSagaReducer';
@@ -49,23 +48,22 @@ describe('CloudToDeviceMessage', () => {
         expect(screen.getByText('cloudToDeviceMessage.properties.addCustomProperty')).toBeInTheDocument();
     });
 
-    it('keeps a system property selection after the property list rerenders', async () => {
-        const user = userEvent.setup();
+    it('keeps a system property selection after the property list rerenders', () => {
         render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
 
-        await user.click(screen.getByRole('button', {
+        fireEvent.click(screen.getByRole('button', {
             name: 'cloudToDeviceMessage.properties.addSystemProperty'
         }));
-        await user.click(screen.getByRole('menuitem', {
+        fireEvent.click(screen.getByRole('menuitem', {
             name: 'cloudToDeviceMessage.properties.systemProperties.ack.displayName'
         }));
 
         const ackDropdown = screen.getByRole('combobox');
-        await user.click(ackDropdown);
-        await user.click(screen.getByRole('option', {
+        fireEvent.click(ackDropdown);
+        fireEvent.click(screen.getByRole('option', {
             name: 'cloudToDeviceMessage.properties.systemProperties.ack.full'
         }));
-        await user.click(screen.getByRole('button', {
+        fireEvent.click(screen.getByRole('button', {
             name: 'cloudToDeviceMessage.properties.addCustomProperty'
         }));
 
