@@ -19,7 +19,7 @@ import './connectionString.scss';
 
 export interface ConnectionStringProps {
     connectionStringWithExpiry: ConnectionStringWithExpiry;
-    onEditConnectionString(connectionString: string): void;
+    onEditConnectionString(connectionString: string, invoker?: HTMLElement): void;
     onDeleteConnectionString(connectionString: string): void;
     onSelectConnectionString(connectionString: string): void;
 }
@@ -34,8 +34,9 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
     const [ confirmingDelete, setConfirmingDelete ] = React.useState<boolean>(false);
     const { t } = useTranslation();
 
-    const onEditConnectionStringClick = () => {
-        onEditConnectionString(connectionString);
+    const onEditConnectionStringClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        // Pass the button along so the edit drawer can return focus to it on close.
+        onEditConnectionString(connectionString, event.currentTarget);
     };
 
     const onDeleteConnectionStringClick = () => {
