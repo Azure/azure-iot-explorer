@@ -29,6 +29,12 @@ export const NotificationListEntry: React.FC<NotificationListEntryProps> = (prop
     const message = t(notification.text.translationKey, notification.text.translationOptions);
     const friendlyMessage = <>{message.split('. ').map((m: React.ReactNode, index: number) => (<div className="message" key={index}>{m + '.'}<br/></div>))}</>;
     const longMessageLength = 300;
+    const ariaLabelMessageLength = 80;
+    // Keep the accessible name short: the full text is already in the list item, and a
+    // multi-sentence name is re-read on every pass through the notification list.
+    const shortMessage = message?.length > ariaLabelMessageLength ?
+        `${message.substring(0, ariaLabelMessageLength)}...` :
+        message;
 
     const navigateToNotificationCenter = () => {
         const path = `/${ROUTE_PARTS.HOME}/${ROUTE_PARTS.NOTIFICATIONS}?${ROUTE_PARAMS.NAV_FROM}`;
@@ -44,8 +50,8 @@ export const NotificationListEntry: React.FC<NotificationListEntryProps> = (prop
             <Button
                 appearance="subtle"
                 icon={<CopyRegular />}
-                title={t(ResourceKeys.header.notifications.copy)}
-                aria-label={t(ResourceKeys.header.notifications.copy)}
+                title={t(ResourceKeys.header.notifications.copy.label)}
+                aria-label={t(ResourceKeys.header.notifications.copy.ariaLabel, { notification: shortMessage })}
                 onClick={copyToClipboard}
                 style={buttonProps.isFlex ? {flex: '1'} : {}}
             />

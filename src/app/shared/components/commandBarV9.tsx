@@ -15,6 +15,7 @@ interface CommandBarItem {
     type?: string;
     icon?: React.ReactElement;
     onClick?: (ev?: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
+    buttonRef?: React.Ref<HTMLButtonElement>;
     subMenuProps?: {
         items: CommandBarSubMenuItem[];
     };
@@ -77,6 +78,7 @@ export const CommandBarV9: React.FC<CommandBarV9Props> = ({ items, farItems, cla
         return (
             <ToolbarButton
                 key={item.key}
+                ref={item.buttonRef}
                 aria-label={item.ariaLabel}
                 disabled={item.disabled}
                 icon={item.icon}

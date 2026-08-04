@@ -41,8 +41,9 @@ describe('ConnectionString', () => {
         const onEdit = jest.fn();
         render(<MemoryRouter><ConnectionString {...defaultProps} onEditConnectionString={onEdit}/></MemoryRouter>);
 
-        fireEvent.click(screen.getByLabelText('connectionStrings.editConnectionCommand.ariaLabel'));
-        expect(onEdit).toHaveBeenCalledWith(testConnectionString);
+        const editButton = screen.getByLabelText('connectionStrings.editConnectionCommand.ariaLabel');
+        fireEvent.click(editButton);
+        expect(onEdit).toHaveBeenCalledWith(testConnectionString, editButton);
     });
 
     it('renders visit button that calls onSelectConnectionString', () => {

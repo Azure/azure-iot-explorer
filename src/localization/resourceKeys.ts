@@ -780,7 +780,10 @@ export class ResourceKeys {
    public static header = {
       applicationName : "header.applicationName",
       notifications : {
-         copy : "header.notifications.copy",
+         copy : {
+            ariaLabel : "header.notifications.copy.ariaLabel",
+            label : "header.notifications.copy.label",
+         },
          dismiss : "header.notifications.dismiss",
          panel : {
             noNotifications : "header.notifications.panel.noNotifications",

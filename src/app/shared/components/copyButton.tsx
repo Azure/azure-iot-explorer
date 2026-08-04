@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Popover, PopoverSurface, PopoverTrigger, Text } from '@fluentui/react-components';
+import { Button, Popover, PopoverProps, PopoverSurface, PopoverTrigger, Text, useAnnounce } from '@fluentui/react-components';
 import { CopyRegular } from '@fluentui/react-icons';
 import { ResourceKeys } from '../../../localization/resourceKeys';
 
@@ -12,13 +12,28 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
     const { t } = useTranslation();
     const [popoverOpen, setPopoverOpen] = React.useState<boolean>(false);
     const [calloutTextKey, setCalloutTextKey] = React.useState<string>(ResourceKeys.common.maskedCopyableTextField.copy.label);
+    const { announce } = useAnnounce();
 
     const hiddenRef = React.useRef<HTMLInputElement | null>(null);
     const focusRef = React.useRef<HTMLButtonElement | null>(null);
+    // PopoverTrigger merges its own toggle into the button's onClick, so a click while
+    // the popover is already open (the usual case, since hover/focus opens it) would
+    // close it and hide the "Copied" confirmation. This flag suppresses that one close.
+    const copyingRef = React.useRef<boolean>(false);
 
     const dismissPopover = () => {
         setPopoverOpen(false);
         setCalloutTextKey(ResourceKeys.common.maskedCopyableTextField.copy.label);
+    };
+
+    const handlePopoverOpenChange: PopoverProps['onOpenChange'] = (_event, data) => {
+        const suppressClose = copyingRef.current;
+        copyingRef.current = false;
+        if (data.open) {
+            setPopoverOpen(true);
+        } else if (!suppressClose) {
+            dismissPopover();
+        }
     };
 
     const copyToClipboard = () => {
@@ -29,7 +44,10 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
         if (focusRef.current) {
             focusRef.current.focus();
         }
+        copyingRef.current = true;
+        setPopoverOpen(true);
         setCalloutTextKey(ResourceKeys.common.maskedCopyableTextField.copied.label);
+        announce(t(ResourceKeys.common.maskedCopyableTextField.copied.label));
     };
 
     return (
@@ -46,7 +64,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
             />
             <Popover
                 open={popoverOpen}
-                onOpenChange={(e, data) => setPopoverOpen(data.open)}
+                onOpenChange={handlePopoverOpenChange}
                 positioning="above"
             >
                 <PopoverTrigger disableButtonEnhancement>
@@ -55,6 +73,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ copyText, disabled }) =>
                         icon={<CopyRegular />}
                         onClick={copyToClipboard}
                         onFocus={() => setPopoverOpen(true)}
+                        onBlur={dismissPopover}
                         onMouseEnter={() => setPopoverOpen(true)}
                         onMouseLeave={dismissPopover}
                         ref={focusRef}

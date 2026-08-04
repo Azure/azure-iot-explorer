@@ -10,8 +10,7 @@ import { DeviceIdentity } from '../../../api/models/deviceIdentity';
 import * as deviceIdentityHelper from '../../deviceIdentity/components/deviceIdentityHelper';
 import { SAS_EXPIRES_MINUTES } from '../../../constants/devices';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@testing-library/react';
 const moduleIdentityTwinDataProps: SasTokenGenerationDataProps = {
     activeAzureResourceHostName: 'testHub.azure-devices.net'
 };
@@ -74,32 +73,30 @@ describe('devices/components/moduleIdentityTwin', () => {
         });
     });
 
-    it('keeps the selected key and a committed expiration value', async () => {
-        const user = userEvent.setup();
+    it('keeps the selected key and a committed expiration value', () => {
         const generateSpy = jest.spyOn(deviceIdentityHelper, 'generateSASTokenConnectionStringForModuleIdentity')
             .mockReturnValue('connection-string');
         render(getComponent({ moduleIdentity }));
 
-        await user.click(screen.getByTitle('collapsibleSection.open'));
+        fireEvent.click(screen.getByTitle('collapsibleSection.open'));
         const keyDropdown = screen.getByRole('combobox', {
             name: 'deviceIdentity.authenticationType.sasToken.symmetricKey'
         });
-        await user.click(keyDropdown);
-        await user.click(screen.getByRole('option', {
+        fireEvent.click(keyDropdown);
+        fireEvent.click(screen.getByRole('option', {
             name: 'deviceIdentity.authenticationType.symmetricKey.primaryKey'
         }));
 
         const expiration = screen.getByRole('spinbutton', {
             name: 'deviceIdentity.authenticationType.sasToken.expiration'
         });
-        await user.clear(expiration);
-        await user.type(expiration, '60');
-        await user.keyboard('{Enter}');
+        fireEvent.change(expiration, { target: { value: '60' } });
+        fireEvent.keyDown(expiration, { key: 'Enter' });
 
         expect(expiration).toHaveValue('60');
         expect(keyDropdown.textContent).toContain('deviceIdentity.authenticationType.symmetricKey.primaryKey');
 
-        await user.click(screen.getByRole('button', {
+        fireEvent.click(screen.getByRole('button', {
             name: 'deviceIdentity.authenticationType.sasToken.generateButton.text'
         }));
         expect(generateSpy).toHaveBeenCalledWith(
@@ -111,17 +108,15 @@ describe('devices/components/moduleIdentityTwin', () => {
         );
     });
 
-    it('rejects an expiration value below one minute', async () => {
-        const user = userEvent.setup();
+    it('rejects an expiration value below one minute', () => {
         render(getComponent({ moduleIdentity }));
 
-        await user.click(screen.getByTitle('collapsibleSection.open'));
+        fireEvent.click(screen.getByTitle('collapsibleSection.open'));
         const expiration = screen.getByRole('spinbutton', {
             name: 'deviceIdentity.authenticationType.sasToken.expiration'
         });
-        await user.clear(expiration);
-        await user.type(expiration, '0');
-        await user.keyboard('{Enter}');
+        fireEvent.change(expiration, { target: { value: '0' } });
+        fireEvent.keyDown(expiration, { key: 'Enter' });
 
         expect(expiration).toHaveValue(SAS_EXPIRES_MINUTES.toString());
     });

@@ -3,7 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ConnectionStringsView } from './connectionStringsView';
 import * as connectionStringContext from '../context/connectionStringStateContext';
@@ -72,5 +72,43 @@ describe('ConnectionStringsView', () => {
         expect(screen.getByText('hub1')).toBeInTheDocument();
         // Should NOT show empty state
         expect(screen.queryByText('connectionStrings.empty.header')).toBeNull();
+    });
+
+    it('returns focus to the add button when the add drawer is dismissed', () => {
+        render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
+
+        const addButton = screen.getByLabelText('connectionStrings.addConnectionCommand.ariaLabel');
+        addButton.focus();
+        fireEvent.click(addButton);
+
+        expect(screen.getByText('connectionStrings.editConnection.title.add')).toBeInTheDocument();
+
+        fireEvent.click(screen.getAllByLabelText('connectionStrings.editConnection.cancel.ariaLabel.add')[0]);
+
+        expect(document.activeElement).toBe(addButton);
+    });
+
+    it('returns focus to the edit button when the edit drawer is dismissed', () => {
+        (connectionStringContext.useConnectionStringContext as jest.Mock).mockReturnValue([
+            {
+                payload: [
+                    { connectionString: 'HostName=hub1.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=key1', expiration: new Date(Date.now() + 365 * 86400000).toISOString() }
+                ],
+                synchronizationStatus: 'fetched'
+            },
+            { setConnectionStrings: jest.fn(), upsertConnectionString: jest.fn(), deleteConnectionString: jest.fn(), getConnectionStrings: mockGetConnectionStrings }
+        ]);
+
+        render(<MemoryRouter><ConnectionStringsView/></MemoryRouter>);
+
+        const editButton = screen.getByLabelText('connectionStrings.editConnectionCommand.ariaLabel');
+        editButton.focus();
+        fireEvent.click(editButton);
+
+        expect(screen.getByText('connectionStrings.editConnection.title.edit')).toBeInTheDocument();
+
+        fireEvent.click(screen.getAllByLabelText('connectionStrings.editConnection.cancel.ariaLabel.edit')[0]);
+
+        expect(document.activeElement).toBe(editButton);
     });
 });

@@ -29,6 +29,11 @@ export const ConnectionStringsView: React.FC = () => {
     useBreadcrumbEntry({name: t(ResourceKeys.breadcrumb.resources)});
     const [ state, api ] = useConnectionStringContext();
     const [ connectionStringUnderEdit, setConnectionStringUnderEdit ] = React.useState<string>(undefined);
+    const addButtonRef = React.useRef<HTMLButtonElement>(null);
+    // The element that opened the drawer, so focus can be returned to it on close.
+    // The drawer is shared by the add button and every row's edit button, so this is
+    // assigned per invocation rather than being tied to a single control.
+    const drawerInvokerRef = React.useRef<HTMLElement>(null);
 
     const connectionStringsWithExpiry = state.payload;
     const synchronizationStatus = state.synchronizationStatus;
@@ -56,20 +61,29 @@ export const ConnectionStringsView: React.FC = () => {
     };
 
     const onAddConnectionStringClick = () => {
+        drawerInvokerRef.current = addButtonRef.current;
         setConnectionStringUnderEdit('');
     };
 
-    const onEditConnectionStringClick = (connectionString: string) => {
+    const onEditConnectionStringClick = (connectionString: string, invoker?: HTMLElement) => {
+        drawerInvokerRef.current = invoker ?? null;
         setConnectionStringUnderEdit(connectionString);
+    };
+
+    const restoreFocusToDrawerInvoker = () => {
+        drawerInvokerRef.current?.focus();
+        drawerInvokerRef.current = null;
     };
 
     const onConnectionStringEditCommit = (connectionString: string) => {
         onUpsertConnectionString(connectionString, connectionStringUnderEdit);
         setConnectionStringUnderEdit(undefined);
+        restoreFocusToDrawerInvoker();
     };
 
     const onConnectionStringEditDismiss = () => {
         setConnectionStringUnderEdit(undefined);
+        restoreFocusToDrawerInvoker();
     };
 
     React.useEffect(() => {
@@ -95,7 +109,7 @@ export const ConnectionStringsView: React.FC = () => {
 
     return (
         <div>
-            <ConnectionStringCommandBar onAddConnectionStringClick={onAddConnectionStringClick}/>
+            <ConnectionStringCommandBar onAddConnectionStringClick={onAddConnectionStringClick} addButtonRef={addButtonRef}/>
             <div className="connection-strings">
                 {connectionStringsWithExpiry.map(connectionStringWithExpiry =>
                     <ConnectionString

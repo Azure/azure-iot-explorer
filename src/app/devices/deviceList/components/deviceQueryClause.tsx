@@ -138,6 +138,10 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
     };
 
     const renderValueInput =  () => {
+        const valueAriaLabel = t(
+                ResourceKeys.deviceLists.query.searchPills.clause.value.ariaLabel,
+                { parameter: getParameterTypeText(parameterType) }
+            );
         switch (parameterType) {
             case ParameterType.edge:
                 return (
@@ -145,7 +149,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         className="clause-value"
                         onOptionSelect={onValueDropdownChange}
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        aria-label={valueAriaLabel}
                         selectedOptions={value ? [value] : []}
                         value={value ? getValueText(value) : ''}
                     >
@@ -158,7 +162,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                         className="clause-value"
                         onOptionSelect={onValueDropdownChange}
                         placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                        aria-label={valueAriaLabel}
                         selectedOptions={value ? [value] : []}
                         value={value ? getValueText(value) : ''}
                     >

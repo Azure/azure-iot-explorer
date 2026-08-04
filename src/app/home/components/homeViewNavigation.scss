@@ -16,14 +16,12 @@
 
     a:link, a:visited, a:active {
         text-decoration: none;
-        @include themify($themes) {
-            color: themed('menuLinkColor');
-        }
     }
 
+    // Only the background is themed here. Fluent v9's Tab sets `color` directly on
+    // its `.fui-Tab__content` span, so a `color` on the `<a>` root never inherits.
     a:hover {
         @include themify($themes) {
-            color: themed('menuLinkColor_Hover');
             background-color: themed('menuLinkBackground_Hover');
         }
     }

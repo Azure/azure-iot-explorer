@@ -3,6 +3,7 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'react-toastify/dist/ReactToastify.css';
+import { AriaLiveAnnouncer } from '@fluentui/react-components';
 import * as React from 'react';
 import { Route, Navigate, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -25,25 +26,26 @@ export const Application: React.FC = () => {
     useBreadcrumbEntry({ name: t(ResourceKeys.common.home), suffix: 'home' });
 
     return (
-        <div className="container">
-            <div className="header">
-                <Header />
+        <AriaLiveAnnouncer>
+            <div className="container">
+                <div className="header">
+                    <Header />
+                </div>
+                <div className="topnav">
+                    <Breadcrumbs/>
+                </div>
+                <main className="main">
+                    <Routes>
+                        <Route path="/" element={<Navigate to={`${ROUTE_PARTS.HOME}`} replace/>}/>
+                        <Route path={`/${ROUTE_PARTS.HOME}/*`} element={<HomeView />} />
+                        <Route path={'/microsoft.devices/*'} element={<IotHub />} />
+                        <Route path="*" element={<NoMatchError/>}/>
+                    </Routes>
+                </main>
+                <ToastContainer
+                    autoClose={NOTIFICATION_AUTO_CLOSE}
+                />
             </div>
-            <div className="topnav">
-                <Breadcrumbs/>
-            </div>
-            <main className="main">
-                <Routes>
-                    <Route path="/" element={<Navigate to={`${ROUTE_PARTS.HOME}`} replace/>}/>
-                    <Route path={`/${ROUTE_PARTS.HOME}/*`} element={<HomeView />} />
-                    <Route path={'/microsoft.devices/*'} element={<IotHub />} />
-                    <Route path="*" element={<NoMatchError/>}/>
-                </Routes>
-            </main>
-            <ToastContainer
-                autoClose={NOTIFICATION_AUTO_CLOSE}
-                toastClassName="toast-notification"
-            />
-        </div>
+        </AriaLiveAnnouncer>
     );
 };

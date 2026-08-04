@@ -51,7 +51,16 @@ const darkBrand: BrandVariants = {
 };
 
 export const v9ThemeLight: Theme = createLightTheme(lightBrand);
-export const v9ThemeDark: Theme = createDarkTheme(darkBrand);
+
+// Override the dark theme's primary button colors to maintain sufficient contrast with white text.
+// Uses primary button colors from Azure portal dark mode
+export const v9ThemeDark: Theme = {
+    ...createDarkTheme(darkBrand),
+    colorBrandBackground: 'rgb(0, 120, 212)',
+    colorBrandBackgroundHover: 'rgb(16, 110, 190)',
+    colorBrandBackgroundPressed: darkBrand[20],
+    colorBrandBackgroundSelected: darkBrand[30],
+};
 
 // High contrast dark (white on black) — use Teams HC theme as-is
 export const v9ThemeHighContrastDark: Theme = teamsHighContrastTheme;

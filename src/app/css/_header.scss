@@ -59,6 +59,11 @@
         }
         .settings button {
             color: themed('headerButtonColor');
+            // Fluent v9 paints its focus ring as an ::after border coloured by
+            // --colorStrokeFocus2 and forces outline-style: none, so the token has
+            // to be overridden. The default is black, which is invisible against
+            // the dark header background.
+            --colorStrokeFocus2: #{themed('headerButtonColor')};
         }
         .settings button svg {
             color: var(--colorBrandForeground1);

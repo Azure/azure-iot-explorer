@@ -5,7 +5,7 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { DeviceQueryClause, DeviceQueryClauseProps } from './deviceQueryClause';
-import { ParameterType, OperationType } from '../../../api/models/deviceQuery';
+import { ParameterType } from '../../../api/models/deviceQuery';
 
 describe('DeviceQueryClause', () => {
     const defaultProps: DeviceQueryClauseProps = {
@@ -51,7 +51,7 @@ describe('DeviceQueryClause', () => {
             'deviceLists.query.searchPills.clause.parameterType.ariaLabel'
         ).textContent).toContain('deviceLists.query.searchPills.clause.parameterType.items.status');
         expect(screen.getByLabelText(
-            'deviceLists.query.searchPills.clause.value.placeholder'
+            'deviceLists.query.searchPills.clause.value.ariaLabel'
         ).textContent).toContain('deviceLists.query.searchPills.clause.value.deviceStatus.enabled');
     });
 });
