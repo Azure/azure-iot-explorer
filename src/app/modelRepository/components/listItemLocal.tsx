@@ -13,6 +13,7 @@ import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
 import { ListItemLocalLabel } from './listItemLocalLabel';
+import { restoreFocusTo } from '../../shared/hooks/useFocusRestore';
 
 export interface ListItemLocalProps {
     index: number;
@@ -36,6 +37,8 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
     const [ currentFolder, setCurrentFolder ] = React.useState(initialCurrentFolder);
     const [ showError, setShowError ] = React.useState<boolean>(false);
     const [ showFolderPicker, setShowFolderPicker ] = React.useState<boolean>(false);
+    // The "Pick a folder" button, so focus can be returned to it when the dialog closes.
+    const folderPickerButtonRef = React.useRef<HTMLButtonElement>(null);
 
     React.useEffect(() => {
         setCurrentFolder(initialCurrentFolder);
@@ -69,11 +72,13 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
     const dismissFolderPicker = () => {
         setCurrentFolder(item.value || getRootFolder());
         setShowFolderPicker(false);
+        restoreFocusTo(folderPickerButtonRef.current);
     };
 
     const onSelectFolder = () => {
         onChangeRepositoryLocationSettingValue(currentFolder);
         setShowFolderPicker(false);
+        restoreFocusTo(folderPickerButtonRef.current);
     };
 
     const onClickFolderName = (folder: string) => () => {
@@ -162,6 +167,7 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
             <div style={{ marginTop: 10, overflow: 'hidden' }}>
                 <Button
                     className="local-folder-launch"
+                    ref={folderPickerButtonRef}
                     aria-label={t(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker)}
                     onClick={onShowFolderPicker}
                 >

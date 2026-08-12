@@ -24,6 +24,7 @@ import {
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ChevronDownRegular } from '@fluentui/react-icons';
 import { ResizeColumnDialog } from './resizeColumnDialog';
+import { restoreFocusTo } from '../hooks/useFocusRestore';
 import '../../css/_resizableDetailsList.scss';
 
 export interface IColumn {
@@ -89,6 +90,15 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
     // Captured from the DataGrid header render prop so the dialog (rendered
     // outside that scope) can apply an exact width via setColumnWidth.
     const columnSizingRef = React.useRef<any>(null); // tslint:disable-line:no-any
+    // Header cells keyed by column id. The resize dialog is portalled out of the grid, so
+    // these are used to send keyboard focus back to the header that opened it.
+    const headerCellRefs = React.useRef<Record<string, HTMLElement | null>>({});
+
+    const closeResizeDialog = React.useCallback(() => {
+        const columnId = resizeColumnId;
+        setResizeColumnId(undefined);
+        restoreFocusTo(columnId !== undefined ? headerCellRefs.current[columnId] : null);
+    }, [resizeColumnId]);
 
 
     const getRowId = React.useCallback(
@@ -174,6 +184,7 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
                                 <MenuTrigger disableButtonEnhancement={true}>
                                     <DataGridHeaderCell
                                         className="rdl-header-cell"
+                                        ref={(element: HTMLElement | null) => { headerCellRefs.current[String(columnId)] = element; }}
                                     >
                                         <span className="rdl-header-label">{renderHeaderCell()}</span>
                                         <ChevronDownRegular className="rdl-header-chevron" aria-hidden={true} />
@@ -215,7 +226,7 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
         <ResizeColumnDialog
             open={resizeColumnId !== undefined}
             onResize={width => columnSizingRef.current?.setColumnWidth(resizeColumnId, width)}
-            onDismiss={() => setResizeColumnId(undefined)}
+            onDismiss={closeResizeDialog}
         />
         </>
     );

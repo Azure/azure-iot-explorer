@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { CommandBarV9 as CommandBar } from '../../../shared/components/commandBarV9';
-import { DrawerBody, DrawerHeader, DrawerHeaderTitle, Field, Input, Label, OverlayDrawer, Textarea } from '@fluentui/react-components';
+import { DrawerBody, DrawerHeader, DrawerHeaderTitle, Button, Field, Input, Label, OverlayDrawer, Textarea } from '@fluentui/react-components';
 import { IColumn, ResizableDetailsList } from '../../../shared/resizeDetailsList/resizableDetailsList';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
 import { getDeviceIdFromQueryString } from '../../../shared/utils/queryStringHelper';
@@ -14,7 +14,7 @@ import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { useHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
-import { AddCircleRegular, DeleteRegular } from '@fluentui/react-icons';
+import { AddCircleRegular, DeleteRegular, DismissRegular } from '@fluentui/react-icons';
 import './deviceSimulationPanel.scss';
 
 export interface DeviceSimulationPanelProps {
@@ -49,7 +49,16 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                 onOpenChange={(e, data) => { if (!data.open) {props.onToggleSimulationPanel();} }}
             >
                 <DrawerHeader>
-                    <DrawerHeaderTitle>
+                    <DrawerHeaderTitle
+                        action={
+                            <Button
+                                appearance="subtle"
+                                icon={<DismissRegular />}
+                                onClick={props.onToggleSimulationPanel}
+                                aria-label={t(ResourceKeys.common.close)}
+                            />
+                        }
+                    >
                         {t(ResourceKeys.deviceEvents.simulation.header)}
                     </DrawerHeaderTitle>
                 </DrawerHeader>
@@ -103,11 +112,17 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
         return (
             <>
                 <LabelWithTooltip
+                    htmlFor="simulation-event-body"
                     tooltipText={t(ResourceKeys.deviceEvents.simulation.advanced.body.tooltip)}
                 >
                     {t(ResourceKeys.deviceEvents.simulation.advanced.body.label)}
                 </LabelWithTooltip>
-                <Textarea rows={textFieldRows} onChange={onTextFieldChange}/>
+                <Textarea
+                    id="simulation-event-body"
+                    aria-label={t(ResourceKeys.deviceEvents.simulation.advanced.body.label)}
+                    rows={textFieldRows}
+                    onChange={onTextFieldChange}
+                />
             </>
         );
     };

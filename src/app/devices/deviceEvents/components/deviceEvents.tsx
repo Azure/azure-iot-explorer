@@ -23,6 +23,7 @@ import { DeviceContentTypePanel } from './deviceContentTypePanel';
 import { Loader } from './loader';
 import { EventsContent } from './eventsContent';
 import { SystemPropertyCheckBox } from './systemPropertyCheckBox';
+import { restoreFocusTo } from '../../../shared/hooks/useFocusRestore';
 import './deviceEvents.scss';
 
 export const DeviceEvents: React.FC = () => {
@@ -55,6 +56,10 @@ export const DeviceEvents: React.FC = () => {
 
     // message content type specific
     const [showContentTypePanel, setShowContentTypePanel] = React.useState(false);
+
+    // Toolbar buttons that open the panels, so focus can be returned to them on close.
+    const simulationButtonRef = React.useRef<HTMLButtonElement>(null);
+    const contentTypeButtonRef = React.useRef<HTMLButtonElement>(null);
 
     // IPC message subscription
     const unsubscribeRef = React.useRef<(() => void) | null>(null);
@@ -116,6 +121,8 @@ export const DeviceEvents: React.FC = () => {
                 showPnpModeledEvents={showPnpModeledEvents}
                 showSimulationPanel={showSimulationPanel}
                 showContentTypePanel={showContentTypePanel}
+                simulationButtonRef={simulationButtonRef}
+                contentTypeButtonRef={contentTypeButtonRef}
                 setMonitoringData={setMonitoringData}
                 setShowPnpModeledEvents={setShowPnpModeledEvents}
                 setShowSimulationPanel={setShowSimulationPanel}
@@ -196,10 +203,16 @@ export const DeviceEvents: React.FC = () => {
     };
 
     const onToggleSimulationPanel = () => {
+        if (showSimulationPanel) {
+            restoreFocusTo(simulationButtonRef.current);
+        }
         setShowSimulationPanel(!showSimulationPanel);
     };
 
     const onToggleContentTypePanel = () => {
+        if (showContentTypePanel) {
+            restoreFocusTo(contentTypeButtonRef.current);
+        }
         setShowContentTypePanel(!showContentTypePanel);
     };
 

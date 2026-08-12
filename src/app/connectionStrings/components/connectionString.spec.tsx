@@ -75,8 +75,17 @@ describe('ConnectionString', () => {
         expect(screen.getByText('connectionStrings.deleteConnection.title')).toBeInTheDocument();
     });
 
-    it('renders connection string properties labels', () => {
+    it('returns focus to the delete button when the confirmation is cancelled', () => {
         render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
+
+        const deleteButton = screen.getByLabelText('connectionStrings.deleteConnectionCommand.ariaLabel');
+        fireEvent.click(deleteButton);
+        fireEvent.click(screen.getByLabelText('connectionStrings.deleteConnection.no.ariaLabel'));
+
+        expect(document.activeElement).toBe(deleteButton);
+    });
+
+    it('renders connection string properties labels', () => {        render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
         expect(screen.getByText('connectionStrings.properties.hostName.label')).toBeInTheDocument();
         expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyName.label')).toBeInTheDocument();

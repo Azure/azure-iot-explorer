@@ -180,11 +180,13 @@ export const CloudToDeviceMessage: React.FC = () => {
         return (
             <>
                 <LabelWithTooltip
+                    htmlFor="cloud-to-device-message-body"
                     tooltipText={t(ResourceKeys.cloudToDeviceMessage.bodyTooltip)}
                 >
                     {t(ResourceKeys.cloudToDeviceMessage.body)}
                 </LabelWithTooltip>
                 <Textarea
+                    id="cloud-to-device-message-body"
                     className="cloud-to-device-message-text-field"
                     rows={textFieldRows}
                     onChange={onTextFieldChange}
@@ -210,8 +212,10 @@ export const CloudToDeviceMessage: React.FC = () => {
         switch (column.key) {
             case 'key':
                 if (item.isSystemProperty) {
+                    // No aria-label here: it would override the cell contents and make the
+                    // screen reader announce "Key" instead of the actual property name.
                     return (
-                        <Label aria-label={t(ResourceKeys.cloudToDeviceMessage.properties.key)}>
+                        <Label>
                             {item.keyName}
                         </Label>
                     );
@@ -266,7 +270,7 @@ export const CloudToDeviceMessage: React.FC = () => {
                     validationState={showExpiryError ? 'error' : 'none'}
                 >
                     <Input
-                        aria-label={t(ResourceKeys.cloudToDeviceMessage.properties.key)}
+                        aria-label={t(ResourceKeys.cloudToDeviceMessage.properties.value)}
                         value={item.value}
                         onChange={handleEditExpiryTime}
                     />

@@ -23,6 +23,8 @@ export interface CommandsProps {
     showPnpModeledEvents: boolean;
     showSimulationPanel: boolean;
     showContentTypePanel: boolean;
+    simulationButtonRef?: React.Ref<HTMLButtonElement>;
+    contentTypeButtonRef?: React.Ref<HTMLButtonElement>;
     setMonitoringData: (monitoringData: boolean) => void;
     setShowPnpModeledEvents: (showPnpModeledEvents: boolean) => void;
     setShowSimulationPanel: (showSimulationPanel: boolean) => void;
@@ -37,6 +39,8 @@ export const Commands: React.FC<CommandsProps> = ({
     showPnpModeledEvents,
     showSimulationPanel,
     showContentTypePanel,
+    simulationButtonRef,
+    contentTypeButtonRef,
     setMonitoringData,
     setShowPnpModeledEvents,
     setShowSimulationPanel,
@@ -105,6 +109,7 @@ export const Commands: React.FC<CommandsProps> = ({
     const createSimulationCommandItem = () => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.simulate),
+            buttonRef: simulationButtonRef,
             icon: <CodeRegular />,
             key: t(ResourceKeys.deviceEvents.command.simulate),
             name: t(ResourceKeys.deviceEvents.command.simulate),
@@ -136,6 +141,7 @@ export const Commands: React.FC<CommandsProps> = ({
     const createContentTypeCommandItem = () => {
         return {
             ariaLabel: t(ResourceKeys.deviceEvents.command.customizeContentType),
+            buttonRef: contentTypeButtonRef,
             disabled: state.formMode !== 'upserted' && state.formMode !== 'initialized'
                         && state.formMode !== 'setDecoderSucceeded' && state.formMode !== 'setDecoderFailed',
             icon: <ArrowUploadRegular />,

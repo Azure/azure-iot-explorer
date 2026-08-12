@@ -68,6 +68,11 @@ interface MonacoEditorComponentProps {
   placeholder?: string;
 }
 
+/** Space kept below the editor so the last line and its focus indicator stay clear of the window edge. */
+const EDITOR_BOTTOM_GUTTER = 24;
+/** The editor never collapses below this, even in very short windows. */
+const MIN_EDITOR_HEIGHT = 200;
+
 /**
  * MonacoEditorComponent with enhanced accessibility features
  *
@@ -77,6 +82,8 @@ interface MonacoEditorComponentProps {
  * - Tab key can exit editor when at end of content
  * - Proper ARIA labels and screen reader support
  * - Accessible focus management with next focusable element detection
+ * - Editor is capped to the visible window height so the caret is never obscured
+ *   by the window edge while navigating with the arrow keys (WCAG 2.4.11)
  */
 export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
   content,
@@ -92,6 +99,29 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
   const { editorTheme } = useThemeContext();
   const editorRef = React.useRef(null);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
+  const [visibleHeight, setVisibleHeight] = React.useState<number>(height);
+
+  /* The caller passes a fixed pixel height. When the window is shorter than that, the
+     bottom of the editor is pushed past the window edge: Monaco scrolls the caret into
+     view inside its own viewport, but that viewport is itself partly off-screen, so the
+     caret ends up obscured when navigating down with the arrow keys. Capping the editor
+     to the space actually visible keeps the caret and its focus indicator on screen. */
+  React.useLayoutEffect(() => {
+    const measure = () => {
+      const wrapper = wrapperRef.current;
+      if (!wrapper || typeof window === 'undefined') {
+        setVisibleHeight(height);
+        return;
+      }
+      const offsetFromWindowTop = wrapper.getBoundingClientRect().top;
+      const available = window.innerHeight - offsetFromWindowTop - EDITOR_BOTTOM_GUTTER;
+      setVisibleHeight(Math.max(MIN_EDITOR_HEIGHT, Math.min(height, Math.floor(available))));
+    };
+
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [height]);
 
   const handleEditorEscape = React.useCallback(() => {
     /* Enhanced focus escape mechanism for accessibility.
@@ -203,6 +233,8 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
       editor.updateOptions({
         accessibilitySupport: 'on',
         cursorBlinking: 'blink',
+        cursorSurroundingLines: 2,
+        cursorSurroundingLinesStyle: 'all',
         // Add screen reader optimizations
         screenReaderAnnounceInlineSuggestion: true,
         // Ensure proper focus handling
@@ -256,7 +288,7 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
       style={editorTheme === 'light' ? editorStyleLightCss : editorStyleDarkCss}
     >
       <MonacoEditor
-        height={height}
+        height={visibleHeight}
         width={'98%'}
         theme={editorTheme === 'light' ? 'vs' : 'vs-dark'}
         editorDidMount={handleEditorDidMount}
@@ -266,6 +298,10 @@ export const MonacoEditorComponent: React.FC<MonacoEditorComponentProps> = ({
             accessibilitySupport: 'on',
             ariaLabel: ariaLabel,
           automaticLayout: true,
+          // Keep lines visible above and below the caret so the focus indicator is never
+          // flush against (or clipped by) the editor viewport edge while arrowing around.
+          cursorSurroundingLines: 2,
+          cursorSurroundingLinesStyle: 'all',
           minimap: {
               enabled: false, // Do not display the preview slide on the right
             },

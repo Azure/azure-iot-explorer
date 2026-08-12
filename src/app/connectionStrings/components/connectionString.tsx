@@ -15,6 +15,7 @@ import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableT
 import { ConnectionStringWithExpiry } from '../state';
 import { CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS } from '../../constants/browserStorage';
 import { getDaysBeforeHubConnectionStringExpires } from '../../shared/utils/hubConnectionStringHelper';
+import { restoreFocusTo } from '../../shared/hooks/useFocusRestore';
 import './connectionString.scss';
 
 export interface ConnectionStringProps {
@@ -32,6 +33,8 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
     const { hostName, sharedAccessKey, sharedAccessKeyName } = connectionSettings;
     const resourceName = getResourceNameFromHostName(hostName);
     const [ confirmingDelete, setConfirmingDelete ] = React.useState<boolean>(false);
+    // The delete button, so focus can be returned to it when the confirmation is cancelled.
+    const deleteButtonRef = React.useRef<HTMLButtonElement>(null);
     const { t } = useTranslation();
 
     const onEditConnectionStringClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,6 +53,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
 
     const onDeleteConnectionStringCancel = () => {
         setConfirmingDelete(false);
+        restoreFocusTo(deleteButtonRef.current);
     };
 
     const onSelectConnectionStringClick = () => {
@@ -78,6 +82,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
                     />
                     <Button
                         appearance="subtle"
+                        ref={deleteButtonRef}
                         icon={<DeleteRegular />}
                         title={t(ResourceKeys.connectionStrings.deleteConnectionCommand.label)}
                         aria-label={t(ResourceKeys.connectionStrings.deleteConnectionCommand.ariaLabel, {connectionString})}

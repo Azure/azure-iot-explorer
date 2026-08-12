@@ -3,10 +3,9 @@
  * Licensed under the MIT License
  **********************************************************/
 import 'jest';
-import { render } from '@testing-library/react';
-import { ResizableDetailsList } from './resizableDetailsList';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { ResizableDetailsList, SelectionMode } from './resizableDetailsList';
 import * as React from 'react';
-import { SelectionMode } from './resizableDetailsList';
 
 describe('ResizableDetailsList', () => {
     it('renders data grid', () => {
@@ -17,5 +16,21 @@ describe('ResizableDetailsList', () => {
             onRenderItemColumn={jest.fn()}
         />);
         expect(container).toBeDefined();
+    });
+
+    it('returns focus to the column header when the resize dialog is dismissed', () => {
+        render(<ResizableDetailsList
+            items={[{ key: 'value' }]}
+            columns={[{ key: 'key', minWidth: 100, name: 'Key' }]}
+            selectionMode={SelectionMode.none}
+            onRenderItemColumn={() => <span>value</span>}
+        />);
+
+        const headerCell = screen.getByRole('columnheader');
+        fireEvent.click(headerCell);
+        fireEvent.click(screen.getByText('resizableDetailsList.buttons.resize'));
+        fireEvent.click(screen.getByText('resizableDetailsList.buttons.cancel'));
+
+        expect(document.activeElement).toBe(headerCell);
     });
 });

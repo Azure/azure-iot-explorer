@@ -93,6 +93,30 @@ describe('ListItemLocal', () => {
                 formState={[getInitialModelRepositoryFormState(), getInitialModelRepositoryFormOps()]}
             />
         );
+        expect(container).toBeDefined();
+    });
 
+    it('returns focus to the folder picker button when the dialog is dismissed', async () => {
+        jest.spyOn(Utils, 'getRootFolder').mockReturnValue('c:/models');
+
+        render(
+            <ListItemLocal
+                index={0}
+                item={{
+                    repositoryLocationType: REPOSITORY_LOCATION_TYPE.Local,
+                    value: 'c:/models'
+                }}
+                repoType={REPOSITORY_LOCATION_TYPE.Local}
+                formState={[getInitialModelRepositoryFormState(), getInitialModelRepositoryFormOps()]}
+            />
+        );
+
+        const pickerButton = screen.getByLabelText(ResourceKeys.modelRepository.types.local.folderPicker.command.openPicker);
+        await act(async () => { fireEvent.click(pickerButton); });
+        await act(async () => {
+            fireEvent.click(screen.getByText(ResourceKeys.modelRepository.types.local.folderPicker.command.cancel));
+        });
+
+        expect(document.activeElement).toBe(pickerButton);
     });
 });
