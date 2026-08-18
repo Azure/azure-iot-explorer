@@ -24,7 +24,7 @@ import {
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ChevronDownRegular } from '@fluentui/react-icons';
 import { ResizeColumnDialog } from './resizeColumnDialog';
-import { restoreFocusTo } from '../hooks/useFocusRestore';
+import { useFocusRestoreOnClose } from '../hooks/useFocusRestore';
 import '../../css/_resizableDetailsList.scss';
 
 export interface IColumn {
@@ -93,13 +93,22 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
     // Header cells keyed by column id. The resize dialog is portalled out of the grid, so
     // these are used to send keyboard focus back to the header that opened it.
     const headerCellRefs = React.useRef<Record<string, HTMLElement | null>>({});
+    // The dialog clears resizeColumnId as it closes, so remember which header opened it.
+    const resizeInvokerColumnIdRef = React.useRef<string | undefined>(undefined);
+
+    useFocusRestoreOnClose(
+        resizeColumnId !== undefined,
+        () => resizeInvokerColumnIdRef.current !== undefined ? headerCellRefs.current[resizeInvokerColumnIdRef.current] : null
+    );
+
+    const openResizeDialog = React.useCallback((columnId: string) => {
+        resizeInvokerColumnIdRef.current = columnId;
+        setResizeColumnId(columnId);
+    }, []);
 
     const closeResizeDialog = React.useCallback(() => {
-        const columnId = resizeColumnId;
         setResizeColumnId(undefined);
-        restoreFocusTo(columnId !== undefined ? headerCellRefs.current[columnId] : null);
-    }, [resizeColumnId]);
-
+    }, []);
 
     const getRowId = React.useCallback(
         (item: any) => getRowIdProp ? getRowIdProp(item) : String(items.indexOf(item)), // tslint:disable-line:no-any
@@ -192,7 +201,7 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
                                 </MenuTrigger>
                                 <MenuPopover>
                                     <MenuList>
-                                        <MenuItem onClick={() => setResizeColumnId(String(columnId))}>
+                                        <MenuItem onClick={() => openResizeDialog(String(columnId))}>
                                             {t(ResourceKeys.resizableDetailsList.buttons.resize)}
                                         </MenuItem>
                                         <MenuItem onClick={dataGrid.columnSizing_unstable.enableKeyboardMode(columnId)}>

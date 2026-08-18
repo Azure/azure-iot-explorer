@@ -59,8 +59,9 @@ describe('CloudToDeviceMessage', () => {
         }));
 
         // The cell must announce the property name, not the generic "Key" column label.
-        const keyCell = screen.getAllByRole('gridcell').find(cell => cell.textContent === 'lockToken');
-        expect(keyCell).toBeDefined();
+        // getByRole matches on the accessible name, so an aria-label on the Label inside
+        // the cell - which is what caused the bug - makes this fail.
+        expect(screen.getByRole('gridcell', { name: 'lockToken' })).toBeInTheDocument();
     });
 
     it('keeps a system property selection after the property list rerenders', () => {

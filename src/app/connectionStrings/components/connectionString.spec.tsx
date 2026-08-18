@@ -85,7 +85,8 @@ describe('ConnectionString', () => {
         expect(document.activeElement).toBe(deleteButton);
     });
 
-    it('renders connection string properties labels', () => {        render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
+    it('renders connection string properties labels', () => {
+        render(<MemoryRouter><ConnectionString {...defaultProps}/></MemoryRouter>);
 
         expect(screen.getByText('connectionStrings.properties.hostName.label')).toBeInTheDocument();
         expect(screen.getByText('connectionStrings.properties.sharedAccessPolicyName.label')).toBeInTheDocument();

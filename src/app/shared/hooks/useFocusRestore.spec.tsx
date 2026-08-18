@@ -3,8 +3,8 @@
  * Licensed under the MIT License
  **********************************************************/
 import * as React from 'react';
-import { render, screen, act } from '@testing-library/react';
-import { restoreFocusTo, useFocusRestore } from './useFocusRestore';
+import { render, screen, act, waitFor } from '@testing-library/react';
+import { restoreFocusTo, useFocusRestoreOnClose } from './useFocusRestore';
 
 describe('restoreFocusTo', () => {
     it('focuses the provided element', () => {
@@ -33,53 +33,68 @@ describe('restoreFocusTo', () => {
 
         expect(focus).not.toHaveBeenCalled();
     });
+
+    it('re-asserts focus when a focus trap steals it back on a later frame', async () => {
+        render(<><button>trigger</button><button>thief</button></>);
+        const button = screen.getByText('trigger');
+        const thief = screen.getByText('thief');
+
+        act(() => restoreFocusTo(button));
+        // Stand in for Fluent's trap, which pulls focus back inside the surface while it
+        // is still mounted playing its exit motion.
+        act(() => { thief.focus(); });
+
+        await waitFor(() => expect(document.activeElement).toBe(button));
+    });
 });
 
-describe('useFocusRestore', () => {
-    const TestComponent: React.FC = () => {
-        const { captureInvoker, restoreFocus } = useFocusRestore();
+describe('useFocusRestoreOnClose', () => {
+    const TestComponent: React.FC<{ skipOnClose?: boolean }> = ({ skipOnClose }) => {
         const [open, setOpen] = React.useState(false);
+        const invokerRef = React.useRef<HTMLButtonElement>(null);
+        const { skipNextRestore } = useFocusRestoreOnClose(open, () => invokerRef.current);
 
         return (
             <>
-                <button
-                    onClick={event => { captureInvoker(event.currentTarget); setOpen(true); }}
-                >
-                    open
-                </button>
-                {open && <button onClick={() => { setOpen(false); restoreFocus(); }}>close</button>}
+                <button ref={invokerRef} onClick={() => setOpen(true)}>open</button>
+                {open &&
+                    <button onClick={() => { if (skipOnClose) { skipNextRestore(); } setOpen(false); }}>close</button>
+                }
             </>
         );
     };
 
-    it('returns focus to the element that opened the surface', () => {
+    it('returns focus to the element that opened the surface once it closes', () => {
         render(<TestComponent/>);
         const opener = screen.getByText('open');
 
         act(() => { opener.click(); });
+        expect(document.activeElement).not.toBe(opener);
+
         act(() => { screen.getByText('close').click(); });
 
         expect(document.activeElement).toBe(opener);
     });
 
-    it('captures the active element when no element is supplied', () => {
-        const Component: React.FC = () => {
-            const { captureInvoker, restoreFocus } = useFocusRestore();
-            return (
-                <>
-                    <button onClick={() => captureInvoker()}>capture</button>
-                    <button onClick={() => restoreFocus()}>restore</button>
-                </>
-            );
-        };
+    it('does not move focus while the surface is still open', () => {
+        render(<TestComponent/>);
+        const opener = screen.getByText('open');
+        const previous = document.activeElement;
 
-        render(<Component/>);
-        const capture = screen.getByText('capture');
-        const restore = screen.getByText('restore');
+        act(() => { opener.click(); });
 
-        act(() => { capture.focus(); capture.click(); });
-        act(() => { restore.focus(); restore.click(); });
+        expect(document.activeElement).toBe(previous);
+    });
 
-        expect(document.activeElement).toBe(capture);
+    it('skips a single restore when asked to', () => {
+        render(<TestComponent skipOnClose={true}/>);
+        const opener = screen.getByText('open');
+        const previous = document.activeElement;
+
+        act(() => { opener.click(); });
+        act(() => { screen.getByText('close').click(); });
+
+        expect(document.activeElement).toBe(previous);
+        expect(document.activeElement).not.toBe(opener);
     });
 });

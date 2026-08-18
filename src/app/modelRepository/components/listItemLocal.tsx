@@ -13,7 +13,7 @@ import { getRootFolder, getParentFolder } from '../../shared/utils/utils';
 import { ModelRepositoryConfiguration } from '../../shared/modelRepository/state';
 import { ModelRepositoryFormType } from '../hooks/useModelRepositoryForm';
 import { ListItemLocalLabel } from './listItemLocalLabel';
-import { restoreFocusTo } from '../../shared/hooks/useFocusRestore';
+import { useFocusRestoreOnClose } from '../../shared/hooks/useFocusRestore';
 
 export interface ListItemLocalProps {
     index: number;
@@ -39,6 +39,7 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
     const [ showFolderPicker, setShowFolderPicker ] = React.useState<boolean>(false);
     // The "Pick a folder" button, so focus can be returned to it when the dialog closes.
     const folderPickerButtonRef = React.useRef<HTMLButtonElement>(null);
+    useFocusRestoreOnClose(showFolderPicker, () => folderPickerButtonRef.current);
 
     React.useEffect(() => {
         setCurrentFolder(initialCurrentFolder);
@@ -72,13 +73,11 @@ export const ListItemLocal: React.FC<ListItemLocalProps> = ({ item, index, repoT
     const dismissFolderPicker = () => {
         setCurrentFolder(item.value || getRootFolder());
         setShowFolderPicker(false);
-        restoreFocusTo(folderPickerButtonRef.current);
     };
 
     const onSelectFolder = () => {
         onChangeRepositoryLocationSettingValue(currentFolder);
         setShowFolderPicker(false);
-        restoreFocusTo(folderPickerButtonRef.current);
     };
 
     const onClickFolderName = (folder: string) => () => {

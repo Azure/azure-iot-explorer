@@ -15,7 +15,7 @@ import { MaskedCopyableTextField } from '../../shared/components/maskedCopyableT
 import { ConnectionStringWithExpiry } from '../state';
 import { CONNECTION_STRING_EXPIRATION_WARNING_IN_DAYS } from '../../constants/browserStorage';
 import { getDaysBeforeHubConnectionStringExpires } from '../../shared/utils/hubConnectionStringHelper';
-import { restoreFocusTo } from '../../shared/hooks/useFocusRestore';
+import { useFocusRestoreOnClose } from '../../shared/hooks/useFocusRestore';
 import './connectionString.scss';
 
 export interface ConnectionStringProps {
@@ -35,6 +35,7 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
     const [ confirmingDelete, setConfirmingDelete ] = React.useState<boolean>(false);
     // The delete button, so focus can be returned to it when the confirmation is cancelled.
     const deleteButtonRef = React.useRef<HTMLButtonElement>(null);
+    const { skipNextRestore } = useFocusRestoreOnClose(confirmingDelete, () => deleteButtonRef.current);
     const { t } = useTranslation();
 
     const onEditConnectionStringClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,13 +48,14 @@ export const ConnectionString: React.FC<ConnectionStringProps> = (props: Connect
     };
 
     const onDeleteConnectionStringConfirm = () => {
+        // The row - and with it the delete button - goes away, so there is nothing to focus.
+        skipNextRestore();
         setConfirmingDelete(false);
         onDeleteConnectionString(connectionString);
     };
 
     const onDeleteConnectionStringCancel = () => {
         setConfirmingDelete(false);
-        restoreFocusTo(deleteButtonRef.current);
     };
 
     const onSelectConnectionStringClick = () => {

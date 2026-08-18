@@ -4,13 +4,18 @@
  **********************************************************/
 import * as React from 'react';
 
+/** How long to keep re-asserting focus while a surface plays its exit motion. */
+const FOCUS_RESTORE_TIMEOUT_MS = 500;
+
 /**
  * Moves keyboard focus back to the element that opened a dialog, drawer or menu.
  *
- * Fluent moves focus asynchronously while a surface unmounts, so the focus call is
- * repeated on the next frame to make sure it is not overwritten. Elements that were
- * removed from the document in the meantime are ignored so focus is never forced onto
- * a detached node.
+ * Fluent keeps a modal surface mounted - with tabster's focus trap still active - while it
+ * plays its exit motion, and the trap pulls focus back inside for as long as it is up. A
+ * single focus() call therefore gets undone. Focus is re-asserted on each animation frame
+ * until it sticks, or until a short deadline passes so a permanently unfocusable target
+ * cannot spin forever. Elements removed from the document are ignored so focus is never
+ * forced onto a detached node.
  */
 export const restoreFocusTo = (element: HTMLElement | null | undefined): void => {
     if (!element || !element.isConnected) {
@@ -19,38 +24,79 @@ export const restoreFocusTo = (element: HTMLElement | null | undefined): void =>
 
     element.focus();
 
-    if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
-        window.requestAnimationFrame(() => {
-            if (element.isConnected) {
-                element.focus();
-            }
-        });
+    if (typeof window === 'undefined' || typeof window.requestAnimationFrame !== 'function') {
+        return;
     }
+
+    const deadline = Date.now() + FOCUS_RESTORE_TIMEOUT_MS;
+    const retry = () => {
+        if (!element.isConnected) {
+            return;
+        }
+
+        if (element.ownerDocument?.activeElement !== element) {
+            element.focus();
+        }
+
+        // Keep polling rather than stopping at the first success: the trap can steal focus
+        // back on a later frame, at any point until the surface finishes unmounting.
+        if (Date.now() < deadline) {
+            window.requestAnimationFrame(retry);
+        }
+    };
+
+    window.requestAnimationFrame(retry);
 };
 
-export interface FocusRestore {
-    /** Remembers the element to return focus to. Defaults to the currently focused element. */
-    captureInvoker(element?: HTMLElement | null): void;
-    /** Returns focus to the previously captured element and clears it. */
-    restoreFocus(): void;
+export interface FocusRestoreOnClose {
+    /**
+     * Suppresses the focus restore for the next close only. Use when closing is followed by
+     * navigation, or by removing the invoker, where returning focus to it makes no sense.
+     */
+    skipNextRestore(): void;
 }
 
 /**
- * Tracks the control that triggered a transient surface so focus can be returned to it
- * on close, as required by WCAG 2.4.3 (Focus Order).
+ * Returns focus to the control that opened a transient surface once that surface has
+ * actually closed, as required by WCAG 2.4.3 (Focus Order).
+ *
+ * The restore runs from an effect keyed on the open flag rather than from the click
+ * handler, so focus is never moved while the surface is still open and holding a focus
+ * trap - doing that both fails to stick and briefly focuses an element hidden behind a
+ * modal.
+ *
+ * @param isOpen whether the surface is currently open
+ * @param getInvoker resolves the element to focus; read at close time, so a surface shared
+ *                   by several controls can return focus to whichever one opened it
  */
-export const useFocusRestore = (): FocusRestore => {
-    const invokerRef = React.useRef<HTMLElement | null>(null);
+export const useFocusRestoreOnClose = (
+    isOpen: boolean,
+    getInvoker: () => HTMLElement | null | undefined
+): FocusRestoreOnClose => {
+    const wasOpenRef = React.useRef<boolean>(isOpen);
+    const skipRef = React.useRef<boolean>(false);
+    const getInvokerRef = React.useRef(getInvoker);
+    getInvokerRef.current = getInvoker;
 
-    const captureInvoker = React.useCallback((element?: HTMLElement | null) => {
-        invokerRef.current = element ?? (document.activeElement as HTMLElement | null);
+    React.useEffect(() => {
+        const wasOpen = wasOpenRef.current;
+        wasOpenRef.current = isOpen;
+
+        if (!wasOpen || isOpen) {
+            return;
+        }
+
+        if (skipRef.current) {
+            skipRef.current = false;
+            return;
+        }
+
+        restoreFocusTo(getInvokerRef.current());
+    }, [isOpen]);
+
+    const skipNextRestore = React.useCallback(() => {
+        skipRef.current = true;
     }, []);
 
-    const restoreFocus = React.useCallback(() => {
-        const invoker = invokerRef.current;
-        invokerRef.current = null;
-        restoreFocusTo(invoker);
-    }, []);
-
-    return { captureInvoker, restoreFocus };
+    return { skipNextRestore };
 };

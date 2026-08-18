@@ -19,6 +19,7 @@ import { useBreadcrumbEntry } from '../../navigation/hooks/useBreadcrumbEntry';
 import { AppInsightsClient } from '../../shared/appTelemetry/appInsightsClient';
 import { TELEMETRY_PAGE_NAMES } from '../../constants/telemetry';
 import { useConnectionStringContext } from '../context/connectionStringStateContext';
+import { useFocusRestoreOnClose } from '../../shared/hooks/useFocusRestore';
 import { ConnectionStringCommandBar } from './commandBar';
 import './connectionStringsView.scss';
 
@@ -34,6 +35,7 @@ export const ConnectionStringsView: React.FC = () => {
     // The drawer is shared by the add button and every row's edit button, so this is
     // assigned per invocation rather than being tied to a single control.
     const drawerInvokerRef = React.useRef<HTMLElement>(null);
+    useFocusRestoreOnClose(connectionStringUnderEdit !== undefined, () => drawerInvokerRef.current);
 
     const connectionStringsWithExpiry = state.payload;
     const synchronizationStatus = state.synchronizationStatus;
@@ -70,20 +72,13 @@ export const ConnectionStringsView: React.FC = () => {
         setConnectionStringUnderEdit(connectionString);
     };
 
-    const restoreFocusToDrawerInvoker = () => {
-        drawerInvokerRef.current?.focus();
-        drawerInvokerRef.current = null;
-    };
-
     const onConnectionStringEditCommit = (connectionString: string) => {
         onUpsertConnectionString(connectionString, connectionStringUnderEdit);
         setConnectionStringUnderEdit(undefined);
-        restoreFocusToDrawerInvoker();
     };
 
     const onConnectionStringEditDismiss = () => {
         setConnectionStringUnderEdit(undefined);
-        restoreFocusToDrawerInvoker();
     };
 
     React.useEffect(() => {

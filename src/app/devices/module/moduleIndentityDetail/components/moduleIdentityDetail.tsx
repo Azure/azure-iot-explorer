@@ -26,7 +26,7 @@ import { useIotHubContext } from '../../../../iotHub/hooks/useIotHubContext';
 import { AppInsightsClient } from '../../../../shared/appTelemetry/appInsightsClient';
 import { LiveRegion } from '../../../../shared/components/liveRegion';
 import { TELEMETRY_PAGE_NAMES } from '../../../../../app/constants/telemetry';
-import { restoreFocusTo } from '../../../../shared/hooks/useFocusRestore';
+import { useFocusRestoreOnClose } from '../../../../shared/hooks/useFocusRestore';
 import '../../../../css/_deviceDetail.scss';
 
 export const ModuleIdentityDetail: React.FC = () => {
@@ -44,6 +44,7 @@ export const ModuleIdentityDetail: React.FC = () => {
     const [ announcement, setAnnouncement ] = React.useState('');
     // Toolbar button that opens the delete dialog, so focus can be returned to it on cancel.
     const deleteButtonRef = React.useRef<HTMLButtonElement>(null);
+    const { skipNextRestore } = useFocusRestoreOnClose(showDeleteConfirmation, () => deleteButtonRef.current);
     const isDeleted = synchronizationStatus === SynchronizationStatus.deleted;
     const isFetching = synchronizationStatus === SynchronizationStatus.working;
     const isUpdating = synchronizationStatus === SynchronizationStatus.updating;
@@ -65,6 +66,8 @@ export const ModuleIdentityDetail: React.FC = () => {
     const retrieveData = () => dispatch(getModuleIdentityAction.started({ deviceId, moduleId }));
 
     const onDelete = () =>  {
+        // Deleting navigates away from this module, so focus must not be pulled back to the toolbar.
+        skipNextRestore();
         setAnnouncement(t(ResourceKeys.moduleIdentity.detail.command.delete));
         dispatch(deleteModuleIdentityAction.started({
             deviceId,
@@ -233,7 +236,6 @@ export const ModuleIdentityDetail: React.FC = () => {
     // Cancelling the dialog must send focus back to the Delete command that opened it.
     const closeDeleteDialog = () => {
         setShowDeleteConfirmation(false);
-        restoreFocusTo(deleteButtonRef.current);
     };
 
     return (
