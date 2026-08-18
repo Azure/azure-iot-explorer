@@ -14,6 +14,7 @@ import { LabelWithTooltip } from '../../../shared/components/labelWithTooltip';
 import { CollapsibleSection } from '../../../shared/components/collapsibleSection';
 import { MaskedCopyableTextField } from '../../../shared/components/maskedCopyableTextField';
 import { useHubInformationFromLocalStorage } from '../hooks/localStorageInformationRetriever';
+import { useEscapeGuard } from '../../../shared/hooks/useEscapeGuard';
 import { AddCircleRegular, DeleteRegular, DismissRegular } from '@fluentui/react-icons';
 import './deviceSimulationPanel.scss';
 
@@ -39,6 +40,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
     const [ propertyIndex, setPropertyIndex ] = React.useState<number>(0);
     const [ selectedIndices, setSelectedIndices ] = React.useState<Set<number>>(new Set());
     const [ properties, setProperties ] = React.useState<PropertyItem[]>([{index: 0, keyName: '', value: ''}]);
+    const escapeGuard = useEscapeGuard();
 
     const renderSimulationPanel= () => {
         return (
@@ -122,6 +124,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                     aria-label={t(ResourceKeys.deviceEvents.simulation.advanced.body.label)}
                     rows={textFieldRows}
                     onChange={onTextFieldChange}
+                    {...escapeGuard}
                 />
             </>
         );
@@ -182,6 +185,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                             aria-label={t(ResourceKeys.deviceEvents.simulation.advanced.properties.key)}
                             value={item.keyName}
                             onChange={handleEditCustomPropertyKey}
+                            {...escapeGuard}
                         />
                     </Field>);
             case 'value':
@@ -215,6 +219,7 @@ export const DeviceSimulationPanel: React.FC<DeviceSimulationPanelProps> = props
                 aria-label={t(ResourceKeys.deviceEvents.simulation.advanced.properties.value)}
                 value={item.value}
                 onChange={handleEditPropertyValue}
+                {...escapeGuard}
             />);
     };
 
