@@ -101,11 +101,12 @@ export const DeviceContentTypePanel: React.FC<DeviceContentTypePanelProps> = pro
                         </Field>
                         {decodeType !== 'JSON' &&
                             <>
-                                <Label>{t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.label)}</Label>
+                                <Label htmlFor="protoFile">{t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.label)}</Label>
                                 <input
                                     type="file"
                                     id="protoFile"
                                     name="protoFile"
+                                    aria-label={t(ResourceKeys.deviceEvents.customizeContentType.protobuf.file.label)}
                                     accept=".proto"
                                     required={state.contentType.decoderProtoFile === undefined}
                                     disabled={state.formMode === 'working'}

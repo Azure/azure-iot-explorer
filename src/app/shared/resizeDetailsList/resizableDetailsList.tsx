@@ -24,6 +24,7 @@ import {
 import { ResourceKeys } from '../../../localization/resourceKeys';
 import { ChevronDownRegular } from '@fluentui/react-icons';
 import { ResizeColumnDialog } from './resizeColumnDialog';
+import { useFocusRestoreOnClose } from '../hooks/useFocusRestore';
 import '../../css/_resizableDetailsList.scss';
 
 export interface IColumn {
@@ -89,7 +90,25 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
     // Captured from the DataGrid header render prop so the dialog (rendered
     // outside that scope) can apply an exact width via setColumnWidth.
     const columnSizingRef = React.useRef<any>(null); // tslint:disable-line:no-any
+    // Header cells keyed by column id. The resize dialog is portalled out of the grid, so
+    // these are used to send keyboard focus back to the header that opened it.
+    const headerCellRefs = React.useRef<Record<string, HTMLElement | null>>({});
+    // The dialog clears resizeColumnId as it closes, so remember which header opened it.
+    const resizeInvokerColumnIdRef = React.useRef<string | undefined>(undefined);
 
+    useFocusRestoreOnClose(
+        resizeColumnId !== undefined,
+        () => resizeInvokerColumnIdRef.current !== undefined ? headerCellRefs.current[resizeInvokerColumnIdRef.current] : null
+    );
+
+    const openResizeDialog = React.useCallback((columnId: string) => {
+        resizeInvokerColumnIdRef.current = columnId;
+        setResizeColumnId(columnId);
+    }, []);
+
+    const closeResizeDialog = React.useCallback(() => {
+        setResizeColumnId(undefined);
+    }, []);
 
     const getRowId = React.useCallback(
         (item: any) => getRowIdProp ? getRowIdProp(item) : String(items.indexOf(item)), // tslint:disable-line:no-any
@@ -174,6 +193,7 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
                                 <MenuTrigger disableButtonEnhancement={true}>
                                     <DataGridHeaderCell
                                         className="rdl-header-cell"
+                                        ref={(element: HTMLElement | null) => { headerCellRefs.current[String(columnId)] = element; }}
                                     >
                                         <span className="rdl-header-label">{renderHeaderCell()}</span>
                                         <ChevronDownRegular className="rdl-header-chevron" aria-hidden={true} />
@@ -181,7 +201,7 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
                                 </MenuTrigger>
                                 <MenuPopover>
                                     <MenuList>
-                                        <MenuItem onClick={() => setResizeColumnId(String(columnId))}>
+                                        <MenuItem onClick={() => openResizeDialog(String(columnId))}>
                                             {t(ResourceKeys.resizableDetailsList.buttons.resize)}
                                         </MenuItem>
                                         <MenuItem onClick={dataGrid.columnSizing_unstable.enableKeyboardMode(columnId)}>
@@ -215,7 +235,7 @@ export const ResizableDetailsList: React.FC<ResizableDetailsListProps> = props =
         <ResizeColumnDialog
             open={resizeColumnId !== undefined}
             onResize={width => columnSizingRef.current?.setColumnWidth(resizeColumnId, width)}
-            onDismiss={() => setResizeColumnId(undefined)}
+            onDismiss={closeResizeDialog}
         />
         </>
     );

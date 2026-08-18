@@ -48,6 +48,22 @@ describe('CloudToDeviceMessage', () => {
         expect(screen.getByText('cloudToDeviceMessage.properties.addCustomProperty')).toBeInTheDocument();
     });
 
+    it('exposes the system property name as the key cell content for screen readers', () => {
+        render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
+
+        fireEvent.click(screen.getByRole('button', {
+            name: 'cloudToDeviceMessage.properties.addSystemProperty'
+        }));
+        fireEvent.click(screen.getByRole('menuitem', {
+            name: 'cloudToDeviceMessage.properties.systemProperties.lockToken.displayName'
+        }));
+
+        // The cell must announce the property name, not the generic "Key" column label.
+        // getByRole matches on the accessible name, so an aria-label on the Label inside
+        // the cell - which is what caused the bug - makes this fail.
+        expect(screen.getByRole('gridcell', { name: 'lockToken' })).toBeInTheDocument();
+    });
+
     it('keeps a system property selection after the property list rerenders', () => {
         render(<MemoryRouter><CloudToDeviceMessage/></MemoryRouter>);
 

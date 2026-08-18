@@ -80,3 +80,28 @@ input::placeholder {
         color: themed('disabledText') !important;
     }
 }
+
+// The compat Calendar used by DatePicker (@fluentui/react-datepicker-compat) only
+// applies a Fluent focus ring to the day cells. Its navigation and picker buttons
+// fall back to the platform default, which renders as a thin low-contrast outline
+// (measured at 1.2:1 / 2.4:1) and fails MAS 1.4.11 / WCAG 2.1 non-text contrast.
+// Give them an explicit 2px themed outline instead.
+.fui-Calendar {
+    .fui-CalendarDay__headerIconButton,
+    .fui-CalendarDay__monthAndYear,
+    .fui-CalendarPicker__navigationButton,
+    .fui-CalendarPicker__currentItemButton,
+    .fui-CalendarPicker__itemButton,
+    .fui-Calendar__goTodayButton {
+        &:focus-visible {
+            outline-offset: -2px;
+            @include themify($themes) {
+                outline: 2px solid themed('linkColor');
+            }
+
+            @media (forced-colors: active) {
+                outline: 2px solid Highlight;
+            }
+        }
+    }
+}

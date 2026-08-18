@@ -53,11 +53,13 @@ export const DirectMethodForm: React.FC<DirectMethodForm> = ({
         return (
             <div className="method-payload">
                 <LabelWithTooltip
+                    htmlFor="direct-method-payload"
                     tooltipText={t(ResourceKeys.directMethod.payloadTooltip)}
                 >
                     {t(ResourceKeys.directMethod.payload)}
                 </LabelWithTooltip>
                 <Textarea
+                    id="direct-method-payload"
                     aria-label={t(ResourceKeys.directMethod.payload)}
                     className="payload-input"
                     rows={textFieldRows}

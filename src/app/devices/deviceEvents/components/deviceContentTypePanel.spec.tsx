@@ -83,4 +83,17 @@ describe('DeviceContentTypePanel', () => {
 
         expect(screen.queryByText('deviceEvents.customizeContentType.protobuf.file.label')).toBeNull();
     });
+
+    it('associates the decoder file label with the file input', () => {
+        (deviceEventsStateContext.useDeviceEventsStateContext as jest.Mock).mockReturnValue([
+            { ...defaultState, contentType: { ...defaultState.contentType, decodeType: 'Protobuf' as const } },
+            { setDecoderInfo: mockSetDecoderInfo, setDefaultDecodeInfo: mockSetDefaultDecodeInfo }
+        ]);
+        render(<DeviceContentTypePanel showContentTypePanel={true} onToggleContentTypePanel={jest.fn()}/>);
+
+        const fileInput = screen.getByLabelText('deviceEvents.customizeContentType.protobuf.file.label');
+        expect(fileInput).toHaveAttribute('type', 'file');
+        expect(screen.getByText('deviceEvents.customizeContentType.protobuf.file.label'))
+            .toHaveAttribute('for', 'protoFile');
+    });
 });
