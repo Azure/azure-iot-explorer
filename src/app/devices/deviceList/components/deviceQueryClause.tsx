@@ -100,6 +100,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                     value={parameterType ? getParameterTypeText(parameterType) : ''}
                     placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.placeholder)}
                     aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
+                    aria-invalid={!parameterType}
                     ref={parameterTypeRef}
                 >
                     {Object.keys(ParameterType).map(parameter => (
@@ -157,6 +158,7 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                     onOptionSelect={onValueDropdownChange}
                     placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
                     aria-label={valueAriaLabel}
+                    aria-invalid={!value}
                     selectedOptions={value ? [value] : []}
                     value={value ? getValueText(value) : ''}
                 >

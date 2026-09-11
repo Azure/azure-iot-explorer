@@ -183,7 +183,7 @@
                 border-color: themed("searchBorderHoverColor");
             }
         }
-        .search-pill.error {
+        .search-pill [aria-invalid="true"] {
             @include themify($themes) {
                 border-color: themed("searchBorderErrorColor");
             }
