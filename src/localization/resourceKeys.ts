@@ -641,6 +641,7 @@ export class ResourceKeys {
                      status : "deviceLists.query.searchPills.clause.parameterType.items.status",
                      statusUpdateTime : "deviceLists.query.searchPills.clause.parameterType.items.statusUpdateTime",
                   },
+                  label : "deviceLists.query.searchPills.clause.parameterType.label",
                   placeholder : "deviceLists.query.searchPills.clause.parameterType.placeholder",
                },
                remove : {
@@ -657,6 +658,7 @@ export class ResourceKeys {
                      disabled : "deviceLists.query.searchPills.clause.value.deviceStatus.disabled",
                      enabled : "deviceLists.query.searchPills.clause.value.deviceStatus.enabled",
                   },
+                  label : "deviceLists.query.searchPills.clause.value.label",
                   placeholder : "deviceLists.query.searchPills.clause.value.placeholder",
                },
             },

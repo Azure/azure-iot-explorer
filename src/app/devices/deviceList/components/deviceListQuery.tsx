@@ -123,7 +123,7 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
                 />)}
                 {clauses && clauses.length > 0 && <Button
                     appearance="primary"
-                    className="search-pill"
+                    className="search-pill search-pill-action"
                     onClick={setQueryFromQueryPillsAndExecute}
                     aria-label={t(ResourceKeys.deviceLists.query.searchPills.search.ariaLabel)}
                 >
@@ -131,7 +131,7 @@ export const DeviceListQuery: React.FC<DeviceListQueryProps> = (props: DeviceLis
                 </Button>}
                 <Button
                     appearance="transparent"
-                    className="search-pill"
+                    className="search-pill search-pill-action"
                     icon={<FilterRegular />}
                     onClick={onAddClause}
                     aria-label={t(ResourceKeys.deviceLists.query.searchPills.add.ariaLabel)}
