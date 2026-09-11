@@ -21,7 +21,9 @@ describe('DeviceQueryClause', () => {
     it('renders parameter type dropdown', () => {
         render(<DeviceQueryClause {...defaultProps}/>);
 
-        expect(screen.getByLabelText('deviceLists.query.searchPills.clause.parameterType.ariaLabel')).toBeInTheDocument();
+        expect(screen.getByLabelText(
+            'deviceLists.query.searchPills.clause.parameterType.ariaLabel'
+        )).toHaveAttribute('aria-invalid', 'true');
     });
 
     it('renders remove button', () => {
@@ -47,11 +49,31 @@ describe('DeviceQueryClause', () => {
             value="enabled"
         />);
 
-        expect(screen.getByLabelText(
+        const parameterDropdown = screen.getByLabelText(
             'deviceLists.query.searchPills.clause.parameterType.ariaLabel'
-        ).textContent).toContain('deviceLists.query.searchPills.clause.parameterType.items.status');
+        );
+        const valueDropdown = screen.getByLabelText(
+            'deviceLists.query.searchPills.clause.value.ariaLabel'
+        );
+
+        expect(parameterDropdown).toHaveAttribute('aria-invalid', 'false');
+        expect(parameterDropdown.textContent).toContain(
+            'deviceLists.query.searchPills.clause.parameterType.items.status'
+        );
+        expect(valueDropdown).toHaveAttribute('aria-invalid', 'false');
+        expect(valueDropdown.textContent).toContain(
+            'deviceLists.query.searchPills.clause.value.deviceStatus.enabled'
+        );
+    });
+
+    it('marks the value dropdown invalid when it has no selection', () => {
+        render(<DeviceQueryClause
+            {...defaultProps}
+            parameterType={ParameterType.status}
+        />);
+
         expect(screen.getByLabelText(
             'deviceLists.query.searchPills.clause.value.ariaLabel'
-        ).textContent).toContain('deviceLists.query.searchPills.clause.value.deviceStatus.enabled');
+        )).toHaveAttribute('aria-invalid', 'true');
     });
 });

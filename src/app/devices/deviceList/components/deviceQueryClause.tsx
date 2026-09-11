@@ -4,7 +4,7 @@
  **********************************************************/
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Dropdown, Option } from '@fluentui/react-components';
+import { Button, Dropdown, Label, Option } from '@fluentui/react-components';
 import { DismissCircleRegular } from '@fluentui/react-icons';
 import { QueryClause, ParameterType, DeviceCapability, DeviceStatus } from '../../../api/models/deviceQuery';
 import { ResourceKeys } from '../../../../localization/resourceKeys';
@@ -89,25 +89,31 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
 
     const renderParameterDropdown = () => {
         return (
-            <Dropdown
-                className="parameter-type"
-                onOptionSelect={onTypeChange}
-                selectedOptions={parameterType ? [parameterType] : []}
-                value={parameterType ? getParameterTypeText(parameterType) : ''}
-                placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.placeholder)}
-                aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
-                ref={parameterTypeRef}
-            >
-                {Object.keys(ParameterType).map(parameter => (
-                    <Option
-                        key={(ParameterType as any)[parameter]}
-                        value={(ParameterType as any)[parameter]}
-                        text={t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])}
-                    >
-                        {t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])}
-                    </Option>
-                ))}
-            </Dropdown>
+            <div className="clause-field">
+                <Label className="clause-field-label" size="small" aria-hidden={true}>
+                    {t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.label)}
+                </Label>
+                <Dropdown
+                    className="parameter-type"
+                    onOptionSelect={onTypeChange}
+                    selectedOptions={parameterType ? [parameterType] : []}
+                    value={parameterType ? getParameterTypeText(parameterType) : ''}
+                    placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.placeholder)}
+                    aria-label={t(ResourceKeys.deviceLists.query.searchPills.clause.parameterType.ariaLabel)}
+                    aria-invalid={!parameterType}
+                    ref={parameterTypeRef}
+                >
+                    {Object.keys(ParameterType).map(parameter => (
+                        <Option
+                            key={(ParameterType as any)[parameter]}
+                            value={(ParameterType as any)[parameter]}
+                            text={t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])}
+                        >
+                            {t((ResourceKeys.deviceLists.query.searchPills.clause.parameterType.items as any)[parameter])}
+                        </Option>
+                    ))}
+                </Dropdown>
+            </div>
         );
     };
 
@@ -142,33 +148,30 @@ export const DeviceQueryClause: React.FC<DeviceQueryClauseProps & DeviceQueryCla
                 ResourceKeys.deviceLists.query.searchPills.clause.value.ariaLabel,
                 { parameter: getParameterTypeText(parameterType) }
             );
+        const renderValueDropdown = (options: React.ReactElement[]) => (
+            <div className="clause-field">
+                <Label className="clause-field-label" size="small" aria-hidden={true}>
+                    {t(ResourceKeys.deviceLists.query.searchPills.clause.value.label)}
+                </Label>
+                <Dropdown
+                    className="clause-value"
+                    onOptionSelect={onValueDropdownChange}
+                    placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
+                    aria-label={valueAriaLabel}
+                    aria-invalid={!value}
+                    selectedOptions={value ? [value] : []}
+                    value={value ? getValueText(value) : ''}
+                >
+                    {options}
+                </Dropdown>
+            </div>
+        );
+
         switch (parameterType) {
             case ParameterType.edge:
-                return (
-                    <Dropdown
-                        className="clause-value"
-                        onOptionSelect={onValueDropdownChange}
-                        placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        aria-label={valueAriaLabel}
-                        selectedOptions={value ? [value] : []}
-                        value={value ? getValueText(value) : ''}
-                    >
-                        {renderEdgeDropdownOptions()}
-                    </Dropdown>
-                );
+                return renderValueDropdown(renderEdgeDropdownOptions());
             case ParameterType.status:
-                return (
-                    <Dropdown
-                        className="clause-value"
-                        onOptionSelect={onValueDropdownChange}
-                        placeholder={t(ResourceKeys.deviceLists.query.searchPills.clause.value.placeholder)}
-                        aria-label={valueAriaLabel}
-                        selectedOptions={value ? [value] : []}
-                        value={value ? getValueText(value) : ''}
-                    >
-                        {renderStatusDropdownOptions()}
-                    </Dropdown>
-                );
+                return renderValueDropdown(renderStatusDropdownOptions());
             default: return <></>;
         }
     };

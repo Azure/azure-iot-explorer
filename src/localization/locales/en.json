@@ -401,7 +401,8 @@
                 "clause": {
                     "parameterType": {
                         "placeholder":"Parameter type",
-                        "ariaLabel": "Type of query clause",
+                        "ariaLabel": "Filter by",
+                        "label": "Filter by",
                         "items": {
                             "propertyValue": "Property value",
                             "status": "Status",
@@ -421,6 +422,7 @@
                     "value": {
                         "placeholder": "Select value",
                         "ariaLabel": "Value of {{parameter}} query clause",
+                        "label": "Value",
                         "deviceCapability": {
                             "edge": "is Edge device",
                             "nonEdge": "is not Edge device"
