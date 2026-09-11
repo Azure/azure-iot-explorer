@@ -48,7 +48,7 @@ export class DeviceListPage {
 
     public async filterByStatus(status: 'Disabled' | 'Enabled'): Promise<void> {
         await this.page.getByRole('button', { name: 'Add query parameter' }).click();
-        await this.page.getByLabel('Type of query clause').click();
+        await this.page.getByLabel('Filter by').click();
         await this.page.getByRole('option', { name: 'Status', exact: true }).click();
         await this.page.getByLabel('Select value').click();
         await this.page.getByRole('option', { name: status, exact: true }).click();
