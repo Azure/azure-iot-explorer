@@ -84,8 +84,9 @@
     "ts-jest": {
       "typescript": "$typescript"
     },
-    "react-monaco-editor": {
-      "monaco-editor": "$monaco-editor"
+    "monaco-editor": {
+      ".": "$monaco-editor",
+      "dompurify": "3.4.17"
     }
   },
   "dependencies": {

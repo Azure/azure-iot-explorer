@@ -31,6 +31,11 @@ const config: webpack.Configuration = {
     },
     plugins: [
         new NodePolyfillPlugin(),
+        // Monaco embeds DOMPurify; the npm override alone does not replace its runtime copy.
+        new webpack.NormalModuleReplacementPlugin(
+            /[\\/]monaco-editor[\\/]esm[\\/]vs[\\/]base[\\/]browser[\\/]dompurify[\\/]dompurify\.js$/,
+            require.resolve('dompurify')
+        ),
         new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, '.', 'src', 'index.html')
         }),
