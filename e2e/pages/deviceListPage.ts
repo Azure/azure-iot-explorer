@@ -50,7 +50,7 @@ export class DeviceListPage {
         await this.page.getByRole('button', { name: 'Add query parameter' }).click();
         await this.page.getByLabel('Filter by').click();
         await this.page.getByRole('option', { name: 'Status', exact: true }).click();
-        await this.page.getByLabel('Select value').click();
+        await this.page.getByRole('combobox', { name: 'Value of Status query clause', exact: true }).click();
         await this.page.getByRole('option', { name: status, exact: true }).click();
         await this.page.getByRole('button', { name: 'Execute search with specified clauses and without device Id.' }).click();
         await expect(this.page.getByRole('button', { name: 'New', exact: true })).toBeEnabled({ timeout: 45_000 });

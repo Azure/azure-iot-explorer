@@ -91,7 +91,7 @@
   "dependencies": {
     "@azure/core-amqp": "^4.5.0",
     "@azure/event-hubs": "^6.0.4",
-    "@azure/msal-node": "^5.4.1",
+    "@azure/msal-node": "^7.1.2",
     "@fluentui/react-components": "^9.74.4",
     "@fluentui/react-datepicker-compat": "^0.6.34",
     "@fluentui/react-icons": "^2.0.333",
